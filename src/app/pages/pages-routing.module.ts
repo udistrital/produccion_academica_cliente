@@ -9,24 +9,8 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
-      path: 'archivo_icfes',
-      loadChildren: './archivo_icfes/archivo_icfes.module#ArchivoIcfesModule',
-    },
-    {
         path: 'dashboard',
         component: DashboardComponent,
-    },
-    {
-      path: 'inscripcion',
-      loadChildren: './inscripcion/inscripcion.module#InscripcionModule',
-    },
-    {
-      path: 'admision',
-      loadChildren: './admision/admision.module#AdmisionModule',
-    },
-    {
-      path: 'evento',
-      loadChildren: './evento/evento.module#EventoModule',
     },
     {
       path: 'calendario-academico',
@@ -45,24 +29,8 @@ const routes: Routes = [{
       loadChildren: './reportes/reportes.module#ReportesModule',
     },
     {
-      path: 'tipo_periodo',
-      loadChildren: './tipo_periodo/tipo_periodo.module#TipoPeriodoModule',
-    },
-    {
-      path: 'periodo',
-      loadChildren: './periodo/periodo.module#PeriodoModule',
-    },
-    {
       path: 'calendarioevento',
       loadChildren: './calendarioevento/calendarioevento.module#CalendarioeventoModule',
-    },
-    {
-      path: 'proyecto_academico',
-      loadChildren: './proyecto_academico/proyecto_academico.module#ProyectoAcademicoModule',
-    },
-    {
-      path: 'enfasis',
-      loadChildren: './enfasis/enfasis.module#EnfasisModule',
     },
     {
         path: '',
