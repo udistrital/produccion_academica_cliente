@@ -1,10 +1,10 @@
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
-import { Inscripcion } from './../../../@core/data/models/inscripcion/inscripcion';
+// import { Inscripcion } from './../../../@core/data/models/inscripcion/inscripcion';
 import { InfoPersona } from './../../../@core/data/models/informacion/info_persona';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentoService } from '../../../@core/data/documento.service';
-import { InscripcionService } from '../../../@core/data/inscripcion.service';
+// import { InscripcionService } from '../../../@core/data/inscripcion.service';
 import { CoreService } from '../../../@core/data/core.service';
 import { FORM_INFO_PERSONA } from './form-info_persona';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
@@ -73,7 +73,7 @@ export class CrudInfoPersonaComponent implements OnInit {
     private nuxeoService: NuxeoService,
     private store: Store<IAppState>,
     private listService: ListService,
-    private inscripcionService: InscripcionService,
+    // private inscripcionService: InscripcionService,
     private coreService: CoreService,
     private userService: UserService,
     private toasterService: ToasterService) {
@@ -386,27 +386,27 @@ export class CrudInfoPersonaComponent implements OnInit {
   }
 
   public loadInscripcion(): void {
-    if (this.inscripcion_id !== undefined && this.inscripcion_id !== 0 && this.inscripcion_id.toString() !== ''
-      && this.inscripcion_id.toString() !== '0') {
-      this.inscripcionService.get('inscripcion/' + this.inscripcion_id)
-        .subscribe(res => {
-          if (res !== null) {
-            this.info_inscripcion = <Inscripcion>res;
-            this.aceptaTerminos = true;
-          }
-        },
-          (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              footer: this.translate.instant('GLOBAL.cargar') + '-' +
-                this.translate.instant('GLOBAL.info_persona') + '|' +
-                this.translate.instant('GLOBAL.admision'),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-          });
-    }
+    // if (this.inscripcion_id !== undefined && this.inscripcion_id !== 0 && this.inscripcion_id.toString() !== ''
+    //   && this.inscripcion_id.toString() !== '0') {
+    //   this.inscripcionService.get('inscripcion/' + this.inscripcion_id)
+    //     .subscribe(res => {
+    //       if (res !== null) {
+    //         this.info_inscripcion = <Inscripcion>res;
+    //         this.aceptaTerminos = true;
+    //       }
+    //     },
+    //       (error: HttpErrorResponse) => {
+    //         Swal({
+    //           type: 'error',
+    //           title: error.status + '',
+    //           text: this.translate.instant('ERROR.' + error.status),
+    //           footer: this.translate.instant('GLOBAL.cargar') + '-' +
+    //             this.translate.instant('GLOBAL.info_persona') + '|' +
+    //             this.translate.instant('GLOBAL.admision'),
+    //           confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //         });
+    //       });
+    // }
   }
 
   createInscripcion(tercero_id): void {
@@ -422,33 +422,33 @@ export class CrudInfoPersonaComponent implements OnInit {
       FechaAceptaTerminos: new Date(),
       Id: this.inscripcion_id,
     };
-    this.info_inscripcion = <Inscripcion>inscripcionPost;
-    this.info_inscripcion.PersonaId = Number(this.info_persona_id);
-    this.info_inscripcion.Id = Number(this.inscripcion_id);
-    console.info(JSON.stringify(this.info_inscripcion));
-    this.inscripcionService.post('inscripcion', this.info_inscripcion)
-      .subscribe(res => {
-        this.info_inscripcion = <Inscripcion><unknown>res;
-        this.inscripcion_id = this.info_inscripcion.Id;
-        this.eventChange.emit(true);
-        Swal({
-          type: 'info',
-          title: this.translate.instant('GLOBAL.crear'),
-          text: this.translate.instant('GLOBAL.inscrito') + ' ' + this.periodo.Nombre,
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      },
-      (error: HttpErrorResponse) => {
-        Swal({
-          type: 'error',
-          title: error.status + '',
-          text: this.translate.instant('ERROR.' + error.status),
-          footer: this.translate.instant('GLOBAL.crear') + '-' +
-            this.translate.instant('GLOBAL.info_persona') + '|' +
-            this.translate.instant('GLOBAL.admision'),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      });
+    // this.info_inscripcion = <Inscripcion>inscripcionPost;
+    // this.info_inscripcion.PersonaId = Number(this.info_persona_id);
+    // this.info_inscripcion.Id = Number(this.inscripcion_id);
+    // console.info(JSON.stringify(this.info_inscripcion));
+    // this.inscripcionService.post('inscripcion', this.info_inscripcion)
+    //   .subscribe(res => {
+    //     this.info_inscripcion = <Inscripcion><unknown>res;
+    //     this.inscripcion_id = this.info_inscripcion.Id;
+    //     this.eventChange.emit(true);
+    //     Swal({
+    //       type: 'info',
+    //       title: this.translate.instant('GLOBAL.crear'),
+    //       text: this.translate.instant('GLOBAL.inscrito') + ' ' + this.periodo.Nombre,
+    //       confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //     });
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     Swal({
+    //       type: 'error',
+    //       title: error.status + '',
+    //       text: this.translate.instant('ERROR.' + error.status),
+    //       footer: this.translate.instant('GLOBAL.crear') + '-' +
+    //         this.translate.instant('GLOBAL.info_persona') + '|' +
+    //         this.translate.instant('GLOBAL.admision'),
+    //       confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //     });
+    //   });
   }
 
   // updateInscripcion(): void {

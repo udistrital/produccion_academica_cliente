@@ -8,7 +8,7 @@ import { TrPostInformacionFamiliar } from './../../../@core/data/models/terceros
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UbicacionService } from '../../../@core/data/ubicacion.service';
 import { TercerosService } from '../../../@core/data/terceros.service';
-import { CampusMidService } from '../../../@core/data/campus_mid.service';
+// import { CampusMidService } from '../../../@core/data/campus_mid.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { FORM_INFORMACION_FAMILIAR } from './form-informacion_familiar';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
@@ -16,7 +16,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { FormacionAcademicaRoutingModule } from '../../formacion_academica/formacion_academica-routing.module';
+// import { FormacionAcademicaRoutingModule } from '../../formacion_academica/formacion_academica-routing.module';
 // import { IAppState } from '../../../@core/store/app.state';
 // import { ListService } from '../../../@core/store/services/list.service';
 // import { Store } from '@ngrx/store';
@@ -65,7 +65,7 @@ export class CrudInformacionFamiliarComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private campusMidService: CampusMidService,
+    // private campusMidService: CampusMidService,
     private sgaMidService: SgaMidService,
     private ubicacionesService: UbicacionService,
     private tercerosService: TercerosService,

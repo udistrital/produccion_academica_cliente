@@ -4,7 +4,7 @@ import { InfoContactoGet } from './../../../@core/data/models/ente/info_contacto
 import { InfoContactoPut } from './../../../@core/data/models/ente/info_contacto_put';
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnChanges } from '@angular/core';
 import { UbicacionService } from '../../../@core/data/ubicacion.service';
-import { CampusMidService } from '../../../@core/data/campus_mid.service';
+// import { CampusMidService } from '../../../@core/data/campus_mid.service';
 import { FORM_INFORMACION_CONTACTO_PREGRADO } from './form-informacion_contacto_pregrado';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -59,7 +59,7 @@ export class CrudInformacionContactoPregradoComponent implements AfterViewInit, 
 
   constructor(
     private translate: TranslateService,
-    private campusMidService: CampusMidService,
+    // private campusMidService: CampusMidService,
     private sgamidService: SgaMidService,
     private ubicacionesService: UbicacionService,
     private store: Store<IAppState>,
