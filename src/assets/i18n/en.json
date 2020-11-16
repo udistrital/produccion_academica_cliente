@@ -29,33 +29,7 @@
             "produccion_academica": "Academic Production",
             "list_produccion_academica": "Academic Production List",
             "crud_produccion_academica": "Academic Production Crud"
-        },
-        "evento": {
-            "evento": "Events",
-            "list_evento": "Events List",
-            "crud_evento": "Events Crud"
-        },
-        "archivo_icfes": {
-          "archivo_icfes": "Icfes file",
-          "list_archivo": "File List",
-          "crud_archivo": "File Register"
-        },
-        "reportes": {
-          "reportes": "Reports",
-          "inscripciones": {
-            "inscripciones": "Inscriptions",
-            "inscritos_por_proyecto": "Enrolled by project"
-          },
-          "icfes": {
-            "icfes": "ICFES SNP Registration",
-            "icfes_por_proyecto":"Records by project"
-        },
-          "proyectos_curriculares": {
-            "proyectos_curriculares": "Academic projects",
-            "lista_proyectos_curriculares": "Project list",
-            "historico_acreditaciones": "Accreditation history"
-          }
-        },
+        },      
         "auth": {
             "auth": "Auth",
             "login": "Login",
@@ -73,31 +47,10 @@
             "lista_periodo": "Enable / Disable a period",
             "crud_periodo": "Create a period"
         },
-        "calendarioevento": {
-            "calendarioevento": "Academic Offer",
-            "lista_calendarioevento": "List the Academic offer",
-            "crud_calendarioevento": "Crud calendar event"
-        },
-        "calendarioacademico": {
-            "calendarioacademico": "Academic Calendar",
-            "list_calendarioacademico": "List of academic calendars"
-        },
         "proyecto_academico": {
             "proyecto_academico": "Academic Project",
             "list_proyecto_academico": "Academic Project List",
             "crud_proyecto_academico": "Registration of an academic project"
-        },
-        "inscripcion": {
-            "inscripcion": "Inscription",
-            "inscripcion_general": "Enrollment in an academic project",
-            "preinscripcion": "Pre-registration for academic projects"
-        },
-        "admision": {
-            "admision": "Admissions",
-            "criterios": "Admissions criteria for projects",
-            "asignacion_cupos": "Assignment of quotas",
-            "actualizacion_estado": "Actulize aspirant status",
-            "listado_aspirante": "List applicants"
         }
     },
     "GLOBAL": {
@@ -258,10 +211,6 @@
         "placeholder_telefono_universidad": "E.g.: 55555555",
         "programa_academico": "Academic program",
         "placeholder_programa_academico": "E.g.: Electronic engineering",
-        "fecha_inicio": "Start date",
-        "placeholder_fecha_inicio": "E.g.: 24/12/2016",
-        "fecha_fin": "End date",
-        "placeholder_fecha_fin": "E.g.: 24/08/2018",
         "titulo_trabajo_grado": "Thesis title",
         "placeholder_titulo_trabajo_grado": "E.g.: Thesis title",
         "descripcion_trabajo_grado": "Thesis description",
@@ -322,8 +271,6 @@
         "placeholder_tipo_publicacion": "E.g.: Complete book",
         "fecha_publicacion": "Publication date",
         "placeholder_fecha_publicacion": "E.g.: 12/31/2000",
-        "ano": "Publication year",
-        "placeholder_ano": "E.g.: 2002",
         "mes": "Publication month",
         "placeholder_mes": "E.g.: April",
         "titulo_capitulo": "Published chapter title",
@@ -578,56 +525,6 @@
         "resumen": "Summary",
         "placeholder_resumen": "e.g. summary"
     },
-    "archivo_icfes": {
-      "archivo_icfes": "Icfes file",
-      "nombre": "Name",
-      "placeholder_nombre": "Ej. 2019-1 Icfes file",
-      "archivo": "File",
-      "registrar_archivo": "Are you sure you want to proccess this file?",
-      "archivo_registrado": "The file was processed successfully",
-      "error_formato": "Format file is not txt",
-      "archivo_no_registrado": "The file was not processed successfully, please try again"
-    },
-    "reportes": {
-      "inscritos_por_proyecto":"Enrolled by project",
-      "proyectos_curriculares":"Academic projects",
-      "historico_acreditaciones": "Accreditation history",
-      "error_obteniendo_reporte":"There was an error getting the report information, please try again.",
-      "icfes_snp": "List of applicants projects with SNP registration"
-    },
-    "evento": {
-        "evento": "Event",
-        "eventos": "Events",
-        "error_encargado_ya_existe": "The person is already added.",
-        "tipo_dependencia": "Dependency type",
-        "placeholder_tipo_dependencia": "Office",
-        "dependencia": "Dependency",
-        "placeholder_dependencia": "Rectory",
-        "tipo_evento": "Event type",
-        "placeholder_tipo_evento": "Inscription",
-        "evento_padre": "Event father",
-        "tipos_publico": "Public types",
-        "nombre_publico": "Name",
-        "descripcion_publico": "Description",
-        "agregar_encargado": "Add",
-        "rol_encargado": "Rol",
-        "placeholder_rol_encargado": "Creator",
-        "nombre_encargado": "Name",
-        "placeholder_nombre_encargado": "Andres Perez",
-        "encargados": "Attendant",
-        "seguro_continuar_registrar_evento": "Are you sure you want to register this event?",
-        "evento_creado": "Event created",
-        "evento_no_creado": "Event not created",
-        "no_puede_borrar_evento": "You are not allowed to delete an event.",
-        "seguro_continuar_eliminar_evento": "Are you sure you want to delete this event?",
-        "evento_eliminado": "Event deleted",
-        "evento_no_eliminado": "Event not deleted",
-        "seguro_continuar_actualizar_evento": "Are you sure you want to update this event?",
-        "evento_actualizado": "Event updated",
-        "evento_no_actualizado": "Event not updated",
-        "descripcion": "Description",
-        "placeholder_descripcion": "e.g. Inscriptions"
-    },
     "tipo_periodo": {
         "titulo": "List of Period types",
         "subtitulo": "Types of Period",
@@ -661,25 +558,6 @@
         "seleccion_periodo": "--Select Period--",
         "buton_habilitar": "Enable",
         "buton_deshabilitar": "To disable"
-    },
-    "oferta": {
-        "seguro_actualizar_periodo": "Are you sure you update this Academic Offer?",
-        "oferta_actualizado": "Updated academic offer",
-        "seguro_continuar_registrar_oferta": "Are you sure you register this academic offer?",
-        "oferta_creado": "Academic Offer created",
-        "evento": "The selected period does not have an academic offer",
-        "seguro_eliminar_oferta": "Are you sure you want to eliminate this academic offer?",
-        "oferta_eliminado": "Academic Offer removed",
-        "titulo": "Academic Offer List",
-        "subtitulo": "Academic Period to List",
-        "explicacacion": "To enable the listing of the academic offer, please select the year and period to be listed.",
-        "seleccion_ano": "--Select Year--",
-        "seleccion_periodo": "--Select Period--",
-        "buton_consultar": "Consult Offer",
-        "proyecto": "Curriculum Project",
-        "fecha_inicio": "Start date",
-        "fecha_finaliza": "Finish date",
-        "filtro": "Write to filter by curricular project name"
     },
     "proyecto": {
         "titulo": "Registration of an Academic Project",
@@ -892,30 +770,10 @@
         "reingreso_registrado": "Re-entry request created",
         "seguro_continuar_registrar": "Are you sure you want to register this re-entry request?"
     },
-    "transferencia_interna": {
-        "transferencia_no_registrada": "Internal transfer request not created",
-        "transferencia_registrada": "Internal transfer request created",
-        "seguro_continuar_registrar": "Are you sure you want to register this internal transfer request?"
-    },
-    "transferencia_externa": {
-        "transferencia_no_registrada": "External transfer request not created",
-        "transferencia_registrada": "External transfer request created",
-        "seguro_continuar_registrar": "Are you sure you want to register this internal transfer request?"
-    },
-    "icfes_colegio": {
-        "icfes_colegio_no_registrado": "Icfes and school information not registered",
-        "icfes_colegio_registrado": "Icfes and school information not registered",
-        "seguro_continuar_registrar": "Are you sure you want to register this Icfes and school information?"
-    },
     "universidad_form": {
         "universidad_form_no_registrado": "University information not registered",
         "universidad_form_registrado": "University information registered",
         "seguro_continuar_registrar": "Are you sure you want to register this university information?"
-    },
-    "informacion_contacto_posgrado": {
-        "informacion_contacto_no_registrada": "Contact information not registered",
-        "informacion_contacto_registrada": "Contact information registered",
-        "seguro_continuar_registrar": "Are you sure you want to register this contact information?"
     },
     "informacion_academica": {
         "informacion_academica_no_registrada": "Academic information not registered",
@@ -923,14 +781,6 @@
         "documento_informacion_academica_no_registrado": "Error uploading support document",
         "seguro_continuar_registrar": "Are you sure you want to register this academic information?",
         "error_cargar_universidad": "An error happened loading the university information"
-    },
-    "experiencia_laboral": {
-        "experiencia_laboral_no_registrada": "Work experience not registered",
-        "experiencia_laboral_registrada": "Work experience registered",
-        "documento_experiencia_laboral_no_registrado": "Error uploading support document",
-        "seguro_continuar_registrar": "Are you sure you want to register this work experience?",
-        "cargar_experiencia": "An error happened loading the work experience information",
-        "error_cargar_empresa": "An error happened loading the company information"
     },
     "documento_programa": {
         "descuento_academico_no_registrado": "Academic discount not registered",
@@ -943,26 +793,6 @@
         "documento_programa_registrado": "Document registered",
         "documento_documento_programa_no_registrado": "Error uploading support document",
         "seguro_continuar_registrar": "Are you sure you want to register this document?"
-    },
-    "idiomas": {
-        "error_cargar_informacion_idiomas": "An error happened loading the languages information",
-        "error_nativo_examen": "You can't request an exam with your native language",
-        "error_doble_examen": "You already have a language exam request with other language",
-        "informacion_idioma_no_registrada": "Language information not registered",
-        "informacion_idioma_registrada": "Language information registered",
-        "seguro_continuar_registrar": "Are you sure you want to register this language information?"
-     },
-     "propuesta_grado": {
-        "error_cargar_lineas_investigacion": "An error happened loading the research lines information",
-        "error_documento_propuesta_grado": "An error happened saving the degree work proposal document",
-        "propuesta_grado_no_registrada": "Degree work proposal not created",
-        "propuesta_grado_registrada": "Degree work proposal created",
-        "seguro_continuar_registrar": "Are you sure you want to register this degree work proposal?"
-    },
-    "informacion_familiar": {
-        "informacion_familiar_no_actualizada": "Family information not updated",
-        "informacion_familiar_actualizada": "Familiy information updated",
-        "seguro_continuar_registrar": "Are you sure you want to register this family information?"
     },
     "admision": {
         "aviso_periodo": "Period in which the admission criteria are defined",
@@ -978,74 +808,5 @@
         "criterio_icfes": "Percentages for the ICFES criterion",
         "actualizacion_estado": "Actulizar estado aspirantes",
         "enlistar": "Enlist applicants"
-    },
-    "cupos": {
-        "aviso_periodo": "Period in which the admission quotas are defined",
-        "aviso_periodo_listar": "Period in which applicants will be listed",
-        "aviso_periodo_actualizar": "Period in which you want to update status",
-        "aviso_nivel": "Select the level to which you want to define the admission quotas",
-        "aviso_nivel_listar": "Select the level to which you want to list the applicants",
-        "aviso_nivel_actualizar": "Select the level to which you want to update status",
-        "aviso_proyecto": "Selections the academic projects you want to define the admission quotas",
-        "aviso_proyecto_actualizar": "Select the academic projects you wish to update status",
-        "aviso_proyec": "Select the academic project you wish to list",
-        "erro_selec_nivel": "Please select the level!",
-        "erro_selec_proyecto": "Please select at least one project!",
-        "cupos": "Definition of quotas for the period and the selected academic projects",
-        "asignar": "Assign quotas"
-    },
-    "calendario": {
-        "calendario_academico": "Academic Calendar",
-        "calendarios_academicos": "Academic Calendars",
-        "nombre": "Name",
-        "periodo": "Academic Period",
-        "dependencia": "Type of Dependency",
-        "estado": "Status",
-        "definicion": "Defining Academic Calendar",
-        "para": "Academic Calendar for:",
-        "agregar_periodo": "Add Academic Period",
-        "resolucion": "Resolution",
-        "numero_resolucion": "Resolution N°",
-        "anno_resolucion": "Resolution year:",
-        "etiqueta_documento": "Resolution document:",
-        "procesos_actividades": "Processes and Activities",
-        "procesos_descripcion": "Select the way you want to define the academic calendar:",
-        "procesos_copiar": "Copy processes and activities from a previous calendar",
-        "procesos_definir": "Define processes and activities",
-        "procesos": "Processes",
-        "proceso": "Process",
-        "actividades": "Activities",
-        "actividad": "Activity",
-        "sin_procesos": "There are no registered processes to the calendar",
-        "sin_actividades": "There are no registered activities to the process",
-        "periodicidad": "Select how periodic is the process:",
-        "fecha_inicio": "Start date",
-        "fecha_fin": "End date",
-        "dirigido": "Directed to",
-        "dirigido_label": "Select who is the activity directed to",
-        "error_nombre_proceso": "Please give a name to the process",
-        "error_desc_proceso": "Please add a description to the process",
-        "error_period_proceso": "Please select how periodic is the process",
-        "error_nombre_actividad": "Please give a name to the activity",
-        "error_desc_actividad": "Please add a description to the activity",
-        "error_fecha_actividad": "Please select a date",
-        "error_resp_actividad": "Please select for who is the activity",
-        "error_resolucion": "Please give the resolution number",
-        "error_anno": "Please add a valid year",
-        "error_select_para": "Please select what is the calendar for",
-        "error_select_periodo": "Please select an academic period",
-        "desde": "Since",
-        "hasta": "Until",
-        "responsable": "In charge of",
-        "error_registro_calendario": "An error ocurred while registering the calendar. Please try again.",
-        "error_registro_proceso": "An error ocurred while registering the process. Please try again.",
-        "error_registro_actividad": "An error ocurred while registering the activity. Please try again.",
-        "error_pre_file": "Year and resolution number are requred to select a file.",
-        "seguro_registrar_calendario": "Are you sure about creating a new academic calendar?",
-        "seguro_registrar_proceso": "Are you sure about adding a new process to the academic calendar?",
-        "seguro_registrar_actividad": "Are you sure about adding a new activity to the current process?",
-        "calendario_exito": "The calendar has been successfully created.",
-        "proceso_exito": "The process has been successfully registered.",
-        "actividad_exito": "The activity has been successfully saved."
     }
 }

@@ -30,32 +30,6 @@
             "list_produccion_academica": "Lista producción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
-        "evento": {
-            "evento": "Eventos",
-            "list_evento": "Lista eventos",
-            "crud_evento": "Crud eventos"
-        },
-        "archivo_icfes": {
-          "archivo_icfes": "Archivo Icfes",
-          "list_archivo": "Lista archivos",
-          "crud_archivo": "Registrar archivo"
-        },
-        "reportes": {
-          "reportes": "Reportes",
-          "inscripciones": {
-            "inscripciones": "Inscripciones",
-            "inscritos_por_proyecto": "Inscritos por proyecto"
-          },
-          "icfes": {
-              "icfes": "Registro ICFES SNP",
-              "icfes_por_proyecto":"Registros por proyecto"
-          },
-          "proyectos_curriculares": {
-            "proyectos_curriculares": "Proyectos curriculares",
-            "lista_proyectos_curriculares": "Listado de proyectos",
-            "historico_acreditaciones": "Histórico de acreditaciones"
-          }
-        },
         "auth": {
             "auth": "Autenticacion",
             "login": "Login",
@@ -73,34 +47,11 @@
             "lista_periodo": "Habilitar/Deshabilitar un período",
             "crud_periodo": "Crear un período"
         },
-        "calendarioevento": {
-            "calendarioevento": "Oferta académica",
-            "lista_calendarioevento": "Listar la oferta académica",
-            "crud_calendarioevento": "Crud calendarioevento"
-        },
-        "calendarioacademico": {
-            "calendarioacademico": "Calendario académico",
-            "list_calendarioacademico": "Listar calendarios académicos"
-        },
         "proyecto_academico": {
             "proyecto_academico": "Proyecto académico",
             "list_proyecto_academico": "Lista proyecto académico",
             "crud_proyecto_academico": "Registro de un \nproyecto académico"
-        },
-        "inscripcion": {
-            "inscripcion": "Inscripción",
-            "inscripcion_general": "Inscripción a un \nproyecto académico",
-            "preinscripcion": "Preinscripción a \nproyectos académicos"
-        },
-        "admision": {
-            "admision": "Admisiones",
-            "criterios": "Criterios de admisiones \npor proyectos",
-            "asignacion_cupos": "Asignación de cupos",
-            "actualizacion_estado": "Actulizar estado aspirantes",
-            "listado_aspirante": "Listar aspirantes"
         }
-
-
     },
     "GLOBAL": {
         "cargando": "Cargando...",
@@ -141,7 +92,6 @@
         "informacion_contacto": "Información de contacto",
         "placeholder_fecha_fin": "Ej: 24/08/2018",
         "periodo": "Período",
-        "placeholder_periodo": "Ej: 1",
         "alerta_llenar_campo": "Debe llenar este campo",
         "tipo_periodo": "Tipo Período",
         "placeholder_tipo_periodo": "ej: Administratico, Académico",
@@ -155,7 +105,6 @@
         "placeholder_activo": "ej: Activo",
         "numero_orden": "Numero orden",
         "placeholder_numero_orden": "ej: 1,2,3",
-        "placeholder_periodo": "ej: periodo",
         "ano": "Año",
         "placeholder_ano": "ej: 2019",
         "placeholder_periodo": "ej: I,II,III",
@@ -178,7 +127,6 @@
         "placeholder_periodoid": "ej: periodo id",
         "atencion": "Atención",
         "archivo_seleccionado": "Archivo seleccionado",
-        "nuevvoo0ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo": "",
         "primer_nombre": "Primer nombre",
         "placeholder_primer_nombre": "Ej: Ana",
         "segundo_nombre": "Segundo nombre",
@@ -339,8 +287,6 @@
         "placeholder_tipo_publicacion": "Ej: Capítulo de libro",
         "fecha_publicacion": "Fecha de publicación",
         "placeholder_fecha_publicacion": "Ej: 12/31/2000",
-        "ano": "Año",
-        "placeholder_ano": "Ej: 2001",
         "mes": "Mes de publicación",
         "placeholder_mes": "Ej: Octubre",
         "titulo_capitulo": "Título del capítulo publicado",
@@ -587,56 +533,6 @@
         "resumen": "Resumen",
         "placeholder_resumen": "ej: resumen"
     },
-    "archivo_icfes": {
-      "archivo_icfes": "Archivo de registros del icfes",
-      "nombre": "Nombre",
-      "placeholder_nombre": "Ej. Archivo del icfes 2019-1",
-      "archivo": "Archivo",
-      "registrar_archivo": "¿Está seguro de procesar este archivo?",
-      "archivo_registrado": "El archivo fue procesado correctamente",
-      "error_formato": "El formato del archivo no es txt",
-      "archivo_no_registrado": "El archivo no pudo ser procesado, por favor intente nuevamente."
-    },
-    "reportes": {
-      "inscritos_por_proyecto":"Inscritos por proyecto",
-      "proyectos_curriculares":"Proyectos curriculares",
-      "historico_acreditaciones": "Histórico de acreditaciones",
-      "error_obteniendo_reporte":"Se produjo un error al obtener la información del informe, por favor vuelva a intentarlo.",
-      "icfes_snp": "Listado por proyectos de los aspirantes con registro SNP"
-    },
-    "evento": {
-        "evento": "Evento",
-        "eventos": "Eventos",
-        "error_encargado_ya_existe": "El encargado ya esta agregado.",
-        "tipo_dependencia": "Tipo de dependencia",
-        "placeholder_tipo_dependencia": "Oficina",
-        "dependencia": "Dependencia",
-        "placeholder_dependencia": "Rectoria",
-        "tipo_evento": "Tipo de evento",
-        "placeholder_tipo_evento": "Inscripción",
-        "evento_padre": "Evento padre",
-        "tipos_publico": "Tipos publico",
-        "nombre_publico": "Nombre",
-        "descripcion_publico": "Descripcion",
-        "agregar_encargado": "Agregar",
-        "rol_encargado": "Rol",
-        "placeholder_rol_encargado": "Creador",
-        "nombre_encargado": "Nombre",
-        "placeholder_nombre_encargado": "Andres Perez",
-        "encargados": "Encargados",
-        "seguro_continuar_registrar_evento": "¿Está seguro de registrar este evento?",
-        "evento_creado": "Evento creado",
-        "evento_no_creado": "Evento no creado",
-        "no_puede_borrar_evento": "No cuenta con los permisos necesarios para borrar el evento",
-        "seguro_continuar_eliminar_evento": "¿Está seguro de eliminar este evento?",
-        "evento_eliminado": "Evento eliminado",
-        "evento_no_eliminado": "Evento no eliminado",
-        "seguro_continuar_actualizar_evento": "¿Está seguro de actualizar este evento?",
-        "evento_actualizado": "Evento actualizado",
-        "evento_no_actualizado": "Evento no actualizado",
-        "descripcion": "Descripción",
-        "placeholder_descripcion": "Ej. Inscripción"
-    },
     "tipo_periodo": {
         "titulo": "Lista de los tipos de período ",
         "subtitulo": "Tipos de período",
@@ -670,26 +566,6 @@
         "seleccion_periodo": "--Seleccionar período--",
         "buton_habilitar": "Habilitar",
         "buton_deshabilitar": "Deshabilitar"
-    },
-    "oferta": {
-        "seguro_actualizar_periodo": "¿Esta seguro de actualizar este oferta académica?",
-        "oferta_actualizado": "Oferta académica actualizada",
-        "seguro_continuar_registrar_oferta": "¿Esta seguro de registrar este  oferta académica?",
-        "oferta_creado": "Oferta académica creada",
-        "evento": "El período seleccionado no cuenta con una oferta académica",
-        "seguro_eliminar_oferta": "¿Esta seguro de eliminar esta oferta académica?",
-        "oferta_eliminado": "Oferta académica eliminada",
-        "titulo": "Lista de oferta académica",
-        "subtitulo": "Período académico a listar",
-        "explicacacion": "Para habilitar el listado de la oferta académica, seleccione por favor el año y el periodo a en listar.",
-        "seleccion_ano": "--Seleccionar año--",
-        "seleccion_periodo": "--Seleccionar período--",
-        "buton_consultar": "Consultar oferta",
-        "proyecto": "Proyecto curricular",
-        "fecha_inicio": "Fecha de inicio",
-        "fecha_finaliza": "Fecha de finalización",
-        "ano": "Año",
-        "filtro": "Escriba para filtrar por nombre de proyecto curricular"
     },
     "proyecto": {
         "titulo": "Registro de un proyecto académico",
@@ -827,7 +703,6 @@
         "coordinador_asignado": "Coordinador asignado Correctamente!",
         "seguro_continuar_asignar": "¿Está seguro de asignar este coordinador a este proyecto académico?",
         "tag_asigcoordinador": "Asignación de coordinador"
-
     },
     "enfasis": {
         "enfasis": "Enfásis",
@@ -897,35 +772,10 @@
         "error_proyecto_ya_existe": "El proyecto académico ya fue agregado!",
         "realizar_preinscripcion": "Preinscripción"
     },
-    "reingreso": {
-        "reingreso_no_registrado": "Solicitud de reingreso no registrada",
-        "reingreso_registrado": "Solicitud de reingreso registrada",
-        "seguro_continuar_registrar": "¿Está seguro de registrar esta solicitud de reingreso?"
-    },
-    "transferencia_interna": {
-        "transferencia_no_registrada": "Solicitud de transferencia interna no registrada",
-        "transferencia_registrada": "Solicitud de transferencia interna registrada",
-        "seguro_continuar_registrar": "¿Está seguro de registrar esta solicitud de transferencia interna?"
-    },
-    "transferencia_externa": {
-        "transferencia_no_registrada": "Solicitud de transferencia externa no registrada",
-        "transferencia_registrada": "Solicitud de transferencia externa registrada",
-        "seguro_continuar_registrar": "¿Está seguro de registrar esta solicitud de transferencia externa?"
-    },
-    "icfes_colegio": {
-        "icfes_colegio_no_registrado": "Información del icfes y del colegio no registrada",
-        "icfes_colegio_registrado": "Información del icfes y del colegio registrada",
-        "seguro_continuar_registrar": "¿Está seguro de registrar esta información del icfes y del colegio?"
-    },
     "universidad_form": {
         "universidad_form_no_registrado": "Información de la universidad no registrada",
         "universidad_form_registrado": "Información de la universidad registrada",
         "seguro_continuar_registrar": "¿Está seguro de registrar esta información de la universidad?"
-    },
-    "informacion_contacto_posgrado": {
-        "informacion_contacto_no_registrada": "Información de contacto no actualizada",
-        "informacion_contacto_registrada": "Información de contacto actualizada",
-        "seguro_continuar_registrar": "¿Está seguto de registrar esta información de contacto?"
     },
     "informacion_academica": {
         "informacion_academica_no_registrada": "Información académica no actualizada",
@@ -934,15 +784,7 @@
         "seguro_continuar_registrar": "¿Está seguto de registrar esta información académica?",
         "error_cargar_universidad": "Ocurrió un error al cargar la información de la universidad"
     },
-    "experiencia_laboral": {
-        "experiencia_laboral_no_registrada": "Experiencia laboral no actualizada",
-        "experiencia_laboral_registrada": "Experiencia laboral actualizada",
-        "documento_experiencia_laboral_no_registrado": "Error subiendo el documento de soporte",
-        "seguro_continuar_registrar": "¿Está seguto de registrar esta experiencia laboral?",
-        "cargar_experiencia": "Ocurruió un error al cargar la información de la experiencia laboral",
-        "error_cargar_empresa": "Ocurruió un error al cargar la información de la empresa"
-    },
-    "documento_programa": {
+    " documento_programa": {
         "documento_programa_no_registrado": "Documento no registrado",
         "documento_programa_registrado": "Documento registrado",
         "documento_documento_programa_no_registrado": "Error subiendo el documento de soporte",
@@ -953,26 +795,6 @@
         "descuento_academico_registrado": "Descuento académico registrado",
         "documento_descuento_academico_no_registrado": "Error subiendo el documento de soporte",
         "seguro_continuar_registrar": "¿Está seguto de registrar este descuento académico?"
-    },
-    "idiomas": {
-        "error_cargar_informacion_idiomas": "Ocurrió un error al cargar la información de los idiomas",
-        "error_nativo_examen": "No puede solicitar un exámen con su idioma nativo",
-        "error_doble_examen": "Ya tiene registrado un idioma con exámen",
-        "informacion_idioma_no_registrada": "Información de idioma no registrada",
-        "informacion_idiomaregistrada": "Información de idioma registrada",
-        "seguro_continuar_registrar": "¿Está seguto de registrar esta información de idioma?"
-    },
-    "propuesta_grado": {
-        "error_cargar_lineas_investigacion": "Ocurrió un error al cargar la información de las líneas de investigación",
-        "error_documento_propuesta_grado": "Ocurrió un error al cargar el documento de la propuesta de grado",
-        "propuesta_grado_no_registrada": "Propuesta de grado no registrada",
-        "propuesta_grado_registrada": "Propuesta de grado registrada",
-        "seguro_continuar_registrar": "¿Está seguto de registrar esta propuesta de grado?"
-    },
-    "informacion_familiar": {
-        "informacion_familiar_no_actualizada": "Información familiar no actualizada",
-        "informacion_familiar_actualizada": "Información familiar actualizada",
-        "seguro_continuar_registrar": "¿Está seguro de registrar esta información familiar?"
     },
     "admision": {
         "aviso_periodo": "Período en el cual se define los criterios de admisión",
@@ -988,74 +810,5 @@
         "criterio_icfes": "Porcentajes para el criterio ICFES",
         "actualizacion_estado": "Actulizar estado aspirantes",
         "enlistar": "Enlistar aspirantes"
-    },
-    "cupos": {
-        "aviso_periodo": "Período en el cual se define los cupos de admisión",
-        "aviso_periodo_listar": "Período en el cual se va a listar aspirantes",
-        "aviso_periodo_actualizar": "Período en el cual desea actualizar estado",
-        "aviso_nivel": "Seleccione el nivel al que desea definir los cupos de admisión",
-        "aviso_nivel_actualizar": "Seleccione el nivel al que desea actualizar estado",
-        "aviso_nivel_listar": "Seleccione el nivel al que desea listar los aspirantes",
-        "aviso_proyecto": "Selecione el/los proyectos académicos que desea definir los cupos de admisión",
-        "aviso_proyecto_actualizar": "Selecione el/los proyectos académicos que desea actualizar estado",
-        "aviso_proyec": "Seleciones el proyecto académico que desea listar",
-        "erro_selec_nivel": "Por favor seleccion el nivel!",
-        "erro_selec_proyecto": "Por favor seleccione al menos un proyecto!",
-        "cupos": "Definición de los cupos para el periodo y el/los proyectos académicos selecionados",
-        "asignar": "Asignar cupos"
-    },
-    "calendario": {
-        "calendario_academico": "Calendario Académico",
-        "calendarios_academicos": "Calendarios Académicos",
-        "nombre": "Nombre",
-        "periodo": "Periodo Académico",
-        "dependencia": "Tipo de dependencia",
-        "estado": "Estado",
-        "definicion": "Definición del Calendario Académico",
-        "para": "Calendario Académico para:",
-        "agregar_periodo": "Agregar periodo académico",
-        "resolucion": "Resolución de creación",
-        "numero_resolucion": "Resolución N°:",
-        "anno_resolucion": "Año resolución:",
-        "etiqueta_documento": "Documento de la resolución:",
-        "procesos_actividades": "Procesos y Actividades",
-        "procesos_descripcion": "Seleccione la forma en la que desea definir el calendario académico:",
-        "procesos_copiar": "Copiar los procesos y actividades de un cronograma anterior",
-        "procesos_definir": "Definir los procesos y actividades",
-        "procesos": "Procesos",
-        "proceso": "Proceso",
-        "actividades": "Actividades",
-        "actividad": "Actividad",
-        "sin_procesos": "No se encontraron procesos registrados al calendario",
-        "sin_actividades": "No se encontraron actividades registradas al proceso",
-        "periodicidad": "Seleccione la periodicidad del proceso:",
-        "fecha_inicio": "Fecha de inicio",
-        "fecha_fin": "Fecha de cierre",
-        "dirigido": "Dirigido a",
-        "dirigido_label": "Seleccione a quien va dirigida la actividad",
-        "error_nombre_proceso": "Por favor digite el nombre del proceso",
-        "error_desc_proceso": "Por favor indique una descripción para el proceso",
-        "error_period_proceso": "Por favor seleccione la periodicidad del proceso",
-        "error_nombre_actividad": "Por favor digite el nombre de la actividad",
-        "error_desc_actividad": "Por favor indique una descripcion para la actividad",
-        "error_fecha_actividad": "Por favor seleccione una fecha",
-        "error_resp_actividad": "Por favor seleccione a quien se dirige la actividad",
-        "error_resolucion": "Por favor indique el numero de resolución",
-        "error_anno": "Por favor digite un año válido",
-        "error_select_para": "Seleccione para qué es el calendario",
-        "error_select_periodo": "Seleccione un periodo académico",
-        "desde": "Desde",
-        "hasta": "Hasta",
-        "responsable": "Responsable",
-        "error_registro_calendario": "Ocurrió un error al registrar el calendario. Por favor intente de nuevo.",
-        "error_registro_proceso": "Ocurrió un error al registrar el proceso. Por favor intente de nuevo.",
-        "error_registro_actividad": "Ocurrió un error al registrar la actividad. Por favor intente de nuevo.",
-        "error_pre_file": "Se requieren el año y numero de resolución para subir el archivo",
-        "seguro_registrar_calendario": "¿Esta seguro de registrar un nuevo calendario académico?",
-        "seguro_registrar_proceso": "¿Esta seguro de agregar un nuevo proceso al calendario académico?",
-        "seguro_registrar_actividad": "¿Esta seguro de agregar una actividad al proceso actual?",
-        "calendario_exito": "El calendario ha sido creado con éxito.",
-        "proceso_exito": "El proceso ha sido registrado con éxito.",
-        "actividad_exito": "La actividad ha sido guardada con éxito."
     }
 }
