@@ -75,36 +75,27 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
     this.loadOptions();
     this.settings_authors = {
-      add: {
-        addButtonContent: '<i class="nb-plus"></i>',
-        createButtonContent: '<i class="nb-checkmark"></i>',
-        cancelButtonContent: '<i class="nb-close"></i>',
-      },
-      delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
-        confirmDelete: true,
-      },
       actions: {
         edit: false,
-        position: 'right',
+        delete: false,
+        add: false,
       },
-      mode: 'external',
       columns: {
         Nombre: {
           title: this.translate.instant('produccion_academica.nombre_autor'),
-          // type: 'string;',
           valuePrepareFunction: (value) => {
             return value;
           },
           width: '60%',
+          filter: false,
         },
         EstadoAutorProduccionId: {
-          title: this.translate.instant('produccion_academica.estado_autor'),
-          // type: 'string;',
+          title: this.translate.instant('produccion_academica.numero_autor'),
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
           width: '30%',
+          filter: false,
         },
       },
     };
@@ -169,6 +160,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 1))
         .subscribe(res => {
           // if (res !== null) {
+            console.log(res)
           if (Object.keys(res[0]).length > 0) {
             this.userData = <Tercero>res[0];
             this.userData['PuedeBorrar'] = false;
@@ -204,6 +196,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.tercerosService.get('tercero/?limit=0')
         .subscribe(res => {
           // if (res !== null) {
+            console.log('autores:', res);
           if (Object.keys(res[0]).length > 0) {
             this.personas = <Array<Tercero>>res;
             this.personas.forEach( (persona: Tercero) => {

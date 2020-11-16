@@ -30,77 +30,13 @@
             "list_produccion_academica": "Lista producción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
-        "evento": {
-            "evento": "Eventos",
-            "list_evento": "Lista eventos",
-            "crud_evento": "Crud eventos"
-        },
-        "archivo_icfes": {
-          "archivo_icfes": "Archivo Icfes",
-          "list_archivo": "Lista archivos",
-          "crud_archivo": "Registrar archivo"
-        },
-        "reportes": {
-          "reportes": "Reportes",
-          "inscripciones": {
-            "inscripciones": "Inscripciones",
-            "inscritos_por_proyecto": "Inscritos por proyecto"
-          },
-          "icfes": {
-              "icfes": "Registro ICFES SNP",
-              "icfes_por_proyecto":"Registros por proyecto"
-          },
-          "proyectos_curriculares": {
-            "proyectos_curriculares": "Proyectos curriculares",
-            "lista_proyectos_curriculares": "Listado de proyectos",
-            "historico_acreditaciones": "Histórico de acreditaciones"
-          }
-        },
         "auth": {
             "auth": "Autenticacion",
             "login": "Login",
             "register": "Registro",
             "request-password": "Recuperar password",
             "reset-password": "Reiniciar password"
-        },
-        "tipo_periodo": {
-            "tipo_periodo": "Creación de tipo de período",
-            "lista_tipo_periodo": "listar los tipos período",
-            "crud_tipo_periodo": "Crear un tipo período"
-        },
-        "periodo": {
-            "periodo": "Habilitar período",
-            "lista_periodo": "Habilitar/Deshabilitar un período",
-            "crud_periodo": "Crear un período"
-        },
-        "calendarioevento": {
-            "calendarioevento": "Oferta académica",
-            "lista_calendarioevento": "Listar la oferta académica",
-            "crud_calendarioevento": "Crud calendarioevento"
-        },
-        "calendarioacademico": {
-            "calendarioacademico": "Calendario académico",
-            "list_calendarioacademico": "Listar calendarios académicos"
-        },
-        "proyecto_academico": {
-            "proyecto_academico": "Proyecto académico",
-            "list_proyecto_academico": "Lista proyecto académico",
-            "crud_proyecto_academico": "Registro de un \nproyecto académico"
-        },
-        "inscripcion": {
-            "inscripcion": "Inscripción",
-            "inscripcion_general": "Inscripción a un \nproyecto académico",
-            "preinscripcion": "Preinscripción a \nproyectos académicos"
-        },
-        "admision": {
-            "admision": "Admisiones",
-            "criterios": "Criterios de admisiones \npor proyectos",
-            "asignacion_cupos": "Asignación de cupos",
-            "actualizacion_estado": "Actulizar estado aspirantes",
-            "listado_aspirante": "Listar aspirantes"
         }
-
-
     },
     "GLOBAL": {
         "cargando": "Cargando...",
@@ -141,7 +77,6 @@
         "informacion_contacto": "Información de contacto",
         "placeholder_fecha_fin": "Ej: 24/08/2018",
         "periodo": "Período",
-        "placeholder_periodo": "Ej: 1",
         "alerta_llenar_campo": "Debe llenar este campo",
         "tipo_periodo": "Tipo Período",
         "placeholder_tipo_periodo": "ej: Administratico, Académico",
@@ -155,7 +90,6 @@
         "placeholder_activo": "ej: Activo",
         "numero_orden": "Numero orden",
         "placeholder_numero_orden": "ej: 1,2,3",
-        "placeholder_periodo": "ej: periodo",
         "ano": "Año",
         "placeholder_ano": "ej: 2019",
         "placeholder_periodo": "ej: I,II,III",
@@ -339,8 +273,6 @@
         "placeholder_tipo_publicacion": "Ej: Capítulo de libro",
         "fecha_publicacion": "Fecha de publicación",
         "placeholder_fecha_publicacion": "Ej: 12/31/2000",
-        "ano": "Año",
-        "placeholder_ano": "Ej: 2001",
         "mes": "Mes de publicación",
         "placeholder_mes": "Ej: Octubre",
         "titulo_capitulo": "Título del capítulo publicado",
@@ -545,22 +477,28 @@
     "produccion_academica": {
         "produccion_academica": "Producción académica",
         "producciones_academicas": "Producciones académicas",
+
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
         "alerta_tipo_produccion_academica": "Debe seleccionar el tipo de producción académica",
         "subtipo_produccion_academica": "Subtipo de producción académica",
         "placeholder_subtipo_produccion_academica": "ej: Artículo de revisión",
         "alerta_subtipo_produccion_academica": "Debe seleccionar el subtipo de producción académica",
-        "fecha_publicacion": "Fecha de pubicación",
+
+        "fecha_publicacion": "Fecha de publicación",
+        "fecha_obtencion": "Fecha de obtención",
+        "fecha_realizacion": "Fecha de realización",
+        "fecha_graduacion": "Fecha de graduación estudiante",
         "placeholder_fecha_publicacion": "Ej: 05/05/1995",
         "titulo_produccion_academica": "Título de la producción",
         "placeholder_titulo_produccion_academica": "ej: Diseño rueda dentada helicoidal",
         "abstract": "Abstract",
         "placeholder_abstract": "Ej: This is an abstract",
+
         "agregar_autor": "Agregar autor",
         "placeholder_agregar_autor": "Ej: Pedro Perez",
         "alerta_agregar_autor": "Debe seleccionar un autor",
-        "nombre_autor": "Nombre",
+        "nombre_autor": "Nombre del autor",
         "error_autor_ya_existe": "El autor ya está agregado.",
         "error_autor_borrar": "El autor no se puede borrar",
         "datos_basicos": "Datos básicos",
@@ -569,7 +507,7 @@
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
-        "estado_autor": "Estado del autor",
+        "numero_autor": "Numero identificación",
         "error_no_puede_editar_autores": "Acción no permitida",
         "produccion_eliminada": "Producción eliminada",
         "produccion_no_eliminada": "Producción no eliminada",
@@ -582,7 +520,7 @@
         "autor_no_puede_borrar": "Solo el autor principal puede borrar la producción académica",
         "autor_no_ha_confirmado": "Usted no ha confirmado ser uno de los autores de esta producción académica. ¿Desea confirmar su participación?",
         "confirma_participar_produccion": "¿Confirma usted ser uno de los autores de esta producción académica?",
-        "autores": "Autores",
+        "autores": "Solicitante",
         "autor": "Autor",
         "resumen": "Resumen",
         "placeholder_resumen": "ej: resumen"
