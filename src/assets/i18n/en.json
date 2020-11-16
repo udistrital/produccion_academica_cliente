@@ -512,5 +512,11 @@
         "autores": "Applicant",
         "resumen": "Summary",
         "placeholder_resumen": "e.g. summary"
+    },
+    "documento_programa": {
+        "descuento_academico_no_registrado": "Academic discount not registered",
+        "descuento_academico_registrado": "Academic discount registered",
+        "documento_descuento_academico_no_registrado": "Error uploading support document",
+        "seguro_continuar_registrar": "Are you sure you want to register this academic discount?"
     }
 }
