@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DocumentoProgramaService } from '../../../@core/data/documento_programa.service';
-import { InscripcionService } from '../../../@core/data/inscripcion.service';
+// import { InscripcionService } from '../../../@core/data/inscripcion.service';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { Inscripcion } from '../../../@core/data/models/inscripcion/inscripcion';
+// import { Inscripcion } from '../../../@core/data/models/inscripcion/inscripcion';
 
 @Component({
   selector: 'ngx-list-documento-programa',
@@ -54,7 +54,7 @@ export class ListDocumentoProgramaComponent implements OnInit {
 
   constructor(private translate: TranslateService,
     private documentoProgramaService: DocumentoProgramaService,
-    private inscripcionService: InscripcionService,
+    // private inscripcionService: InscripcionService,
     private toasterService: ToasterService) {
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -145,83 +145,83 @@ export class ListDocumentoProgramaComponent implements OnInit {
 
   loadData(): void {
     this.info_data = <any>[];
-    this.inscripcionService.get('inscripcion/' + this.inscripcion)
-      .subscribe(dato_inscripcion => {
-        const inscripciondata = <any>dato_inscripcion;
-        this.programa = inscripciondata.ProgramaAcademicoId;
-        this.periodo = inscripciondata.PeriodoId;
-        this.documentoProgramaService.get('soporte_documento_programa/?query=PersonaId:' +
-          this.persona + '&limit=0')
-          .subscribe(res => {
-            if (res !== null && JSON.stringify(res[0]) !== '{}') {
-              this.data = <Array<any>>res;
-              this.data.forEach(element => {
-                this.documentoProgramaService.get('documento_programa/' + element.DocumentoProgramaId.Id)
-                  .subscribe(documentoPrograma => {
-                    if (documentoPrograma !== null && JSON.stringify(documentoPrograma[0]) !== '{}') {
-                      this.programaDocumento =  <Array<any>>documentoPrograma;
-                      // if (this.programaDocumento.PeriodoId === this.periodo) {
-                        element.DocumentoPrograma = this.programaDocumento;
-                        this.documentoProgramaService.get('tipo_documento_programa/' +
-                          this.programaDocumento.TipoDocumentoProgramaId.Id)
-                          .subscribe(tipoDocumentoPrograma => {
-                            if (tipoDocumentoPrograma !== null && JSON.stringify(tipoDocumentoPrograma[0]) !== '{}') {
-                              this.tipoProgramaDocumento =  <Array<any>>tipoDocumentoPrograma;
-                              element.DocumentoPrograma.TipoDocumentoPrograma = this.tipoProgramaDocumento;
-                              this.loading = false;
-                              this.info_data.push(element);
-                              this.getPercentage(this.info_data.length / this.contador);
-                              this.source.load(this.info_data);
-                          }
-                        },
-                          (error: HttpErrorResponse) => {
-                            Swal({
-                              type: 'error',
-                              title: error.status + '',
-                              text: this.translate.instant('ERROR.' + error.status),
-                              footer: this.translate.instant('GLOBAL.cargar') + '-' +
-                                this.translate.instant('GLOBAL.tipo_documento_programa'),
-                              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                            });
-                          });
-                      // }
-                    }
-                  },
-                    (error: HttpErrorResponse) => {
-                      Swal({
-                        type: 'error',
-                        title: error.status + '',
-                        text: this.translate.instant('ERROR.' + error.status),
-                        footer: this.translate.instant('GLOBAL.cargar') + '-' +
-                          this.translate.instant('GLOBAL.documento_programa'),
-                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                      });
-                    });
-              });
-            }
-          },
-            (error: HttpErrorResponse) => {
-              Swal({
-                type: 'error',
-                title: error.status + '',
-                text: this.translate.instant('ERROR.' + error.status),
-                footer: this.translate.instant('GLOBAL.cargar') + '-' +
-                  this.translate.instant('GLOBAL.documento_programa'),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-              });
-            });
-      },
-        (error: HttpErrorResponse) => {
-          Swal({
-            type: 'error',
-            title: error.status + '',
-            text: this.translate.instant('ERROR.' + error.status),
-            footer: this.translate.instant('GLOBAL.cargar') + '-' +
-              this.translate.instant('GLOBAL.documento_programa') + '|' +
-              this.translate.instant('GLOBAL.admision'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
-        });
+    // this.inscripcionService.get('inscripcion/' + this.inscripcion)
+    //   .subscribe(dato_inscripcion => {
+    //     const inscripciondata = <any>dato_inscripcion;
+    //     this.programa = inscripciondata.ProgramaAcademicoId;
+    //     this.periodo = inscripciondata.PeriodoId;
+    //     this.documentoProgramaService.get('soporte_documento_programa/?query=PersonaId:' +
+    //       this.persona + '&limit=0')
+    //       .subscribe(res => {
+    //         if (res !== null && JSON.stringify(res[0]) !== '{}') {
+    //           this.data = <Array<any>>res;
+    //           this.data.forEach(element => {
+    //             this.documentoProgramaService.get('documento_programa/' + element.DocumentoProgramaId.Id)
+    //               .subscribe(documentoPrograma => {
+    //                 if (documentoPrograma !== null && JSON.stringify(documentoPrograma[0]) !== '{}') {
+    //                   this.programaDocumento =  <Array<any>>documentoPrograma;
+    //                   // if (this.programaDocumento.PeriodoId === this.periodo) {
+    //                     element.DocumentoPrograma = this.programaDocumento;
+    //                     this.documentoProgramaService.get('tipo_documento_programa/' +
+    //                       this.programaDocumento.TipoDocumentoProgramaId.Id)
+    //                       .subscribe(tipoDocumentoPrograma => {
+    //                         if (tipoDocumentoPrograma !== null && JSON.stringify(tipoDocumentoPrograma[0]) !== '{}') {
+    //                           this.tipoProgramaDocumento =  <Array<any>>tipoDocumentoPrograma;
+    //                           element.DocumentoPrograma.TipoDocumentoPrograma = this.tipoProgramaDocumento;
+    //                           this.loading = false;
+    //                           this.info_data.push(element);
+    //                           this.getPercentage(this.info_data.length / this.contador);
+    //                           this.source.load(this.info_data);
+    //                       }
+    //                     },
+    //                       (error: HttpErrorResponse) => {
+    //                         Swal({
+    //                           type: 'error',
+    //                           title: error.status + '',
+    //                           text: this.translate.instant('ERROR.' + error.status),
+    //                           footer: this.translate.instant('GLOBAL.cargar') + '-' +
+    //                             this.translate.instant('GLOBAL.tipo_documento_programa'),
+    //                           confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //                         });
+    //                       });
+    //                   // }
+    //                 }
+    //               },
+    //                 (error: HttpErrorResponse) => {
+    //                   Swal({
+    //                     type: 'error',
+    //                     title: error.status + '',
+    //                     text: this.translate.instant('ERROR.' + error.status),
+    //                     footer: this.translate.instant('GLOBAL.cargar') + '-' +
+    //                       this.translate.instant('GLOBAL.documento_programa'),
+    //                     confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //                   });
+    //                 });
+    //           });
+    //         }
+    //       },
+    //         (error: HttpErrorResponse) => {
+    //           Swal({
+    //             type: 'error',
+    //             title: error.status + '',
+    //             text: this.translate.instant('ERROR.' + error.status),
+    //             footer: this.translate.instant('GLOBAL.cargar') + '-' +
+    //               this.translate.instant('GLOBAL.documento_programa'),
+    //             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //           });
+    //         });
+    //   },
+    //     (error: HttpErrorResponse) => {
+    //       Swal({
+    //         type: 'error',
+    //         title: error.status + '',
+    //         text: this.translate.instant('ERROR.' + error.status),
+    //         footer: this.translate.instant('GLOBAL.cargar') + '-' +
+    //           this.translate.instant('GLOBAL.documento_programa') + '|' +
+    //           this.translate.instant('GLOBAL.admision'),
+    //         confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+    //       });
+    //     });
   }
 
   ngOnInit() {

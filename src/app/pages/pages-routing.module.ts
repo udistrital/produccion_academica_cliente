@@ -13,24 +13,8 @@ const routes: Routes = [{
         component: DashboardComponent,
     },
     {
-      path: 'calendario-academico',
-      loadChildren: './calendario-academico/calendario-academico.module#CalendarioAcademicoModule',
-    },
-    {
-        path: 'perfil',
-        loadChildren: './perfil/perfil.module#PerfilModule',
-    },
-    {
       path: 'produccion_academica',
       loadChildren: './produccion_academica/produccion_academica.module#ProduccionAcademicaModule',
-    },
-    {
-      path: 'reportes',
-      loadChildren: './reportes/reportes.module#ReportesModule',
-    },
-    {
-      path: 'calendarioevento',
-      loadChildren: './calendarioevento/calendarioevento.module#CalendarioeventoModule',
     },
     {
         path: '',

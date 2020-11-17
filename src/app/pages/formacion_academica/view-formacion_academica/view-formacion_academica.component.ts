@@ -3,7 +3,7 @@ import { UbicacionService } from '../../../@core/data/ubicacion.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
 import { DocumentoService } from '../../../@core/data/documento.service';
-import { CampusMidService } from '../../../@core/data/campus_mid.service';
+// import { CampusMidService } from '../../../@core/data/campus_mid.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserService } from '../../../@core/data/users.service';
@@ -38,7 +38,7 @@ export class ViewFormacionAcademicaComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private ubicacionesService: UbicacionService,
-    private campusMidService: CampusMidService,
+    // private campusMidService: CampusMidService,
     private sgaMidService: SgaMidService,
     private documentoService: DocumentoService,
     private nuxeoService: NuxeoService,
