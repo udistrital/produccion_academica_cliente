@@ -105,9 +105,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.formProduccionAcademica.titulo = this.translate.instant('produccion_academica.produccion_academica');
     this.formProduccionAcademica.btn = this.translate.instant('GLOBAL.guardar');
     for (let i = 0; i < this.formProduccionAcademica.campos.length; i++) {
-      this.formProduccionAcademica.campos[i].label = this.translate.instant('produccion_academica.' + this.formProduccionAcademica.campos[i].label_i18n);
+      this.formProduccionAcademica.campos[i].label = this.translate.instant('produccion_academica.labels.' + this.formProduccionAcademica.campos[i].label_i18n);
       this.formProduccionAcademica.campos[i].placeholder =
-        this.translate.instant('produccion_academica.placeholder_' + this.formProduccionAcademica.campos[i].label_i18n);
+        this.translate.instant('produccion_academica.placeholders.' + this.formProduccionAcademica.campos[i].placeholder_i18n);
     }
   }
 

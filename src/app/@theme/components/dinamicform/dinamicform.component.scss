@@ -153,6 +153,14 @@
     padding: 1rem;
   }
 
+  mat-label {
+    font-size: 18px;
+  }
+
+  .mat-input-element {
+    margin-top: 12px;
+  }
+
   .fieldseter {
     display: flow-root;
     -moz-padding-start: 1rem;
