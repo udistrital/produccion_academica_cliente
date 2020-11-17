@@ -157,8 +157,16 @@
     font-size: 18px;
   }
 
-  .mat-input-element {
+  .mat-input-element, mat-select {
     margin-top: 12px;
+  }
+
+  // .ng-star-inserted {
+  //   min-height: 80px;
+  // }
+
+  .nb-file {
+    min-height: 80px;
   }
 
   .fieldseter {
