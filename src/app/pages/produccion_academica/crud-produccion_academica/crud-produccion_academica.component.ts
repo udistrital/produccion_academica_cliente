@@ -40,6 +40,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter();
 
+  title_tipo_produccion: string;
+  date_tipo_produccion: string;
   info_produccion_academica: ProduccionAcademicaPost;
   tiposProduccionAcademica: Array<TipoProduccionAcademica>;
   estadosAutor: Array<EstadoAutorProduccion>;
@@ -48,6 +50,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   personas: Array<Tercero>;
   source_authors: Array<any> = [];
   userData: Tercero;
+  userNum: string;
   autorSeleccionado: Tercero;
   formProduccionAcademica: any;
   regProduccionAcademica: any;
@@ -70,10 +73,15 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     private sgaMidService: SgaMidService) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
     this.construirForm();
+    this.loadOptions();
+    this.loadTableSettings();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.construirForm();
+      this.loadTableSettings();
     });
-    this.loadOptions();
+  }
+
+  loadTableSettings() {
     this.settings_authors = {
       actions: {
         edit: false,
@@ -89,10 +97,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           width: '60%',
           filter: false,
         },
-        EstadoAutorProduccionId: {
+        PersonaNum: {
           title: this.translate.instant('produccion_academica.numero_autor'),
           valuePrepareFunction: (value) => {
-            return value.Nombre;
+            return value;
           },
           width: '30%',
           filter: false,
@@ -170,13 +178,17 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               Nombre: 'Autor principal',
             };
             */
-            this.userData['Nombre'] = this.userData.NombreCompleto;
-            this.autorSeleccionado = JSON.parse(JSON.stringify(this.userData));
-            this.agregarAutor(false, 1);
-            // this.source_authors.push(this.userData);
-            // this.source.load(this.source_authors);
-            this.autorSeleccionado = undefined;
-            resolve(true);
+            this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (this.user.getPersonaId() || 1))
+            .subscribe(res => {
+              this.userNum = res[0].Numero;
+              this.userData['Nombre'] = this.userData.NombreCompleto;
+              this.autorSeleccionado = JSON.parse(JSON.stringify(this.userData));
+              this.agregarAutor(false, 1);
+              // this.source_authors.push(this.userData);
+              // this.source.load(this.source_authors);
+              this.autorSeleccionado = undefined;
+              resolve(true);
+            })
           } else {
             this.tiposProduccionAcademica = [];
             reject({status: 404});
@@ -272,6 +284,45 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.SubtipoProduccionId = undefined;
     this.formConstruido = false;
     this.subtiposProduccionAcademicaFiltrados = this.subtiposProduccionAcademica.filter(subTipo => subTipo.TipoProduccionId.Id === tipoProduccionAcademica.Id);
+    this.filterTitleProduction(tipoProduccionAcademica);
+    this.filterDateProduccion(tipoProduccionAcademica);
+  }
+
+  filterTitleProduction (tipoProduccionAcademica: TipoProduccionAcademica) {
+    switch (tipoProduccionAcademica.Nombre) {
+      case 'Cambio Categoria': { this.title_tipo_produccion = "titulo_trabajo_inedito"; break; }
+      case 'Titulo Postgrado': { this.title_tipo_produccion = "titulo_obtenido"; break; }
+      case 'Articulo':
+      case 'Editorial':
+      case 'Articulo Corto':
+      case 'Traducción de Articulos':
+      case 'Publicación Impresa': { this.title_tipo_produccion = "titulo_articulo"; break; }
+      case 'Libro':
+      case 'Capitulo Libro':
+      case 'Traducción de Libro': { this.title_tipo_produccion = "titulo_libro"; break; }
+      case 'Premios': { this.title_tipo_produccion = "titulo_premio"; break; }
+      case 'Premios': { this.title_tipo_produccion = "titulo_premio"; break; }
+      case 'Patente': { this.title_tipo_produccion = "titulo_patente"; break; }
+      case 'Software': { this.title_tipo_produccion = "titulo_software"; break; }
+      case 'Obras Artisticas': { this.title_tipo_produccion = "titulo_obra"; break; }
+      case 'Ponencias': { this.title_tipo_produccion = "titulo_ponencia"; break; }
+      case 'Reseña Critica': { this.title_tipo_produccion = "titulo_resena"; break; }
+      case 'Estudios Postdoctorales': { this.title_tipo_produccion = "titulo_postdoctorado"; break; }
+      case 'Direccion de Tesis': { this.title_tipo_produccion = "titulo_trabajo_grado"; break; }
+      default: { this.title_tipo_produccion = "titulo_produccion_academica"; break; }
+    }
+  }
+
+  filterDateProduccion (tipoProduccionAcademica: TipoProduccionAcademica) {
+    switch (tipoProduccionAcademica.Nombre) {
+      case 'Titulo Postgrado':
+      case 'Premios':
+      case 'Estudios Postdoctorales': { this.date_tipo_produccion = "fecha_obtencion"; break; }
+      case 'Ponencias': { this.date_tipo_produccion = "fecha_realizacion"; break; }
+      case 'Direccion de Tesis': { this.date_tipo_produccion = "fecha_graduacion"; break; }
+      case 'Cambio Categoria': { this.date_tipo_produccion = "no_fecha"; break; }
+      default: { this.date_tipo_produccion = "fecha_publicacion"; break; }
+    }
   }
 
   loadSubTipoFormFields(subtipoProduccionAcademica: SubTipoProduccionAcademica, callback: Function) {
@@ -493,6 +544,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         // Nombre: this.getFullAuthorName(this.autorSeleccionado),
         Nombre: this.autorSeleccionado.NombreCompleto,
         PersonaId: this.autorSeleccionado.Id,
+        PersonaNum: this.userNum,
         // EstadoAutorProduccion: this.estadosAutor.filter(estado => estado.Id === 3)[0],
         EstadoAutorProduccionId: this.estadosAutor.filter(estado => estado.Id === estadoAutor)[0],
         // PuedeBorrar: true,
@@ -501,6 +553,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.autorSeleccionado = undefined;
       this.creandoAutor = false;
       this.source.load(this.source_authors);
+      console.log(this.source_authors)
+      console.log(this.source)
     }
   }
 

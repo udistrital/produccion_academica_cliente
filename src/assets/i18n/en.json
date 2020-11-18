@@ -491,6 +491,7 @@
         "titulo_ponencia": "Presentation title",
         "titulo_resena": "Critical review title",
         "titulo_trabajo_grado": "Degree work title",
+        "titulo_postdoctorado": "Postdoctorado certificate title",
         "placeholder_titulo_produccion_academica": "e.g.: IOT system for get data",
 
         "resumen": "Summary",
