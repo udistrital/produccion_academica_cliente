@@ -689,6 +689,7 @@
 
         "alerta_llenar_campo": "Debe llenar este campo",
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
+        "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",

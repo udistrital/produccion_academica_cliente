@@ -99,3 +99,10 @@
     [clean]="clean">
   </ngx-dinamicform>
 </div>
+<div class="span-production" *ngIf="tipoProduccionAcademica && info_produccion_academica.SubtipoProduccionId">
+  <p *ngIf="tipoProduccionAcademica.Nombre === 'Articulo' || tipoProduccionAcademica.Nombre === 'Editorial' 
+  || tipoProduccionAcademica.Nombre === 'Articulo Corto' || tipoProduccionAcademica.Nombre === 'Publicación Impresa'">
+    *Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados
+  </p>
+  <p *ngIf="tipoProduccionAcademica.Nombre === 'Capitulo Libro'">*En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro</p>
+</div>
