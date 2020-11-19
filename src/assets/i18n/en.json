@@ -27,6 +27,7 @@
         },
         "produccion_academica": {
             "produccion_academica": "Academic Production",
+            "new_solicitud": "New Request",
             "list_produccion_academica": "Academic Production List",
             "crud_produccion_academica": "Academic Production Crud"
         },
@@ -674,6 +675,35 @@
             "soporte_audiovisual": "Product Support File",
             "ejecutable_software": "Program executable file",
             "codigo_software": "Application source code file"
+        },
+
+        "categorias": {
+            "titulos": "Degrees",
+            "titulo_postgrado": "Post-graduate Degree",
+            "cambio_categoria": "Category Change",
+            "asistente": "Assistant",
+            "asociado": "Associated",
+            "titular": "Headline",
+            "produccion_academica": "Academic Production",
+            "articulo": "Article",
+            "editorial": "Editorial",
+            "articulo_corto": "Short Article",
+            "libro": "Book",
+            "capitulo_libro": "Book Chapter",
+            "traduccion_libro": "Book Translation",
+            "premio": "Award",
+            "produccion_tecnica": "Technical Production",
+            "video": "Video, Cinematographic, Phonography",
+            "obra_artistica": "Artistic work",
+            "puntos_bonificacion": "Bonus Points",
+            "patente": "Patent",
+            "software": "Software Production",
+            "ponencia": "Presentation",
+            "publicacion_impresa": "Printed Publication",
+            "resena": "Critical review",
+            "estudios_postdoctorales": "Postdoctoral Studies",
+            "traduccion_articulo": "Article translation",
+            "direccion_tesis": "Thesis Direction"
         },
 
         "alerta_llenar_campo": "You must fill this field",

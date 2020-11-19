@@ -27,6 +27,7 @@
         },
         "produccion_academica": {
             "produccion_academica": "Producción académica",
+            "new_solicitud": "Nueva solicitud",
             "list_produccion_academica": "Lista producción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
@@ -685,6 +686,35 @@
             "soporte_audiovisual": "Archivo del soporte del producto",
             "ejecutable_software": "Archivo del ejecutable del programa",
             "codigo_software": "Archivo del código fuente de la aplicación"
+        },
+
+        "categorias": {
+            "titulos": "Títulos",
+            "titulo_postgrado": "Título Postgrado",
+            "cambio_categoria": "Cambio de Categoría",
+            "asistente": "Asistente",
+            "asociado": "Asociado",
+            "titular": "Titular",
+            "produccion_academica": "Producción Académica",
+            "articulo": "Artículo",
+            "editorial": "Editorial",
+            "articulo_corto": "Artículo Corto",
+            "libro": "Libro",
+            "capitulo_libro": "Capítulo de Libro",
+            "traduccion_libro": "Traducción de Libro",
+            "premio": "Premio",
+            "produccion_tecnica": "Producción Técnica",
+            "video": "Video, Cinematográfica, Fonografía",
+            "obra_artistica": "Obra Artística",
+            "puntos_bonificacion": "Puntos de Bonificación",
+            "patente": "Patente",
+            "software": "Producción de Software",
+            "ponencia": "Ponencia",
+            "publicacion_impresa": "Publicación Impresa",
+            "resena": "Reseña Critica",
+            "estudios_postdoctorales": "Estudios Postdoctorales",
+            "traduccion_articulo": "Traducción Artículo",
+            "direccion_tesis": "Dirección de Tesis"
         },
 
         "alerta_llenar_campo": "Debe llenar este campo",

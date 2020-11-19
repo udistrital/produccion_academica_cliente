@@ -1,0 +1,31 @@
+nb-card {
+
+  nb-card-header {
+    background: #66B2FF;
+    color: #fff;
+    text-align: center;
+  }
+  nb-card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .details li {
+      color: #66B2FF;
+      margin: 2px;
+    }
+    .card-action {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 25px;
+        outline: none;
+        background: #343A40;
+        color: #fff;
+      }
+    }
+  }
+}

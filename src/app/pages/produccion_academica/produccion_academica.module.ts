@@ -11,6 +11,7 @@ import { ViewProduccionAcademicaComponent } from './view-produccion_academica/vi
 import { UserService } from '../../@core/data/users.service';
 import { PersonaService } from '../../@core/data/persona.service';
 import { NuxeoService } from '../../@core/utils/nuxeo.service';
+import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NuxeoService } from '../../@core/utils/nuxeo.service';
   ],
   declarations: [
     ...routedComponents,
+    NewSolicitudComponent,
   ],
   providers: [
     ProduccionAcademicaService,
