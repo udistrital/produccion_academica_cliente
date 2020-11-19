@@ -149,6 +149,18 @@
     padding: 1rem;
   }
 
+  mat-label {
+    font-size: 18px;
+  }
+
+  .span-production {
+    text-align: center;
+  }
+
+  .mat-input-element, mat-select {
+    margin-top: 12px;
+  }
+
   .fieldseter {
     display: flow-root;
     -moz-padding-start: 1rem;

@@ -15,7 +15,7 @@ export class ProduccionAcademicaPost {
   Titulo: string;
   Resumen: string;
   Fecha: Date;
-  MetadatoSubtipoProduccion: MetadatoSubtipoProduccion[];
+  // MetadatoSubtipoProduccion: MetadatoSubtipoProduccion[];
   Metadatos: any[];
   Autores: any[];
 }

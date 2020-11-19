@@ -87,13 +87,14 @@ export class NuxeoService {
                                                         documentoPost.TipoDocumento = tipoDocumento;
                                                         documentoPost.Activo = true;
                                                         documentoPost.Metadatos = file.Metadatos;
+                                                        console.log('documentoPost: ',documentoPost)
                                                         documentoService.post('documento', documentoPost)
                                                             .subscribe(resuestaPost => {
+                                                                console.log('respuestaPost:', resuestaPost)
                                                                 nuxeoservice.documentos[file.key] = resuestaPost;
                                                                 // nuxeoservice.documentos[file.key] = resuestaPost.Body;
                                                                 nuxeoservice.documentos$.next(nuxeoservice.documentos);
                                                             })
-
                                                     });
                                             })
                                             .catch(function (error) {

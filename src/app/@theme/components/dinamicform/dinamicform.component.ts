@@ -168,6 +168,13 @@ export class DinamicformComponent implements OnInit, OnChanges {
     c.valor = event.value;
   }
 
+  validAlert(c): boolean {
+    if (c.clase === 'form-control form-control-danger') {
+      return true;
+    }
+    return false;
+  }
+
   validCampo(c): boolean {
     if (c.etiqueta === 'file') {
       // console.info((c.etiqueta === 'file' && (c.valor)?true:c.valor.name === undefined));

@@ -309,8 +309,9 @@
                             <input matInput [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)"
                                 [ngModelOptions]="{standalone: true}" type="{{c.tipo}}" id="{{c.nombre}}"
                                 [placeholder]="c.placeholder" [disabled]="c.deshabilitar" pattern="c.pattern || *" />
-                            <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
                             <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
+                            <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
+                            <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
                         </mat-form-field>
 
                         <!-- input confirmacion -->
@@ -381,6 +382,7 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
+                            <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
                         </mat-form-field>
 
                         <!-- select -->
@@ -395,6 +397,7 @@
                                 </mat-option>
                             </mat-select>
                             <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
+                            <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
                         </mat-form-field>
 
                         <!-- select multiple-->
@@ -431,7 +434,7 @@
                         </div>
 
                         <!-- input-file -->
-                        <div *ngSwitchCase="'file'" class="{{c.clase}}">
+                        <div *ngSwitchCase="'file'" class="{{c.clase}} nb-file">
                             <div class="row">
                                 <div class="col-8">
                                     <label for="{{c.nombre}}" class="upload-file">
@@ -440,7 +443,6 @@
                                     <input type="file" id="{{c.nombre}}" (change)="onChange($event,c)" />
                                     <br>
                                     <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
-
                                 </div>
                                 <div class="col-4">
                                     <nb-card-body class="col-4" *ngIf="c.tipo == 'image'">
@@ -455,6 +457,7 @@
                                     </nb-card-body>
                                 </div>
                             </div>
+                            <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
                         </div>
 
                         <!--buttton -->
