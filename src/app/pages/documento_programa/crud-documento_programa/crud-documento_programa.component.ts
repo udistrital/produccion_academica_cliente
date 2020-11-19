@@ -2,7 +2,7 @@ import { ImplicitAutenticationService } from '../../../@core/utils/implicit_aute
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
 import { DocumentoPrograma } from './../../../@core/data/models/documento/documento_programa';
 import { SoporteDocumentoPrograma } from './../../../@core/data/models/documento/soporte_documento_programa';
-import { InscripcionService } from '../../../@core/data/inscripcion.service';
+// import { InscripcionService } from '../../../@core/data/inscripcion.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentoProgramaService } from '../../../@core/data/documento_programa.service';
 import { DocumentoService } from '../../../@core/data/documento.service';
@@ -71,7 +71,7 @@ export class CrudDocumentoProgramaComponent implements OnInit {
     private translate: TranslateService,
     private autenticationService: ImplicitAutenticationService,
     private documentoService: DocumentoService,
-    private inscripcionService: InscripcionService,
+    // private inscripcionService: InscripcionService,
     private documentoProgramaService: DocumentoProgramaService,
     private nuxeoService: NuxeoService,
     private store: Store<IAppState>,
