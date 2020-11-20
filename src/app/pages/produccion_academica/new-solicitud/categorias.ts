@@ -1,16 +1,16 @@
 export const categoriasList = [
   {
-    title: 'titulos',
-    itemList: [
-      'titulo_postgrado',
-    ],
-  },
-  {
     title: 'cambio_categoria',
     itemList: [
       'asistente',
       'asociado',
       'titular',
+    ],
+  },
+  {
+    title: 'titulos',
+    itemList: [
+      'titulo_postgrado',
     ],
   },
   {

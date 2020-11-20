@@ -5,7 +5,7 @@
         <small>{{'produccion_academica.tipo_produccion_academica' | translate}}</small>
       </legend>
       <div class="row">
-        <div class="col-6">
+        <div class="col-6" *ngIf="tiposProduccionAcademicaFiltrados">
           <mat-form-field style="width: 100%;" floatLabel="always">
             <mat-label>*{{'produccion_academica.tipo_produccion_academica' | translate}}:</mat-label>
             <mat-select
@@ -13,7 +13,7 @@
               [(ngModel)]="tipoProduccionAcademica" (ngModelChange)="filterSubTypes(tipoProduccionAcademica)"
               [ngModelOptions]="{standalone: true}">
               <mat-option>--Seleccionar--</mat-option>
-              <mat-option *ngFor="let item of tiposProduccionAcademica" [value]="item">
+              <mat-option *ngFor="let item of tiposProduccionAcademicaFiltrados" [value]="item">
                 {{item.Nombre?item.Nombre:item | json}}
               </mat-option>
             </mat-select>

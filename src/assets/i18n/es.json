@@ -723,6 +723,8 @@
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
+        "certificado_cumplido_estatuto": "Certifico que no he presentado este producto con anterioridad y cumplo con el estatuto de propiedad intelectual de la Universidad",
+        "ejemplo_union_pdf": "Los archivos soportes de cada solicitud se deben cargar en formato pdf; para unir los archivos pdf puede utilizar la herramienta disponible en",
         "error_no_puede_editar_autores": "Acción no permitida",
         "produccion_eliminada": "Producción eliminada",
         "produccion_no_eliminada": "Producción no eliminada",

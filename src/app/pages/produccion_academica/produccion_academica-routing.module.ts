@@ -16,7 +16,7 @@ const routes: Routes = [{
     path: 'view-produccion_academica',
     component: ViewProduccionAcademicaComponent,
   }, {
-    path: 'crud-produccion_academica',
+    path: 'crud-produccion_academica/:id',
     component: CrudProduccionAcademicaComponent,
   }, {
     path: 'new-solicitud',
