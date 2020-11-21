@@ -184,6 +184,14 @@
     min-height: 80px;
   }
 
+  .nb-file input {
+    color: transparent;
+  }
+
+  .file-place {
+    margin-left: 10px;
+  }
+
   .fieldseter {
     display: flow-root;
     -moz-padding-start: 1rem;

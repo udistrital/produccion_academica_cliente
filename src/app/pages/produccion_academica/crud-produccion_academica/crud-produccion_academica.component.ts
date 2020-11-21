@@ -264,18 +264,22 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   filterTypes() {
     this.route.params.subscribe((params: Params) => {
-      const key = params.id;
-      // tslint:disable-next-line: radix
-      this.category_id = parseInt(key.charAt(1));
-      if (key.charAt(0) === 'c') {
-        this.tiposProduccionAcademicaFiltrados = this.tiposProduccionAcademica
-          .filter(tipo => {
-            const subTiposCategoria = this.subtiposProduccionAcademica
-            .filter(subTipo => {
-              return subTipo.CategoriaProduccion.Id === parseInt(key.charAt(1), 10) && subTipo.TipoProduccionId.Id === tipo.Id
-            })
-            if (subTiposCategoria.length > 0) return true; else return false;
-          });
+      if (params.id) {
+        const key = params.id;
+        // tslint:disable-next-line: radix
+        this.category_id = parseInt(key.charAt(1));
+        if (key.charAt(0) === 'c') {
+          this.tiposProduccionAcademicaFiltrados = this.tiposProduccionAcademica
+            .filter(tipo => {
+              const subTiposCategoria = this.subtiposProduccionAcademica
+              .filter(subTipo => {
+                return subTipo.CategoriaProduccion.Id === parseInt(key.charAt(1), 10) && subTipo.TipoProduccionId.Id === tipo.Id
+              })
+              if (subTiposCategoria.length > 0) return true; else return false;
+            });
+        }
+      } else {
+        this.tiposProduccionAcademicaFiltrados = this.tiposProduccionAcademica;
       }
     });
   }
@@ -342,6 +346,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             }
           });
           if (callback !== undefined) {
+            console.log('campos: ', this.formProduccionAcademica.campos)
+            console.log('Metadatos: ', this.info_produccion_academica.Metadatos)
             callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService);
           }
           this.construirForm();
@@ -359,26 +365,19 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   public loadProduccionAcademica(): void {
     if (this.produccion_academica_selected !== undefined) {
-      /*
-      this.produccionAcademicaService.get('produccion_academica/?query=id:' + this.produccion_academica_id)
-        .subscribe(res => {
-          if (res !== null) {
-            this.info_produccion_academica = <ProduccionAcademicaPost>res[0];
-          }
-        });
-      */
       this.info_produccion_academica = JSON.parse(JSON.stringify(this.produccion_academica_selected));
       this.source_authors = this.info_produccion_academica.Autores;
       this.source.load(this.source_authors);
       this.Metadatos = [];
-      // this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
       const fillForm = function (campos, Metadatos, nuxeoService, documentoService) {
         const filesToGet = [];
         campos.forEach(campo => {
           Metadatos.forEach(metadato => {
-            // const field = JSON.parse(datoAdicional.DatoAdicionalSubtipoProduccion.TipoDatoAdicional.FormDefiniton);
             if (campo.nombre === metadato.MetadatoSubtipoProduccionId.Id) {
               campo.valor = metadato.Valor;
+              if (campo.etiqueta === 'select') {
+                campo.valor = campo.opciones[metadato.Valor - 1];
+              }
               if (campo.etiqueta === 'file') {
                 campo.idFile = parseInt(metadato.Valor, 10);
                 filesToGet.push({ Id: campo.idFile, key: campo.nombre });
@@ -424,34 +423,22 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   }
 
   updateProduccionAcademica(ProduccionAcademica: any): void {
-    const opt: any = {
-      title: this.translate.instant('GLOBAL.actualizar'),
-      text: this.translate.instant('produccion_academica.seguro_continuar_actualizar_produccion'),
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-      showCancelButton: true,
-    };
-    Swal(opt)
-      .then((willDelete) => {
-        if (willDelete.value) {
-          this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
-          this.sgaMidService.put('produccion_academica/' + this.info_produccion_academica.Id, this.info_produccion_academica)
-            .subscribe((res: any) => {
-              if (res.Type === 'error') {
-                Swal({
-                  type: 'error',
-                  title: res.Code,
-                  text: this.translate.instant('ERROR.' + res.Code),
-                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                });
-                this.showToast('error', 'Error', this.translate.instant('produccion_academica.produccion_no_actualizada'));
-              } else {
-                this.info_produccion_academica = <ProduccionAcademicaPost>res.Body[1];
-                this.eventChange.emit(true);
-                this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
-              }
-            });
+    this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
+    console.log(this.info_produccion_academica);
+    this.sgaMidService.put('produccion_academica', this.info_produccion_academica)
+      .subscribe((res: any) => {
+        if (res.Type === 'error') {
+          Swal({
+            type: 'error',
+            title: res.Code,
+            text: this.translate.instant('ERROR.' + res.Code),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
+          this.showToast('error', 'Error', this.translate.instant('produccion_academica.produccion_no_actualizada'));
+        } else {
+          this.info_produccion_academica = <ProduccionAcademicaPost>res;
+          this.eventChange.emit(true);
+          this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
         }
       });
   }
@@ -564,14 +551,26 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         } else {
           this.info_produccion_academica.Metadatos = [];
         }
-        const opt: any = {
-          title: this.translate.instant('GLOBAL.registrar'),
-          text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true,
-          showCancelButton: true,
-        };
+        let opt;
+        if (this.produccion_academica_selected === undefined) {
+          opt = {
+            title: this.translate.instant('GLOBAL.registrar'),
+            text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+            showCancelButton: true,
+          };
+        } else {
+          opt = {
+            title: this.translate.instant('GLOBAL.actualizar'),
+            text: this.translate.instant('produccion_academica.seguro_continuar_actualizar_produccion'),
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+            showCancelButton: true,
+          };
+        }
         Swal(opt)
           .then((willCreate) => {
             if (willCreate.value) {
@@ -591,7 +590,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                   }
                 })
                 .catch(error => {
-                  // console.log("error subiendo archivos", error);
                   Swal({
                     type: 'error',
                     title: 'ERROR',
