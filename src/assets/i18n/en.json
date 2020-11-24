@@ -60,7 +60,7 @@
         "info_estado": "Registration Status",
         "guardar": "Save",
         "formulario": "Form",
-        "lista": "List",
+        "lista": "Request List",
         "regresar": "Return",
         "terminos_datos": "Privacy and data processing policy",
         "acepto_terminos": "I have read and agree to the privacy and treatment of information policy terms",
@@ -466,6 +466,9 @@
     "produccion_academica": {
         "produccion_academica": "Academic production",
         "producciones_academicas": "Academic productions",
+
+        "acciones": "Actions",
+        "placeholder_filtro": "e.g. Completed Request",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -704,6 +707,11 @@
             "estudios_postdoctorales": "Postdoctoral Studies",
             "traduccion_articulo": "Article translation",
             "direccion_tesis": "Thesis Direction"
+        },
+
+        "filtros" : {
+            "radicado": "Applications in status of filing",
+            "por_modificar": "Requests pending to modify"
         },
 
         "alerta_llenar_campo": "You must fill this field",

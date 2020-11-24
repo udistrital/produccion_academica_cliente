@@ -62,7 +62,7 @@
         "registrar": "Registrar",
         "guardar": "Guardar",
         "formulario": "Formulario",
-        "lista": "Lista",
+        "lista": "Lista de Solicitudes",
         "regresar": "Regresar",
         "error": "Error",
         "si": "Si",
@@ -478,6 +478,9 @@
         "produccion_academica": "Producción académica",
         "producciones_academicas": "Producciones académicas",
 
+        "acciones": "Acciones",
+        "placeholder_filtro": "Ej: Solicitudes completadas",
+
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
         "alerta_tipo_produccion_academica": "Debe seleccionar el tipo de producción académica",
@@ -715,6 +718,11 @@
             "estudios_postdoctorales": "Estudios Postdoctorales",
             "traduccion_articulo": "Traducción Artículo",
             "direccion_tesis": "Dirección de Tesis"
+        },
+
+        "filtros" : {
+            "radicado": "Solicitudes en estado de radicación",
+            "por_modificar": "Solicitudes pendientes por modificar"
         },
 
         "alerta_llenar_campo": "Debe llenar este campo",

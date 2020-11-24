@@ -9,6 +9,7 @@ import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { filterList } from './filtros'
 
 @Component({
   selector: 'ngx-list-produccion-academica',
@@ -17,9 +18,11 @@ import 'style-loader!angular2-toaster/toaster.css';
   })
 export class ListProduccionAcademicaComponent implements OnInit {
   prod_selected: ProduccionAcademicaPost;
+  filtros = filterList;
   cambiotab: boolean = false;
   config: ToasterConfig;
   settings: any;
+  filter: any;
   persona_id: number;
 
   source: LocalDataSource = new LocalDataSource();
@@ -38,19 +41,21 @@ export class ListProduccionAcademicaComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
-      add: {
-        addButtonContent: '<i class="nb-plus"></i>',
-        createButtonContent: '<i class="nb-checkmark"></i>',
-        cancelButtonContent: '<i class="nb-close"></i>',
+      actions: {
+        columnTitle: this.translate.instant('produccion_academica.acciones'),
+        custom: [
+          {
+            name: 'view',
+            title: '<i class="nb-search" title="view"></i>',
+          },
+        ],
+        delete: false,
+        add: false,
       },
       edit: {
         editButtonContent: '<i class="nb-edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-      },
-      delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
-        confirmDelete: true,
       },
       mode: 'external',
       columns: {
@@ -63,42 +68,42 @@ export class ListProduccionAcademicaComponent implements OnInit {
         // },
         Titulo: {
           title: this.translate.instant('produccion_academica.titulo_produccion_academica'),
-          // type: 'string;',
           valuePrepareFunction: (value) => {
             return value;
           },
+          filter: false,
           width: '20%',
         },
         SubtipoProduccionId: {
           title: this.translate.instant('produccion_academica.tipo_produccion_academica'),
-          // type: 'tipo_produccion_academica;',
           valuePrepareFunction: (value) => {
             return value.Nombre;
           },
+          filter: false,
           width: '15%',
         },
         Resumen: {
           title: this.translate.instant('produccion_academica.resumen'),
-          // type: 'string;',
           valuePrepareFunction: (value) => {
             return value;
           },
+          filter: false,
           width: '30%',
         },
         EstadoEnteAutorId: {
           title: this.translate.instant('produccion_academica.estado_autor'),
-          // type: 'string',
           valuePrepareFunction: (value) => {
             return value.EstadoAutorProduccionId.Nombre;
           },
+          filter: false,
           width: '15%',
         },
         Fecha: {
           title: this.translate.instant('produccion_academica.fecha_publicacion'),
-          // type: 'string;',
           valuePrepareFunction: (value) => {
             return ((value) + '').substring(0, 10);
           },
+          filter: false,
           width: '10%',
         },
       },
@@ -111,13 +116,12 @@ export class ListProduccionAcademicaComponent implements OnInit {
 
   loadData(): void {
     this.sgaMidService.get('produccion_academica/' + this.persona_id).subscribe((res: any) => {
-    // this.campusMidService.get('produccion_academica/' + 5).subscribe((res: any) => {
       if (res !== null) {
         if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
           const data = <Array<ProduccionAcademicaPost>>res;
           this.source.load(data);
         } else {
-           Swal({
+          Swal({
             type: 'error',
             title: '404',
             text: this.translate.instant('ERROR.404'),
@@ -139,7 +143,9 @@ export class ListProduccionAcademicaComponent implements OnInit {
   }
 
   onEdit(event): void {
-    if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 || event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2) {
+    if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 ||
+        event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
+    ) {
       this.prod_selected = event.data;
       this.activetab();
     } else if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
@@ -154,52 +160,12 @@ export class ListProduccionAcademicaComponent implements OnInit {
     this.activetab();
   }
 
-  onDelete(event): void {
-    if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1) {
-      const opt: any = {
-        title: this.translate.instant('GLOBAL.eliminar'),
-        text: this.translate.instant('produccion_academica.seguro_continuar_eliminar_produccion'),
-        icon: 'warning',
-        buttons: true,
-        dangerMode: true,
-        showCancelButton: true,
-      };
-      Swal(opt)
-      .then((willDelete) => {
-        if (willDelete.value) {
-          this.sgaMidService.delete('produccion_academica', event.data).subscribe((res: any) => {
-            if (res !== null) {
-              if (res.Body.Id !== undefined) {
-                this.source.load([]);
-                this.loadData();
-                this.showToast('info', 'Ok', this.translate.instant('produccion_academica.produccion_eliminada'));
-              } else {
-                this.showToast('info', 'Error', this.translate.instant('produccion_academica.produccion_no_eliminada'));
-              }
-            }
-           }, (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-          });
-        }
-      });
-    } else if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2) {
-      const opt: any = {
-        title: 'Error',
-        text: this.translate.instant('produccion_academica.autor_no_puede_borrar'),
-        icon: 'warning',
-        buttons: false,
-      };
-      Swal(opt);
-    } else if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
-      this.updateEstadoAutor(event.data);
-    } else {
-      this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
-    }
+  onView(event): void {
+    alert('Holi')
+  }
+
+  filterSolicitudes(filter) {
+
   }
 
   updateEstadoAutor(data: any): void {
