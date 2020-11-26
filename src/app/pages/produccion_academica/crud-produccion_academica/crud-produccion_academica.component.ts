@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -9,6 +10,7 @@ import { TercerosService } from '../../../@core/data/terceros.service';
 import { UserService } from '../../../@core/data/users.service';
 import { DocumentoService } from '../../../@core/data/documento.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
+import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { ProduccionAcademicaService } from '../../../@core/data/produccion_academica.service';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
 import { CategoriaProduccion } from './../../../@core/data/models/produccion_academica/categoria_produccion';
@@ -20,6 +22,8 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { FORM_produccion_academica } from './form-produccion_academica';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
 
 @Component({
   selector: 'ngx-crud-produccion-academica',
@@ -43,7 +47,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   title_tipo_produccion: string;
   date_tipo_produccion: string;
   category_id: number;
+  info_solicitud: SolicitudDocentePost;
   info_produccion_academica: ProduccionAcademicaPost;
+  estadosSolicitudes: Array<EstadoTipoSolicitud>;
   categoriasProduccion: Array<CategoriaProduccion>;
   tiposProduccionAcademica: Array<TipoProduccionAcademica>;
   tiposProduccionAcademicaFiltrados: Array<TipoProduccionAcademica>;
@@ -65,8 +71,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   constructor(private translate: TranslateService,
     private produccionAcademicaService: ProduccionAcademicaService,
+    private solicitudDocenteService: SolicitudDocenteService,
     private route: ActivatedRoute,
     private user: UserService,
+    private router: Router,
     private nuxeoService: NuxeoService,
     private documentoService: DocumentoService,
     private tercerosService: TercerosService,
@@ -132,6 +140,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.loadOptionsCategoriasProduccion(),
           this.loadOptionsTipoProduccionAcademica(),
           this.loadOptionsSubTipoProduccionAcademica(),
+          this.loadEstadoSolicitud(),
           this.loadUserData(),
         ]).
           then(() => {
@@ -201,6 +210,23 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             resolve(true);
           } else {
             this.estadosAutor = [];
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
+  loadEstadoSolicitud(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.solicitudDocenteService.get('estado_tipo_solicitud/?limit=1')
+        .subscribe(res => {
+          if (Object.keys(res.Data[0]).length > 0) {
+            this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+            resolve(true);
+          } else {
+            this.estadosSolicitudes = [];
             reject({ status: 404 });
           }
         }, (error: HttpErrorResponse) => {
@@ -414,6 +440,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.editando = true;
     } else {
       this.info_produccion_academica = new ProduccionAcademicaPost();
+      this.info_solicitud = new SolicitudDocentePost();
       this.clean = !this.clean;
       this.editando = false;
       this.formConstruido = false;
@@ -445,7 +472,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   createProduccionAcademica(ProduccionAcademica: any): void {
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
-    console.info('Produccion Academica', this.info_produccion_academica);
+    this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.sgaMidService.post('produccion_academica', this.info_produccion_academica)
       .subscribe((res: any) => {
         if (res.Type === 'error') {
@@ -458,8 +485,25 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
         } else {
           this.info_produccion_academica = <ProduccionAcademicaPost>res;
-          this.eventChange.emit(true);
-          this.showToast('success', this.translate.instant('GLOBAL.crear'), this.translate.instant('produccion_academica.produccion_creada'));
+          this.info_solicitud.Referencia = `{ \"Id\": ${res.ProduccionAcademica.Id} }`
+          this.info_solicitud.Autores = res.Autores;
+          this.sgaMidService.post('solicitud_docente', this.info_solicitud)
+          .subscribe((resp: any) => {
+            if (resp.Type === 'error') {
+              Swal({
+                type: 'error',
+                title: resp.Code,
+                text: this.translate.instant('ERROR.' + resp.Code),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+              this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
+            } else {
+              this.info_solicitud = <SolicitudDocentePost>resp;
+              this.eventChange.emit(true);
+              this.router.navigate(['./pages/produccion_academica/new-solicitud']);
+              this.showToast('success', this.translate.instant('GLOBAL.crear'), this.translate.instant('produccion_academica.produccion_creada'));
+            }
+          });
         }
       });
   }
@@ -580,7 +624,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               }
               this.info_produccion_academica.Metadatos = metadatos;
               this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
-
               Promise.all(promises)
                 .then(() => {
                   if (this.produccion_academica_selected === undefined) {

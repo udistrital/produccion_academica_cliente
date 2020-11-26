@@ -2,6 +2,7 @@ import { ProduccionAcademicaRoutingModule, routedComponents } from './produccion
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ProduccionAcademicaService } from '../../@core/data/produccion_academica.service';
+import { SolicitudDocenteService } from '../../@core/data/solicitud-docente.service'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
@@ -28,6 +29,7 @@ import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
   ],
   providers: [
     ProduccionAcademicaService,
+    SolicitudDocenteService,
     UserService,
     PersonaService,
     NuxeoService,
