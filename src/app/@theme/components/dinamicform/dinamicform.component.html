@@ -436,15 +436,22 @@
                         <!-- input-file -->
                         <div *ngSwitchCase="'file'" class="{{c.clase}} nb-file">
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col-12">
                                     <label for="{{c.nombre}}" class="upload-file">
                                         {{c.requerido?'* '+c.label:c.label}}
                                     </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
                                     <input type="file" id="{{c.nombre}}" (change)="onChange($event,c)" />
                                     <br>
                                     <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-6">
+                                    <p class="file-place">{{c.placeholder}}</p>
+                                </div>
+                                <div class="col-4" *ngIf="c.valor">
                                     <nb-card-body class="col-4" *ngIf="c.tipo == 'image'">
                                         <img id="{{c.nombre}}" class="carousel-image" [src]="c.url"
                                             (click)="download(c.urlTemp,c.nombre,300,300)" class="img-thumbnail"

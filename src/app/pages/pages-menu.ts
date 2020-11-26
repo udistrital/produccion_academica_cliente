@@ -17,6 +17,12 @@ export const MENU_ITEMS: MenuItem[] = [
     key: 'produccion_academica',
     children: [
       {
+        title: 'New Solicitudes',
+        icon: 'nb-edit',
+        link: '/pages/produccion_academica/new-solicitud',
+        key: 'new_solicitud',
+      },
+      {
         title: 'Listar Producciones',
         icon: 'nb-list',
         link: '/pages/produccion_academica/list-produccion_academica',

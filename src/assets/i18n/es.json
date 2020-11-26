@@ -27,6 +27,7 @@
         },
         "produccion_academica": {
             "produccion_academica": "Producción académica",
+            "new_solicitud": "Nueva solicitud",
             "list_produccion_academica": "Lista producción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
@@ -61,7 +62,7 @@
         "registrar": "Registrar",
         "guardar": "Guardar",
         "formulario": "Formulario",
-        "lista": "Lista",
+        "lista": "Lista de Solicitudes",
         "regresar": "Regresar",
         "error": "Error",
         "si": "Si",
@@ -477,6 +478,10 @@
         "produccion_academica": "Producción académica",
         "producciones_academicas": "Producciones académicas",
 
+        "acciones": "Acciones",
+        "placeholder_filtro": "Ej: Solicitudes completadas",
+        "estado_solicitud": "Estado de Solicitud",
+
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
         "alerta_tipo_produccion_academica": "Debe seleccionar el tipo de producción académica",
@@ -484,6 +489,7 @@
         "placeholder_subtipo_produccion_academica": "ej: Artículo de revisión",
         "alerta_subtipo_produccion_academica": "Debe seleccionar el subtipo de producción académica",
 
+        "fecha_radicacion": "Fecha de radicación",
         "fecha_publicacion": "Fecha de publicación",
         "fecha_obtencion": "Fecha de obtención",
         "fecha_realizacion": "Fecha de realización",
@@ -687,12 +693,48 @@
             "codigo_software": "Archivo del código fuente de la aplicación"
         },
 
+        "categorias": {
+            "titulos": "Títulos",
+            "titulo_postgrado": "Título Postgrado",
+            "cambio_categoria": "Cambio de Categoría",
+            "asistente": "Asistente",
+            "asociado": "Asociado",
+            "titular": "Titular",
+            "produccion_academica": "Producción Académica",
+            "articulo": "Artículo",
+            "editorial": "Editorial",
+            "articulo_corto": "Artículo Corto",
+            "libro": "Libro",
+            "capitulo_libro": "Capítulo de Libro",
+            "traduccion_libro": "Traducción de Libro",
+            "premio": "Premio",
+            "produccion_tecnica": "Producción Técnica",
+            "video": "Video, Cinematográfica, Fonografía",
+            "obra_artistica": "Obra Artística",
+            "puntos_bonificacion": "Puntos de Bonificación",
+            "patente": "Patente",
+            "software": "Producción de Software",
+            "ponencia": "Ponencia",
+            "publicacion_impresa": "Publicación Impresa",
+            "resena": "Reseña Critica",
+            "estudios_postdoctorales": "Estudios Postdoctorales",
+            "traduccion_articulo": "Traducción Artículo",
+            "direccion_tesis": "Dirección de Tesis"
+        },
+
+        "filtros" : {
+            "radicado": "Solicitudes en estado de radicación",
+            "por_modificar": "Solicitudes pendientes por modificar"
+        },
+
         "alerta_llenar_campo": "Debe llenar este campo",
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
+        "certificado_cumplido_estatuto": "Certifico que no he presentado este producto con anterioridad y cumplo con el estatuto de propiedad intelectual de la Universidad",
+        "ejemplo_union_pdf": "Los archivos soportes de cada solicitud se deben cargar en formato pdf; para unir los archivos pdf puede utilizar la herramienta disponible en",
         "error_no_puede_editar_autores": "Acción no permitida",
         "produccion_eliminada": "Producción eliminada",
         "produccion_no_eliminada": "Producción no eliminada",
