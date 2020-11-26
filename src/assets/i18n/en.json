@@ -469,6 +469,7 @@
 
         "acciones": "Actions",
         "placeholder_filtro": "e.g. Completed Request",
+        "estado_solicitud": "Request State",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -477,6 +478,7 @@
         "placeholder_subtipo_produccion_academica": "e.g. Review Article",
         "alerta_subtipo_produccion_academica": "You must select the subtype of academic production",
         
+        "fecha_radicacion": "Date of filing",
         "fecha_publicacion": "Publication date",
         "fecha_obtencion": "Obtaining date",
         "fecha_realizacion": "Realization date",

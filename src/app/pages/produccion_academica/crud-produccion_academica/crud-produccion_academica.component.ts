@@ -394,6 +394,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.info_produccion_academica = JSON.parse(JSON.stringify(this.produccion_academica_selected));
       this.source_authors = this.info_produccion_academica.Autores;
       this.source.load(this.source_authors);
+      const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
+        tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
+      this.filterTitleProduction(tipoProduccion)
+      this.filterDateProduccion(tipoProduccion)
       this.Metadatos = [];
       const fillForm = function (campos, Metadatos, nuxeoService, documentoService) {
         const filesToGet = [];
@@ -500,8 +504,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             } else {
               this.info_solicitud = <SolicitudDocentePost>resp;
               this.eventChange.emit(true);
-              this.router.navigate(['./pages/produccion_academica/new-solicitud']);
               this.showToast('success', this.translate.instant('GLOBAL.crear'), this.translate.instant('produccion_academica.produccion_creada'));
+              this.router.navigate(['./pages/produccion_academica/new-solicitud']);
             }
           });
         }

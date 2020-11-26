@@ -480,6 +480,7 @@
 
         "acciones": "Acciones",
         "placeholder_filtro": "Ej: Solicitudes completadas",
+        "estado_solicitud": "Estado de Solicitud",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -488,6 +489,7 @@
         "placeholder_subtipo_produccion_academica": "ej: Artículo de revisión",
         "alerta_subtipo_produccion_academica": "Debe seleccionar el subtipo de producción académica",
 
+        "fecha_radicacion": "Fecha de radicación",
         "fecha_publicacion": "Fecha de publicación",
         "fecha_obtencion": "Fecha de obtención",
         "fecha_realizacion": "Fecha de realización",
