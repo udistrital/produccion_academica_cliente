@@ -4,6 +4,7 @@ import { ProduccionAcademicaComponent } from './produccion_academica.component';
 import { ListProduccionAcademicaComponent } from './list-produccion_academica/list-produccion_academica.component';
 import { CrudProduccionAcademicaComponent } from './crud-produccion_academica/crud-produccion_academica.component';
 import { ViewProduccionAcademicaComponent } from './view-produccion_academica/view-produccion_academica.component';
+import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,6 +18,9 @@ const routes: Routes = [{
   }, {
     path: 'crud-produccion_academica',
     component: CrudProduccionAcademicaComponent,
+  }, {
+    path: 'review-produccion-academica',
+    component: ReviewProduccionAcademicaComponent,
   }],
 }];
 
@@ -36,4 +40,5 @@ export const routedComponents = [
   ListProduccionAcademicaComponent,
   ViewProduccionAcademicaComponent,
   CrudProduccionAcademicaComponent,
+  ReviewProduccionAcademicaComponent,
 ];

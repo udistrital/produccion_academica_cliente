@@ -1,0 +1,14 @@
+<div class="row">
+  <form class="form-horizontal" style="width: 100%;">
+      <fieldset [ngClass]="{'fieldseter':true}">
+          <legend align="left">
+              <small>Comentarios</small>
+          </legend>
+          <div class="row">
+            <div class="col-12">
+              <ng2-smart-table [settings]="settings" [source]="source" (delete)="onDelete($event)" (rowSelect)="itemselec($event)" (edit)="onEdit($event)" (create)="onCreate($event)"></ng2-smart-table>
+            </div>
+          </div>
+      </fieldset>
+    </form>
+</div>

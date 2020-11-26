@@ -1,0 +1,56 @@
+<div class="row">
+  <form class="form-horizontal" style="width: 50%;">
+      <fieldset [ngClass]="{'fieldseter':true}">
+          <legend align="left">
+              <small>Datos solicitud</small>
+          </legend>
+          <div class="row">
+              <div class="col-8">
+                  <h5>{{'produccion_academica.tipo_produccion_academica' | translate}}</h5>
+              </div>
+              <div class="col-4">
+                    <label><!--{{tipoProduccionAcademica?tipoProduccionAcademica.Nombre}}-->Título</label>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+                <h5>{{'produccion_academica.subtipo_produccion_academica' | translate}}</h5>
+            </div>
+            <div class="col-4">
+                  <label><!--{{info_produccion_academica.SubtipoProduccionId?info_produccion_academica.SubtipoProduccionId.Nombre}} -->Postgrado</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <h5><!-- {{'produccion_academica.titulo_obtenido' | translate}}: -->Título obtenido</h5>
+            </div>
+            <div class="col-4">
+                  <label><!--{{info_produccion_academica.Titulo}} --> Especialización</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <h5><!--{{'produccion_academica.fecha_obtencion' | translate}}:--> Fecha obtención</h5>
+            </div>
+            <div class="col-4">
+                  <label><!--{{info_produccion_academica.Fecha}} -->20/02/2020</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <h5><!--{{'produccion_academica.fecha_obtencion' | translate}}:--> Fecha obtención</h5>
+            </div>
+            <div class="col-4">
+                  <label>20/02/2020</label>
+            </div>
+        </div>
+      </fieldset>
+  </form>
+
+
+
+  <ngx-list-comentario></ngx-list-comentario>
+
+
+</div>
+
