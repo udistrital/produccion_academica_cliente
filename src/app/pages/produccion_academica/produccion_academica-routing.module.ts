@@ -5,6 +5,10 @@ import { ListProduccionAcademicaComponent } from './list-produccion_academica/li
 import { CrudProduccionAcademicaComponent } from './crud-produccion_academica/crud-produccion_academica.component';
 import { ViewProduccionAcademicaComponent } from './view-produccion_academica/view-produccion_academica.component';
 import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
+import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
+import { ComentarioComponent } from './comentario/comentario.component';
+import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
+import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,11 +20,14 @@ const routes: Routes = [{
     path: 'view-produccion_academica',
     component: ViewProduccionAcademicaComponent,
   }, {
-    path: 'crud-produccion_academica',
+    path: 'crud-produccion_academica/:id',
     component: CrudProduccionAcademicaComponent,
   }, {
     path: 'review-produccion-academica',
     component: ReviewProduccionAcademicaComponent,
+  }, {
+    path: 'new-solicitud',
+    component: NewSolicitudComponent,
   }],
 }];
 
@@ -41,4 +48,8 @@ export const routedComponents = [
   ViewProduccionAcademicaComponent,
   CrudProduccionAcademicaComponent,
   ReviewProduccionAcademicaComponent,
+  ComentarioComponent,
+  CrudComentarioComponent,
+  ListComentarioComponent,
+  NewSolicitudComponent,
 ];
