@@ -19,8 +19,9 @@ import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docen
   })
 export class ListProduccionAcademicaComponent implements OnInit {
   prod_selected: ProduccionAcademicaPost;
+  solicitud_selectedReview: SolicitudDocentePost;
   filtros = filterList;
-  cambiotab: boolean = false;
+  cambiotab: number = 0;
   config: ToasterConfig;
   settings: any;
   filter: any;
@@ -138,7 +139,6 @@ export class ListProduccionAcademicaComponent implements OnInit {
                   })
                 });
                 Swal.close();
-                console.info(data)
                 this.source.load(data);
               } else {
                 Swal({
@@ -184,7 +184,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
         event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
     ) {
       this.prod_selected = event.data.ProduccionAcademica;
-      this.activetab();
+      this.activetab(1);
     } else if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
       this.updateEstadoAutor(event.data.ProduccionAcademica);
     } else {
@@ -192,13 +192,17 @@ export class ListProduccionAcademicaComponent implements OnInit {
     }
   }
 
-  onCreate(event): void {
-    this.prod_selected = undefined;
-    this.activetab();
-  }
-
   onView(event): void {
-    alert('Holi')
+    if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 ||
+        event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
+    ) {
+      this.solicitud_selectedReview = event.data;
+      this.activetab(2);
+    } else if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
+      this.updateEstadoAutor(event.data);
+    } else {
+      this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
+    }
   }
 
   filterSolicitudes(filter) {
@@ -260,22 +264,24 @@ export class ListProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  activetab(): void {
-    this.cambiotab = !this.cambiotab;
+  activetab(number): void {
+    this.cambiotab = number;
   }
 
   selectTab(event): void {
     if (event.tabTitle === this.translate.instant('GLOBAL.lista')) {
-      this.cambiotab = false;
+      this.cambiotab = 0;
+    } else if (event.tabTitle === this.translate.instant('GLOBAL.formulario')) {
+      this.cambiotab = 1;
     } else {
-      this.cambiotab = true;
+      this.cambiotab = 2;
     }
   }
 
-  onChange(event) {
+  onChange(event, number) {
     if (event) {
       this.loadData();
-      this.cambiotab = !this.cambiotab;
+      this.cambiotab = number;
     }
   }
 

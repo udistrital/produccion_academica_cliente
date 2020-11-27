@@ -26,6 +26,42 @@
     overflow: visible;
   }
 
+  /deep/  .img-thumbnail {
+    margin-left: -20px;
+  }
+
+  .swal-content {
+    margin-left: -120px;
+  }
+
+  .divisor {
+    border-bottom: 1px dashed #ccc;
+    width: 95%;
+  }
+
+  .btn-state {
+    padding: 5px;
+    color: #4FB9FF;
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 20px;
+    outline: none;
+  }
+
+  .btn-state:hover {
+    color: #fff;
+    background-color: #4FB9FF;
+  }
+
+  .row {
+    max-width: 1200px;
+    margin: 10px auto;
+  }
+
+  .fieldseter h5 {
+    font-size: 1.1rem;
+  }
+
   .input-group {
     margin-bottom: 1rem;
   }

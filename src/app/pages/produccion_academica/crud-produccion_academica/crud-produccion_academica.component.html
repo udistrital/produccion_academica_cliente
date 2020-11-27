@@ -95,7 +95,7 @@
 </div>
 <div [hidden]="!formConstruido">
   <toaster-container [toasterconfig]="config"></toaster-container>
-  <ngx-dinamicform [normalform]="formProduccionAcademica" [modeloData]="DatosAdicionales" (result)="validarForm($event)"
+  <ngx-dinamicform [normalform]="formProduccionAcademica" (result)="validarForm($event)"
     [clean]="clean">
   </ngx-dinamicform>
 </div>

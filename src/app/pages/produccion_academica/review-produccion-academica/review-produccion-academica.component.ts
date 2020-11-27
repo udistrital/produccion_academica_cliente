@@ -15,20 +15,21 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
 import { EstadoAutorProduccion } from './../../../@core/data/models/produccion_academica/estado_autor_produccion';
 import { UserService } from '../../../@core/data/users.service';
+import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 
 @Component({
   selector: 'ngx-review-produccion-academica',
   templateUrl: './review-produccion-academica.component.html',
-  styleUrls: ['./review-produccion-academica.component.scss']
+  styleUrls: ['./review-produccion-academica.component.scss'],
 })
 export class ReviewProduccionAcademicaComponent implements OnInit {
 
-  produccion_academica_selected: ProduccionAcademicaPost;
+  solicitud_docente_selected: SolicitudDocentePost;
+  info_solicitud: SolicitudDocentePost;
   info_produccion_academica: ProduccionAcademicaPost;
   source_authors: Array<any> = [];
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
-  formConstruido: boolean;
   editando: boolean;
   clean: boolean;
   formProduccionAcademica: any;
@@ -38,11 +39,12 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   estadosAutor: Array<EstadoAutorProduccion>;
   creandoAutor: boolean;
 
-  @Input('produccion_academica_selected')
-  set name(produccion_academica_selected: ProduccionAcademicaPost) {
-    this.produccion_academica_selected = produccion_academica_selected;
+  @Input('solicitud_docente_selected')
+  set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
+    this.solicitud_docente_selected = solicitud_docente_selected;
     this.loadProduccionAcademica();
   }
+
   constructor(
     private produccionAcademicaService: ProduccionAcademicaService,
     private nuxeoService: NuxeoService,
@@ -50,7 +52,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     private translate: TranslateService,
     private tercerosService: TercerosService,
     private user: UserService,
-    ) {  
+    ) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
   }
 
@@ -58,32 +60,29 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   public loadProduccionAcademica(): void {
-    if (this.produccion_academica_selected !== undefined ) {
-      /*
-      this.produccionAcademicaService.get('produccion_academica/?query=id:' + this.produccion_academica_id)
-        .subscribe(res => {
-          if (res !== null) {
-            this.info_produccion_academica = <ProduccionAcademicaPost>res[0];
-          }
-        });
-      */
-      this.info_produccion_academica = JSON.parse(JSON.stringify(this.produccion_academica_selected));
-      this.source_authors = this.info_produccion_academica.Autores;
-      this.source.load(this.source_authors);
+    if (this.solicitud_docente_selected !== undefined) {
+      this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
+      console.info(this.solicitud_docente_selected)
+      this.obtenerDatosTercero(this.solicitud_docente_selected.EvolucionEstado.TerceroId);
+      // const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
+      //   tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
+      // this.filterTitleProduction(tipoProduccion)
+      // this.filterDateProduccion(tipoProduccion)
       this.Metadatos = [];
-      // this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
-      const fillForm = function(campos, Metadatos, nuxeoService, documentoService){
+      const fillForm = function (campos, Metadatos, nuxeoService, documentoService) {
         const filesToGet = [];
         campos.forEach(campo => {
-          Metadatos.forEach( metadato => {
-              // const field = JSON.parse(datoAdicional.DatoAdicionalSubtipoProduccion.TipoDatoAdicional.FormDefiniton);
-              if (campo.nombre === metadato.MetadatoSubtipoProduccionId.Id) {
-                campo.valor = metadato.Valor;
-                if (campo.etiqueta === 'file') {
-                  campo.idFile = parseInt(metadato.Valor, 10);
-                  filesToGet.push({Id: campo.idFile, key: campo.nombre});
-                }
-              };
+          Metadatos.forEach(metadato => {
+            if (campo.nombre === metadato.MetadatoSubtipoProduccionId.Id) {
+              campo.valor = metadato.Valor;
+              if (campo.etiqueta === 'select') {
+                campo.valor = campo.opciones[metadato.Valor - 1];
+              }
+              if (campo.etiqueta === 'file') {
+                campo.idFile = parseInt(metadato.Valor, 10);
+                filesToGet.push({ Id: campo.idFile, key: campo.nombre });
+              }
+            };
           });
         });
         if (filesToGet.length !== 0) {
@@ -99,34 +98,29 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
                 });
               }
             },
-            (error: HttpErrorResponse) => {
-              Swal({
-                type: 'error',
-                title: error.status + '',
-                text: this.translate.instant('ERROR.' + error.status),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              (error: HttpErrorResponse) => {
+                Swal({
+                  type: 'error',
+                  title: error.status + '',
+                  text: this.translate.instant('ERROR.' + error.status),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                });
               });
-            });
         }
       }
       this.loadSubTipoFormFields(this.info_produccion_academica.SubtipoProduccionId, fillForm);
-      this.construirForm();
-      this.formConstruido = true;
       this.editando = true;
-    } else  {
+    } else {
       this.info_produccion_academica = new ProduccionAcademicaPost();
+      this.info_solicitud = new SolicitudDocentePost();
       this.clean = !this.clean;
       this.editando = false;
-      this.formConstruido = false;
-      this.loadUserData();
       this.Metadatos = [];
     }
   }
 
   loadSubTipoFormFields(subtipoProduccionAcademica: SubTipoProduccionAcademica, callback: Function) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
-    this.construirForm();
-    this.formConstruido = false;
     const query = `query=SubtipoProduccionId:${subtipoProduccionAcademica.Id}`;
     this.produccionAcademicaService.get(`metadato_subtipo_produccion/?limit=0&${query}`)
         .subscribe(res => {
@@ -139,10 +133,10 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
               }
             });
             if (callback !== undefined) {
+              console.info('campos review: ', this.formProduccionAcademica.campos)
+              console.info('Metadatos review: ', this.info_produccion_academica.Metadatos)
               callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService);
             }
-            this.construirForm();
-            this.formConstruido = true;
           }
         }, (error: HttpErrorResponse) => {
           Swal({
@@ -154,73 +148,68 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         });
   }
 
-  construirForm() {
-    this.formProduccionAcademica.titulo = this.translate.instant('produccion_academica.produccion_academica');
-    this.formProduccionAcademica.btn = this.translate.instant('GLOBAL.guardar');
-    for (let i = 0; i < this.formProduccionAcademica.campos.length; i++) {
-      this.formProduccionAcademica.campos[i].label = this.translate.instant('produccion_academica.' + this.formProduccionAcademica.campos[i].label_i18n);
-      this.formProduccionAcademica.campos[i].placeholder =
-        this.translate.instant('produccion_academica.placeholder_' + this.formProduccionAcademica.campos[i].label_i18n);
-    }
+  verDetallesEstado() {
+    const opt: any = {
+      width: '550px',
+      title: this.translate.instant('produccion_academica.estado_solicitud'),
+      html: `
+      <div class="swal-content" style="margin-left: -120px;">
+        <div class="row">
+          <div class="col-8">
+            <h5>Estado:</h5>
+          </div>
+          <div class="col-4">
+            <p">${this.solicitud_docente_selected.EvolucionEstado.EstadoTipoSolicitudId.EstadoId.Nombre}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <h5>Fecha Creación:</h5>
+          </div>
+          <div class="col-4">
+            <p">${this.solicitud_docente_selected.EvolucionEstado.FechaCreacion.substring(0, 10)}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <h5>Fecha Limite:</h5>
+          </div>
+          <div class="col-4">
+            <p">${this.solicitud_docente_selected.EvolucionEstado.FechaLimite.substring(0, 10)}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <h5>Personal:</h5>
+          </div>
+          <div class="col-4">
+            <p">${this.userData.NombreCompleto}</p>
+          </div>
+        </div>
+      </div>
+      `,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    };
+    Swal(opt)
   }
 
-  loadUserData(): Promise<any> {
-    this.source_authors = [];
-    this.source.load(this.source_authors);
-    return new Promise((resolve, reject) => {
-        this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 1))
-        .subscribe(res => {
-          // if (res !== null) {
-          if (Object.keys(res[0]).length > 0) {
-            this.userData = <Tercero>res[0];
-            this.userData['PuedeBorrar'] = false;
-            /*
-            this.userData['EstadoAutorProduccion'] = {
-              Id: 1,
-              Nombre: 'Autor principal',
-            };
-            */
-            this.userData['Nombre'] = this.userData.NombreCompleto;
-            this.autorSeleccionado = JSON.parse(JSON.stringify(this.userData));
-            this.agregarAutor(false, 1);
-            // this.source_authors.push(this.userData);
-            // this.source.load(this.source_authors);
-            this.autorSeleccionado = undefined;
-            resolve(true);
-          } else {
-            this.tiposProduccionAcademica = [];
-            reject({status: 404});
-          }
-        }, (error: HttpErrorResponse) => {
-          reject(error);
-        });
+  obtenerDatosTercero(terceroId) {
+    this.tercerosService.get('tercero/?query=Id:' + terceroId)
+    .subscribe(res => {
+      if (Object.keys(res[0]).length > 0) {
+        this.userData = <Tercero>res[0];
+      }
     });
   }
 
-  agregarAutor(mostrarError: boolean, estadoAutor: number): void {
-    if (this.source_authors.find( author => author.PersonaId === this.autorSeleccionado.Id) ) {
-      if (mostrarError) {
-        Swal({
-          type: 'error',
-          title: 'ERROR',
-          text: this.translate.instant('produccion_academica.error_autor_ya_existe'),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      }
-    } else {
-      this.source_authors.push({
-        // Nombre: this.getFullAuthorName(this.autorSeleccionado),
-        Nombre: this.autorSeleccionado.NombreCompleto,
-        PersonaId: this.autorSeleccionado.Id,
-        // EstadoAutorProduccion: this.estadosAutor.filter(estado => estado.Id === 3)[0],
-        EstadoAutorProduccionId: this.estadosAutor.filter(estado => estado.Id === estadoAutor)[0],
-        // PuedeBorrar: true,
-        PuedeBorrar: estadoAutor !== 1,
-      });
-      this.autorSeleccionado = undefined;
-      this.creandoAutor = false;
-      this.source.load(this.source_authors);
-    }
+  download(url, title, w, h) {
+    const left = (screen.width / 2) - (w / 2);
+    const top = (screen.height / 2) - (h / 2);
+    window.open(url, title, 'toolbar=no,' +
+      'location=no, directories=no, status=no, menubar=no,' +
+      'scrollbars=no, resizable=no, copyhistory=no, ' +
+      'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   }
-
 }

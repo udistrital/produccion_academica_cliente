@@ -504,7 +504,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             } else {
               this.info_solicitud = <SolicitudDocentePost>resp;
               this.eventChange.emit(true);
-              this.showToast('success', this.translate.instant('GLOBAL.crear'), this.translate.instant('produccion_academica.produccion_creada'));
+              Swal({
+                title: `Éxito al crear al cargar solicitud.`,
+                text: 'Información Guardada correctamente',
+              });
               this.router.navigate(['./pages/produccion_academica/new-solicitud']);
             }
           });
@@ -622,7 +625,12 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         Swal(opt)
           .then((willCreate) => {
             if (willCreate.value) {
-
+              Swal({
+                title: 'Espere',
+                text: 'Enviando Información',
+                allowOutsideClick: false,
+              });
+              Swal.showLoading();
               if (filesToUpload.length > 0) {
                 promises.push(this.uploadFilesToMetadaData(filesToUpload, metadatos));
               }

@@ -470,6 +470,7 @@
         "acciones": "Actions",
         "placeholder_filtro": "e.g. Completed Request",
         "estado_solicitud": "Request State",
+        "ver_detalle": "See Details",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
