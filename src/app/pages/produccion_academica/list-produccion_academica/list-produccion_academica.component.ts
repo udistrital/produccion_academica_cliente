@@ -18,7 +18,7 @@ import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docen
   styleUrls: ['./list-produccion_academica.component.scss'],
   })
 export class ListProduccionAcademicaComponent implements OnInit {
-  prod_selected: ProduccionAcademicaPost;
+  solicitud_selected: SolicitudDocentePost;
   solicitud_selectedReview: SolicitudDocentePost;
   filtros = filterList;
   cambiotab: number = 0;
@@ -183,10 +183,10 @@ export class ListProduccionAcademicaComponent implements OnInit {
     if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 ||
         event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
     ) {
-      this.prod_selected = event.data.ProduccionAcademica;
+      this.solicitud_selected = event.data;
       this.activetab(1);
     } else if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
-      this.updateEstadoAutor(event.data.ProduccionAcademica);
+      this.updateEstadoAutor(event.data);
     } else {
       this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
     }

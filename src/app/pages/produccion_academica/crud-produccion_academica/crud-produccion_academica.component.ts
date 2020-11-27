@@ -32,15 +32,15 @@ import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docent
 })
 export class CrudProduccionAcademicaComponent implements OnInit {
   config: ToasterConfig;
-  produccion_academica_selected: ProduccionAcademicaPost;
+  solicitud_docente_selected: SolicitudDocentePost;
   tipoProduccionAcademica: TipoProduccionAcademica;
   SubtipoProduccionId: SubTipoProduccionAcademica;
 
-  @Input('produccion_academica_selected')
-  set name(produccion_academica_selected: ProduccionAcademicaPost) {
-    this.produccion_academica_selected = produccion_academica_selected;
-    this.loadProduccionAcademica();
-  }
+    @Input('solicitud_docente_selected')
+    set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
+      this.solicitud_docente_selected = solicitud_docente_selected;
+      this.loadProduccionAcademica();
+    }
 
   @Output() eventChange = new EventEmitter();
 
@@ -390,8 +390,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   }
 
   public loadProduccionAcademica(): void {
-    if (this.produccion_academica_selected !== undefined) {
-      this.info_produccion_academica = JSON.parse(JSON.stringify(this.produccion_academica_selected));
+    if (this.solicitud_docente_selected !== undefined) {
+      this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
       this.source_authors = this.info_produccion_academica.Autores;
       this.source.load(this.source_authors);
       const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
@@ -455,7 +455,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   updateProduccionAcademica(ProduccionAcademica: any): void {
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
-    console.log(this.info_produccion_academica);
     this.sgaMidService.put('produccion_academica', this.info_produccion_academica)
       .subscribe((res: any) => {
         if (res.Type === 'error') {
@@ -469,7 +468,12 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         } else {
           this.info_produccion_academica = <ProduccionAcademicaPost>res;
           this.eventChange.emit(true);
+          Swal({
+            title: `Éxito al modificar solicitud.`,
+            text: 'Información Modificada correctamente',
+          });
           this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
+          this.router.navigate(['./pages/dashboard']);
         }
       });
   }
@@ -505,7 +509,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               this.info_solicitud = <SolicitudDocentePost>resp;
               this.eventChange.emit(true);
               Swal({
-                title: `Éxito al crear al cargar solicitud.`,
+                title: `Éxito al cargar solicitud.`,
                 text: 'Información Guardada correctamente',
               });
               this.router.navigate(['./pages/produccion_academica/new-solicitud']);
@@ -603,7 +607,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.info_produccion_academica.Metadatos = [];
         }
         let opt;
-        if (this.produccion_academica_selected === undefined) {
+        if (this.solicitud_docente_selected === undefined) {
           opt = {
             title: this.translate.instant('GLOBAL.registrar'),
             text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
@@ -638,7 +642,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
               Promise.all(promises)
                 .then(() => {
-                  if (this.produccion_academica_selected === undefined) {
+                  if (this.solicitud_docente_selected === undefined) {
                     this.createProduccionAcademica(this.info_produccion_academica);
                   } else {
                     this.updateProduccionAcademica(this.info_produccion_academica);
