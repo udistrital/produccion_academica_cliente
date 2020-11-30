@@ -33,7 +33,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
     private sgaMidService: SgaMidService,
     private user: UserService,
     private toasterService: ToasterService) {
-    this.persona_id = user.getPersonaId() || 1;
+    this.persona_id = user.getPersonaId() || 2;
     this.loadData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -87,7 +87,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
         EvolucionEstado: {
           title: this.translate.instant('produccion_academica.estado_solicitud'),
           valuePrepareFunction: (value) => {
-            return value.EstadoTipoSolicitudId.EstadoId.Nombre;
+            return value[0].EstadoTipoSolicitudId.EstadoId.Nombre;
           },
           filter: false,
           width: '30%',
@@ -127,11 +127,11 @@ export class ListProduccionAcademicaComponent implements OnInit {
       if (res !== null) {
         if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
           const dataProduccion = <Array<ProduccionAcademicaPost>>res;
-
           this.sgaMidService.get('solicitud_docente/' + this.persona_id).subscribe((resp: any) => {
             if (resp !== null) {
               if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
                 const data = <Array<SolicitudDocentePost>>resp;
+                console.info(data);
                 data.forEach(solicitud => {
                   dataProduccion.forEach(produccion => {
                     if (JSON.parse(solicitud.Referencia).Id === produccion.Id)

@@ -6,7 +6,7 @@ export class SolicitudDocentePost {
   Referencia: any;
   FechaRadicacion: string;
   EstadoTipoSolicitudId: EstadoTipoSolicitud;
-  EvolucionEstado: any;
+  EvolucionEstado: any[];
   Autores: any[];
   Observaciones: any[];
 }

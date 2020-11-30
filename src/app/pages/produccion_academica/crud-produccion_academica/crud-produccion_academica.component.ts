@@ -178,7 +178,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.source_authors = [];
     this.source.load(this.source_authors);
     return new Promise((resolve, reject) => {
-      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 1))
+      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 2))
         .subscribe(res => {
           // if (res !== null) {
           if (Object.keys(res[0]).length > 0) {

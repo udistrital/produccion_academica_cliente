@@ -63,7 +63,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     if (this.solicitud_docente_selected !== undefined) {
       this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
       console.info(this.solicitud_docente_selected)
-      this.obtenerDatosTercero(this.solicitud_docente_selected.EvolucionEstado.TerceroId);
+      this.obtenerDatosTercero(this.solicitud_docente_selected.EvolucionEstado[0].TerceroId);
       // const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
       //   tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
       // this.filterTitleProduction(tipoProduccion)
@@ -159,7 +159,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Estado:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado.EstadoTipoSolicitudId.EstadoId.Nombre}</p>
+            <p">${this.solicitud_docente_selected.EvolucionEstado[0].EstadoTipoSolicitudId.EstadoId.Nombre}</p>
           </div>
         </div>
         <div class="row">
@@ -167,7 +167,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Fecha Creación:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado.FechaCreacion.substring(0, 10)}</p>
+            <p">${this.solicitud_docente_selected.EvolucionEstado[0].FechaCreacion.substring(0, 10)}</p>
           </div>
         </div>
         <div class="row">
@@ -175,7 +175,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Fecha Limite:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado.FechaLimite.substring(0, 10)}</p>
+            <p">${this.solicitud_docente_selected.EvolucionEstado[0].FechaLimite.substring(0, 10)}</p>
           </div>
         </div>
         <div class="row">
