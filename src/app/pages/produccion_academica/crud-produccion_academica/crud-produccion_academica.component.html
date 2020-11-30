@@ -62,7 +62,7 @@
               {{'produccion_academica.alerta_llenar_campo' | translate}}</mat-hint>
           </mat-form-field>
         </div>
-        <div class="col-3" *ngIf="date_tipo_produccion !== 'no_fecha'"> 
+        <div class="col-3" *ngIf="date_tipo_produccion !== 'no_fecha'">
           <mat-form-field style="width: 100%;" floatLabel="always">
             <mat-label>* {{'produccion_academica.' + date_tipo_produccion | translate}}:</mat-label>
             <input matInput [(ngModel)]="info_produccion_academica.Fecha" [matDatepicker]="picker"
@@ -93,16 +93,96 @@
     </fieldset>
   </form>
 </div>
+
+<div class="dinamic-form" [hidden]="!formConstruido">
+  <form class="form-horizontal" [hidden]="!produccionAudiovisual">
+    <fieldset [ngClass]="{'fieldseter':true}">
+      <legend align="left">
+        <small>{{'produccion_academica.soporte_audiovisual' | translate}}</small>
+      </legend>
+      <div class="nb-file col-6">
+        <div class="row">
+          <div class="col-12">
+            <label for="file-drive" class="upload-file">
+              *{{'produccion_academica.labels.soporte_audiovisual' | translate}}
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <input type="file" id="file-drive" (change)="uploadVideoFiles($event)" />
+          </div>
+          <div class="col-8">
+            <p class="file-place">{{'produccion_academica.placeholders.soporte_audiovisual' | translate}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="nb-span-file">{{'produccion_academica.span_soporte_drive' | translate}}</span>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="dinamic-form" [hidden]="!formConstruido">
+  <form class="form-horizontal" [hidden]="!produccionSoftware">
+    <fieldset [ngClass]="{'fieldseter':true}">
+      <legend align="left">
+        <small>{{'produccion_academica.soporte_software' | translate}}</small>
+      </legend>
+      <div class="file-row">
+        <div class="nb-file col-6">
+          <div class="row">
+            <div class="col-12">
+              <label for="file-drive" class="upload-file">
+                *{{'produccion_academica.labels.ejecutable_software' | translate}}
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <input type="file" id="file-drive" (change)="uploadVideoFiles($event)" />
+            </div>
+            <div class="col-8">
+              <p class="file-place">{{'produccion_academica.placeholders.ejecutable_software' | translate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <span class="nb-span-file">{{'produccion_academica.span_soporte_drive' | translate}}</span>
+          </div>
+        </div>
+        <div class="nb-file col-6">
+          <div class="row">
+            <div class="col-12">
+              <label for="file-drive" class="upload-file">
+                *{{'produccion_academica.labels.codigo_software' | translate}}
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <input type="file" id="file-drive" (change)="uploadVideoFiles($event)" />
+            </div>
+            <div class="col-8">
+              <p class="file-place">{{'produccion_academica.placeholders.codigo_software' | translate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <span class="nb-span-file">{{'produccion_academica.span_soporte_drive' | translate}}</span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
 <div [hidden]="!formConstruido">
   <toaster-container [toasterconfig]="config"></toaster-container>
-  <ngx-dinamicform [normalform]="formProduccionAcademica" (result)="validarForm($event)"
-    [clean]="clean">
+  <ngx-dinamicform [normalform]="formProduccionAcademica" (result)="validarForm($event)" [clean]="clean">
   </ngx-dinamicform>
 </div>
-<div class="span-production" *ngIf="tipoProduccionAcademica && info_produccion_academica.SubtipoProduccionId">
-  <p *ngIf="tipoProduccionAcademica.Nombre === 'Articulo' || tipoProduccionAcademica.Nombre === 'Editorial' 
-  || tipoProduccionAcademica.Nombre === 'Articulo Corto' || tipoProduccionAcademica.Nombre === 'Publicación Impresa'">
-    *Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados
-  </p>
-  <p *ngIf="tipoProduccionAcademica.Nombre === 'Capitulo Libro'">*En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro</p>
+
+<div class="span-production" [hidden]="!formConstruido">
+  <p [hidden]="!tipoArticulo">*{{'produccion_academica.span_articulo' | translate}}</p>
+  <p [hidden]="!tipoCapitulo">*{{'produccion_academica.span_capitulo' | translate}}</p>
 </div>

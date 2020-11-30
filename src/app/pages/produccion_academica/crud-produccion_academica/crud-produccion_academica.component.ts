@@ -44,6 +44,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter();
 
+  produccionAudiovisual: boolean;
+  produccionSoftware: boolean;
+  tipoArticulo: boolean;
+  tipoCapitulo: boolean;
   title_tipo_produccion: string;
   date_tipo_produccion: string;
   category_id: number;
@@ -82,7 +86,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     private sgaMidService: SgaMidService,
   ) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
-    this.construirForm();
     this.loadOptions();
     this.loadTableSettings();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -313,10 +316,28 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   filterSubTypes(tipoProduccionAcademica: TipoProduccionAcademica) {
     this.SubtipoProduccionId = undefined;
     this.formConstruido = false;
+    this.addAdditionalItems();
     this.subtiposProduccionAcademicaFiltrados = this.subtiposProduccionAcademica
       .filter(subTipo => subTipo.TipoProduccionId.Id === tipoProduccionAcademica.Id && subTipo.CategoriaProduccion.Id === this.category_id);
     this.filterTitleProduction(tipoProduccionAcademica);
     this.filterDateProduccion(tipoProduccionAcademica);
+  }
+
+  addAdditionalItems() {
+    this.tipoProduccionAcademica.Nombre === 'Video, Cinematografica o Fonográfia' ||
+    this.tipoProduccionAcademica.Nombre === 'Obras Artisticas'
+      ? this.produccionAudiovisual = true : this.produccionAudiovisual = false;
+
+    this.tipoProduccionAcademica.Nombre === 'Software'
+      ? this.produccionSoftware = true : this.produccionSoftware = false;
+
+    this.tipoProduccionAcademica.Nombre === 'Articulo' ||
+    this.tipoProduccionAcademica.Nombre === 'Editorial' ||
+    this.tipoProduccionAcademica.Nombre === 'Articulo Corto' ||
+    this.tipoProduccionAcademica.Nombre === 'Publicación Impresa'
+      ? this.tipoArticulo = true : this.tipoArticulo = false;
+
+    this.tipoProduccionAcademica.Nombre === 'Capitulo Libro' ? this.tipoCapitulo = true : this.tipoCapitulo = false;
   }
 
   filterTitleProduction(tipoProduccionAcademica: TipoProduccionAcademica) {
@@ -358,7 +379,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   loadSubTipoFormFields(subtipoProduccionAcademica: SubTipoProduccionAcademica, callback: Function) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
-    this.construirForm();
     this.formConstruido = false;
     const query = `query=SubtipoProduccionId:${subtipoProduccionAcademica.Id}`;
     this.produccionAcademicaService.get(`metadato_subtipo_produccion/?limit=0&${query}`)
@@ -439,8 +459,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         }
       }
       this.loadSubTipoFormFields(this.info_produccion_academica.SubtipoProduccionId, fillForm);
-      this.construirForm();
-      this.formConstruido = true;
       this.editando = true;
     } else {
       this.info_produccion_academica = new ProduccionAcademicaPost();
@@ -571,6 +589,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         });
     });
   }
+
+  uploadVideoFiles(event) {}
 
   validarForm(event) {
     if (event.valid) {

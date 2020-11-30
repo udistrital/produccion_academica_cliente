@@ -521,6 +521,12 @@
         "numero_autor": "Numero identificación",
 
         "datos_basicos": "Datos básicos",
+        "soporte_audiovisual": "Soporte de archivo audiovisual",
+        "soporte_software": "Soporte de Software",
+        "span_soporte_drive": "Este archivo será subido a nuestro repositorio drive, puede tardar unos momentos en subir",
+
+        "span_articulo": "Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados",
+        "span_capitulo": "En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro",
 
         "labels": {
             "paginas": "Numero de páginas",
@@ -603,7 +609,7 @@
             "acta_especializacion": "Título de especialización obtenido",
             "acta_maestria": "Título de maestría obtenido",
             "acta_doctorado": "Título de doctorado obtenido",
-            "soporte_audiovisual": "Soporte del producto",
+            "soporte_audiovisual": "Soporte del producto audiovisual",
             "ejecutable_software": "Ejecutable del software",
             "codigo_software": "Código fuente de la aplicación"
         },
@@ -689,7 +695,7 @@
             "acta_especializacion": "Archivo pdf del título de especialización",
             "acta_maestria": "Archivo pdf del título de maestria",
             "acta_doctorado": "Archivo pdf del título de doctorado",
-            "soporte_audiovisual": "Archivo del soporte del producto",
+            "soporte_audiovisual": "Archivo de vídeo o audio del soporte del producto audiovisual",
             "ejecutable_software": "Archivo del ejecutable del programa",
             "codigo_software": "Archivo del código fuente de la aplicación"
         },

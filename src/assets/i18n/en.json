@@ -510,6 +510,12 @@
         "numero_autor": "Author ID",
 
         "datos_basicos": "Basic data",
+        "soporte_audiovisual": "Audiovisual file support",
+        "soporte_software": "Software support",
+        "span_soporte_drive": "This file will be uploaded to our drive repository, it may take a few moments to upload",
+
+        "span_articulo": "When your article is published in a special edition or similar, put 0 in volume and number, otherwise it must have all the requested fields",
+        "span_capitulo": "If you have more than one book chapter in the same book, only one of them will score a score. The total score will be divided by the number of total authors in the book",
 
         "labels": {
             "paginas": "Number of Pages",
@@ -592,7 +598,7 @@
             "acta_especializacion": "Specialization degree obtained",
             "acta_maestria": "Master degree obtained",
             "acta_doctorado": "PhD degree obtained",
-            "soporte_audiovisual": "Product support",
+            "soporte_audiovisual": "Audiovisual product support",
             "ejecutable_software": "Software executable",
             "codigo_software": "Application source code"
         },
@@ -678,7 +684,7 @@
             "acta_especializacion": "Specialization degree cetificate pdf file",
             "acta_maestria": "Master degree cetificate pdf file",
             "acta_doctorado": "PhD degree cetificate pdf file",
-            "soporte_audiovisual": "Product Support File",
+            "soporte_audiovisual": "Video or audio file of the audiovisual product support",
             "ejecutable_software": "Program executable file",
             "codigo_software": "Application source code file"
         },
