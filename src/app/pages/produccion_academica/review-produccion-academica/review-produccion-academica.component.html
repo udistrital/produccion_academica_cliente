@@ -2,14 +2,22 @@
   <form class="form-horizontal" style="width: 70%;">
     <fieldset [ngClass]="{'fieldseter':true}">
       <legend align="left">
-        <small>Datos solicitud</small>
+        <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
       </legend>
       <div class="row" *ngIf="solicitud_docente_selected">
         <div class="col-8">
           <h5>{{'produccion_academica.estado_solicitud' | translate}}</h5>
         </div>
         <div class="col-4">
-          <button class="btn-state" (click)="verDetallesEstado()">{{'produccion_academica.ver_detalle' | translate}}</button>
+          <button class="btn-state" (click)="seeDetailsState()">{{'produccion_academica.ver_detalle' | translate}}</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.tipo_produccion_academica' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.Nombre}}</label>
         </div>
       </div>
       <div class="row" *ngIf="solicitud_docente_selected">
@@ -71,5 +79,24 @@
       </div>
     </fieldset>
   </form>
-  <ngx-list-comentario></ngx-list-comentario>
+  <div class="row" style="width: 30%;">
+    <ngx-list-comentario 
+      [hidden]="!(rol === 'DOCENTE')" 
+      [observaciones_selected]="solicitud_docente_selected.Observaciones"
+      style="width: 100%;"></ngx-list-comentario>
+    <ngx-crud-comentario [hidden]="!(rol !== 'DOCENTE')"></ngx-crud-comentario>
+  </div>
+</div>
+<div class="row">
+  <button class="btn-review" [hidden]="!buttonAdmin">{{'produccion_academica.verificar' | translate}}</button>
+  <button class="btn-review" [hidden]="!buttonModify" (click)="sendRequest()">
+    {{'produccion_academica.modificar' | translate}}
+  </button>
+  <button class="btn-review" [hidden]="!buttonAdmin">{{'produccion_academica.rechazar' | translate}}</button>
+</div>
+<div class="row">
+  <ngx-list-comentario 
+    [hidden]="!(rol !== 'DOCENTE')" 
+    [observaciones_selected]="solicitud_docente_selected.Observaciones"
+    style="width: 100%;"></ngx-list-comentario>
 </div>

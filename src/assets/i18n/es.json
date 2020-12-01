@@ -49,6 +49,7 @@
         "terminos_datos": "Política de privacidad y tratamiento de datos",
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
         "cancelar": "Cancelar",
+        "persona": "Persona",
         "info_persona": "Información personal",
         "info_criterio": "Criterios ICFES",
         "info_estado": "Estado de inscripción",
@@ -478,10 +479,15 @@
         "produccion_academica": "Producción académica",
         "producciones_academicas": "Producciones académicas",
 
+        "verificar": "Verificar",
+        "modificar": "Modificar",
+        "rechazar": "Rechazar",
+
         "acciones": "Acciones",
         "placeholder_filtro": "Ej: Solicitudes completadas",
         "estado_solicitud": "Estado de Solicitud",
         "ver_detalle": "Ver Detalles",
+        "datos_solicitud": "Datos solicitud",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -757,5 +763,12 @@
         "documento_programa_registrado": "Documento registrado",
         "documento_documento_programa_no_registrado": "Error subiendo el documento de soporte",
         "seguro_continuar_registrar": "¿Está seguto de registrar este documento?"
+    },
+    "comentarios": {
+        "realizar_comentario": "Realizar Observación",
+        "titulo_comentario": "Título de la Observación",
+        "descripcion_comentario": "Descripción de la Observación",
+        "fecha_comentario": "Fecha de Observación",
+        "tipo_observacion": "Tipo Observación"
     }
 }

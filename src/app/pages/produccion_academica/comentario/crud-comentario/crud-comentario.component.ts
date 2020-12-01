@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ComentarioComponent } from '../comentario.component';
 import { Comentario } from './comentario';
 
 @Component({
@@ -11,7 +13,9 @@ export class CrudComentarioComponent implements OnInit {
   comentario: Comentario;
 
 
-  constructor() { }
+  constructor(private translate: TranslateService) {
+    this.comentario = new Comentario();
+  }
 
   ngOnInit() {
   }

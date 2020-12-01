@@ -1,36 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SgaMidService } from '../../../../@core/data/sga_mid.service';
 import { UserService } from '../../../../@core/data/users.service';
+import { TercerosService } from '../../../../@core/data/terceros.service';
+import { Tercero } from '../../../../@core/data/models/terceros/tercero';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-// import { UserService } from '../../../@core/data/users.service';
 import { ProduccionAcademicaPost } from '../../../../@core/data/models/produccion_academica/produccion_academica';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { Observacion } from '../../../../@core/data/models/solicitud_docente/observacion';
 
 @Component({
   selector: 'ngx-list-comentario',
   templateUrl: './list-comentario.component.html',
-  styleUrls: ['./list-comentario.component.scss']
+  styleUrls: ['./list-comentario.component.scss'],
 })
 export class ListComentarioComponent implements OnInit {
+  @Input('observaciones_selected')
+  set observaciones(observaciones_selected: Observacion[]) {
+    this.observaciones_selected = observaciones_selected;
+    this.loadData();
+    this.cargarCampos();
+  }
+
+  observaciones_selected: Observacion[];
   prod_selected: ProduccionAcademicaPost;
   cambiotab: boolean = false;
   config: ToasterConfig;
   settings: any;
-  persona_id: number;
+  rol: string;
+  userData: Tercero;
 
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService,
     private sgaMidService: SgaMidService,
+    private tercerosService: TercerosService,
     private user: UserService,
     private toasterService: ToasterService) {
-    this.persona_id = user.getPersonaId() || 1;
-    this.loadData();
-    this.cargarCampos();
+    this.rol = (JSON.parse(atob(localStorage
+      .getItem('id_token')
+      .split('.')[1])).role)
+      .filter((data: any) => (data.indexOf('/') === -1))[0];
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.cargarCampos();
     });
@@ -38,79 +51,62 @@ export class ListComentarioComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
-      edit: {
-        editButtonContent: '<i class="nb-edit"></i>',
-        saveButtonContent: '<i class="nb-checkmark"></i>',
-        cancelButtonContent: '<i class="nb-close"></i>',
+      actions: {
+        position: 'right',
+        columnTitle: this.translate.instant('produccion_academica.acciones'),
+        custom: [
+          {
+            name: 'view',
+            title: '<i class="nb-search" title="view"></i>',
+          },
+        ],
+        delete: false,
+        add: false,
+        edit: false,
       },
-      delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
-        confirmDelete: true,
-      },
-      actions: false,
       mode: 'external',
       columns: {
-        // Persona: {
-        //   title: this.translate.instant('GLOBAL.persona'),
-        //   // type: 'number;',
-        //   valuePrepareFunction: (value) => {
-        //     return value;
-        //   },
-        // },
-        //Titulo: {
-          //title: this.translate.instant('produccion_academica.titulo_produccion_academica'),
-          // type: 'string;',
-          //valuePrepareFunction: (value) => {
-            //return value;
-          //},
-          //width: '20%',
-        //},
-        //SubtipoProduccionId: {
-          //title: this.translate.instant('produccion_academica.tipo_produccion_academica'),
-          // type: 'tipo_produccion_academica;',
-          //valuePrepareFunction: (value) => {
-            //return value.Nombre;
-          //},
-          //width: '15%',
-        //},
-        //Resumen: {
-          //title: this.translate.instant('produccion_academica.resumen'),
-          // type: 'string;',
-          //valuePrepareFunction: (value) => {
-            //return value;
-          //},
-          //width: '30%',
-        //},
-        //EstadoEnteAutorId: {
-          //title: this.translate.instant('produccion_academica.estado_autor'),
-          // type: 'string',
-          //valuePrepareFunction: (value) => {
-            //return value.EstadoAutorProduccionId.Nombre;
-          //},
-          //width: '15%',
-        //},
-        //Fecha: {
-          //title: this.translate.instant('produccion_academica.fecha_publicacion'),
-          // type: 'string;',
-          //valuePrepareFunction: (value) => {
-            //return ((value) + '').substring(0, 10);
-          //},
-          //width: '10%',
-        //},
         Titulo: {
-          title: 'Título000000000000000',
+          title: this.translate.instant('comentarios.titulo_comentario'),
           filter: false,
           type: 'string;',
-          width: '50%',
+          valuePrepareFunction: (value) => {
+            return value;
+          },
+          width: '60%',
         },
-        Comentario: {
-          title: 'Comentario0000000000',
+        FechaCreacion: {
+          title: this.translate.instant('comentarios.fecha_comentario'),
           filter: false,
+          valuePrepareFunction: (value) => {
+            return ((value) + '').substring(0, 10);
+          },
           type: 'string;',
-          width: '50%',
-        }
+          width: '40%',
+        },
       },
     };
+    if (this.rol !== 'DOCENTE') {
+      this.settings.columns.Persona = {
+        title: this.translate.instant('GLOBAL.persona'),
+        valuePrepareFunction: (value) => {
+          return value.NombreCompleto;
+        },
+        filter: false,
+        width: '20%',
+      }
+      this.settings.columns.TipoObservacionId = {
+        title: this.translate.instant('comentarios.tipo_observacion'),
+        filter: false,
+        type: 'string;',
+        valuePrepareFunction: (value) => {
+          return value.Nombre;
+        },
+        width: '30%',
+      }
+      this.settings.columns.Titulo.width = '40%';
+      this.settings.columns.FechaCreacion.width = '30%';
+    }
   }
 
   useLanguage(language: string) {
@@ -118,163 +114,58 @@ export class ListComentarioComponent implements OnInit {
   }
 
   loadData(): void {
-    this.sgaMidService.get('produccion_academica/' + this.persona_id).subscribe((res: any) => {
-    // this.campusMidService.get('produccion_academica/' + 5).subscribe((res: any) => {
-      if (res !== null) {
-        if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
-          const data = <Array<ProduccionAcademicaPost>>res;
+    if (this.observaciones_selected.length > 0) {
+      this.loadTerceroData()
+        .then(() => {
+          const data = <Array<Observacion>>this.observaciones_selected;
           this.source.load(data);
-        } else {
-           Swal({
-            type: 'error',
-            title: '404',
-            text: this.translate.instant('ERROR.404'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
-        }
-      }
-    }, (error: HttpErrorResponse) => {
-      Swal({
-        type: 'error',
-        title: error.status + '',
-        text: this.translate.instant('ERROR.' + error.status),
-        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-      });
-    });
-  }
-
-  ngOnInit() {
-  }
-
-  onEdit(event): void {
-    if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 || event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2) {
-      this.prod_selected = event.data;
-      this.activetab();
-    } else if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
-      this.updateEstadoAutor(event.data);
+        })
+        .catch(error => {
+          if (!error.status)
+            error.status = 409;
+        })
     } else {
-      this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
+      const data = []
+      this.source.load(data);
     }
   }
 
-  onCreate(event): void {
-    this.prod_selected = undefined;
-    this.activetab();
-  }
-
-  onDelete(event): void {
-    if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1) {
-      const opt: any = {
-        title: this.translate.instant('GLOBAL.eliminar'),
-        text: this.translate.instant('produccion_academica.seguro_continuar_eliminar_produccion'),
-        icon: 'warning',
-        buttons: true,
-        dangerMode: true,
-        showCancelButton: true,
-      };
-      Swal(opt)
-      .then((willDelete) => {
-        if (willDelete.value) {
-          this.sgaMidService.delete('produccion_academica', event.data).subscribe((res: any) => {
-            if (res !== null) {
-              if (res.Body.Id !== undefined) {
-                this.source.load([]);
-                this.loadData();
-                this.showToast('info', 'Ok', this.translate.instant('produccion_academica.produccion_eliminada'));
-              } else {
-                this.showToast('info', 'Error', this.translate.instant('produccion_academica.produccion_no_eliminada'));
-              }
-            }
-           }, (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-          });
-        }
+  loadTerceroData() {
+    return new Promise((resolve, reject) => {
+      this.observaciones_selected.forEach(observacion => {
+        this.tercerosService.get('tercero/?query=Id:' + observacion.TerceroId)
+        .subscribe(res => {
+          if (Object.keys(res[0]).length > 0) {
+            observacion.Persona = <Tercero>res[0];
+            resolve(true);
+          }else {
+            this.observaciones_selected = [];
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
       });
-    } else if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2) {
-      const opt: any = {
-        title: 'Error',
-        text: this.translate.instant('produccion_academica.autor_no_puede_borrar'),
-        icon: 'warning',
-        buttons: false,
-      };
-      Swal(opt);
-    } else if (event.data.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
-      this.updateEstadoAutor(event.data);
-    } else {
-      this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
-    }
+    })
   }
 
-  updateEstadoAutor(data: any): void {
+  ngOnInit() {}
+
+  onView(event) {
     const opt: any = {
-      title: 'Error',
-      text: this.translate.instant('produccion_academica.autor_no_ha_confirmado'),
+      width: '550px',
+      title: event.data.Titulo,
+      text: event.data.Valor,
+      html: `
+        <p style="width: 80%; margin: auto">${event.data.Valor}</p> <br> <br>
+        <small>Escrito por: ${event.data.Persona.NombreCompleto}</small> <br>
+        <small>Fecha observación: ${(event.data.FechaCreacion + '').substring(0, 10)}</small>
+      `,
       icon: 'warning',
       buttons: true,
       dangerMode: true,
-      showCancelButton: true,
     };
     Swal(opt)
-    .then((willConfirm) => {
-      if (willConfirm.value) {
-        const optConfirmar: any = {
-          title: this.translate.instant('GLOBAL.confirmar'),
-          text: this.translate.instant('produccion_academica.confirma_participar_produccion'),
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true,
-          showCancelButton: true,
-          confirmButtonText: this.translate.instant('GLOBAL.si'),
-          cancelButtonText: this.translate.instant('GLOBAL.no'),
-        };
-         Swal(optConfirmar)
-        .then((isAuthor) => {
-          const dataPut = {
-            acepta: isAuthor.value ? true : false,
-            AutorProduccionAcademica: data.EstadoEnteAutorId,
-          }
-          this.sgaMidService.put('produccion_academica/estado_autor_produccion/' + dataPut.AutorProduccionAcademica.Id, dataPut)
-          .subscribe((res: any) => {
-            if (res.Type === 'error') {
-              Swal({
-                type: 'error',
-                title: res.Code,
-                text: this.translate.instant('ERROR.' + res.Code),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-              });
-              this.showToast('error', 'Error', this.translate.instant('produccion_academica.estado_autor_no_actualizado'));
-            } else {
-              this.loadData();
-              this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.estado_autor_actualizado'));
-            }
-          }, (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-          });
-        });
-      }
-    });
-  }
-
-  activetab(): void {
-    this.cambiotab = !this.cambiotab;
-  }
-
-  selectTab(event): void {
-    if (event.tabTitle === this.translate.instant('GLOBAL.lista')) {
-      this.cambiotab = false;
-    } else {
-      this.cambiotab = true;
-    }
   }
 
   onChange(event) {
@@ -282,11 +173,6 @@ export class ListComentarioComponent implements OnInit {
       this.loadData();
       this.cambiotab = !this.cambiotab;
     }
-  }
-
-
-  itemselec(event): void {
-    // console.log("afssaf");
   }
 
   private showToast(type: string, title: string, body: string) {

@@ -1,4 +1,4 @@
-export interface Comentario {
-    titulo: string;
-    valor: string;
+export class Comentario {
+    Titulo: string;
+    Valor: string;
 }

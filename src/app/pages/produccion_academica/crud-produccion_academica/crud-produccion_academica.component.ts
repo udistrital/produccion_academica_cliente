@@ -177,8 +177,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   loadUserData(): Promise<any> {
     this.source_authors = [];
     this.source.load(this.source_authors);
+    console.log(this.user.getPersonaId());
     return new Promise((resolve, reject) => {
-      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 2))
+      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 1))
         .subscribe(res => {
           // if (res !== null) {
           if (Object.keys(res[0]).length > 0) {
@@ -384,6 +385,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.produccionAcademicaService.get(`metadato_subtipo_produccion/?limit=0&${query}`)
       .subscribe(res => {
         if (res !== null) {
+          console.log(res);
           (<Array<MetadatoSubtipoProduccion>>res).forEach(metadato => {
             if (Object.keys(metadato).length > 0) {
               const field = JSON.parse(metadato.TipoMetadatoId.FormDefinition);

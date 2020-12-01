@@ -55,6 +55,7 @@
         "registrar": "Register",
         "confirmarCrear": "has been created",
         "confirmarActualizar": "has been updated",
+        "persona": "Person",
         "info_persona": "Personal data",
         "info_criterio": "ICFES criteria",
         "info_estado": "Registration Status",
@@ -467,10 +468,15 @@
         "produccion_academica": "Academic production",
         "producciones_academicas": "Academic productions",
 
+        "verificar": "Verificar",
+        "modificar": "Modificar",
+        "rechazar": "Rechazar",
+
         "acciones": "Actions",
         "placeholder_filtro": "e.g. Completed Request",
         "estado_solicitud": "Request State",
         "ver_detalle": "See Details",
+        "datos_solicitud": "Request data",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -746,5 +752,12 @@
         "descuento_academico_registrado": "Academic discount registered",
         "documento_descuento_academico_no_registrado": "Error uploading support document",
         "seguro_continuar_registrar": "Are you sure you want to register this academic discount?"
+    },
+    "comentarios": {
+        "realizar_comentario": "Make Observation",
+        "titulo_comentario": "Observation title",
+        "descripcion_comentario": "Observation body",
+        "fecha_comentario": "Observation date",
+        "tipo_observacion": "Observation type"
     }
 }

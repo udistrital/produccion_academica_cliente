@@ -9,7 +9,7 @@ import { ProduccionAcademicaService } from '../../../@core/data/produccion_acade
 import { MetadatoSubtipoProduccion } from '../../../@core/data/models/produccion_academica/metadato_subtipo_produccion';
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
 import { DocumentoService } from '../../../@core/data/documento.service';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { TercerosService } from '../../../@core/data/terceros.service';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
@@ -24,6 +24,9 @@ import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docen
 })
 export class ReviewProduccionAcademicaComponent implements OnInit {
 
+  rol: string;
+  buttonAdmin: boolean;
+  buttonModify: boolean;
   solicitud_docente_selected: SolicitudDocentePost;
   info_solicitud: SolicitudDocentePost;
   info_produccion_academica: ProduccionAcademicaPost;
@@ -43,7 +46,11 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
     this.loadProduccionAcademica();
+    this.setButtonOptions();
   }
+
+  @Output()
+  solicitudOut = new EventEmitter<any>();
 
   constructor(
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -53,17 +60,30 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     private tercerosService: TercerosService,
     private user: UserService,
     ) {
+    this.rol = (JSON.parse(atob(localStorage
+      .getItem('id_token')
+      .split('.')[1])).role)
+      .filter((data: any) => (data.indexOf('/') === -1))[0];
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
   }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  public setButtonOptions() {
+    if (this.rol !== 'DOCENTE') {
+      this.buttonAdmin = true;
+      this.buttonModify = true;
+    } else {
+      (this.solicitud_docente_selected.Observaciones.length > 0) ? this.buttonModify = true : this.buttonModify = false;
+      this.buttonAdmin = false;
+    }
   }
 
   public loadProduccionAcademica(): void {
     if (this.solicitud_docente_selected !== undefined) {
       this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
       console.info(this.solicitud_docente_selected)
-      this.obtenerDatosTercero(this.solicitud_docente_selected.EvolucionEstado[0].TerceroId);
+      this.getTerceroData(this.solicitud_docente_selected.EvolucionEstado[0].TerceroId);
       // const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
       //   tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
       // this.filterTitleProduction(tipoProduccion)
@@ -148,7 +168,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         });
   }
 
-  verDetallesEstado() {
+  seeDetailsState() {
     const opt: any = {
       width: '550px',
       title: this.translate.instant('produccion_academica.estado_solicitud'),
@@ -195,7 +215,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     Swal(opt)
   }
 
-  obtenerDatosTercero(terceroId) {
+  getTerceroData(terceroId) {
     this.tercerosService.get('tercero/?query=Id:' + terceroId)
     .subscribe(res => {
       if (Object.keys(res[0]).length > 0) {
@@ -211,5 +231,13 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       'location=no, directories=no, status=no, menubar=no,' +
       'scrollbars=no, resizable=no, copyhistory=no, ' +
       'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+  }
+
+
+  sendRequest() {
+    this.solicitudOut.emit({
+      data: this.solicitud_docente_selected,
+    });
+    console.info('paso');
   }
 }

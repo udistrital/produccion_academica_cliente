@@ -79,8 +79,10 @@
   }
 
   textarea {
-    border-color: none !important;
-    border: none !important;
+    padding: 5px;
+    min-height: 60px; 
+    border: 1px solid #DADFE6;
+    border-radius: 5px;
   }
 
   .star {
