@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TercerosService } from '../../../../@core/data/terceros.service';
 import { UserService } from '../../../../@core/data/users.service';
@@ -23,6 +23,9 @@ export class CrudComentarioComponent implements OnInit {
   set solicitud(solicitud_selected: SolicitudDocentePost) {
     this.solicitud_selected = solicitud_selected;
   }
+
+  @Output()
+  reloadTable = new EventEmitter<boolean>();
 
   solicitud_selected: SolicitudDocentePost;
   info_solicitud: SolicitudDocentePost;
@@ -154,6 +157,9 @@ export class CrudComentarioComponent implements OnInit {
           title: `Éxito al Enviar Observación.`,
           text: 'Información Modificada correctamente',
         });
+        this.observacion.Titulo = '';
+        this.observacion.Valor = '';
+        this.reloadTable.emit(true);
       }
     });
   }

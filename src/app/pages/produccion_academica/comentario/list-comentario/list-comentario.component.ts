@@ -112,6 +112,7 @@ export class ListComentarioComponent implements OnInit {
         .then(() => {
           const data = <Array<Observacion>>this.observaciones_selected;
           this.source.load(data);
+          this.cargarCampos();
         })
         .catch(error => {
           if (!error.status)

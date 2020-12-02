@@ -86,6 +86,7 @@
       style="width: 100%;"></ngx-list-comentario>
     <ngx-crud-comentario 
       [hidden]="!(rol !== 'DOCENTE')"
+      (reloadTable)="reloadTable($event)"
       [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
   </div>
 </div>

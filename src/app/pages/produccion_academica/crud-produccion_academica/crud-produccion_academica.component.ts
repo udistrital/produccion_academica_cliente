@@ -505,13 +505,12 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               });
               this.showToast('error', 'Error', this.translate.instant('produccion_academica.produccion_no_actualizada'));
             } else {
-              this.eventChange.emit(true);
               Swal({
                 title: `Éxito al modificar solicitud.`,
                 text: 'Información Modificada correctamente',
               });
               this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
-              this.router.navigate(['./pages/dashboard']);
+              this.eventChange.emit(true);
             }
           });
         }

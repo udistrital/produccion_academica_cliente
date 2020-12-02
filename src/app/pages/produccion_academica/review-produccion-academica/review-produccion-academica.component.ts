@@ -52,6 +52,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   @Output()
   solicitudOut = new EventEmitter<any>();
 
+  @Output() eventChange = new EventEmitter();
+
   constructor(
     private produccionAcademicaService: ProduccionAcademicaService,
     private nuxeoService: NuxeoService,
@@ -74,7 +76,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       this.buttonAdmin = true;
       this.buttonModify = true;
     } else {
-      (this.solicitud_docente_selected.Observaciones.length > 0) ? this.buttonModify = true : this.buttonModify = false;
+      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) 
+        ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }
@@ -236,10 +239,13 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   }
 
-
   sendRequest() {
     this.solicitudOut.emit({
       data: this.solicitud_docente_selected,
     });
+  }
+
+  reloadTable(event) {
+    this.eventChange.emit(event);
   }
 }

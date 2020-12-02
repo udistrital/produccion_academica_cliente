@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { UserService } from '../../../@core/data/users.service';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-// import { UserService } from '../../../@core/data/users.service';
 import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
-import { HttpErrorResponse } from '@angular/common/http';
+import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import { filterList } from './filtros'
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { filterList } from './filtros'
-import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 
 @Component({
   selector: 'ngx-list-produccion-academica',
@@ -27,6 +26,8 @@ export class ListProduccionAcademicaComponent implements OnInit {
   filter: any;
   rol: string;
   persona_id: number;
+  solicitudes_list: SolicitudDocentePost[];
+  solicitudes_list_filter: SolicitudDocentePost[];
 
   source: LocalDataSource = new LocalDataSource();
 
@@ -157,6 +158,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
                       solicitud.ProduccionAcademica = produccion;
                   })
                 });
+                this.solicitudes_list = data;
                 Swal.close();
                 this.source.load(data);
               } else {
@@ -198,88 +200,27 @@ export class ListProduccionAcademicaComponent implements OnInit {
   ngOnInit() { }
 
   onEdit(event): void {
-    if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 ||
-        event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
-    ) {
-      this.solicitud_selected = event.data;
-      this.activetab(1);
-    } else if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
-      this.updateEstadoAutor(event.data);
-    } else {
-      this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
-    }
+    this.solicitud_selected = event.data;
+    this.activetab(1);
   }
 
   onView(event): void {
-    if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 ||
-        event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
-    ) {
-      this.solicitud_selectedReview = event.data;
-      this.activetab(2);
-    } else if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 3) {
-      this.updateEstadoAutor(event.data);
-    } else {
-      this.showToast('error', 'Error', this.translate.instant('GLOBAL.accion_no_permitida'));
-    }
+    this.solicitud_selectedReview = event.data;
+    this.activetab(2);
   }
 
   filterSolicitudes(filter) {
-
-  }
-
-  updateEstadoAutor(data: any): void {
-    const opt: any = {
-      title: 'Error',
-      text: this.translate.instant('produccion_academica.autor_no_ha_confirmado'),
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-      showCancelButton: true,
-    };
-    Swal(opt)
-    .then((willConfirm) => {
-      if (willConfirm.value) {
-        const optConfirmar: any = {
-          title: this.translate.instant('GLOBAL.confirmar'),
-          text: this.translate.instant('produccion_academica.confirma_participar_produccion'),
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true,
-          showCancelButton: true,
-          confirmButtonText: this.translate.instant('GLOBAL.si'),
-          cancelButtonText: this.translate.instant('GLOBAL.no'),
-        };
-         Swal(optConfirmar)
-        .then((isAuthor) => {
-          const dataPut = {
-            acepta: isAuthor.value ? true : false,
-            AutorProduccionAcademica: data.EstadoEnteAutorId,
-          }
-          this.sgaMidService.put('produccion_academica/estado_autor_produccion/' + dataPut.AutorProduccionAcademica.Id, dataPut)
-          .subscribe((res: any) => {
-            if (res.Type === 'error') {
-              Swal({
-                type: 'error',
-                title: res.Code,
-                text: this.translate.instant('ERROR.' + res.Code),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-              });
-              this.showToast('error', 'Error', this.translate.instant('produccion_academica.estado_autor_no_actualizado'));
-            } else {
-              this.loadData();
-              this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.estado_autor_actualizado'));
-            }
-          }, (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-          });
-        });
-      }
-    });
+    console.info(filter);
+    let data;
+    if (filter) {
+      this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
+        solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id,
+      )
+      data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
+    } else {
+      data = <Array<SolicitudDocentePost>>this.solicitudes_list;
+    }
+    this.source.load(data);
   }
 
   activetab(number): void {
@@ -296,16 +237,15 @@ export class ListProduccionAcademicaComponent implements OnInit {
     }
   }
 
-  onChange(event, number) {
+  onChange(event) {
     if (event) {
       this.loadData();
-      this.cambiotab = number;
+      this.cambiotab = 0;
     }
   }
 
   private showToast(type: string, title: string, body: string) {
     this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
       positionClass: 'toast-top-center',
       timeout: 5000,  // ms
       newestOnTop: true,
@@ -323,5 +263,4 @@ export class ListProduccionAcademicaComponent implements OnInit {
     };
     this.toasterService.popAsync(toast);
   }
-
 }

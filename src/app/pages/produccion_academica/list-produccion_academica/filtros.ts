@@ -1,4 +1,10 @@
 export const filterList = [
-  'radicado',
-  'por_modificar',
+  {
+    Id: 1,
+    Nombre: 'radicado',
+  },
+  {
+    Id: 2,
+    Nombre: 'por_modificar',
+  },
 ]

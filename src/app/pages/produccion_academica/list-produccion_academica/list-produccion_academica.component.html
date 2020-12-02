@@ -15,7 +15,7 @@
               [ngModelOptions]="{standalone: true}">
               <mat-option>--Seleccionar--</mat-option>
               <mat-option *ngFor="let filtro of filtros" [value]="filtro">
-                {{'produccion_academica.filtros.' + filtro | translate}}
+                {{'produccion_academica.filtros.' + filtro.Nombre | translate}}
               </mat-option>
             </mat-select>
           </div>
@@ -28,12 +28,15 @@
           ></ng2-smart-table>
         </nb-tab>
         <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
-          <ngx-crud-produccion-academica [solicitud_docente_selected]="solicitud_selected" (eventChange)="onChange($event, 2)">
+          <ngx-crud-produccion-academica [solicitud_docente_selected]="solicitud_selected" (eventChange)="onChange($event)">
           </ngx-crud-produccion-academica>
           <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
         </nb-tab>
         <nb-tab tabTitle="{{ 'GLOBAL.vista' | translate }}" [active]="cambiotab == 2" *ngIf="solicitud_selectedReview">
-          <ngx-review-produccion-academica [solicitud_docente_selected]="solicitud_selectedReview" (solicitudOut)="onEdit($event)">
+          <ngx-review-produccion-academica 
+          [solicitud_docente_selected]="solicitud_selectedReview" 
+          (eventChange)="onChange($event)"
+          (solicitudOut)="onEdit($event)">
           </ngx-review-produccion-academica>
           <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
         </nb-tab>
