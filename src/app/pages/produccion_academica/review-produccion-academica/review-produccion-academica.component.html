@@ -84,7 +84,9 @@
       [hidden]="!(rol === 'DOCENTE')" 
       [observaciones_selected]="solicitud_docente_selected.Observaciones"
       style="width: 100%;"></ngx-list-comentario>
-    <ngx-crud-comentario [hidden]="!(rol !== 'DOCENTE')"></ngx-crud-comentario>
+    <ngx-crud-comentario 
+      [hidden]="!(rol !== 'DOCENTE')"
+      [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
   </div>
 </div>
 <div class="row">

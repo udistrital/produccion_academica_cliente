@@ -179,7 +179,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Estado:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado[0].EstadoTipoSolicitudId.EstadoId.Nombre}</p>
+            <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
+              .EstadoTipoSolicitudId.EstadoId.Nombre}</p>
           </div>
         </div>
         <div class="row">
@@ -187,7 +188,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Fecha Creación:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado[0].FechaCreacion.substring(0, 10)}</p>
+            <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
+              .FechaCreacion.substring(0, 10)}</p>
           </div>
         </div>
         <div class="row">
@@ -195,7 +197,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Fecha Limite:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado[0].FechaLimite.substring(0, 10)}</p>
+            <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
+              .FechaLimite.substring(0, 10)}</p>
           </div>
         </div>
         <div class="row">
@@ -238,6 +241,5 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.solicitudOut.emit({
       data: this.solicitud_docente_selected,
     });
-    console.info('paso');
   }
 }

@@ -82,7 +82,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
         EvolucionEstado: {
           title: this.translate.instant('produccion_academica.estado_solicitud'),
           valuePrepareFunction: (value) => {
-            return value[0].EstadoTipoSolicitudId.EstadoId.Nombre;
+            return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
           },
           filter: false,
           width: '10%',
@@ -198,7 +198,6 @@ export class ListProduccionAcademicaComponent implements OnInit {
   ngOnInit() { }
 
   onEdit(event): void {
-    console.log(event)
     if (event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 1 ||
         event.data.ProduccionAcademica.EstadoEnteAutorId.EstadoAutorProduccionId.Id === 2
     ) {

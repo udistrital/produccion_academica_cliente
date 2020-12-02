@@ -1,10 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { SgaMidService } from '../../../../@core/data/sga_mid.service';
-import { UserService } from '../../../../@core/data/users.service';
 import { TercerosService } from '../../../../@core/data/terceros.service';
 import { Tercero } from '../../../../@core/data/models/terceros/tercero';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ProduccionAcademicaPost } from '../../../../@core/data/models/produccion_academica/produccion_academica';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,7 +25,6 @@ export class ListComentarioComponent implements OnInit {
   observaciones_selected: Observacion[];
   prod_selected: ProduccionAcademicaPost;
   cambiotab: boolean = false;
-  config: ToasterConfig;
   settings: any;
   rol: string;
   userData: Tercero;
@@ -36,10 +32,7 @@ export class ListComentarioComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService,
-    private sgaMidService: SgaMidService,
-    private tercerosService: TercerosService,
-    private user: UserService,
-    private toasterService: ToasterService) {
+    private tercerosService: TercerosService) {
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
       .split('.')[1])).role)
@@ -167,33 +160,4 @@ export class ListComentarioComponent implements OnInit {
     };
     Swal(opt)
   }
-
-  onChange(event) {
-    if (event) {
-      this.loadData();
-      this.cambiotab = !this.cambiotab;
-    }
-  }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
-  }
-
 }
