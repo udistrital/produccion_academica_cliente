@@ -95,3 +95,4 @@ steps:
       status: [success, failure]
       branch: [master, release/*] 
       event: [push, pull_request]
+      
