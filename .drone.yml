@@ -2,72 +2,96 @@ workspace:
   base: /go
   path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
   when:
-      branch: [master, test]
-      event: [push, pull_request]
+      branch:
+      - master
+      - release/*
+kind: pipeline
+name: cliente_deploy
 
-pipeline:
-
+steps:
   # build and test the go program
-  nodejs:
+  - name: nodejs
     image: node:12.6.0
     commands:
      - node --version
      - npm i
      - npm run build:test
+     - ls -la
     when:
-      branch: [test]
-      event: [push, pull_request]
-      
-  nodejs:  
+      branch: [release/*]
+      event: [push]
+
+  - name: nodejs_prod
     image: node:12.6.0
     commands:
      - node --version
      - npm i
      - npm run build:prod
+     - ls -la
     when:
       branch: [master]
       event: [push, pull_request]
 
   # upload app.zip to s3 bucket for CodePipline
-  publish_s3:
+  - name: publish_s3
     image: plugins/s3
-    secrets: [ aws_access_key_id, aws_secret_access_key ]
-    region: "us-east-1"    
-    bucket: "cliente-pruebas"
-    source: dist/**/*
-    target: /pruebas${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
-    strip_prefix: dist/
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      region: "us-east-1"    
+      bucket: "cliente-pruebas"
+      source: dist/**/*
+      target: /${DRONE_REPO_NAME}
+      strip_prefix: dist/
     when:
-      branch: [test]
+      branch: [release/*]
       event: [push, pull_request] 
-    
-  # upload app.zip to s3 bucket for CodePipline
-  publish_s3:
+
+ # upload app.zip to s3 bucket for CodePipline
+  - name: publish_s3_prod
     image: plugins/s3
-    secrets: [ aws_access_key_id, aws_secret_access_key ]
-    region: "us-east-1"    
-    bucket: "cliente-prod"
-    source: dist/**/*
-    target: /${DRONE_REPO_NAME%%_cliente}.portaloas.udistrital.edu.co
-    strip_prefix: dist/
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      region: "us-east-1"    
+      bucket: "cliente-prod"
+      source: dist/**/*
+      target: /${DRONE_REPO_NAME}
+      strip_prefix: dist/
     when:
       branch: [master]
       event: [push, pull_request] 
 
   #Notify results to telegram
-  notify_telegram:
+  - name: notify_telegram
     image: appleboy/drone-telegram
-    secrets: [ telegram_token, telegram_to ]
-    format: html
-    message: >
-      {{#success build.status}}
-        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">SUCCESS</a>
-        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
-      {{else}}
-        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">FAILURE</a>
-        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
-      {{/success}}
+    settings:
+      token:
+        from_secret: telegram_token
+      to:
+        from_secret: telegram_to
+      format: html
+      message: >
+        {{#success build.status}}
+          ✅ <a href="{{build.link}}">SUCCESS</a> <b>Build #{{build.number}}</b>
+          <b>type: </b><code>{{ build.event }}</code>
+          <b>Repo: </b><code>{{repo.name}}</code>
+          <b>Branch: </b><code>{{commit.branch}}</code>
+          <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+          <b>Autor: </b>{{commit.author}} <code>&#128526 </code>
+        {{else}}
+          ❌ <a href="{{build.link}}">FAILURE</a> <b>Build #{{build.number}}</b>
+          <b>type: </b><code>{{ build.event }}</code>
+          <b>Repo: </b><code>{{repo.name}}</code>
+          <b>Branch: </b><code>{{commit.branch}}</code>
+          <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+          <b>Autor: </b>{{commit.author}} <code>&#128549 </code>
+        {{/success}}
     when:
       status: [success, failure]
-      branch: [master]
+      branch: [master, release/*] 
       event: [push, pull_request]
