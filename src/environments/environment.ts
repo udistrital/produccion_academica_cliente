@@ -21,9 +21,9 @@ export const environment = {
     CLIENTE_ID: 'Dnm6dwGVC74_jzLgFpYlnL7t0BAa',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'http://localhost:4200/',
+    REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'http://localhost:4200/',
+    SIGN_OUT_REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
   },
 
   TERCEROS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/terceros_crud/v1/',
