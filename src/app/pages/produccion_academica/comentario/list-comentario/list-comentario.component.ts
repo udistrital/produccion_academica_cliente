@@ -18,6 +18,7 @@ export class ListComentarioComponent implements OnInit {
   @Input('observaciones_selected')
   set observaciones(observaciones_selected: Observacion[]) {
     this.observaciones_selected = observaciones_selected;
+    console.info(this.observaciones_selected);
     this.loadData();
     this.cargarCampos();
   }
@@ -110,7 +111,9 @@ export class ListComentarioComponent implements OnInit {
     if (this.observaciones_selected.length > 0) {
       this.loadTerceroData()
         .then(() => {
+          console.info('paso')
           const data = <Array<Observacion>>this.observaciones_selected;
+          console.info(data);
           this.source.load(data);
           this.cargarCampos();
         })

@@ -51,6 +51,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   title_tipo_produccion: string;
   date_tipo_produccion: string;
   category_id: number;
+  id_data_drive: number[] = [];
+  files_to_drive: any[] = [];
   info_solicitud: SolicitudDocentePost;
   info_produccion_academica: ProduccionAcademicaPost;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
@@ -125,6 +127,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   construirForm() {
     this.formProduccionAcademica.titulo = this.translate.instant('produccion_academica.produccion_academica');
     this.formProduccionAcademica.btn = this.translate.instant('GLOBAL.guardar');
+    console.info('construirForm - formProduccionAcademica: ', this.formProduccionAcademica)
     for (let i = 0; i < this.formProduccionAcademica.campos.length; i++) {
       this.formProduccionAcademica.campos[i].label = this.translate.instant('produccion_academica.labels.' + this.formProduccionAcademica.campos[i].label_i18n);
       this.formProduccionAcademica.campos[i].placeholder =
@@ -380,21 +383,27 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   loadSubTipoFormFields(subtipoProduccionAcademica: SubTipoProduccionAcademica, callback: Function) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
     this.formConstruido = false;
+    this.id_data_drive = [];
+    this.files_to_drive = [];
     const query = `query=SubtipoProduccionId:${subtipoProduccionAcademica.Id}`;
     this.produccionAcademicaService.get(`metadato_subtipo_produccion/?limit=0&${query}`)
       .subscribe(res => {
         if (res !== null) {
-          console.log(res);
+          console.info('loadSubtipoFormField - res(metadatos)', res);
           (<Array<MetadatoSubtipoProduccion>>res).forEach(metadato => {
             if (Object.keys(metadato).length > 0) {
               const field = JSON.parse(metadato.TipoMetadatoId.FormDefinition);
               field.nombre = metadato.Id;
               this.formProduccionAcademica.campos.push(field);
+              if (metadato.TipoMetadatoId.FormDefinition === '{}') {
+                this.id_data_drive.push(metadato.Id)
+              }
             }
           });
+          console.info('loadSubtipoFormField - id_data_drive', this.id_data_drive);
           if (callback !== undefined) {
-            console.log('campos: ', this.formProduccionAcademica.campos)
-            console.log('Metadatos: ', this.info_produccion_academica.Metadatos)
+            console.info('loadSubtipoFormField(call) - Campos: ', this.formProduccionAcademica.campos)
+            console.info('loadSubtipoFormField(call) - Metadatos: ', this.info_produccion_academica.Metadatos)
             callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService);
           }
           this.construirForm();
@@ -418,7 +427,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         this.info_solicitud = JSON.parse(JSON.stringify(this.solicitud_docente_selected));
         this.source_authors = this.info_produccion_academica.Autores;
         this.source.load(this.source_authors);
-        console.info(this.estadosSolicitudes);
         const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
           tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
         this.filterTitleProduction(tipoProduccion)
@@ -493,7 +501,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         } else {
           this.info_produccion_academica = <ProduccionAcademicaPost>res;
           this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-          console.info(this.info_solicitud)
+          console.info('updateProduccionAcademica - info_solicitud: ', this.info_solicitud)
           this.sgaMidService.put('solicitud_docente', this.info_solicitud)
           .subscribe((resp: any) => {
             if (resp.Type === 'error') {
@@ -594,7 +602,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       });
       this.nuxeoService.getDocumentos$(files, this.documentoService)
         .subscribe(response => {
-          console.info('respuesta nuxeo: ', response);
+          console.info('uploadFilesToMetadata - Resp nuxeo: ', response);
           if (Object.keys(response).length === files.length) {
             files.forEach((file) => {
               metadatos.push({
@@ -602,7 +610,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 Valor: response[file.Id].Id + '', // Se castea el valor del string
               });
             });
-            console.info(metadatos);
             resolve(true);
           }
         }, error => {
@@ -611,9 +618,41 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  uploadVideoFiles(event) {}
+  uploadDriveFilesToMetaData(files, metadatos) {
+    return new Promise((resolve, reject) => {
+      files.forEach(file => {
+        const formData = new FormData();
+        formData.append('archivo', file.File);
+
+        this.sgaMidService.post_file('drive', formData)
+        .subscribe((res: any) => {
+          console.info('uploadDriveFilesToMetadata - res: ', res);
+          if (res) {
+            metadatos.push({
+              MetadatoSubtipoProduccionId: file.Id,
+              Valor: 'hola',
+              // Valor: res[file.Id].Id + '', // Se castea el valor del string
+            });
+          }
+          resolve(true);
+        }, error => {
+          reject(error);
+        });
+      });
+    });
+  }
+
+  loadDriveFiles(event, numId) {
+    const file = event.target.files[0];
+    this.files_to_drive.push({
+      Id: this.id_data_drive[numId],
+      File: file,
+    });
+    console.info('loadDriveFiles - files_to_drive: ', this.files_to_drive);
+  }
 
   validarForm(event) {
+    console.info('validarForm - formProduccionAcademica: ', this.formProduccionAcademica);
     if (event.valid) {
       if (this.info_produccion_academica.Titulo === undefined ||
         this.info_produccion_academica.Fecha === undefined) {
@@ -628,20 +667,27 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         const metadatos = [];
         const filesToUpload = [];
         if (event.data.ProduccionAcademica) {
-          console.info(event.data.ProduccionAcademica);
+          console.info('validarForm - event.data.produccionAcademica: ', event.data.ProduccionAcademica);
 
           const tempMetadatos = event.data.ProduccionAcademica;
           const keys = Object.keys(tempMetadatos);
           for (let i = 0; i < keys.length; i++) {
-            if (tempMetadatos[keys[i]].nombre) {
-              if (tempMetadatos[keys[i]].file !== undefined) {
-                filesToUpload.push(tempMetadatos[keys[i]]);
+            if (tempMetadatos[keys[i]] !== undefined) {
+              if (tempMetadatos[keys[i]].nombre) {
+                if (tempMetadatos[keys[i]].file !== undefined) {
+                  filesToUpload.push(tempMetadatos[keys[i]]);
+                }
+              } else {
+                metadatos.push({
+                  MetadatoSubtipoProduccionId: parseInt(keys[i], 10),
+                  Valor: tempMetadatos[keys[i]],
+                });
               }
             } else {
-              metadatos.push({
-                MetadatoSubtipoProduccionId: parseInt(keys[i], 10),
-                Valor: tempMetadatos[keys[i]],
-              });
+              this.files_to_drive.forEach(fileDrive => {
+                if (parseInt(keys[i], 10) === fileDrive.Id)
+                  tempMetadatos[keys[i]] = fileDrive.File
+              })
             }
           }
         } else {
@@ -679,6 +725,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               if (filesToUpload.length > 0) {
                 promises.push(this.uploadFilesToMetadaData(filesToUpload, metadatos));
               }
+              if (this.files_to_drive.length > 0) {
+                promises.push(this.uploadDriveFilesToMetaData(this.files_to_drive, metadatos))
+              }
               this.info_produccion_academica.Metadatos = metadatos;
               this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
               Promise.all(promises)
@@ -709,6 +758,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       });
     }
   }
+
+  onFileChange(event) { }
 
   private showToast(type: string, title: string, body: string) {
     this.config = new ToasterConfig({

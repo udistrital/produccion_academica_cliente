@@ -86,7 +86,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     if (this.solicitud_docente_selected !== undefined) {
       this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
       console.info(this.solicitud_docente_selected)
-      this.getTerceroData(this.solicitud_docente_selected.EvolucionEstado[0].TerceroId);
+      this.getTerceroData(this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].TerceroId);
       // const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
       //   tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
       // this.filterTitleProduction(tipoProduccion)
