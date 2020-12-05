@@ -112,8 +112,21 @@
           <div class="col-2">
             <input type="file" id="file-drive" (change)="loadDriveFiles($event, 0)" />
           </div>
-          <div class="col-8">
+          <div class="col-6">
             <p class="file-place">{{'produccion_academica.placeholders.soporte_audiovisual' | translate}}</p>
+          </div>
+          <div class="col-4" *ngIf="files_to_drive[0]">
+            <img class="carousel-image" [src]="'assets/images/file.png'"
+            (click)="download(files_to_drive[0].URL, files_to_drive[0].File.name,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+            height="50px">
+          </div>
+        </div>
+        <div class="row" *ngIf="editando && link_data_drive.length > 0">
+          <div class="col-6">
+            <p>{{'produccion_academica.link_drive' | translate}}</p>
+          </div>
+          <div class="col-6">
+            <a [href]="link_data_drive[0]" target="_blank">Link de documento</a>
           </div>
         </div>
         <div class="row">
@@ -143,8 +156,21 @@
             <div class="col-2">
               <input type="file" id="file-drive" (change)="loadDriveFiles($event, 0)" />
             </div>
-            <div class="col-8">
+            <div class="col-6">
               <p class="file-place">{{'produccion_academica.placeholders.ejecutable_software' | translate}}</p>
+            </div>
+            <div class="col-4" *ngIf="files_to_drive[0]">
+              <img class="carousel-image" [src]="'assets/images/file.png'" *ngIf="files_to_drive[0].File"
+              (click)="download(files_to_drive[0].URL, files_to_drive[0].File.name,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+              height="50px">
+            </div>
+          </div>
+          <div class="row" *ngIf="editando && link_data_drive.length > 0">
+            <div class="col-6">
+              <p>{{'produccion_academica.link_drive' | translate}}</p>
+            </div>
+            <div class="col-6">
+              <a [href]="link_data_drive[0]" target="_blank">Link de documento</a>
             </div>
           </div>
           <div class="row">
@@ -163,8 +189,21 @@
             <div class="col-2">
               <input type="file" id="file-drive" (change)="loadDriveFiles($event, 1)" />
             </div>
-            <div class="col-8">
+            <div class="col-4">
               <p class="file-place">{{'produccion_academica.placeholders.codigo_software' | translate}}</p>
+            </div>
+            <div class="col-4" *ngIf="files_to_drive[1]">
+              <img class="carousel-image" [src]="'assets/images/file.png'"
+              (click)="download(files_to_drive[1].URL, files_to_drive[1].File.name,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+              height="50px">
+            </div>
+          </div>
+          <div class="row" *ngIf="editando && link_data_drive.length > 0">
+            <div class="col-6">
+              <p>{{'produccion_academica.link_drive' | translate}}</p>
+            </div>
+            <div class="col-6">
+              <a [href]="link_data_drive[1]" target="_blank">Link de documento</a>
             </div>
           </div>
           <div class="row">

@@ -105,6 +105,9 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
                 campo.idFile = parseInt(metadato.Valor, 10);
                 filesToGet.push({ Id: campo.idFile, key: campo.nombre });
               }
+              if (!campo.etiqueta) {
+                campo.label_i18n = metadato.MetadatoSubtipoProduccionId.TipoMetadatoId.CodigoAbreviacion;
+              }
             };
           });
         });

@@ -24,6 +24,7 @@ import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'ngx-crud-produccion-academica',
@@ -51,6 +52,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   title_tipo_produccion: string;
   date_tipo_produccion: string;
   category_id: number;
+  link_data_drive: string[] = [];
   id_data_drive: number[] = [];
   files_to_drive: any[] = [];
   info_solicitud: SolicitudDocentePost;
@@ -383,6 +385,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   loadSubTipoFormFields(subtipoProduccionAcademica: SubTipoProduccionAcademica, callback: Function) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
     this.formConstruido = false;
+    this.link_data_drive = [];
     this.id_data_drive = [];
     this.files_to_drive = [];
     const query = `query=SubtipoProduccionId:${subtipoProduccionAcademica.Id}`;
@@ -404,7 +407,13 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           if (callback !== undefined) {
             console.info('loadSubtipoFormField(call) - Campos: ', this.formProduccionAcademica.campos)
             console.info('loadSubtipoFormField(call) - Metadatos: ', this.info_produccion_academica.Metadatos)
-            callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService);
+            callback(
+              this.formProduccionAcademica.campos,
+              this.info_produccion_academica.Metadatos,
+              this.nuxeoService,
+              this.documentoService,
+              this.link_data_drive,
+            );
           }
           this.construirForm();
           this.formConstruido = true;
@@ -425,6 +434,13 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       .then(() => {
         this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
         this.info_solicitud = JSON.parse(JSON.stringify(this.solicitud_docente_selected));
+        ( this.info_produccion_academica.SubtipoProduccionId.Id === 23)
+          ? this.produccionSoftware = true : this.produccionSoftware = false;
+        ( this.info_produccion_academica.SubtipoProduccionId.Id === 24 ||
+          this.info_produccion_academica.SubtipoProduccionId.Id === 25 ||
+          this.info_produccion_academica.SubtipoProduccionId.Id === 26 ||
+          this.info_produccion_academica.SubtipoProduccionId.Id === 27
+        ) ? this.produccionAudiovisual = true : this.produccionAudiovisual = false;
         this.source_authors = this.info_produccion_academica.Autores;
         this.source.load(this.source_authors);
         const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
@@ -432,7 +448,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         this.filterTitleProduction(tipoProduccion)
         this.filterDateProduccion(tipoProduccion)
         this.Metadatos = [];
-        const fillForm = function (campos, Metadatos, nuxeoService, documentoService) {
+        const fillForm = function (campos, Metadatos, nuxeoService, documentoService, links) {
           const filesToGet = [];
           campos.forEach(campo => {
             Metadatos.forEach(metadato => {
@@ -444,6 +460,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 if (campo.etiqueta === 'file') {
                   campo.idFile = parseInt(metadato.Valor, 10);
                   filesToGet.push({ Id: campo.idFile, key: campo.nombre });
+                }
+                if (!campo.etiqueta) {
+                  links.push(metadato.Valor);
                 }
               };
             });
@@ -490,6 +509,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.sgaMidService.put('produccion_academica', this.info_produccion_academica)
       .subscribe((res: any) => {
+        console.info(res)
         if (res.Type === 'error') {
           Swal({
             type: 'error',
@@ -528,6 +548,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   createProduccionAcademica(ProduccionAcademica: any): void {
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+    console.info('createProduccionAcademica - info_produccion_academica', this.info_produccion_academica)
     this.sgaMidService.post('produccion_academica', this.info_produccion_academica)
       .subscribe((res: any) => {
         if (res.Type === 'error') {
@@ -618,36 +639,44 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  uploadDriveFilesToMetaData(files, metadatos) {
+  uploadDriveFilesToMetaData(id, file, metadatos) {
     return new Promise((resolve, reject) => {
-      files.forEach(file => {
-        const formData = new FormData();
-        formData.append('archivo', file.File);
-
-        this.sgaMidService.post_file('drive', formData)
-        .subscribe((res: any) => {
-          console.info('uploadDriveFilesToMetadata - res: ', res);
-          if (res) {
-            metadatos.push({
-              MetadatoSubtipoProduccionId: file.Id,
-              Valor: 'hola',
-              // Valor: res[file.Id].Id + '', // Se castea el valor del string
-            });
-          }
+      const formData = new FormData();
+      formData.append('archivo', file);
+      this.sgaMidService.post_file('drive', formData)
+      .subscribe((res: any) => {
+        console.info('uploadDriveFilesToMetadata - res: ', res);
+        if (res) {
+          metadatos.push({
+            MetadatoSubtipoProduccionId: id,
+            Valor: res.File.Link,
+          });
           resolve(true);
-        }, error => {
-          reject(error);
-        });
+        }
+      }, error => {
+        reject(error);
       });
     });
   }
 
   loadDriveFiles(event, numId) {
     const file = event.target.files[0];
-    this.files_to_drive.push({
-      Id: this.id_data_drive[numId],
-      File: file,
-    });
+    if (this.files_to_drive[numId])
+      this.files_to_drive.splice(numId, 1);
+    if ( numId === 0) {
+      this.files_to_drive.unshift({
+        Id: this.id_data_drive[numId],
+        File: file,
+        URL: URL.createObjectURL(event.srcElement.files[0]),
+      });
+    } else {
+      this.files_to_drive.length === 0 && this.files_to_drive.push({})
+      this.files_to_drive.push({
+        Id: this.id_data_drive[numId],
+        File: file,
+        URL: URL.createObjectURL(event.srcElement.files[0]),
+      });
+    }
     console.info('loadDriveFiles - files_to_drive: ', this.files_to_drive);
   }
 
@@ -726,7 +755,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 promises.push(this.uploadFilesToMetadaData(filesToUpload, metadatos));
               }
               if (this.files_to_drive.length > 0) {
-                promises.push(this.uploadDriveFilesToMetaData(this.files_to_drive, metadatos))
+                this.files_to_drive.forEach(file => {
+                  promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, metadatos))
+                })
               }
               this.info_produccion_academica.Metadatos = metadatos;
               this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
@@ -760,6 +791,15 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   }
 
   onFileChange(event) { }
+
+  download(url, title, w, h) {
+    const left = (screen.width / 2) - (w / 2);
+    const top = (screen.height / 2) - (h / 2);
+    window.open(url, title, 'toolbar=no,' +
+      'location=no, directories=no, status=no, menubar=no,' +
+      'scrollbars=no, resizable=no, copyhistory=no, ' +
+      'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+  }
 
   private showToast(type: string, title: string, body: string) {
     this.config = new ToasterConfig({

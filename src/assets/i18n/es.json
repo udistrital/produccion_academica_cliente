@@ -488,6 +488,7 @@
         "estado_solicitud": "Estado de Solicitud",
         "ver_detalle": "Ver Detalles",
         "datos_solicitud": "Datos solicitud",
+        "link_drive": "Link Drive del documento:",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -617,7 +618,10 @@
             "acta_doctorado": "Título de doctorado obtenido",
             "soporte_audiovisual": "Soporte del producto audiovisual",
             "ejecutable_software": "Ejecutable del software",
-            "codigo_software": "Código fuente de la aplicación"
+            "codigo_software": "Código fuente de la aplicación",
+            "AVA": "Soporte del producto audiovisual",
+            "EPRO": "Ejecutable del software",
+            "CFS": "Código fuente de la aplicación"
         },
 
         "placeholders": {

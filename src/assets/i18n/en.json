@@ -477,6 +477,7 @@
         "estado_solicitud": "Request State",
         "ver_detalle": "See Details",
         "datos_solicitud": "Request data",
+        "link_drive": "File Drive link:",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -606,7 +607,10 @@
             "acta_doctorado": "PhD degree obtained",
             "soporte_audiovisual": "Audiovisual product support",
             "ejecutable_software": "Software executable",
-            "codigo_software": "Application source code"
+            "codigo_software": "Application source code",
+            "AVA": "Audiovisual product support",
+            "EPRO": "Software executable",
+            "CFS": "Application source code"
         },
 
         "placeholders": {

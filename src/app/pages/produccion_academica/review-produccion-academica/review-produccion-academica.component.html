@@ -56,24 +56,30 @@
       <div class="divisor"></div>
       
       <div class="row" *ngFor="let campo of formProduccionAcademica.campos">
-        <ng-container *ngIf="campo.etiqueta != 'file'">
-          <div class="col-8">
-            <h5>{{'produccion_academica.labels.' + campo.label_i18n | translate}}</h5>
-          </div>
+        <div class="col-8">
+          <h5>{{'produccion_academica.labels.' + campo.label_i18n | translate}}</h5>
+        </div>
+        <ng-container *ngIf="!campo.etiqueta">
           <div class="col-4">
-            <label>{{campo.etiqueta === 'input' ? campo.valor: campo.valor.Nombre}}</label>
+              <a [href]="campo.valor" target="_blank">Link archivo Drive</a>
           </div>
         </ng-container>
         <ng-container *ngIf="campo.etiqueta === 'file'">
-          <div class="col-8">
-            <h5>{{'produccion_academica.labels.' + campo.label_i18n | translate}}</h5>
-          </div>
           <div class="col-4">
             <nb-card-body class="col-4" *ngIf="!(campo.tipo == 'image')">
               <img class="carousel-image" [src]="'assets/images/file.png'"
                 (click)="download(campo.urlTemp, campo.nombre,500,500)" class="img-thumbnail" alt="Foto" width="50px"
                 height="50px">
             </nb-card-body>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
+          <div class="col-4">
+            <label>{{campo.etiqueta === 'select' 
+                      ? campo.valor.Nombre 
+                      : (campo.etiqueta === 'mat-date') 
+                      ? campo.valor.substring(0,10)
+                      : campo.valor}}</label>
           </div>
         </ng-container>
       </div>
