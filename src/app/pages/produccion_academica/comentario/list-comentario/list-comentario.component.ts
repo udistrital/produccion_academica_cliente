@@ -29,7 +29,6 @@ export class ListComentarioComponent implements OnInit {
   settings: any;
   rol: string;
   userData: Tercero;
-
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService,

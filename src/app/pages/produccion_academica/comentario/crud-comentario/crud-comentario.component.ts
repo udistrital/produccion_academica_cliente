@@ -173,5 +173,4 @@ export class CrudComentarioComponent implements OnInit {
       this.updateSolicitudDocente(this.solicitud_selected);
     }
   }
-
 }

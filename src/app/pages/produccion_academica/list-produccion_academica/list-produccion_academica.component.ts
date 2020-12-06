@@ -28,7 +28,6 @@ export class ListProduccionAcademicaComponent implements OnInit {
   persona_id: number;
   solicitudes_list: SolicitudDocentePost[];
   solicitudes_list_filter: SolicitudDocentePost[];
-
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService,

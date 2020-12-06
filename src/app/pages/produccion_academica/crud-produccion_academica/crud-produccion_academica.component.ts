@@ -20,11 +20,10 @@ import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion
 import { MetadatoSubtipoProduccion } from '../../../@core/data/models/produccion_academica/metadato_subtipo_produccion';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { FORM_produccion_academica } from './form-produccion_academica';
-import Swal from 'sweetalert2';
-import 'style-loader!angular2-toaster/toaster.css';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
-import { empty } from 'rxjs';
+import Swal from 'sweetalert2';
+import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
   selector: 'ngx-crud-produccion-academica',
@@ -32,19 +31,18 @@ import { empty } from 'rxjs';
   styleUrls: ['./crud-produccion_academica.component.scss'],
 })
 export class CrudProduccionAcademicaComponent implements OnInit {
+  @Input('solicitud_docente_selected')
+  set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
+    this.solicitud_docente_selected = solicitud_docente_selected;
+    this.loadProduccionAcademica();
+  }
+
+  @Output() eventChange = new EventEmitter();
+
   config: ToasterConfig;
   solicitud_docente_selected: SolicitudDocentePost;
   tipoProduccionAcademica: TipoProduccionAcademica;
   SubtipoProduccionId: SubTipoProduccionAcademica;
-
-    @Input('solicitud_docente_selected')
-    set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
-      this.solicitud_docente_selected = solicitud_docente_selected;
-      this.loadProduccionAcademica();
-    }
-
-  @Output() eventChange = new EventEmitter();
-
   produccionAudiovisual: boolean;
   produccionSoftware: boolean;
   tipoArticulo: boolean;
@@ -129,7 +127,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   construirForm() {
     this.formProduccionAcademica.titulo = this.translate.instant('produccion_academica.produccion_academica');
     this.formProduccionAcademica.btn = this.translate.instant('GLOBAL.guardar');
-    console.info('construirForm - formProduccionAcademica: ', this.formProduccionAcademica)
     for (let i = 0; i < this.formProduccionAcademica.campos.length; i++) {
       this.formProduccionAcademica.campos[i].label = this.translate.instant('produccion_academica.labels.' + this.formProduccionAcademica.campos[i].label_i18n);
       this.formProduccionAcademica.campos[i].placeholder =
@@ -403,7 +400,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               }
             }
           });
-          console.info('loadSubtipoFormField - id_data_drive', this.id_data_drive);
           if (callback !== undefined) {
             console.info('loadSubtipoFormField(call) - Campos: ', this.formProduccionAcademica.campos)
             console.info('loadSubtipoFormField(call) - Metadatos: ', this.info_produccion_academica.Metadatos)
@@ -548,7 +544,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   createProduccionAcademica(ProduccionAcademica: any): void {
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
-    console.info('createProduccionAcademica - info_produccion_academica', this.info_produccion_academica)
     this.sgaMidService.post('produccion_academica', this.info_produccion_academica)
       .subscribe((res: any) => {
         if (res.Type === 'error') {
@@ -681,7 +676,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   }
 
   validarForm(event) {
-    console.info('validarForm - formProduccionAcademica: ', this.formProduccionAcademica);
     if (event.valid) {
       if (this.info_produccion_academica.Titulo === undefined ||
         this.info_produccion_academica.Fecha === undefined) {
@@ -789,8 +783,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       });
     }
   }
-
-  onFileChange(event) { }
 
   download(url, title, w, h) {
     const left = (screen.width / 2) - (w / 2);
