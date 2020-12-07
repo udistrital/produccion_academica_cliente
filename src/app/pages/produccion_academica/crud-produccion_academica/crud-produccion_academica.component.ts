@@ -503,6 +503,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   updateProduccionAcademica(ProduccionAcademica: any): void {
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+    console.info('updateProduccionAcademica - info_produccion_academica: ', this.info_produccion_academica)
     this.sgaMidService.put('produccion_academica', this.info_produccion_academica)
       .subscribe((res: any) => {
         console.info(res)
@@ -542,6 +543,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   }
 
   createProduccionAcademica(ProduccionAcademica: any): void {
+    const promises = [];
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.sgaMidService.post('produccion_academica', this.info_produccion_academica)
@@ -576,6 +578,20 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 text: 'Información Guardada correctamente',
               });
               this.router.navigate(['./pages/produccion_academica/new-solicitud']);
+
+              if (this.files_to_drive.length > 0) {
+                this.files_to_drive.forEach(file => {
+                  promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, res.ProduccionAcademica.Id))
+                })
+              }
+
+              Promise.all(promises)
+                .then(() => {
+                  this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_drive'));
+                })
+                .catch(error => {
+                  this.showToast('error', 'error', this.translate.instant('produccion_academica.error_drive'));
+                });
             }
           });
         }
@@ -634,18 +650,14 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  uploadDriveFilesToMetaData(id, file, metadatos) {
+  uploadDriveFilesToMetaData(idMetadato, file, idProduccion) {
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append('archivo', file);
-      this.sgaMidService.post_file('drive', formData)
+      this.sgaMidService.post_file('drive/' + idProduccion + '/' + idMetadato, formData)
       .subscribe((res: any) => {
         console.info('uploadDriveFilesToMetadata - res: ', res);
         if (res) {
-          metadatos.push({
-            MetadatoSubtipoProduccionId: id,
-            Valor: res.File.Link,
-          });
           resolve(true);
         }
       }, error => {
@@ -747,11 +759,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               Swal.showLoading();
               if (filesToUpload.length > 0) {
                 promises.push(this.uploadFilesToMetadaData(filesToUpload, metadatos));
-              }
-              if (this.files_to_drive.length > 0) {
-                this.files_to_drive.forEach(file => {
-                  promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, metadatos))
-                })
               }
               this.info_produccion_academica.Metadatos = metadatos;
               this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));

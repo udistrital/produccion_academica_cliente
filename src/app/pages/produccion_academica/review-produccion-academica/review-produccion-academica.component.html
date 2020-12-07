@@ -60,8 +60,11 @@
           <h5>{{'produccion_academica.labels.' + campo.label_i18n | translate}}</h5>
         </div>
         <ng-container *ngIf="!campo.etiqueta">
-          <div class="col-4">
-              <a [href]="campo.valor" target="_blank">Link archivo Drive</a>
+          <div class="col-4" *ngIf="campo.valor">
+            <a [href]="campo.valor" target="_blank">Link archivo Drive</a>
+          </div>
+          <div class="col-4" *ngIf="!campo.valor">
+            <p>{{'produccion_academica.espera_Link' | translate}}</p>
           </div>
         </ng-container>
         <ng-container *ngIf="campo.etiqueta === 'file'">

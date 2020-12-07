@@ -488,7 +488,10 @@
         "estado_solicitud": "Estado de Solicitud",
         "ver_detalle": "Ver Detalles",
         "datos_solicitud": "Datos solicitud",
+        "espera_Link": "En espera de link en Drive",
         "link_drive": "Link Drive del documento:",
+        "exito_drive": "Éxito al subir archivo a drive",
+        "error_drive": "Error al subir archivo a drive",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -621,7 +624,8 @@
             "codigo_software": "Código fuente de la aplicación",
             "AVA": "Soporte del producto audiovisual",
             "EPRO": "Ejecutable del software",
-            "CFS": "Código fuente de la aplicación"
+            "CFS": "Código fuente de la aplicación",
+            "archivo_drive": "Archivo drive"
         },
 
         "placeholders": {

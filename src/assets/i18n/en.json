@@ -477,7 +477,10 @@
         "estado_solicitud": "Request State",
         "ver_detalle": "See Details",
         "datos_solicitud": "Request data",
+        "espera_Link": "Waiting link Drive",
         "link_drive": "File Drive link:",
+        "exito_drive": "Success to uploading file to drive",
+        "error_drive": "Error uploading file to drive",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -610,7 +613,8 @@
             "codigo_software": "Application source code",
             "AVA": "Audiovisual product support",
             "EPRO": "Software executable",
-            "CFS": "Application source code"
+            "CFS": "Application source code",
+            "archivo_drive": "Drive file"
         },
 
         "placeholders": {

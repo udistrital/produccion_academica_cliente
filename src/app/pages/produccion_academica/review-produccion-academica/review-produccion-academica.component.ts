@@ -92,7 +92,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       // this.filterTitleProduction(tipoProduccion)
       // this.filterDateProduccion(tipoProduccion)
       this.Metadatos = [];
-      const fillForm = function (campos, Metadatos, nuxeoService, documentoService) {
+      const fillForm = function (campos, Metadatos, nuxeoService, documentoService, review) {
         const filesToGet = [];
         campos.forEach(campo => {
           Metadatos.forEach(metadato => {
@@ -110,6 +110,9 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
               }
             };
           });
+          if (!campo.etiqueta && !campo.valor) {
+            campo.label_i18n = 'archivo_drive';
+          }
         });
         if (filesToGet.length !== 0) {
           nuxeoService.getDocumentoById$(filesToGet, documentoService)
@@ -161,7 +164,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             if (callback !== undefined) {
               console.info('campos review: ', this.formProduccionAcademica.campos)
               console.info('Metadatos review: ', this.info_produccion_academica.Metadatos)
-              callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService);
+              callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService, this);
             }
           }
         }, (error: HttpErrorResponse) => {
