@@ -75,7 +75,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
 
-  constructor(private translate: TranslateService,
+  constructor(public translate: TranslateService,
     private produccionAcademicaService: ProduccionAcademicaService,
     private solicitudDocenteService: SolicitudDocenteService,
     private route: ActivatedRoute,
@@ -538,7 +538,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                     if (metadato.MetadatoSubtipoProduccionId.Id === file.Id)
                     metaProduccionId = metadato.Id
                   })
-                  console.log(metaProduccionId)
                   promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, this.info_produccion_academica.Id, metaProduccionId))
                 })
               }
