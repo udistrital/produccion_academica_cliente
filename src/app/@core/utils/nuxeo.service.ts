@@ -23,8 +23,6 @@ export class NuxeoService {
         this.documentos = {};
         this.blobDocument = {};
         this.updateDoc = {};
-        // console.info(this.blobDocument);
-        // console.info(this.updateDoc);
 
         NuxeoService.nuxeo = new Nuxeo({
             baseURL: environment.NUXEO.PATH,
@@ -61,7 +59,6 @@ export class NuxeoService {
                         .subscribe(res => {
                             if (res !== null) {
                                 const tipoDocumento = <TipoDocumento>res;
-                                console.info(tipoDocumento);
                                 NuxeoService.nuxeo.operation('Document.Create')
                                     .params({
                                         type: tipoDocumento.TipoDocumentoNuxeo,
@@ -90,10 +87,8 @@ export class NuxeoService {
                                                         documentoService.post('documento', documentoPost)
                                                             .subscribe(resuestaPost => {
                                                                 nuxeoservice.documentos[file.key] = resuestaPost;
-                                                                // nuxeoservice.documentos[file.key] = resuestaPost.Body;
                                                                 nuxeoservice.documentos$.next(nuxeoservice.documentos);
                                                             })
-
                                                     });
                                             })
                                             .catch(function (error) {
@@ -121,7 +116,6 @@ export class NuxeoService {
                     .subscribe(res => {
                         if (res !== null) {
                             const documento_temp = <any>res[0];
-                            console.info(this.documentos);
                             NuxeoService.nuxeo.connect()
                             NuxeoService.nuxeo.batchUpload()
                                 .upload(nuxeoBlob)

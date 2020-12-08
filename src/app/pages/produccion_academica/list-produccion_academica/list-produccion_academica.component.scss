@@ -1,3 +1,49 @@
 :host /deep/ .nb-theme-default ng2-smart-table table tr td {
   font-size: 0.85rem;
 }
+
+mat-select {
+  border-bottom: 3px solid #CED4DA;
+}
+
+mat-select:focus {
+  border-bottom: 3px solid #5dcfe3;
+}
+
+nb-tabset /deep/ ul li {
+  display: none;
+}
+
+:host /deep/ ng2-smart-table tbody > tr {
+  height: 40px;
+}
+
+:host /deep/ ng2-smart-table tbody > tr > td.ng2-smart-actions {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+:host /deep/ ng2-st-tbody-edit-delete {display: flex !important;
+  height: 0 !important;
+}
+
+:host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+:host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
+  color: #5dcfe3;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+}

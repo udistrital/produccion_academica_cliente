@@ -168,16 +168,22 @@ export class DinamicformComponent implements OnInit, OnChanges {
     c.valor = event.value;
   }
 
-  validCampo(c): boolean {
-    if (c.etiqueta === 'file') {
-      // console.info((c.etiqueta === 'file' && (c.valor)?true:c.valor.name === undefined));
+  validAlert(c): boolean {
+    if (c.clase === 'form-control form-control-danger') {
+      return true;
     }
-    if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
-      (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
-      || ((c.etiqueta === 'file' && c.valor.name === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
-      c.alerta = '** Debe llenar este campo';
-      c.clase = 'form-control form-control-danger';
-      return false;
+    return false;
+  }
+
+  validCampo(c): boolean {
+    if (c.requerido) {
+      if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
+        (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
+        || ((c.etiqueta === 'file' && c.valor === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
+        c.alerta = '** Debe llenar este campo';
+        c.clase = 'form-control form-control-danger';
+        return false;
+      }
     }
     if (c.etiqueta === 'input' && c.tipo === 'number') {
       c.valor = parseInt(c.valor, 10);

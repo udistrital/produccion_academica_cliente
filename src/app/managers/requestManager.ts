@@ -82,7 +82,7 @@ export class RequestManager {
   post_file(endpoint, element) {
     return this.http.post<any>(`${this.path}${endpoint}`, element, {    headers: new HttpHeaders({
       'Content-Type': 'multipart/form-data',
-  })}).pipe(
+    })}).pipe(
       catchError(this.errManager.handleError),
     );
   }

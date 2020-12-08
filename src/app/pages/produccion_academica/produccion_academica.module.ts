@@ -2,6 +2,7 @@ import { ProduccionAcademicaRoutingModule, routedComponents } from './produccion
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ProduccionAcademicaService } from '../../@core/data/produccion_academica.service';
+import { SolicitudDocenteService } from '../../@core/data/solicitud-docente.service'
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
@@ -11,6 +12,11 @@ import { ViewProduccionAcademicaComponent } from './view-produccion_academica/vi
 import { UserService } from '../../@core/data/users.service';
 import { PersonaService } from '../../@core/data/persona.service';
 import { NuxeoService } from '../../@core/utils/nuxeo.service';
+import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
+import { ComentarioComponent } from './comentario/comentario.component';
+import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
+import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
+import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 
 
 @NgModule({
@@ -26,6 +32,7 @@ import { NuxeoService } from '../../@core/utils/nuxeo.service';
   ],
   providers: [
     ProduccionAcademicaService,
+    SolicitudDocenteService,
     UserService,
     PersonaService,
     NuxeoService,
@@ -34,6 +41,11 @@ import { NuxeoService } from '../../@core/utils/nuxeo.service';
     CrudProduccionAcademicaComponent,
     ListProduccionAcademicaComponent,
     ViewProduccionAcademicaComponent,
+    ReviewProduccionAcademicaComponent,
+    ComentarioComponent,
+    CrudComentarioComponent,
+    ListComentarioComponent,
+    NewSolicitudComponent,
   ],
 })
 export class ProduccionAcademicaModule { }

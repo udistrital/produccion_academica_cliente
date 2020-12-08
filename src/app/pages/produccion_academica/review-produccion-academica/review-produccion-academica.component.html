@@ -1,0 +1,114 @@
+<div class="row">
+  <form class="form-horizontal" style="width: 70%;">
+    <fieldset [ngClass]="{'fieldseter':true}">
+      <legend align="left">
+        <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
+      </legend>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.estado_solicitud' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <button class="btn-state" (click)="seeDetailsState()">{{'produccion_academica.ver_detalle' | translate}}</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.tipo_produccion_academica' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.Nombre}}</label>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.titulo_produccion_academica' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.Titulo}}</label>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.autores' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.Autores[0].Nombre}}</label>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.fecha_radicacion' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.FechaRadicacion.substring(0,10)}}</label>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.fecha_publicacion' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.Fecha.toString().substring(0,10)}}</label>
+        </div>
+      </div>
+
+      <div class="divisor"></div>
+      
+      <div class="row" *ngFor="let campo of formProduccionAcademica.campos">
+        <div class="col-8">
+          <h5>{{'produccion_academica.labels.' + campo.label_i18n | translate}}</h5>
+        </div>
+        <ng-container *ngIf="!campo.etiqueta">
+          <div class="col-4" *ngIf="campo.valor">
+            <a [href]="campo.valor" target="_blank">Link archivo Drive</a>
+          </div>
+          <div class="col-4" *ngIf="!campo.valor">
+            <p>{{'produccion_academica.espera_Link' | translate}}</p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="campo.etiqueta === 'file'">
+          <div class="col-4">
+            <nb-card-body class="col-4" *ngIf="!(campo.tipo == 'image')">
+              <img class="carousel-image" [src]="'assets/images/file.png'"
+                (click)="download(campo.urlTemp, campo.nombre,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+                height="50px">
+            </nb-card-body>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
+          <div class="col-4">
+            <label>{{campo.etiqueta === 'select' 
+                      ? campo.valor.Nombre 
+                      : (campo.etiqueta === 'mat-date') 
+                      ? campo.valor.substring(0,10)
+                      : campo.valor}}</label>
+          </div>
+        </ng-container>
+      </div>
+    </fieldset>
+  </form>
+  <div class="row" style="width: 30%;">
+    <ngx-list-comentario 
+      [hidden]="!(rol === 'DOCENTE')" 
+      [observaciones_selected]="solicitud_docente_selected.Observaciones"
+      style="width: 100%;"></ngx-list-comentario>
+    <ngx-crud-comentario 
+      [hidden]="!(rol !== 'DOCENTE')"
+      (reloadTable)="reloadTable($event)"
+      [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
+  </div>
+</div>
+<div class="row">
+  <button class="btn-review" [hidden]="!buttonAdmin">{{'produccion_academica.verificar' | translate}}</button>
+  <button class="btn-review" [hidden]="!buttonModify" (click)="sendRequest()">
+    {{'produccion_academica.modificar' | translate}}
+  </button>
+  <button class="btn-review" [hidden]="!buttonAdmin">{{'produccion_academica.rechazar' | translate}}</button>
+</div>
+<div class="row">
+  <ngx-list-comentario 
+    [hidden]="!(rol !== 'DOCENTE')" 
+    [observaciones_selected]="solicitud_docente_selected.Observaciones"
+    style="width: 100%;"></ngx-list-comentario>
+</div>

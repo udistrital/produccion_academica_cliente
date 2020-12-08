@@ -108,6 +108,33 @@
     color: nb-theme(color-fg-heading);
   }
 
+  .nb-file {
+    margin: auto;
+    min-height: 85px;
+  }
+
+  .nb-file label {
+    color: #B6B6B6;
+  }
+
+  .nb-file input {
+    color: transparent;
+  }
+
+  .file-place {
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+  }
+
+  .nb-span-file {
+    font-size: 11px;
+    position: relative;
+    color: #333;
+  }
+
   .full-name-inputs {
     display: flex;
   }
@@ -147,6 +174,22 @@
 
   nb-card {
     padding: 1rem;
+  }
+
+  mat-label {
+    font-size: 18px;
+  }
+
+  .file-row {
+    display: flex;
+  }
+
+  .span-production {
+    text-align: center;
+  }
+
+  .mat-input-element, mat-select {
+    margin-top: 12px;
   }
 
   .fieldseter {

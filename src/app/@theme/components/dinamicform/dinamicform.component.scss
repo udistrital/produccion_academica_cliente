@@ -153,6 +153,45 @@
     padding: 1rem;
   }
 
+  mat-label {
+    font-size: 18px;
+  }
+
+  .mat-input-element, mat-select {
+    margin-top: 12px;
+  }
+
+  .nb-span-file {
+    font-size: 11px;
+    position: relative;
+    top: -10px;
+    color: #333;
+  }
+
+  .nb-span {
+    font-size: 11px;
+    position: relative;
+    top: 20px;
+    color: #333;
+    transition: all 0.5s ease-in;
+  }
+
+  .nb-span.alert {
+    top: 35px;
+  }
+
+  .nb-file {
+    min-height: 85px;
+  }
+
+  .nb-file input {
+    color: transparent;
+  }
+
+  .file-place {
+    margin-left: 10px;
+  }
+
   .fieldseter {
     display: flow-root;
     -moz-padding-start: 1rem;
