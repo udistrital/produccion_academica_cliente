@@ -12,6 +12,10 @@ import { ViewProduccionAcademicaComponent } from './view-produccion_academica/vi
 import { UserService } from '../../@core/data/users.service';
 import { PersonaService } from '../../@core/data/persona.service';
 import { NuxeoService } from '../../@core/utils/nuxeo.service';
+import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
+import { ComentarioComponent } from './comentario/comentario.component';
+import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
+import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 
 
@@ -25,7 +29,6 @@ import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
   ],
   declarations: [
     ...routedComponents,
-    NewSolicitudComponent,
   ],
   providers: [
     ProduccionAcademicaService,
@@ -38,6 +41,11 @@ import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
     CrudProduccionAcademicaComponent,
     ListProduccionAcademicaComponent,
     ViewProduccionAcademicaComponent,
+    ReviewProduccionAcademicaComponent,
+    ComentarioComponent,
+    CrudComentarioComponent,
+    ListComentarioComponent,
+    NewSolicitudComponent,
   ],
 })
 export class ProduccionAcademicaModule { }

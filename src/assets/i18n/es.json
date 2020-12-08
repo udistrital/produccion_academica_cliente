@@ -49,6 +49,7 @@
         "terminos_datos": "Política de privacidad y tratamiento de datos",
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
         "cancelar": "Cancelar",
+        "persona": "Persona",
         "info_persona": "Información personal",
         "info_criterio": "Criterios ICFES",
         "info_estado": "Estado de inscripción",
@@ -478,9 +479,19 @@
         "produccion_academica": "Producción académica",
         "producciones_academicas": "Producciones académicas",
 
+        "verificar": "Verificar",
+        "modificar": "Modificar",
+        "rechazar": "Rechazar",
+
         "acciones": "Acciones",
         "placeholder_filtro": "Ej: Solicitudes completadas",
         "estado_solicitud": "Estado de Solicitud",
+        "ver_detalle": "Ver Detalles",
+        "datos_solicitud": "Datos solicitud",
+        "espera_Link": "En espera de link en Drive",
+        "link_drive": "Link Drive del documento:",
+        "exito_drive": "Éxito al subir archivo a drive",
+        "error_drive": "Error al subir archivo a drive",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -520,6 +531,12 @@
         "numero_autor": "Numero identificación",
 
         "datos_basicos": "Datos básicos",
+        "soporte_audiovisual": "Soporte de archivo audiovisual",
+        "soporte_software": "Soporte de Software",
+        "span_soporte_drive": "Este archivo será subido a nuestro repositorio drive, puede tardar unos momentos en subir",
+
+        "span_articulo": "Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados",
+        "span_capitulo": "En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro",
 
         "labels": {
             "paginas": "Numero de páginas",
@@ -602,9 +619,13 @@
             "acta_especializacion": "Título de especialización obtenido",
             "acta_maestria": "Título de maestría obtenido",
             "acta_doctorado": "Título de doctorado obtenido",
-            "soporte_audiovisual": "Soporte del producto",
+            "soporte_audiovisual": "Soporte del producto audiovisual",
             "ejecutable_software": "Ejecutable del software",
-            "codigo_software": "Código fuente de la aplicación"
+            "codigo_software": "Código fuente de la aplicación",
+            "AVA": "Soporte del producto audiovisual",
+            "EPRO": "Ejecutable del software",
+            "CFS": "Código fuente de la aplicación",
+            "archivo_drive": "Archivo drive"
         },
 
         "placeholders": {
@@ -688,7 +709,7 @@
             "acta_especializacion": "Archivo pdf del título de especialización",
             "acta_maestria": "Archivo pdf del título de maestria",
             "acta_doctorado": "Archivo pdf del título de doctorado",
-            "soporte_audiovisual": "Archivo del soporte del producto",
+            "soporte_audiovisual": "Archivo de vídeo o audio del soporte del producto audiovisual",
             "ejecutable_software": "Archivo del ejecutable del programa",
             "codigo_software": "Archivo del código fuente de la aplicación"
         },
@@ -730,6 +751,7 @@
         "alerta_llenar_campo": "Debe llenar este campo",
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
+        "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
@@ -750,5 +772,12 @@
         "documento_programa_registrado": "Documento registrado",
         "documento_documento_programa_no_registrado": "Error subiendo el documento de soporte",
         "seguro_continuar_registrar": "¿Está seguto de registrar este documento?"
+    },
+    "comentarios": {
+        "realizar_comentario": "Realizar Observación",
+        "titulo_comentario": "Título de la Observación",
+        "descripcion_comentario": "Descripción de la Observación",
+        "fecha_comentario": "Fecha de Observación",
+        "tipo_observacion": "Tipo Observación"
     }
 }

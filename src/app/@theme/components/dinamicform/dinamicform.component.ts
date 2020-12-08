@@ -176,15 +176,14 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   validCampo(c): boolean {
-    if (c.etiqueta === 'file') {
-      // console.info((c.etiqueta === 'file' && (c.valor)?true:c.valor.name === undefined));
-    }
-    if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
-      (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
-      || ((c.etiqueta === 'file' && c.valor.name === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
-      c.alerta = '** Debe llenar este campo';
-      c.clase = 'form-control form-control-danger';
-      return false;
+    if (c.requerido) {
+      if (c.requerido && ((c.valor === '' && c.etiqueta !== 'file') || c.valor === null || c.valor === undefined ||
+        (JSON.stringify(c.valor) === '{}' && c.etiqueta !== 'file') || JSON.stringify(c.valor) === '[]')
+        || ((c.etiqueta === 'file' && c.valor === undefined) && (c.etiqueta === 'file' && c.urlTemp === undefined))) {
+        c.alerta = '** Debe llenar este campo';
+        c.clase = 'form-control form-control-danger';
+        return false;
+      }
     }
     if (c.etiqueta === 'input' && c.tipo === 'number') {
       c.valor = parseInt(c.valor, 10);

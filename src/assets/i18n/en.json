@@ -55,6 +55,7 @@
         "registrar": "Register",
         "confirmarCrear": "has been created",
         "confirmarActualizar": "has been updated",
+        "persona": "Person",
         "info_persona": "Personal data",
         "info_criterio": "ICFES criteria",
         "info_estado": "Registration Status",
@@ -467,9 +468,19 @@
         "produccion_academica": "Academic production",
         "producciones_academicas": "Academic productions",
 
+        "verificar": "Verificar",
+        "modificar": "Modificar",
+        "rechazar": "Rechazar",
+
         "acciones": "Actions",
         "placeholder_filtro": "e.g. Completed Request",
         "estado_solicitud": "Request State",
+        "ver_detalle": "See Details",
+        "datos_solicitud": "Request data",
+        "espera_Link": "Waiting link Drive",
+        "link_drive": "File Drive link:",
+        "exito_drive": "Success to uploading file to drive",
+        "error_drive": "Error uploading file to drive",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -509,6 +520,12 @@
         "numero_autor": "Author ID",
 
         "datos_basicos": "Basic data",
+        "soporte_audiovisual": "Audiovisual file support",
+        "soporte_software": "Software support",
+        "span_soporte_drive": "This file will be uploaded to our drive repository, it may take a few moments to upload",
+
+        "span_articulo": "When your article is published in a special edition or similar, put 0 in volume and number, otherwise it must have all the requested fields",
+        "span_capitulo": "If you have more than one book chapter in the same book, only one of them will score a score. The total score will be divided by the number of total authors in the book",
 
         "labels": {
             "paginas": "Number of Pages",
@@ -591,9 +608,13 @@
             "acta_especializacion": "Specialization degree obtained",
             "acta_maestria": "Master degree obtained",
             "acta_doctorado": "PhD degree obtained",
-            "soporte_audiovisual": "Product support",
+            "soporte_audiovisual": "Audiovisual product support",
             "ejecutable_software": "Software executable",
-            "codigo_software": "Application source code"
+            "codigo_software": "Application source code",
+            "AVA": "Audiovisual product support",
+            "EPRO": "Software executable",
+            "CFS": "Application source code",
+            "archivo_drive": "Drive file"
         },
 
         "placeholders": {
@@ -677,7 +698,7 @@
             "acta_especializacion": "Specialization degree cetificate pdf file",
             "acta_maestria": "Master degree cetificate pdf file",
             "acta_doctorado": "PhD degree cetificate pdf file",
-            "soporte_audiovisual": "Product Support File",
+            "soporte_audiovisual": "Video or audio file of the audiovisual product support",
             "ejecutable_software": "Program executable file",
             "codigo_software": "Application source code file"
         },
@@ -719,6 +740,7 @@
         "alerta_llenar_campo": "You must fill this field",
         "alerta_llenar_campos_datos_basicos": "You must fill all basic data fields",
         "alerta_llenar_campos": "You must fill all data fields required",
+        "alerta_llenar_archivo_soporte": "You Must select all files support",
         "seguro_continuar_registrar_produccion": "Are you sure you want to register this production?",
         "seguro_continuar_eliminar_produccion": "Are you sure you want to delete this production?",
         "seguro_continuar_actualizar_produccion": "Are you sure you want to update this production?",
@@ -739,5 +761,12 @@
         "descuento_academico_registrado": "Academic discount registered",
         "documento_descuento_academico_no_registrado": "Error uploading support document",
         "seguro_continuar_registrar": "Are you sure you want to register this academic discount?"
+    },
+    "comentarios": {
+        "realizar_comentario": "Make Observation",
+        "titulo_comentario": "Observation title",
+        "descripcion_comentario": "Observation body",
+        "fecha_comentario": "Observation date",
+        "tipo_observacion": "Observation type"
     }
 }
