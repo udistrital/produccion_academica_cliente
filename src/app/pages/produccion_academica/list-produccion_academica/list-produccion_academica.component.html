@@ -9,7 +9,7 @@
           <div class="filter">
             <p>Filtro de Solicitudes:</p>
             <mat-select
-              [placeholder]="translate.instant('produccion_academica.placeholder_filtro')"
+              placeholder="{{ 'produccion_academica.placeholder_filtro' | translate }}"
               [(ngModel)]="filter" 
               (ngModelChange)="filterSolicitudes(filter)"
               [ngModelOptions]="{standalone: true}">
