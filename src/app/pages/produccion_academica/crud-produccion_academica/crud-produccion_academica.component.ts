@@ -132,6 +132,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.formProduccionAcademica.campos[i].placeholder =
         this.translate.instant('produccion_academica.placeholders.' + this.formProduccionAcademica.campos[i].placeholder_i18n);
     }
+    this.formProduccionAcademica.campos.sort((campoA, campoB) => (campoA.nombre > campoB.nombre) ? 1 : -1);
   }
 
   useLanguage(language: string) {
