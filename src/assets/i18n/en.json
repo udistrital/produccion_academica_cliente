@@ -29,6 +29,7 @@
             "produccion_academica": "Academic Production",
             "new_solicitud": "New Request",
             "list_produccion_academica": "Academic Production List",
+            "list_aproved_produccion_academica": "Academic Production List Aproved",
             "crud_produccion_academica": "Academic Production Crud"
         },
         "auth": {
@@ -486,14 +487,13 @@
         "exito_alerta": "Success to uploading alert",
         "error_alerta": "Error uploading alert",
         "alerta_fecha_expirada": "The current status date has expired",
-        
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
         "alerta_tipo_produccion_academica": "You must select the type of academic production",
         "subtipo_produccion_academica": "Subtype of academic production",
         "placeholder_subtipo_produccion_academica": "e.g. Review Article",
         "alerta_subtipo_produccion_academica": "You must select the subtype of academic production",
-        
+
         "fecha_radicacion": "Date of filing",
         "fecha_publicacion": "Publication date",
         "fecha_obtencion": "Obtaining date",
