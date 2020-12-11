@@ -735,7 +735,10 @@
 
         "filtros" : {
             "radicado": "Applications in status of filing",
-            "por_modificar": "Requests pending to modify"
+            "por_modificar": "Requests pending to modify",
+            "por_evaluar": "Requests that require an external peer review",
+            "verificada": "Requests that are verified",
+            "rechazada": "Requests that have been rejected"
         },
 
         "alerta_llenar_campo": "You must fill this field",
@@ -770,7 +773,10 @@
         "titulo_comentario": "Observation title",
         "descripcion_comentario": "Observation body",
         "fecha_comentario": "Observation date",
-        "tipo_observacion": "Observation type"
+        "tipo_observacion": "Observation type",
+
+        "alerta_titulo_comentario": "You must enter the title of the observation",
+        "alerta_descripcion_comentario": "You must enter the body of the observation"
     },
     "evaluacion": {
         "envio_invitacion": "Invitation Sending",
