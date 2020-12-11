@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'comentario',
+  selector: { 'comentario'},
   templateUrl: './comentario.component.html',
-  styleUrls: ['./comentario.component.scss']
+  styleUrls: ['./comentario.component.scss'],
 })
 export class ComentarioComponent implements OnInit {
 

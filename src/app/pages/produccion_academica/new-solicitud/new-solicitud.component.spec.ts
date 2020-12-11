@@ -8,7 +8,7 @@ describe('NewSolicitudComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewSolicitudComponent ]
+      declarations: [ NewSolicitudComponent ],
     })
     .compileComponents();
   }));

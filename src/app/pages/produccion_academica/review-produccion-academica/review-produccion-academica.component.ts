@@ -76,8 +76,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       this.buttonAdmin = true;
       this.buttonModify = true;
     } else {
-      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) 
-        ? this.buttonModify = true : this.buttonModify = false;
+        (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }

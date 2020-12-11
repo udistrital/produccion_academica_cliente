@@ -3,7 +3,7 @@
 }
 
 mat-select {
-  border-bottom: 3px solid #CED4DA;
+  border-bottom: 3px solid #ced4da;
 }
 
 mat-select:focus {
@@ -24,7 +24,8 @@ nb-tabset /deep/ ul li {
   align-items: center;
 }
 
-:host /deep/ ng2-st-tbody-edit-delete {display: flex !important;
+:host /deep/ ng2-st-tbody-edit-delete {
+  display: flex !important;
   height: 0 !important;
 }
 
