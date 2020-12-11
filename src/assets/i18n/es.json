@@ -45,6 +45,7 @@
         "preinscripcion_2": "Desea realizar preinscripcion",
         "id": "Id",
         "activo": "Activo",
+        "enviar": "Enviar",
         "aceptar": "Aceptar",
         "terminos_datos": "Política de privacidad y tratamiento de datos",
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
@@ -752,6 +753,8 @@
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
+        "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
+        "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
@@ -778,6 +781,17 @@
         "titulo_comentario": "Título de la Observación",
         "descripcion_comentario": "Descripción de la Observación",
         "fecha_comentario": "Fecha de Observación",
-        "tipo_observacion": "Tipo Observación"
+        "tipo_observacion": "Tipo Observación",
+
+        "alerta_titulo_comentario": "Debe escribir el título del comentario",
+        "alerta_descripcion_comentario": "Debe escribir la descripción del comentario"
+    },
+    "evaluacion": {
+        "envio_invitacion": "Envió de Invitación",
+        "nombre_evaluacion": "Nombre evaluador externo",
+        "correo_evaluacion": "Correo evaluador externo",
+
+        "alerta_nombre_evaluador": "Debe escribir el nombre del evaluador",
+        "alerta_correo_evaluador": "Debe escribir el correo del evaluador"
     }
 }

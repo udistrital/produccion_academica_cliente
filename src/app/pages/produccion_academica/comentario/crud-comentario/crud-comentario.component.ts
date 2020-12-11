@@ -9,8 +9,8 @@ import { SolicitudDocentePost } from '../../../../@core/data/models/solicitud_do
 import { Observacion } from '../../../../@core/data/models/solicitud_docente/observacion';
 import { TipoObservacion } from '../../../../@core/data/models/solicitud_docente/tipo_observacion';
 import { EstadoTipoSolicitud } from '../../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
-import Swal from 'sweetalert2';
 import { Tercero } from '../../../../@core/data/models/terceros/tercero';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-crud-comentario',
@@ -24,6 +24,11 @@ export class CrudComentarioComponent implements OnInit {
     this.solicitud_selected = solicitud_selected;
   }
 
+  @Input('estadoNum')
+  set estado(estadoNum: string) {
+    this.estadoNum = estadoNum;
+  }
+
   @Output()
   reloadTable = new EventEmitter<boolean>();
 
@@ -32,6 +37,7 @@ export class CrudComentarioComponent implements OnInit {
   observacion: Observacion;
   userData: Tercero;
   userNum: string;
+  estadoNum: string;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
   tipoObservaciones: Array<TipoObservacion>;
 
@@ -41,7 +47,6 @@ export class CrudComentarioComponent implements OnInit {
     private sgaMidService: SgaMidService,
     private solicitudDocenteService: SolicitudDocenteService) {
     this.observacion = new Observacion();
-    this.loadDataObservation();
   }
 
   loadDataObservation(): void {
@@ -80,7 +85,7 @@ export class CrudComentarioComponent implements OnInit {
 
   loadEstadoSolicitud(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:2')
+      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + this.estadoNum)
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
@@ -136,6 +141,7 @@ export class CrudComentarioComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadDataObservation();
   }
 
   updateSolicitudDocente(solicitudDocente: any): void {

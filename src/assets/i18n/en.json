@@ -45,6 +45,7 @@
         "preinscripcion_2": "You want to pre-register",
         "id": "Id",
         "activo": "Active",
+        "enviar": "Send",
         "aceptar": "Accept",
         "cancelar": "Cancel",
         "salir": "Get out",
@@ -741,6 +742,8 @@
         "alerta_llenar_campos_datos_basicos": "You must fill all basic data fields",
         "alerta_llenar_campos": "You must fill all data fields required",
         "alerta_llenar_archivo_soporte": "You Must select all files support",
+        "seguro_continuar_rechazar_produccion": "Are you sure you want to reject this request?",
+        "seguro_continuar_verificar_produccion": "Are you sure you want to verify this request?",
         "seguro_continuar_registrar_produccion": "Are you sure you want to register this production?",
         "seguro_continuar_eliminar_produccion": "Are you sure you want to delete this production?",
         "seguro_continuar_actualizar_produccion": "Are you sure you want to update this production?",
@@ -768,5 +771,13 @@
         "descripcion_comentario": "Observation body",
         "fecha_comentario": "Observation date",
         "tipo_observacion": "Observation type"
+    },
+    "evaluacion": {
+        "envio_invitacion": "Invitation Sending",
+        "nombre_evaluacion": "External evaluator name",
+        "correo_evaluacion": "External evaluator email",
+
+        "alerta_nombre_evaluador": "You must enter the name of the evaluator",
+        "alerta_correo_evaluador": "You must enter the email of the evaluator"
     }
 }

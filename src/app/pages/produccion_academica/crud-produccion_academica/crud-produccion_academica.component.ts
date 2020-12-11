@@ -10,6 +10,7 @@ import { TercerosService } from '../../../@core/data/terceros.service';
 import { UserService } from '../../../@core/data/users.service';
 import { DocumentoService } from '../../../@core/data/documento.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
+import { GoogleService } from '../../../@core/data/google.service';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { ProduccionAcademicaService } from '../../../@core/data/produccion_academica.service';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
@@ -86,6 +87,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     private tercerosService: TercerosService,
     private toasterService: ToasterService,
     private sgaMidService: SgaMidService,
+    private googleMidService: GoogleService,
   ) {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
     this.loadOptions();
@@ -679,7 +681,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         query = 'drive/' + idProduccion + '/' + idMetadato + '/' + 0
       }
       formData.append('archivo', file);
-      this.sgaMidService.post_file(query, formData)
+      this.googleMidService.post_file(query, formData)
       .subscribe((res: any) => {
         console.info('uploadDriveFilesToMetadata - res: ', res);
         if (res) {
