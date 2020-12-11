@@ -29,6 +29,7 @@
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
             "list_produccion_academica": "Lista producción académica",
+            "list_aproved_produccion_academica": "Lista Aprobada producción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
         "auth": {

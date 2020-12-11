@@ -28,6 +28,12 @@ export const MENU_ITEMS: MenuItem[] = [
         link: '/pages/produccion_academica/list-produccion_academica',
         key: 'list_produccion_academica',
       },
+      {
+        title: 'Listar Producciones Aprobadas',
+        icon: 'nb-list',
+        link: '/pages/produccion_academica/list_aproved-produccion_academica',
+        key: 'list_aproved_produccion_academica',
+      },
     ],
   },
 ]
