@@ -8,7 +8,7 @@ describe('ReviewProduccionAcademicaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReviewProduccionAcademicaComponent ]
+      declarations: [ ReviewProduccionAcademicaComponent ],
     })
     .compileComponents();
   }));
