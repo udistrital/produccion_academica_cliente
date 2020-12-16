@@ -23,10 +23,8 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { FORM_produccion_academica } from './form-produccion_academica';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
-import { TipoObservacion } from '../../../@core/data/models/solicitud_docente/tipo_observacion';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { Observacion } from '../../../@core/data/models/solicitud_docente/observacion';
 
 @Component({
   selector: 'ngx-crud-produccion-academica',
@@ -77,8 +75,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   settings_authors: any;
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
-  observacion: Observacion;
-  tipoObservaciones: Array<TipoObservacion>;
 
   constructor(public translate: TranslateService,
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -149,7 +145,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.loadEstadosAutor()
       .then(() => {
         Promise.all([
-          this.loadObservationType(),
           this.loadOptionsCategoriasProduccion(),
           this.loadOptionsTipoProduccionAcademica(),
           this.loadOptionsSubTipoProduccionAcademica(),
@@ -240,23 +235,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             resolve(true);
           } else {
             this.estadosSolicitudes = [];
-            reject({ status: 404 });
-          }
-        }, (error: HttpErrorResponse) => {
-          reject(error);
-        });
-    });
-  }
-
-  loadObservationType(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.solicitudDocenteService.get('tipo_observacion/?query=Id:2')
-        .subscribe(res => {
-          if (Object.keys(res.Data[0]).length > 0) {
-            this.tipoObservaciones = <Array<TipoObservacion>>res.Data;
-            resolve(true);
-          } else {
-            this.tipoObservaciones = [];
             reject({ status: 404 });
           }
         }, (error: HttpErrorResponse) => {
@@ -656,43 +634,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       )
         .subscribe((res: any) => {
           if (res !== null) {
-            info_solicitudPut.Observaciones = [];
-            if (res.Alertas.Coincidencias > 0) {
-              const observacion = new Observacion();
-              observacion.Titulo = 'alerta.titulo';
-              observacion.Valor = 'alerta.alerta_numero_coincidencias' + res.Alertas.Coincidencias;
-              observacion.TipoObservacionId = this.tipoObservaciones[0];
-              observacion.TerceroId = 0;
-              info_solicitudPut.Observaciones.push(observacion);
-            }
-            if (res.Alertas.NumAnualProducciones > 0) {
-              switch (this.tipoProduccionAcademica.Id) {
-                case 13: case 14: case 16: case 17: case 19:
-                  if (res.Alertas.NumAnualProducciones > 5) {
-                    const observacion = new Observacion();
-                    observacion.Titulo = 'alerta.titulo';
-                    observacion.Valor = 'alerta.alerta_numero_produccion_anual_5';
-                    observacion.TipoObservacionId = this.tipoObservaciones[0];
-                    observacion.TerceroId = 0;
-                    info_solicitudPut.Observaciones.push(observacion);
-                  }
-                  break;
-                case 15: case 20:
-                  if (res.Alertas.NumAnualProducciones > 5) {
-                    const observacion = new Observacion();
-                    observacion.Titulo = 'alerta.titulo';
-                    observacion.Valor = 'alerta.alerta_numero_produccion_anual_3';
-                    observacion.TipoObservacionId = this.tipoObservaciones[0];
-                    observacion.TerceroId = 0;
-                    info_solicitudPut.Observaciones.push(observacion);
-                  }
-                  break;
-                default:
-                  break;
-              }
-            }
-            console.info(info_solicitudPut);
-            this.updateSolicitud(info_solicitudPut);
             resolve(true);
           } else {
             reject({ status: 404 });
@@ -701,18 +642,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           reject(error);
         });
     });
-  }
-
-  updateSolicitud(solicitudDocente: SolicitudDocentePost): void {
-    this.sgaMidService.put('solicitud_docente', solicitudDocente)
-      .subscribe((resp: any) => {
-        if (resp.Type === 'error') {
-          this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_alerta'));
-        } else {
-          solicitudDocente = <SolicitudDocentePost>resp;
-          this.showToast('error', 'error', this.translate.instant('produccion_academica.error_alerta'));
-        }
-      });
   }
 
   agregarAutor(mostrarError: boolean, estadoAutor: number): void {

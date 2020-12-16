@@ -265,7 +265,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
 
   onChange(event) {
     if (event) {
-      this.loadData();
+      this.showData();
       this.cambiotab = 0;
     }
   }

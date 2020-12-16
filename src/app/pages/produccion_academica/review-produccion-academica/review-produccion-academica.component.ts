@@ -53,6 +53,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    this.observaciones_alerts = [];
     this.filterObservations()
     this.loadProduccionAcademica();
     this.setButtonOptions();

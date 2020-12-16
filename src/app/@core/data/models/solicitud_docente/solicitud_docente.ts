@@ -13,4 +13,5 @@ export class SolicitudDocentePost {
   Observaciones: Observacion[];
   Invitaciones: any[];
   TerceroId: number;
+  Solicitantes: any[];
 }
