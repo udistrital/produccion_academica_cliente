@@ -262,6 +262,31 @@
     outline: none;
   }
 
+  .btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 4px 8px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .btn-labeled {
+    margin-right: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 25px;
+    color: #fff;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  .btn { 
+    margin-bottom:10px; 
+  }
+
   ngb-rating i {
     color: nb-theme(color-success);
     @include nb-for-theme(cosmic) {

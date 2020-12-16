@@ -474,6 +474,7 @@
         "rechazar": "Rechazar",
 
         "acciones": "Actions",
+        "alerta": "Alert",
         "placeholder_filtro": "e.g. Completed Request",
         "estado_solicitud": "Request State",
         "ver_detalle": "See Details",
@@ -482,6 +483,9 @@
         "link_drive": "File Drive link:",
         "exito_drive": "Success to uploading file to drive",
         "error_drive": "Error uploading file to drive",
+        "exito_alerta": "Success to uploading alert",
+        "error_alerta": "Error uploading alert",
+        "alerta_fecha_expirada": "The current status date has expired",
         
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
@@ -615,7 +619,8 @@
             "AVA": "Audiovisual product support",
             "EPRO": "Software executable",
             "CFS": "Application source code",
-            "archivo_drive": "Drive file"
+            "archivo_drive": "Drive file",
+            "tipo_produccion_audiovisual": "Type of audiovisual production"
         },
 
         "placeholders": {
@@ -659,8 +664,8 @@
             "categoria_revista": "Ej: A1",
             "gran_area_conocimiento": "Ej: Natural Sciences",
             "categoria_premio": "Ej: First Place",
-            "tipo_obra_video": "Ej: Video",
-            "tipo_obra_artistica": "Ej: Theater performance",
+            "tipo_obra_video": "Ej: Didactics",
+            "tipo_obra_artistica": "Ej: Original Creation",
             "alcance_obra": "Ej: National",
             "categoria_tesis": "Ej: Laureate",
             "area_conocimiento_especifica": "Ej: Mathematics",
@@ -701,7 +706,8 @@
             "acta_doctorado": "PhD degree cetificate pdf file",
             "soporte_audiovisual": "Video or audio file of the audiovisual product support",
             "ejecutable_software": "Program executable file",
-            "codigo_software": "Application source code file"
+            "codigo_software": "Application source code file",
+            "tipo_produccion_audiovisual": "Ej: Video"
         },
 
         "categorias": {
@@ -785,5 +791,12 @@
 
         "alerta_nombre_evaluador": "You must enter the name of the evaluator",
         "alerta_correo_evaluador": "You must enter the email of the evaluator"
+    },
+
+    "alerta": {
+        "titulo": "Alert",
+        "alerta_numero_coincidencias": "The application presents a possible high match in the title with a total of other applications:",
+        "alerta_numero_produccion_anual_5": "The application of the same type may have been presented more than 5 times for the year of publication or filing.",
+        "alerta_numero_produccion_anual_3": "The application of the same type may have been presented more than 3 times for the year of publication or filing."
     }
 }

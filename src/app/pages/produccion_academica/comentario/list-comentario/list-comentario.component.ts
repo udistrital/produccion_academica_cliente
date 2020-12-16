@@ -19,6 +19,7 @@ export class ListComentarioComponent implements OnInit {
   set observaciones(observaciones_selected: Observacion[]) {
     this.observaciones_selected = observaciones_selected;
     console.info(this.observaciones_selected);
+    this.filterComments();
     this.loadData();
     this.cargarCampos();
   }
@@ -40,6 +41,10 @@ export class ListComentarioComponent implements OnInit {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.cargarCampos();
     });
+  }
+
+  filterComments() {
+    this.observaciones_selected = this.observaciones_selected.filter(observacion => observacion.TipoObservacionId.Id === 1);
   }
 
   cargarCampos() {
@@ -110,9 +115,7 @@ export class ListComentarioComponent implements OnInit {
     if (this.observaciones_selected.length > 0) {
       this.loadTerceroData()
         .then(() => {
-          console.info('paso')
           const data = <Array<Observacion>>this.observaciones_selected;
-          console.info(data);
           this.source.load(data);
           this.cargarCampos();
         })
@@ -129,18 +132,26 @@ export class ListComentarioComponent implements OnInit {
   loadTerceroData() {
     return new Promise((resolve, reject) => {
       this.observaciones_selected.forEach(observacion => {
-        this.tercerosService.get('tercero/?query=Id:' + observacion.TerceroId)
-        .subscribe(res => {
-          if (Object.keys(res[0]).length > 0) {
-            observacion.Persona = <Tercero>res[0];
-            resolve(true);
-          }else {
-            this.observaciones_selected = [];
-            reject({ status: 404 });
+        if (observacion.TerceroId === 0 ) {
+          observacion.Persona = <Tercero> {
+            NombreCompleto: 'Sistema',
+            Id: 0,
           }
-        }, (error: HttpErrorResponse) => {
-          reject(error);
-        });
+          resolve(true);
+        } else {
+          this.tercerosService.get('tercero/?query=Id:' + observacion.TerceroId)
+          .subscribe(res => {
+            if (Object.keys(res[0]).length > 0) {
+              observacion.Persona = <Tercero>res[0];
+              resolve(true);
+            }else {
+              this.observaciones_selected = [];
+              reject({ status: 404 });
+            }
+          }, (error: HttpErrorResponse) => {
+            reject(error);
+          });
+        }
       });
     })
   }
@@ -151,7 +162,6 @@ export class ListComentarioComponent implements OnInit {
     const opt: any = {
       width: '550px',
       title: event.data.Titulo,
-      text: event.data.Valor,
       html: `
         <p style="width: 80%; margin: auto">${event.data.Valor}</p> <br> <br>
         <small>Escrito por: ${event.data.Persona.NombreCompleto}</small> <br>

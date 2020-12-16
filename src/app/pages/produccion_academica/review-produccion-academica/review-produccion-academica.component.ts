@@ -19,6 +19,7 @@ import { TipoProduccionAcademica } from './../../../@core/data/models/produccion
 import { EstadoAutorProduccion } from './../../../@core/data/models/produccion_academica/estado_autor_produccion';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import Swal from 'sweetalert2';
+import { Observacion } from '../../../@core/data/models/solicitud_docente/observacion';
 
 @Component({
   selector: 'ngx-review-produccion-academica',
@@ -46,10 +47,13 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   estadosAutor: Array<EstadoAutorProduccion>;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
   creandoAutor: boolean;
+  observaciones_comments: Observacion[] = [];
+  observaciones_alerts: Observacion[] = [];
 
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    this.filterObservations()
     this.loadProduccionAcademica();
     this.setButtonOptions();
   }
@@ -77,6 +81,20 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  filterObservations() {
+    this.solicitud_docente_selected.Observaciones.forEach(observacion => {
+      if (observacion.TipoObservacionId.Id === 1)
+        this.observaciones_comments.push(observacion)
+      else {
+        observacion.Persona = <Tercero> {
+          NombreCompleto: 'Sistema',
+          Id: 0,
+        }
+        this.observaciones_alerts.push(observacion);
+      }
+    });
+  }
 
   public setButtonOptions() {
     if (this.rol !== 'DOCENTE') {
@@ -258,6 +276,27 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.solicitudOut.emit({
       data: this.solicitud_docente_selected,
     });
+  }
+
+  onView(alert) {
+    const opt: any = {
+      width: '550px',
+      title: this.translate.instant(alert.Titulo),
+      html: `
+        <p style="width: 80%; margin: auto">
+          ${(alert.Valor.length < 37)
+            ? this.translate.instant(alert.Valor.substring(0, 34)) + ' ' + alert.Valor.substring(34, alert.Valor.length)
+            : this.translate.instant(alert.Valor)
+          }
+        </p> <br> <br>
+        <small>Escrito por: ${alert.Persona.NombreCompleto}</small> <br>
+        <small>Fecha observación: ${(alert.FechaCreacion + '').substring(0, 10)}</small>
+      `,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    };
+    Swal(opt)
   }
 
   reloadTable(event) {

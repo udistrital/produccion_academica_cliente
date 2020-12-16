@@ -23,8 +23,10 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { FORM_produccion_academica } from './form-produccion_academica';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
+import { TipoObservacion } from '../../../@core/data/models/solicitud_docente/tipo_observacion';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
+import { Observacion } from '../../../@core/data/models/solicitud_docente/observacion';
 
 @Component({
   selector: 'ngx-crud-produccion-academica',
@@ -75,6 +77,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   settings_authors: any;
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
+  observacion: Observacion;
+  tipoObservaciones: Array<TipoObservacion>;
 
   constructor(public translate: TranslateService,
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -145,6 +149,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.loadEstadosAutor()
       .then(() => {
         Promise.all([
+          this.loadObservationType(),
           this.loadOptionsCategoriasProduccion(),
           this.loadOptionsTipoProduccionAcademica(),
           this.loadOptionsSubTipoProduccionAcademica(),
@@ -243,6 +248,23 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
   }
 
+  loadObservationType(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.solicitudDocenteService.get('tipo_observacion/?query=Id:2')
+        .subscribe(res => {
+          if (Object.keys(res.Data[0]).length > 0) {
+            this.tipoObservaciones = <Array<TipoObservacion>>res.Data;
+            resolve(true);
+          } else {
+            this.tipoObservaciones = [];
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
   loadOptionsCategoriasProduccion(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.produccionAcademicaService.get('categoria_produccion/?limit=0')
@@ -306,9 +328,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.tiposProduccionAcademicaFiltrados = this.tiposProduccionAcademica
             .filter(tipo => {
               const subTiposCategoria = this.subtiposProduccionAcademica
-              .filter(subTipo => {
-                return subTipo.CategoriaProduccion.Id === parseInt(key.charAt(1), 10) && subTipo.TipoProduccionId.Id === tipo.Id
-              })
+                .filter(subTipo => {
+                  return subTipo.CategoriaProduccion.Id === parseInt(key.charAt(1), 10) && subTipo.TipoProduccionId.Id === tipo.Id
+                })
               if (subTiposCategoria.length > 0) return true; else return false;
             });
         }
@@ -330,16 +352,16 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   addAdditionalItems() {
     this.tipoProduccionAcademica.Nombre === 'Video, Cinematografica o Fonográfia' ||
-    this.tipoProduccionAcademica.Nombre === 'Obras Artisticas'
+      this.tipoProduccionAcademica.Nombre === 'Obras Artisticas'
       ? this.produccionAudiovisual = true : this.produccionAudiovisual = false;
 
     this.tipoProduccionAcademica.Nombre === 'Software'
       ? this.produccionSoftware = true : this.produccionSoftware = false;
 
     this.tipoProduccionAcademica.Nombre === 'Articulo' ||
-    this.tipoProduccionAcademica.Nombre === 'Editorial' ||
-    this.tipoProduccionAcademica.Nombre === 'Articulo Corto' ||
-    this.tipoProduccionAcademica.Nombre === 'Publicación Impresa'
+      this.tipoProduccionAcademica.Nombre === 'Editorial' ||
+      this.tipoProduccionAcademica.Nombre === 'Articulo Corto' ||
+      this.tipoProduccionAcademica.Nombre === 'Publicación Impresa'
       ? this.tipoArticulo = true : this.tipoArticulo = false;
 
     this.tipoProduccionAcademica.Nombre === 'Capitulo Libro' ? this.tipoCapitulo = true : this.tipoCapitulo = false;
@@ -430,68 +452,68 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   public loadProduccionAcademica(): void {
     if (this.solicitud_docente_selected !== undefined) {
       this.loadEstadoSolicitud()
-      .then(() => {
-        this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
-        this.info_solicitud = JSON.parse(JSON.stringify(this.solicitud_docente_selected));
-        ( this.info_produccion_academica.SubtipoProduccionId.Id === 23)
-          ? this.produccionSoftware = true : this.produccionSoftware = false;
-        ( this.info_produccion_academica.SubtipoProduccionId.Id === 24 ||
-          this.info_produccion_academica.SubtipoProduccionId.Id === 25 ||
-          this.info_produccion_academica.SubtipoProduccionId.Id === 26 ||
-          this.info_produccion_academica.SubtipoProduccionId.Id === 27
-        ) ? this.produccionAudiovisual = true : this.produccionAudiovisual = false;
-        this.source_authors = this.info_produccion_academica.Autores;
-        this.source.load(this.source_authors);
-        const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
-          tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
-        this.filterTitleProduction(tipoProduccion)
-        this.filterDateProduccion(tipoProduccion)
-        this.Metadatos = [];
-        const fillForm = function (campos, Metadatos, nuxeoService, documentoService, links) {
-          const filesToGet = [];
-          campos.forEach(campo => {
-            Metadatos.forEach(metadato => {
-              if (campo.nombre === metadato.MetadatoSubtipoProduccionId.Id) {
-                campo.valor = metadato.Valor;
-                if (campo.etiqueta === 'select') {
-                  campo.valor = campo.opciones[metadato.Valor - 1];
-                }
-                if (campo.etiqueta === 'file') {
-                  campo.idFile = parseInt(metadato.Valor, 10);
-                  filesToGet.push({ Id: campo.idFile, key: campo.nombre });
-                }
-                if (!campo.etiqueta) {
-                  links.push(metadato.Valor);
-                }
-              };
+        .then(() => {
+          this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
+          this.info_solicitud = JSON.parse(JSON.stringify(this.solicitud_docente_selected));
+          (this.info_produccion_academica.SubtipoProduccionId.Id === 23)
+            ? this.produccionSoftware = true : this.produccionSoftware = false;
+          (this.info_produccion_academica.SubtipoProduccionId.Id === 24 ||
+            this.info_produccion_academica.SubtipoProduccionId.Id === 25 ||
+            this.info_produccion_academica.SubtipoProduccionId.Id === 26 ||
+            this.info_produccion_academica.SubtipoProduccionId.Id === 27
+          ) ? this.produccionAudiovisual = true : this.produccionAudiovisual = false;
+          this.source_authors = this.info_produccion_academica.Autores;
+          this.source.load(this.source_authors);
+          const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
+            tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
+          this.filterTitleProduction(tipoProduccion)
+          this.filterDateProduccion(tipoProduccion)
+          this.Metadatos = [];
+          const fillForm = function (campos, Metadatos, nuxeoService, documentoService, links) {
+            const filesToGet = [];
+            campos.forEach(campo => {
+              Metadatos.forEach(metadato => {
+                if (campo.nombre === metadato.MetadatoSubtipoProduccionId.Id) {
+                  campo.valor = metadato.Valor;
+                  if (campo.etiqueta === 'select') {
+                    campo.valor = campo.opciones[metadato.Valor - 1];
+                  }
+                  if (campo.etiqueta === 'file') {
+                    campo.idFile = parseInt(metadato.Valor, 10);
+                    filesToGet.push({ Id: campo.idFile, key: campo.nombre });
+                  }
+                  if (!campo.etiqueta) {
+                    links.push(metadato.Valor);
+                  }
+                };
+              });
             });
-          });
-          if (filesToGet.length !== 0) {
-            nuxeoService.getDocumentoById$(filesToGet, documentoService)
-              .subscribe(response => {
-                const filesResponse = <any>response;
-                if (Object.keys(filesResponse).length === filesToGet.length) {
-                  campos.forEach(campo => {
-                    if (campo.etiqueta === 'file') {
-                      campo.url = filesResponse[campo.nombre] + '';
-                      campo.urlTemp = filesResponse[campo.nombre] + '';
-                    }
+            if (filesToGet.length !== 0) {
+              nuxeoService.getDocumentoById$(filesToGet, documentoService)
+                .subscribe(response => {
+                  const filesResponse = <any>response;
+                  if (Object.keys(filesResponse).length === filesToGet.length) {
+                    campos.forEach(campo => {
+                      if (campo.etiqueta === 'file') {
+                        campo.url = filesResponse[campo.nombre] + '';
+                        campo.urlTemp = filesResponse[campo.nombre] + '';
+                      }
+                    });
+                  }
+                },
+                  (error: HttpErrorResponse) => {
+                    Swal({
+                      type: 'error',
+                      title: error.status + '',
+                      text: this.translate.instant('ERROR.' + error.status),
+                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                    });
                   });
-                }
-              },
-                (error: HttpErrorResponse) => {
-                  Swal({
-                    type: 'error',
-                    title: error.status + '',
-                    text: this.translate.instant('ERROR.' + error.status),
-                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                  });
-                });
+            }
           }
-        }
-        this.loadSubTipoFormFields(this.info_produccion_academica.SubtipoProduccionId, fillForm);
-        this.editando = true;
-      })
+          this.loadSubTipoFormFields(this.info_produccion_academica.SubtipoProduccionId, fillForm);
+          this.editando = true;
+        })
     } else {
       this.info_produccion_academica = new ProduccionAcademicaPost();
       this.info_solicitud = new SolicitudDocentePost();
@@ -524,41 +546,41 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
           console.info('updateProduccionAcademica - info_solicitud: ', this.info_solicitud)
           this.sgaMidService.put('solicitud_docente', this.info_solicitud)
-          .subscribe((resp: any) => {
-            if (resp.Type === 'error') {
-              Swal({
-                type: 'error',
-                title: resp.Code,
-                text: this.translate.instant('ERROR.' + resp.Code),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-              });
-              this.showToast('error', 'Error', this.translate.instant('produccion_academica.produccion_no_actualizada'));
-            } else {
-              let metaProduccionId
-              if (this.files_to_drive.length > 0) {
-                this.files_to_drive.forEach(file => {
-                  this.info_solicitud.ProduccionAcademica.Metadatos.forEach(metadato => {
-                    if (metadato.MetadatoSubtipoProduccionId.Id === file.Id)
-                    metaProduccionId = metadato.Id
-                  })
-                  promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, this.info_produccion_academica.Id, metaProduccionId))
-                })
-              }
-              Swal({
-                title: `Éxito al modificar solicitud.`,
-                text: 'Información Modificada correctamente',
-              });
-              this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
-              this.eventChange.emit(true);
-              Promise.all(promises)
-                .then(() => {
-                  this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_drive'));
-                })
-                .catch(error => {
-                  this.showToast('error', 'error', this.translate.instant('produccion_academica.error_drive'));
+            .subscribe((resp: any) => {
+              if (resp.Type === 'error') {
+                Swal({
+                  type: 'error',
+                  title: resp.Code,
+                  text: this.translate.instant('ERROR.' + resp.Code),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
-            }
-          });
+                this.showToast('error', 'Error', this.translate.instant('produccion_academica.produccion_no_actualizada'));
+              } else {
+                let metaProduccionId
+                if (this.files_to_drive.length > 0) {
+                  this.files_to_drive.forEach(file => {
+                    this.info_solicitud.ProduccionAcademica.Metadatos.forEach(metadato => {
+                      if (metadato.MetadatoSubtipoProduccionId.Id === file.Id)
+                        metaProduccionId = metadato.Id
+                    })
+                    promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, this.info_produccion_academica.Id, metaProduccionId))
+                  })
+                }
+                Swal({
+                  title: `Éxito al modificar solicitud.`,
+                  text: 'Información Modificada correctamente',
+                });
+                this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
+                this.eventChange.emit(true);
+                Promise.all(promises)
+                  .then(() => {
+                    this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_drive'));
+                  })
+                  .catch(error => {
+                    this.showToast('error', 'error', this.translate.instant('produccion_academica.error_drive'));
+                  });
+              }
+            });
         }
       });
   }
@@ -582,39 +604,113 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.info_solicitud.Referencia = `{ \"Id\": ${res.ProduccionAcademica.Id} }`
           this.info_solicitud.Autores = res.Autores;
           this.sgaMidService.post('solicitud_docente', this.info_solicitud)
-          .subscribe((resp: any) => {
-            if (resp.Type === 'error') {
-              Swal({
-                type: 'error',
-                title: resp.Code,
-                text: this.translate.instant('ERROR.' + resp.Code),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-              });
-              this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
-            } else {
-              this.info_solicitud = <SolicitudDocentePost>resp;
-              this.eventChange.emit(true);
-              Swal({
-                title: `Éxito al cargar solicitud.`,
-                text: 'Información Guardada correctamente',
-              });
-              this.router.navigate(['./pages/produccion_academica/new-solicitud']);
-
-              if (this.files_to_drive.length > 0) {
-                this.files_to_drive.forEach(file => {
-                  promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, res.ProduccionAcademica.Id, null))
-                })
-              }
-
-              Promise.all(promises)
-                .then(() => {
-                  this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_drive'));
-                })
-                .catch(error => {
-                  this.showToast('error', 'error', this.translate.instant('produccion_academica.error_drive'));
+            .subscribe((resp: any) => {
+              if (resp.Type === 'error') {
+                Swal({
+                  type: 'error',
+                  title: resp.Code,
+                  text: this.translate.instant('ERROR.' + resp.Code),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
+                this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
+              } else {
+                const info_solicitud_res = <SolicitudDocentePost>resp;
+                this.info_solicitud.EvolucionEstado = resp.EvolucionesEstado;
+                this.info_solicitud.Id = resp.Solicitud.Id;
+                this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
+                this.info_solicitud.ProduccionAcademica = this.info_produccion_academica;
+                console.info(this.info_solicitud);
+                console.info(info_solicitud_res);
+                this.eventChange.emit(true);
+                Swal({
+                  title: `Éxito al cargar solicitud.`,
+                  text: 'Información Guardada correctamente',
+                });
+                this.router.navigate(['./pages/produccion_academica/new-solicitud']);
+
+                promises.push(this.generarAlertas(this.info_solicitud));
+                if (this.files_to_drive.length > 0) {
+                  this.files_to_drive.forEach(file => {
+                    promises.push(this.uploadDriveFilesToMetaData(file.Id, file.File, res.ProduccionAcademica.Id, null))
+                  })
+                }
+
+                Promise.all(promises)
+                  .then(() => {
+                    this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_drive'));
+                  })
+                  .catch(error => {
+                    this.showToast('error', 'error', this.translate.instant('produccion_academica.error_drive'));
+                  });
+              }
+            });
+        }
+      });
+  }
+
+  generarAlertas(info_solicitudPut: SolicitudDocentePost) {
+    return new Promise((resolve, reject) => {
+      this.sgaMidService.post(
+        'solicitud_produccion/' + info_solicitudPut.TerceroId + '/' + this.tipoProduccionAcademica.Id,
+        info_solicitudPut,
+      )
+        .subscribe((res: any) => {
+          if (res !== null) {
+            info_solicitudPut.Observaciones = [];
+            if (res.Alertas.Coincidencias > 0) {
+              const observacion = new Observacion();
+              observacion.Titulo = 'alerta.titulo';
+              observacion.Valor = 'alerta.alerta_numero_coincidencias' + res.Alertas.Coincidencias;
+              observacion.TipoObservacionId = this.tipoObservaciones[0];
+              observacion.TerceroId = 0;
+              info_solicitudPut.Observaciones.push(observacion);
             }
-          });
+            if (res.Alertas.NumAnualProducciones > 0) {
+              switch (this.tipoProduccionAcademica.Id) {
+                case 13: case 14: case 16: case 17: case 19:
+                  if (res.Alertas.NumAnualProducciones > 5) {
+                    const observacion = new Observacion();
+                    observacion.Titulo = 'alerta.titulo';
+                    observacion.Valor = 'alerta.alerta_numero_produccion_anual_5';
+                    observacion.TipoObservacionId = this.tipoObservaciones[0];
+                    observacion.TerceroId = 0;
+                    info_solicitudPut.Observaciones.push(observacion);
+                  }
+                  break;
+                case 15: case 20:
+                  if (res.Alertas.NumAnualProducciones > 5) {
+                    const observacion = new Observacion();
+                    observacion.Titulo = 'alerta.titulo';
+                    observacion.Valor = 'alerta.alerta_numero_produccion_anual_3';
+                    observacion.TipoObservacionId = this.tipoObservaciones[0];
+                    observacion.TerceroId = 0;
+                    info_solicitudPut.Observaciones.push(observacion);
+                  }
+                  break;
+                default:
+                  break;
+              }
+            }
+            console.info(info_solicitudPut);
+            this.updateSolicitud(info_solicitudPut);
+            resolve(true);
+          } else {
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
+  updateSolicitud(solicitudDocente: SolicitudDocentePost): void {
+    this.sgaMidService.put('solicitud_docente', solicitudDocente)
+      .subscribe((resp: any) => {
+        if (resp.Type === 'error') {
+          this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_alerta'));
+        } else {
+          solicitudDocente = <SolicitudDocentePost>resp;
+          this.showToast('error', 'error', this.translate.instant('produccion_academica.error_alerta'));
         }
       });
   }
@@ -682,14 +778,14 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       }
       formData.append('archivo', file);
       this.googleMidService.post_file(query, formData)
-      .subscribe((res: any) => {
-        console.info('uploadDriveFilesToMetadata - res: ', res);
-        if (res) {
-          resolve(true);
-        }
-      }, error => {
-        reject(error);
-      });
+        .subscribe((res: any) => {
+          console.info('uploadDriveFilesToMetadata - res: ', res);
+          if (res) {
+            resolve(true);
+          }
+        }, error => {
+          reject(error);
+        });
     });
   }
 
@@ -697,7 +793,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     const file = event.target.files[0];
     if (this.files_to_drive[numId])
       this.files_to_drive.splice(numId, 1);
-    if ( numId === 0) {
+    if (numId === 0) {
       this.files_to_drive.unshift({
         Id: this.id_data_drive[numId],
         File: file,
@@ -727,12 +823,12 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       } else {
         if (!this.editando && this.files_to_drive.length === 0 &&
           (this.tipoProduccionAcademica.Id === 12 || this.tipoProduccionAcademica.Id === 13 || this.tipoProduccionAcademica.Id === 14)) {
-            Swal({
-              type: 'warning',
-              title: 'ERROR',
-              text: this.translate.instant('produccion_academica.alerta_llenar_archivo_soporte'),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
+          Swal({
+            type: 'warning',
+            title: 'ERROR',
+            text: this.translate.instant('produccion_academica.alerta_llenar_archivo_soporte'),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
         } else {
           const promises = [];
           const metadatos = [];

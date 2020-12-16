@@ -16,7 +16,7 @@ import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comen
 import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 import { SendInvitacionComponent } from './send-invitacion/send-invitacion.component';
-
+import { ButtonAlertComponent } from '../../@theme/components/button-alert/button-alert.component';
 
 @NgModule({
   imports: [
@@ -25,6 +25,9 @@ import { SendInvitacionComponent } from './send-invitacion/send-invitacion.compo
     Ng2SmartTableModule,
     ToasterModule,
     SharedModule,
+  ],
+  entryComponents: [
+    ButtonAlertComponent,
   ],
   declarations: [
     ...routedComponents,

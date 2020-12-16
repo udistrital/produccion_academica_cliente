@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
+import { ButtonAlertComponent } from '../../../@theme/components/button-alert/button-alert.component';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { UserService } from '../../../@core/data/users.service';
 import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
@@ -15,7 +16,7 @@ import 'style-loader!angular2-toaster/toaster.css';
   selector: 'ngx-list-produccion-academica',
   templateUrl: './list-produccion_academica.component.html',
   styleUrls: ['./list-produccion_academica.component.scss'],
-  })
+})
 export class ListProduccionAcademicaComponent implements OnInit {
   solicitud_selected: SolicitudDocentePost;
   solicitud_selectedReview: SolicitudDocentePost;
@@ -39,7 +40,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
       .getItem('id_token')
       .split('.')[1])).role)
       .filter((data: any) => (data.indexOf('/') === -1))[0];
-    this.loadData();
+    this.showData();
     this.cargarCampos();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.cargarCampos();
@@ -103,6 +104,13 @@ export class ListProduccionAcademicaComponent implements OnInit {
           filter: false,
           width: '15%',
         },
+        'EvolucionEstado.FechaLimite': {
+          title: this.translate.instant('produccion_academica.alerta'),
+          renderComponent: ButtonAlertComponent,
+          type: 'custom',
+          filter: false,
+          width: '3%',
+        },
       },
     };
     if (this.rol !== 'DOCENTE') {
@@ -125,73 +133,92 @@ export class ListProduccionAcademicaComponent implements OnInit {
     this.translate.use(language);
   }
 
-  loadData(): void {
+  showData() {
     Swal({
       title: 'Espere',
       text: 'Trayendo Información',
       allowOutsideClick: false,
     });
     Swal.showLoading();
-    let endpointProduccion: string;
-    let endpointSolicitud: string;
-    if (this.rol === 'DOCENTE') {
-      endpointProduccion = 'produccion_academica/' + this.persona_id;
-      endpointSolicitud = 'solicitud_docente/' + this.persona_id;
-    }
-    if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA') {
-      endpointProduccion = 'produccion_academica/';
-      endpointSolicitud = 'solicitud_docente/';
-    }
-    this.sgaMidService.get(endpointProduccion).subscribe((res: any) => {
-      if (res !== null) {
-        if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
-          const dataProduccion = <Array<ProduccionAcademicaPost>>res;
-          this.sgaMidService.get(endpointSolicitud).subscribe((resp: any) => {
-            if (resp !== null) {
-              if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-                const data = <Array<SolicitudDocentePost>>resp;
-                console.info(data);
-                data.forEach(solicitud => {
-                  dataProduccion.forEach(produccion => {
-                    if (JSON.parse(solicitud.Referencia).Id === produccion.Id)
-                      solicitud.ProduccionAcademica = produccion;
-                  })
-                });
-                this.solicitudes_list = data;
-                Swal.close();
-                this.source.load(data);
-              } else {
-                Swal({
-                  type: 'error',
-                  title: '404',
-                  text: this.translate.instant('ERROR.404'),
-                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                });
-              }
-            }
-          }, (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-          });
-        } else {
-          Swal({
-            type: 'error',
-            title: '404',
-            text: this.translate.instant('ERROR.404'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
-        }
+    this.loadData()
+    .then(() => {
+      Swal.close();
+      this.source.load(this.solicitudes_list);
+    })
+    .catch(error => {
+      if (!error.status) {
+        error.status = 409;
       }
-    }, (error: HttpErrorResponse) => {
       Swal({
         type: 'error',
         title: error.status + '',
         text: this.translate.instant('ERROR.' + error.status),
         confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+      });
+    });
+  }
+
+  loadData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let endpointSolicitud: string;
+      if (this.rol === 'DOCENTE')
+        endpointSolicitud = 'solicitud_docente/' + this.persona_id;
+      if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
+        endpointSolicitud = 'solicitud_docente/';
+      this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
+        if (res !== null) {
+          if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+            const data = <Array<SolicitudDocentePost>>res;
+            data.forEach(solicitud => {
+              if (JSON.parse(solicitud.Referencia).Id !== undefined) {
+                const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
+                this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
+                  if (resp !== null) {
+                    if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
+                      solicitud.ProduccionAcademica = <ProduccionAcademicaPost> resp[0];
+                      if (solicitud.Id === data[ data.length - 1 ].Id) {
+                        console.info('Paso');
+                        resolve(true);
+                      }
+                    } else {
+                      Swal({
+                        type: 'error',
+                        title: '404',
+                        text: this.translate.instant('ERROR.404'),
+                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                      });
+                    }
+                  }
+                }, (error: HttpErrorResponse) => {
+                  reject({ status: 404 });
+                  Swal({
+                    type: 'error',
+                    title: error.status + '',
+                    text: this.translate.instant('ERROR.' + error.status),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
+                });
+              }
+            });
+            console.info(data);
+            this.solicitudes_list = data;
+          } else {
+            Swal({
+              type: 'error',
+              title: '404',
+              text: this.translate.instant('ERROR.404'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+          }
+        }
+      }, (error: HttpErrorResponse) => {
+        reject({ status: 404 });
+        Swal({
+          type: 'error',
+          title: error.status + '',
+          text: this.translate.instant('ERROR.' + error.status),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        });
       });
     });
   }
