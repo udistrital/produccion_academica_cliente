@@ -9,7 +9,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { CrudProduccionAcademicaComponent } from './crud-produccion_academica/crud-produccion_academica.component';
 import { ListProduccionAcademicaComponent } from './list-produccion_academica/list-produccion_academica.component';
 import { ListAprovedProduccionAcademicaComponent } from './list_aproved-produccion_academica/list_aproved-produccion_academica.component';
-import { ViewProduccionAcademicaComponent } from './view-produccion_academica/view-produccion_academica.component';
 import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
 import { UserService } from '../../@core/data/users.service';
 import { PersonaService } from '../../@core/data/persona.service';
@@ -19,6 +18,8 @@ import { ListComentarioComponent } from './comentario/list-comentario/list-comen
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 import { SendInvitacionComponent } from './send-invitacion/send-invitacion.component';
 import { ButtonAlertComponent } from '../../@theme/components/button-alert/button-alert.component';
+
+
 
 @NgModule({
   imports: [
@@ -44,9 +45,7 @@ import { ButtonAlertComponent } from '../../@theme/components/button-alert/butto
   exports: [
     CrudProduccionAcademicaComponent,
     ListProduccionAcademicaComponent,
-    ViewProduccionAcademicaComponent,
     ReviewProduccionAcademicaComponent,
-    ComentarioComponent,
     CrudComentarioComponent,
     ListComentarioComponent,
     NewSolicitudComponent,
