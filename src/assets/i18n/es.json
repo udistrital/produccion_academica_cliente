@@ -807,6 +807,7 @@
     "alerta": {
         "titulo": "Alerta",
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
+        "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
         "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
         "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
     }

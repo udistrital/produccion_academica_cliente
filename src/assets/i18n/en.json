@@ -796,6 +796,7 @@
     "alerta": {
         "titulo": "Alert",
         "alerta_numero_coincidencias": "The application presents a possible high match in the title with a total of other applications:",
+        "alerta_isbn": "The request presents a possible match with the ISBN of other registered productions.",
         "alerta_numero_produccion_anual_5": "The application of the same type may have been presented more than 5 times for the year of publication or filing.",
         "alerta_numero_produccion_anual_3": "The application of the same type may have been presented more than 3 times for the year of publication or filing."
     }
