@@ -1,21 +1,25 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
 import { LocalDataSource } from 'ng2-smart-table';
 import { HttpErrorResponse } from '@angular/common/http';
-import Swal from 'sweetalert2';
-import { SubTipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/subtipo_produccion_academica';
-import { FORM_produccion_academica } from './form-produccion_academica';
 import { ProduccionAcademicaService } from '../../../@core/data/produccion_academica.service';
-import { MetadatoSubtipoProduccion } from '../../../@core/data/models/produccion_academica/metadato_subtipo_produccion';
-import { NuxeoService } from '../../../@core/utils/nuxeo.service';
-import { DocumentoService } from '../../../@core/data/documento.service';
+import { SgaMidService } from '../../../@core/data/sga_mid.service';
+import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DocumentoService } from '../../../@core/data/documento.service';
+import { UserService } from '../../../@core/data/users.service';
+import { NuxeoService } from '../../../@core/utils/nuxeo.service';
+import { FORM_produccion_academica } from './form-produccion_academica';
+import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
+import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
+import { SubTipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/subtipo_produccion_academica';
+import { MetadatoSubtipoProduccion } from '../../../@core/data/models/produccion_academica/metadato_subtipo_produccion';
 import { TercerosService } from '../../../@core/data/terceros.service';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
 import { EstadoAutorProduccion } from './../../../@core/data/models/produccion_academica/estado_autor_produccion';
-import { UserService } from '../../../@core/data/users.service';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import Swal from 'sweetalert2';
+import { Observacion } from '../../../@core/data/models/solicitud_docente/observacion';
 
 @Component({
   selector: 'ngx-review-produccion-academica',
@@ -34,17 +38,23 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
   editando: boolean;
+  esRechazada: boolean;
   clean: boolean;
   formProduccionAcademica: any;
   userData: Tercero;
   autorSeleccionado: Tercero;
   tiposProduccionAcademica: Array<TipoProduccionAcademica>;
   estadosAutor: Array<EstadoAutorProduccion>;
+  estadosSolicitudes: Array<EstadoTipoSolicitud>;
   creandoAutor: boolean;
+  observaciones_comments: Observacion[] = [];
+  observaciones_alerts: Observacion[] = [];
 
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    this.observaciones_alerts = [];
+    this.filterObservations()
     this.loadProduccionAcademica();
     this.setButtonOptions();
   }
@@ -60,7 +70,9 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     private documentoService: DocumentoService,
     private translate: TranslateService,
     private tercerosService: TercerosService,
+    private sgaMidService: SgaMidService,
     private user: UserService,
+    private solicitudDocenteService: SolicitudDocenteService,
     ) {
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
@@ -71,13 +83,28 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
 
   ngOnInit() { }
 
+  filterObservations() {
+    this.solicitud_docente_selected.Observaciones.forEach(observacion => {
+      if (observacion.TipoObservacionId.Id === 1)
+        this.observaciones_comments.push(observacion)
+      else {
+        observacion.Persona = <Tercero> {
+          NombreCompleto: 'Sistema',
+          Id: 0,
+        }
+        this.observaciones_alerts.push(observacion);
+      }
+    });
+  }
+
   public setButtonOptions() {
     if (this.rol !== 'DOCENTE') {
-      this.buttonAdmin = true;
-      this.buttonModify = true;
+      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 1)
+      ? this.buttonAdmin = true : this.buttonAdmin = false;
+      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 8)
+      ? this.buttonModify = true : this.buttonModify = false;
     } else {
-      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) 
-        ? this.buttonModify = true : this.buttonModify = false;
+        (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }
@@ -251,7 +278,163 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     });
   }
 
+  onView(alert) {
+    const opt: any = {
+      width: '550px',
+      title: this.translate.instant(alert.Titulo),
+      html: `
+        <p style="width: 80%; margin: auto">
+          ${(alert.Valor.length < 37)
+            ? this.translate.instant(alert.Valor.substring(0, 34)) + ' ' + alert.Valor.substring(34, alert.Valor.length)
+            : this.translate.instant(alert.Valor)
+          }
+        </p> <br> <br>
+        <small>Escrito por: ${alert.Persona.NombreCompleto}</small> <br>
+        <small>Fecha observación: ${(alert.FechaCreacion + '').substring(0, 10)}</small>
+      `,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    };
+    Swal(opt)
+  }
+
   reloadTable(event) {
     this.eventChange.emit(event);
+    this.closePop();
+  }
+
+  closePop() {
+    this.esRechazada = false;
+  }
+
+  rejectRequest() {
+    const opt = {
+      title: this.translate.instant('produccion_academica.rechazar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_rechazar_produccion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+    .then((willCreate) => {
+      if (willCreate.value) {
+        this.esRechazada = true;
+      }
+    });
+  }
+
+  verifyRequest() {
+    const opt = {
+      title: this.translate.instant('produccion_academica.verificar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_verificar_produccion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+    .then((willCreate) => {
+      if (willCreate.value) {
+        Swal({
+          title: 'Espere',
+          text: 'Enviando Información',
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+        switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
+          case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
+            this.passForEvaluation();
+            break;
+          case 2: case 3: case 4: case 5: case 9: case 11: case 15: case 16: case 17: case 18: case 19: case 20:
+            this.calculateResult();
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
+
+  updateSolicitudDocente(solicitudDocente: any): void {
+    this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
+    this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+    this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
+    console.info(this.info_solicitud);
+    this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+    .subscribe((resp: any) => {
+      if (resp.Type === 'error') {
+        Swal({
+          type: 'error',
+          title: resp.Code,
+          text: this.translate.instant('ERROR.' + resp.Code),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        });
+      } else {
+        this.info_solicitud = <SolicitudDocentePost>resp;
+        Swal({
+          title: `Éxito al Verificar Solicitud.`,
+          text: 'Información Modificada correctamente',
+        });
+        this.reloadTable(true);
+      }
+    });
+  }
+
+  generateResult(solicitudDocente: SolicitudDocentePost) {
+    return new Promise((resolve, reject) => {
+      this.sgaMidService.put(
+        'solicitud_produccion/' + solicitudDocente.Id,
+        solicitudDocente,
+      )
+        .subscribe((res: any) => {
+          if (res !== null) {
+            resolve(true);
+          } else {
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
+  passForEvaluation() {
+    this.estadosSolicitudes = [];
+    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:3')
+      .subscribe(res => {
+        if (Object.keys(res.Data[0]).length > 0) {
+          this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+          this.updateSolicitudDocente(this.solicitud_docente_selected);
+        } else {
+          this.estadosSolicitudes = [];
+        }
+      });
+  }
+
+  calculateResult() {
+    const promises = [];
+
+    promises.push(this.generateResult(this.info_solicitud));
+
+        Promise.all(promises)
+          .then(() => {
+            console.info('Paso')
+          })
+          .catch(error => {
+            console.info('Error')
+          });
+
+    // this.estadosSolicitudes = [];
+    // this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
+    // .subscribe(res => {
+    //   if (Object.keys(res.Data[0]).length > 0) {
+    //     this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+    //     this.updateSolicitudDocente(this.solicitud_docente_selected);
+    //   } else {
+    //     this.estadosSolicitudes = [];
+    //   }
+    // });
   }
 }

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { NotificacionesService } from '../../../@core/utils/notificaciones.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { userInfo } from 'os';
-
+import * as auth from 'oidc-auth/index.js';
 
 @Component({
   selector: 'ngx-header',
@@ -25,10 +25,10 @@ export class HeaderComponent {
   username = '';
   userMenu = [{ title: 'ver todas', icon: 'fa fa-list' }];
   public noNotify: any = '0';
-  private autenticacion= new ImplicitAutenticationService;
 
   constructor(private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
+    private autenticacion: ImplicitAutenticationService,
     private analyticsService: AnalyticsService,
     private router: Router,
     public notificacionService: NotificacionesService,

@@ -1,4 +1,4 @@
-@import '../../../../@theme/styles/themes';
+@import '../../../@theme/styles/themes';
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
 @include nb-install-component() {
@@ -16,6 +16,10 @@
 
   /deep/ .mat-select-placeholder {
     color: transparentize($color: nb-theme(color-fg-heading), $amount: 0.6);
+  }
+
+  mat-form-field {
+    margin-top: 20px;
   }
 
   /deep/ .mat-form-field-underline {
@@ -80,7 +84,9 @@
 
   textarea {
     padding: 5px;
+
     min-height: 60px;
+
     border: 1px solid #dadfe6;
     border-radius: 5px;
   }

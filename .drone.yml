@@ -1,6 +1,23 @@
-workspace:
-  base: /go
-  path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
+kind: pipeline
+name: oas_cliente_ci
+
+steps:
+- name: check_readme
+  image: jjvargass/qa_develoment:latest
+  commands:
+  - python /app/check_readme.py
+  when:
+    branch:
+    - develop
+    - feature/*
+    - release/*
+    event:
+    - push
+
+- name: check_branch
+  image: jjvargass/qa_develoment:latest
+  commands:
+  - python /app/check_branch.py -H ${DRONE_GIT_HTTP_URL}
   when:
       branch:
       - master
