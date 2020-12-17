@@ -80,7 +80,7 @@
           <div class="col-4">
             <label>{{campo.etiqueta === 'select' 
                       ? campo.valor.Nombre 
-                      : (campo.etiqueta === 'mat-date') 
+                      : (campo.etiqueta === 'mat-date' && campo.valor) 
                       ? campo.valor.substring(0,10)
                       : campo.valor}}</label>
           </div>

@@ -5,9 +5,11 @@ import {ToasterService, ToasterConfig, Toast, BodyOutputType} from 'angular2-toa
 import {LocalDataSource} from 'ng2-smart-table';
 import {ButtonAlertComponent} from '../../../@theme/components/button-alert/button-alert.component';
 import {SgaMidService} from '../../../@core/data/sga_mid.service';
+import { TercerosService } from '../../../@core/data/terceros.service';
 import {UserService} from '../../../@core/data/users.service';
 import {ProduccionAcademicaPost} from './../../../@core/data/models/produccion_academica/produccion_academica';
 import {SolicitudDocentePost} from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import {filterList} from './filtros'
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
@@ -33,6 +35,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
 
   constructor(private translate: TranslateService,
               private sgaMidService: SgaMidService,
+              private tercerosService: TercerosService,
               private user: UserService,
               private toasterService: ToasterService) {
     this.persona_id = user.getPersonaId() || 1;
@@ -80,6 +83,14 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
           filter: false,
           width: '15%',
         },
+        EvolucionEstado: {
+          title: this.translate.instant('produccion_academica.estado_solicitud'),
+          valuePrepareFunction: (value) => {
+            return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+          },
+          filter: false,
+          width: '10%',
+        },
         FechaRadicacion: {
           title: this.translate.instant('produccion_academica.fecha_radicacion'),
           valuePrepareFunction: (value) => {
@@ -87,6 +98,14 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
           },
           filter: false,
           width: '15%',
+        },
+        Solicitantes: {
+          title: this.translate.instant('GLOBAL.persona'),
+          valuePrepareFunction: (value) => {
+            return value[0].Nombre;
+          },
+          filter: false,
+          width: '20%',
         },
         'ProduccionAcademica.Fecha': {
           title: this.translate.instant('produccion_academica.fecha_publicacion'),
@@ -105,20 +124,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
         },
       },
     };
-    // if (this.rol === 'DOCENTE') {
-    //   this.settings.columns.Solicitantes = {
-    //     title: this.translate.instant('GLOBAL.persona'),
-    //     valuePrepareFunction: (value) => {
-    //       return value[0].Nombre;
-    //     },
-    //     filter: false,
-    //     width: '20%',
-    //   }
-    // } else {
-    //   this.settings.columns['ProduccionAcademica.Titulo'].width = '30%';
-    //   this.settings.columns['ProduccionAcademica.SubtipoProduccionId'].width = '20%';
-    //   this.settings.columns.EvolucionEstado.width = '15%';
-    // }
   }
 
   useLanguage(language: string) {
@@ -134,8 +139,11 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
     Swal.showLoading();
     this.loadData()
       .then(() => {
-        Swal.close();
-        this.source.load(this.solicitudes_list);
+        this.loadTerceroData()
+          .then(() => {
+            Swal.close();
+            this.source.load(this.solicitudes_list);
+          })
       })
       .catch(error => {
         if (!error.status) {
@@ -161,6 +169,9 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
           if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
             const dataSolicitud = <Array<SolicitudDocentePost>>res;
             dataSolicitud.forEach(solicitud => {
+              if (Object.keys(solicitud.Observaciones[0]).length === 0) {
+                solicitud.Observaciones = []
+              }
               if (JSON.parse(solicitud.Referencia).Id !== undefined) {
                 const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
                 this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
@@ -193,6 +204,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
               }
             });
             this.solicitudes_list = dataSolicitud;
+            console.info(this.solicitudes_list);
           } else {
             Swal({
               type: 'error',
@@ -214,6 +226,28 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  loadTerceroData() {
+    let i: number = 0;
+    return new Promise((resolve, reject) => {
+      this.solicitudes_list.forEach(solicitud => {
+          this.tercerosService.get('tercero/?query=Id:' + solicitud.Solicitantes[0].TerceroId)
+          .subscribe(res => {
+            if (Object.keys(res[0]).length > 0) {
+              solicitud.Solicitantes[0].Nombre = <Tercero>res[0].NombreCompleto;
+              i++
+              if (i === this.solicitudes_list.length)
+                resolve(true);
+            }else {
+              this.solicitudes_list = [];
+              reject({ status: 404 });
+            }
+          }, (error: HttpErrorResponse) => {
+            reject(error);
+          });
+      });
+    })
   }
 
   onEdit(event): void {
