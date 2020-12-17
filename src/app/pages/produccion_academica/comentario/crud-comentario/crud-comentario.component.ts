@@ -176,7 +176,20 @@ export class CrudComentarioComponent implements OnInit {
       this.observacion.TipoObservacionId = this.tipoObservaciones[0];
       this.observacion.TerceroId = this.user.getPersonaId() || 3;
       this.solicitud_selected.Observaciones.push(this.observacion);
-      this.updateSolicitudDocente(this.solicitud_selected);
+      const opt = {
+        title: this.translate.instant('GLOBAL.registrar'),
+        text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+        showCancelButton: true,
+      };
+      Swal(opt)
+        .then((willCreate) => {
+          if (willCreate.value) {
+            this.updateSolicitudDocente(this.solicitud_selected);
+          }
+        });
     }
   }
 }
