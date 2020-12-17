@@ -358,6 +358,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   updateSolicitudDocente(solicitudDocente: any): void {
+    const promises = [];
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
@@ -377,8 +378,36 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           title: `Éxito al Verificar Solicitud.`,
           text: 'Información Modificada correctamente',
         });
+        promises.push(this.generateResult(this.info_solicitud));
+
+        Promise.all(promises)
+          .then(() => {
+            console.info('Paso')
+          })
+          .catch(error => {
+            console.info('Error')
+          });
+
         this.reloadTable(true);
       }
+    });
+  }
+
+  generateResult(solicitudDocente: SolicitudDocentePost) {
+    return new Promise((resolve, reject) => {
+      this.sgaMidService.put(
+        'solicitud_produccion/' + solicitudDocente.Id,
+        solicitudDocente,
+      )
+        .subscribe((res: any) => {
+          if (res !== null) {
+            resolve(true);
+          } else {
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
     });
   }
 

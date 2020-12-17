@@ -67,8 +67,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
         'ProduccionAcademica.Titulo': {
           title: this.translate.instant('produccion_academica.titulo_produccion_academica'),
           valuePrepareFunction: (cell, row) => {
-            console.info(row)
-            console.info(row.ProduccionAcademica.Titulo)
             return row.ProduccionAcademica.Titulo;
           },
           filter: false,
@@ -81,14 +79,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
           },
           filter: false,
           width: '15%',
-        },
-        EvolucionEstado: {
-          title: this.translate.instant('produccion_academica.estado_solicitud'),
-          valuePrepareFunction: (value) => {
-            return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
-          },
-          filter: false,
-          width: '10%',
         },
         FechaRadicacion: {
           title: this.translate.instant('produccion_academica.fecha_radicacion'),
@@ -115,20 +105,20 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
         },
       },
     };
-    if (this.rol !== 'DOCENTE') {
-      this.settings.columns.Solicitantes = {
-        title: this.translate.instant('GLOBAL.persona'),
-        valuePrepareFunction: (value) => {
-          return value[0].Nombre;
-        },
-        filter: false,
-        width: '20%',
-      }
-    } else {
-      this.settings.columns['ProduccionAcademica.Titulo'].width = '30%';
-      this.settings.columns['ProduccionAcademica.SubtipoProduccionId'].width = '20%';
-      this.settings.columns.EvolucionEstado.width = '15%';
-    }
+    // if (this.rol === 'DOCENTE') {
+    //   this.settings.columns.Solicitantes = {
+    //     title: this.translate.instant('GLOBAL.persona'),
+    //     valuePrepareFunction: (value) => {
+    //       return value[0].Nombre;
+    //     },
+    //     filter: false,
+    //     width: '20%',
+    //   }
+    // } else {
+    //   this.settings.columns['ProduccionAcademica.Titulo'].width = '30%';
+    //   this.settings.columns['ProduccionAcademica.SubtipoProduccionId'].width = '20%';
+    //   this.settings.columns.EvolucionEstado.width = '15%';
+    // }
   }
 
   useLanguage(language: string) {
@@ -161,6 +151,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   }
 
   loadData(): Promise<any> {
+    let i: number = 0;
     return new Promise((resolve, reject) => {
       let endpointSolicitud: string;
       if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
@@ -175,10 +166,9 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
                 this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
                   if (resp !== null) {
                     if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-                      console.info(solicitud.ProduccionAcademica)
                       solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
-                      console.info(solicitud.ProduccionAcademica)
-                      if (solicitud.Id === dataSolicitud[dataSolicitud.length - 1].Id) {
+                      i++
+                      if (i === dataSolicitud.length) {
                         console.info('Paso');
                         resolve(true);
                       }
@@ -203,7 +193,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
               }
             });
             this.solicitudes_list = dataSolicitud;
-            console.info(dataSolicitud);
           } else {
             Swal({
               type: 'error',
