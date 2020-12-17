@@ -8,7 +8,7 @@ describe('ButtonAlertComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonAlertComponent ]
+      declarations: [ ButtonAlertComponent ],
     })
     .compileComponents();
   }));

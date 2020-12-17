@@ -72,7 +72,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     private tercerosService: TercerosService,
     private sgaMidService: SgaMidService,
     private user: UserService,
-    private solicitudDocenteService: SolicitudDocenteService
+    private solicitudDocenteService: SolicitudDocenteService,
     ) {
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
@@ -104,8 +104,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 8)
       ? this.buttonModify = true : this.buttonModify = false;
     } else {
-      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) 
-        ? this.buttonModify = true : this.buttonModify = false;
+        (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }
@@ -344,7 +343,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           allowOutsideClick: false,
         });
         Swal.showLoading();
-        switch(this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
+        switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
           case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
             this.passForEvaluation();
             break;
@@ -383,6 +382,24 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     });
   }
 
+  generateResult(solicitudDocente: SolicitudDocentePost) {
+    return new Promise((resolve, reject) => {
+      this.sgaMidService.put(
+        'solicitud_produccion/' + solicitudDocente.Id,
+        solicitudDocente,
+      )
+        .subscribe((res: any) => {
+          if (res !== null) {
+            resolve(true);
+          } else {
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
   passForEvaluation() {
     this.estadosSolicitudes = [];
     this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:3')
@@ -397,15 +414,27 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   calculateResult() {
-    this.estadosSolicitudes = [];
-    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
-    .subscribe(res => {
-      if (Object.keys(res.Data[0]).length > 0) {
-        this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-        this.updateSolicitudDocente(this.solicitud_docente_selected);
-      } else {
-        this.estadosSolicitudes = [];
-      }
-    });
+    const promises = [];
+
+    promises.push(this.generateResult(this.info_solicitud));
+
+        Promise.all(promises)
+          .then(() => {
+            console.info('Paso')
+          })
+          .catch(error => {
+            console.info('Error')
+          });
+
+    // this.estadosSolicitudes = [];
+    // this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
+    // .subscribe(res => {
+    //   if (Object.keys(res.Data[0]).length > 0) {
+    //     this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+    //     this.updateSolicitudDocente(this.solicitud_docente_selected);
+    //   } else {
+    //     this.estadosSolicitudes = [];
+    //   }
+    // });
   }
 }

@@ -15,7 +15,7 @@ import { InvitacionTemplate } from '../../../@core/data/models/evaluacion_par/in
 @Component({
   selector: 'ngx-send-invitacion',
   templateUrl: './send-invitacion.component.html',
-  styleUrls: ['./send-invitacion.component.scss']
+  styleUrls: ['./send-invitacion.component.scss'],
 })
 export class SendInvitacionComponent implements OnInit {
   @Input('solicitud_selected')

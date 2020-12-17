@@ -8,7 +8,7 @@ describe('SendInvitacionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SendInvitacionComponent ]
+      declarations: [ SendInvitacionComponent ],
     })
     .compileComponents();
   }));

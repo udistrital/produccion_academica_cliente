@@ -1,17 +1,17 @@
 nb-card {
 
   nb-card-header {
-    background: #66B2FF;
+    background: #66b2ff;
     color: #fff;
     text-align: center;
   }
-  nb-card-body{
+  nb-card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     .details li {
-      color: #66B2FF;
+      color: #66b2ff;
       margin: 2px;
     }
     .card-action {
@@ -23,14 +23,9 @@ nb-card {
         border: none;
         border-radius: 25px;
         outline: none;
-        background: #343A40;
+        background: #343a40;
         color: #fff;
       }
     }
   }
 }
-
-// .swal-modal {
-//   padding: 50px !important;
-//   width: 550px !important;
-// }

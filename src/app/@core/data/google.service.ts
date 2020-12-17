@@ -19,7 +19,7 @@ const httpOptionsFile = {
 const path = environment.GOOGLE_MID_SERVICE;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GoogleService {
 
