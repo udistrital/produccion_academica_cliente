@@ -217,19 +217,19 @@
     }
   }
 
-  .pop-comment{
+  .pop-comment {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 2000;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .pop-content {
     display: flex;
     flex-direction: column;
@@ -241,7 +241,7 @@
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease-in;
-  }  
+  }
 
   .pop-content button {
     align-self: flex-end;
@@ -267,7 +267,7 @@
     left: -12px;
     display: inline-block;
     padding: 4px 8px;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 3px 0 0 3px;
   }
 
@@ -283,8 +283,10 @@
     }
   }
 
-  .btn { 
-    margin-bottom:10px; 
+  .btn {
+
+    margin-bottom:10px;
+
   }
 
   ngb-rating i {

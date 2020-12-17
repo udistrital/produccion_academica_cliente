@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'ngx-send-invitacion',
   templateUrl: './send-invitacion.component.html',
-  styleUrls: ['./send-invitacion.component.scss']
+  styleUrls: ['./send-invitacion.component.scss'],
 })
 export class SendInvitacionComponent implements OnInit {
   @Input('solicitud_selected')
@@ -30,13 +30,12 @@ export class SendInvitacionComponent implements OnInit {
   userData: Tercero;
   userNum: string;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
-  
   constructor(private translate: TranslateService,
     private tercerosService: TercerosService,
     private user: UserService,
     private sgaMidService: SgaMidService,
-    private solicitudDocenteService: SolicitudDocenteService
-    ) { 
+    private solicitudDocenteService: SolicitudDocenteService,
+    ) {
       this.invitacion = new Invitacion();
     }
 

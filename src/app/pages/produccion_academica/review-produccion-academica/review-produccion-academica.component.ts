@@ -72,7 +72,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     private tercerosService: TercerosService,
     private sgaMidService: SgaMidService,
     private user: UserService,
-    private solicitudDocenteService: SolicitudDocenteService
+    private solicitudDocenteService: SolicitudDocenteService,
     ) {
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
@@ -343,7 +343,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           allowOutsideClick: false,
         });
         Swal.showLoading();
-        switch(this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
+        switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
           case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
             this.passForEvaluation();
             break;
