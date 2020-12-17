@@ -8,16 +8,15 @@ import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
 import { CrudProduccionAcademicaComponent } from './crud-produccion_academica/crud-produccion_academica.component';
 import { ListProduccionAcademicaComponent } from './list-produccion_academica/list-produccion_academica.component';
-import { ViewProduccionAcademicaComponent } from './view-produccion_academica/view-produccion_academica.component';
+import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
 import { UserService } from '../../@core/data/users.service';
 import { PersonaService } from '../../@core/data/persona.service';
 import { NuxeoService } from '../../@core/utils/nuxeo.service';
-import { ReviewProduccionAcademicaComponent } from './review-produccion-academica/review-produccion-academica.component';
-import { ComentarioComponent } from './comentario/comentario.component';
 import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
 import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
-
+import { SendInvitacionComponent } from './send-invitacion/send-invitacion.component';
+import { ButtonAlertComponent } from '../../@theme/components/button-alert/button-alert.component';
 
 @NgModule({
   imports: [
@@ -26,6 +25,9 @@ import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
     Ng2SmartTableModule,
     ToasterModule,
     SharedModule,
+  ],
+  entryComponents: [
+    ButtonAlertComponent,
   ],
   declarations: [
     ...routedComponents,
@@ -40,12 +42,11 @@ import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
   exports: [
     CrudProduccionAcademicaComponent,
     ListProduccionAcademicaComponent,
-    ViewProduccionAcademicaComponent,
     ReviewProduccionAcademicaComponent,
-    ComentarioComponent,
     CrudComentarioComponent,
     ListComentarioComponent,
     NewSolicitudComponent,
+    SendInvitacionComponent,
   ],
 })
 export class ProduccionAcademicaModule { }

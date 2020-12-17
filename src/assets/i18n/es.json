@@ -45,6 +45,7 @@
         "preinscripcion_2": "Desea realizar preinscripcion",
         "id": "Id",
         "activo": "Activo",
+        "enviar": "Enviar",
         "aceptar": "Aceptar",
         "terminos_datos": "Política de privacidad y tratamiento de datos",
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
@@ -484,6 +485,7 @@
         "rechazar": "Rechazar",
 
         "acciones": "Acciones",
+        "alerta": "Alerta",
         "placeholder_filtro": "Ej: Solicitudes completadas",
         "estado_solicitud": "Estado de Solicitud",
         "ver_detalle": "Ver Detalles",
@@ -492,6 +494,9 @@
         "link_drive": "Link Drive del documento:",
         "exito_drive": "Éxito al subir archivo a drive",
         "error_drive": "Error al subir archivo a drive",
+        "exito_alerta": "Éxito al subir alerta",
+        "error_alerta": "Error al subir alerta",
+        "alerta_fecha_expirada": "La fecha del estado actual ha expirado",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -625,7 +630,8 @@
             "AVA": "Soporte del producto audiovisual",
             "EPRO": "Ejecutable del software",
             "CFS": "Código fuente de la aplicación",
-            "archivo_drive": "Archivo drive"
+            "archivo_drive": "Archivo drive",
+            "tipo_produccion_audiovisual": "Tipo de producción audiovisual"
         },
 
         "placeholders": {
@@ -669,8 +675,8 @@
             "categoria_revista": "Ej: A1",
             "gran_area_conocimiento": "Ej: Ciencias Naturales",
             "categoria_premio": "Ej: Primer Lugar",
-            "tipo_obra_video": "Ej: Video",
-            "tipo_obra_artistica": "Ej: Obra de teatro",
+            "tipo_obra_video": "Ej: Didáctica",
+            "tipo_obra_artistica": "Ej: Creación Original",
             "alcance_obra": "Ej: Nacional",
             "categoria_tesis": "Ej: Laureada",
             "area_conocimiento_especifica": "Ej: Matemáticas",
@@ -711,7 +717,8 @@
             "acta_doctorado": "Archivo pdf del título de doctorado",
             "soporte_audiovisual": "Archivo de vídeo o audio del soporte del producto audiovisual",
             "ejecutable_software": "Archivo del ejecutable del programa",
-            "codigo_software": "Archivo del código fuente de la aplicación"
+            "codigo_software": "Archivo del código fuente de la aplicación",
+            "tipo_produccion_audiovisual": "Ej: Video"
         },
 
         "categorias": {
@@ -745,13 +752,20 @@
 
         "filtros" : {
             "radicado": "Solicitudes en estado de radicación",
-            "por_modificar": "Solicitudes pendientes por modificar"
+            "por_modificar": "Solicitudes pendientes por modificar",
+            "por_evaluar": "Solicitudes que requieren una evaluación por par externo",
+            "verificada": "Solicitudes que están verificadas",
+            "rechazada": "Solicitudes que han sido rechazadas"
         },
 
         "alerta_llenar_campo": "Debe llenar este campo",
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
+        "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
+        "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
+        "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",
+        "seguro_continuar_registrar_comentario": "¿Está seguro de registrar este comentario?",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
@@ -778,6 +792,25 @@
         "titulo_comentario": "Título de la Observación",
         "descripcion_comentario": "Descripción de la Observación",
         "fecha_comentario": "Fecha de Observación",
-        "tipo_observacion": "Tipo Observación"
+        "tipo_observacion": "Tipo Observación",
+
+        "alerta_titulo_comentario": "Debe escribir el título del comentario",
+        "alerta_descripcion_comentario": "Debe escribir la descripción del comentario"
+    },
+    "evaluacion": {
+        "envio_invitacion": "Envió de Invitación",
+        "nombre_evaluacion": "Nombre evaluador externo",
+        "correo_evaluacion": "Correo evaluador externo",
+
+        "alerta_nombre_evaluador": "Debe escribir el nombre del evaluador",
+        "alerta_correo_evaluador": "Debe escribir el correo del evaluador"
+    },
+
+    "alerta": {
+        "titulo": "Alerta",
+        "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
+        "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
+        "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
+        "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
     }
 }

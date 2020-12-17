@@ -33,7 +33,7 @@
           <h5>{{'produccion_academica.autores' | translate}}</h5>
         </div>
         <div class="col-4">
-          <label>{{solicitud_docente_selected.ProduccionAcademica.Autores[0].Nombre}}</label>
+          <label>{{solicitud_docente_selected.Solicitantes[0].Nombre}}</label>
         </div>
       </div>
       <div class="row" *ngIf="solicitud_docente_selected">
@@ -91,24 +91,50 @@
   <div class="row" style="width: 30%;">
     <ngx-list-comentario 
       [hidden]="!(rol === 'DOCENTE')" 
-      [observaciones_selected]="solicitud_docente_selected.Observaciones"
+      [observaciones_selected]="observaciones_comments"
       style="width: 100%;"></ngx-list-comentario>
     <ngx-crud-comentario 
-      [hidden]="!(rol !== 'DOCENTE')"
+      [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3)"
       (reloadTable)="reloadTable($event)"
+      [estadoNum] = "2"
       [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
+    <ngx-send-invitacion 
+      [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 3)"
+      (reloadTable)="reloadTable($event)"
+      [solicitud_selected]="solicitud_docente_selected"></ngx-send-invitacion>
   </div>
 </div>
 <div class="row">
-  <button class="btn-review" [hidden]="!buttonAdmin">{{'produccion_academica.verificar' | translate}}</button>
+  <ng-container *ngFor="let alert of observaciones_alerts">
+    <button class="btn btn-labeled btn-warning" [hidden]="!(rol !== 'DOCENTE')" (click)="onView(alert)">
+      <span class="btn-label"><img src="assets/images/alert2.png"></span>
+      {{'produccion_academica.alerta' | translate}}
+    </button>
+  </ng-container>
+</div>
+<div class="row">
+  <button class="btn-review" [hidden]="!buttonAdmin" (click)="verifyRequest()">{{'produccion_academica.verificar' | translate}}</button>
   <button class="btn-review" [hidden]="!buttonModify" (click)="sendRequest()">
     {{'produccion_academica.modificar' | translate}}
   </button>
-  <button class="btn-review" [hidden]="!buttonAdmin">{{'produccion_academica.rechazar' | translate}}</button>
+  <button class="btn-review" [hidden]="!buttonAdmin" (click)="rejectRequest()">{{'produccion_academica.rechazar' | translate}}</button>
 </div>
 <div class="row">
   <ngx-list-comentario 
     [hidden]="!(rol !== 'DOCENTE')" 
     [observaciones_selected]="solicitud_docente_selected.Observaciones"
     style="width: 100%;"></ngx-list-comentario>
+</div>
+
+<div class="pop-comment" [hidden]="!esRechazada">
+  <div class="pop-content">
+    <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
+    <h2>Comentario de rechazo</h2>
+    <p>Debe registrar un comentario de razón de rechazo</p>
+    <ngx-crud-comentario
+        [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3)"
+        (reloadTable)="reloadTable($event)"
+        [estadoNum] = "8"
+        [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
+  </div>
 </div>

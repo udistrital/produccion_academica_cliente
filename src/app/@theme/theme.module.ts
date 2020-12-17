@@ -141,6 +141,7 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { UD_THEME } from './styles/theme.ud';
 import { ConfiguracionService } from '../@core/data/configuracion.service';
+import { ButtonAlertComponent } from './components/button-alert/button-alert.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -208,7 +209,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, SharedModule, ...MAT_MODULES, MomentModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAT_MODULES],
-  declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent],
+  declarations: [...COMPONENTS, ...PIPES, DinamicformComponent, SelectComponent, ButtonAlertComponent],
   entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {
