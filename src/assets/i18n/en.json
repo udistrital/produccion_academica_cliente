@@ -486,7 +486,7 @@
         "error_drive": "Error uploading file to drive",
         "exito_alerta": "Success to uploading alert",
         "error_alerta": "Error uploading alert",
-        "alerta_fecha_expirada": "The current status date has expired",
+        "alerta_fecha_expirada": "The request is late with respect to the current status.",
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
         "alerta_tipo_produccion_academica": "You must select the type of academic production",

@@ -497,7 +497,7 @@
         "error_drive": "Error al subir archivo a drive",
         "exito_alerta": "Éxito al subir alerta",
         "error_alerta": "Error al subir alerta",
-        "alerta_fecha_expirada": "La fecha del estado actual ha expirado",
+        "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
