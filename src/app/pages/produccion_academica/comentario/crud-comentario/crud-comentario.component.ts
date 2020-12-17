@@ -178,7 +178,7 @@ export class CrudComentarioComponent implements OnInit {
       this.solicitud_selected.Observaciones.push(this.observacion);
       const opt = {
         title: this.translate.instant('GLOBAL.registrar'),
-        text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
+        text: this.translate.instant('produccion_academica.seguro_continuar_registrar_comentario'),
         icon: 'warning',
         buttons: true,
         dangerMode: true,
