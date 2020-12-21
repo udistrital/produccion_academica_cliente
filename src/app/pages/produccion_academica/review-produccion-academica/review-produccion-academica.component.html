@@ -78,7 +78,7 @@
         </ng-container>
         <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
           <div class="col-4">
-            <label>{{campo.etiqueta === 'select' 
+            <label>{{campo.etiqueta === 'select' && campo.valor
                       ? campo.valor.Nombre 
                       : (campo.etiqueta === 'mat-date' && campo.valor) 
                       ? campo.valor.substring(0,10)
