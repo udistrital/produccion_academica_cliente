@@ -487,6 +487,7 @@
 
         "acciones": "Acciones",
         "alerta": "Alerta",
+        "campos_obligatorios": "Los campos que empiezan con el signo * son campos obligatorios y deben ser diligenciados.",
         "placeholder_filtro": "Ej: Solicitudes completadas",
         "estado_solicitud": "Estado de Solicitud",
         "ver_detalle": "Ver Detalles",
@@ -498,6 +499,9 @@
         "exito_alerta": "Éxito al subir alerta",
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
+        
+        "generacion_paquete": "Generación de Paquete",
+        "alerta_no_seleccion": "No selecciono ningúna solicitud",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -632,7 +636,9 @@
             "EPRO": "Ejecutable del software",
             "CFS": "Código fuente de la aplicación",
             "archivo_drive": "Archivo drive",
-            "tipo_produccion_audiovisual": "Tipo de producción audiovisual"
+            "tipo_produccion_audiovisual": "Tipo de producción audiovisual",
+            "tipo_universidad": "Tipo de Universidad",
+            "titulo_convalidado": "Título con que fue convalidado"
         },
 
         "placeholders": {
@@ -719,7 +725,9 @@
             "soporte_audiovisual": "Archivo de vídeo o audio del soporte del producto audiovisual",
             "ejecutable_software": "Archivo del ejecutable del programa",
             "codigo_software": "Archivo del código fuente de la aplicación",
-            "tipo_produccion_audiovisual": "Ej: Video"
+            "tipo_produccion_audiovisual": "Ej: Video",
+            "tipo_universidad": "Ej: Nacional",
+            "titulo_convalidado": "Ej: Ingeniería de sistemas"
         },
 
         "categorias": {
@@ -756,13 +764,16 @@
             "por_modificar": "Solicitudes pendientes por modificar",
             "por_evaluar": "Solicitudes que requieren una evaluación por par externo",
             "verificada": "Solicitudes que están verificadas",
-            "rechazada": "Solicitudes que han sido rechazadas"
+            "rechazada": "Solicitudes que han sido rechazadas",
+            "Salarial": "Solicitudes que obtienen puntos salariales",
+            "Bonificacion": "Solicitudes que obtienen puntos de bonificación"
         },
 
         "alerta_llenar_campo": "Debe llenar este campo",
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
+        "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
         "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
         "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",

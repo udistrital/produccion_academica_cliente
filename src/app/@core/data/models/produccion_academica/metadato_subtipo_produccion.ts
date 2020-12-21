@@ -5,4 +5,5 @@ export class MetadatoSubtipoProduccion {
     Id: number;
     SubTipoProduccionId: SubTipoProduccionAcademica;
     TipoMetadatoId: TipoMetadato;
+    Orden: number;
 }

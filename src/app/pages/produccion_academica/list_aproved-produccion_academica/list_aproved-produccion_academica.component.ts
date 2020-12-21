@@ -31,6 +31,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   persona_id: number;
   solicitudes_list: SolicitudDocentePost[];
   solicitudes_list_filter: SolicitudDocentePost[];
+  solicitudes_selected_list: SolicitudDocentePost[] = [];
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService,
@@ -52,6 +53,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      selectMode: 'multi',
       actions: {
         position: 'right',
         columnTitle: this.translate.instant('produccion_academica.acciones'),
@@ -64,6 +66,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
         delete: false,
         add: false,
         edit: false,
+        select: true,
       },
       mode: 'external',
       columns: {
@@ -260,18 +263,56 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
     this.activetab(2);
   }
 
+  onSelect(event): void {
+    this.solicitudes_selected_list = event.selected;
+    console.info(this.solicitudes_selected_list);
+  }
+
   filterSolicitudes(filter) {
     console.info(filter);
     let data;
     if (filter) {
       this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
-        solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id,
+        solicitud.ProduccionAcademica.SubtipoProduccionId.CategoriaProduccion.TipoPuntaje === filter.Nombre,
       )
       data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
     } else {
       data = <Array<SolicitudDocentePost>>this.solicitudes_list;
     }
     this.source.load(data);
+  }
+
+  verifySelected() {
+    if (this.solicitudes_selected_list.length === 0) {
+      const opt: any = {
+        width: '550px',
+        title: this.translate.instant('produccion_academica.generacion_paquete'),
+        html: this.translate.instant('produccion_academica.alerta_no_seleccion'),
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      };
+      Swal(opt)
+    } else {
+      const opt = {
+        title: this.translate.instant('GLOBAL.registrar'),
+        text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+        showCancelButton: true,
+      };
+      Swal(opt)
+        .then((willCreate) => {
+          if (willCreate.value) {
+            this.generatePackage();
+          }
+        });
+    }
+  }
+
+  generatePackage() {
+    alert('holi');
   }
 
   activetab(number): void {

@@ -48,3 +48,28 @@ nb-tabset /deep/ ul li {
   margin: 20px auto;
   padding: 20px;
 }
+
+:host /deep/ .ng2-smart-action-multiple-select{
+  text-align: center;
+}
+  
+:host /deep/ .ng2-smart-action-multiple-select > input{
+  margin: auto;
+  width:15px;
+  height:15px;
+}
+
+.pack-generate {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin-right: 20px;
+    padding: 10px;
+    color: #fff;
+    background-color: #34393D;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+}

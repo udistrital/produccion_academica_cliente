@@ -476,6 +476,7 @@
 
         "acciones": "Actions",
         "alerta": "Alert",
+        "campos_obligatorios": "The fields that start with the * sign are mandatory fields and must be filled out.",
         "placeholder_filtro": "e.g. Completed Request",
         "estado_solicitud": "Request State",
         "ver_detalle": "See Details",
@@ -487,6 +488,10 @@
         "exito_alerta": "Success to uploading alert",
         "error_alerta": "Error uploading alert",
         "alerta_fecha_expirada": "The request is late with respect to the current status.",
+
+        "generacion_paquete": "Package Generation",
+        "alerta_no_seleccion": "You did not select any request",
+
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
         "alerta_tipo_produccion_academica": "You must select the type of academic production",
@@ -620,7 +625,9 @@
             "EPRO": "Software executable",
             "CFS": "Application source code",
             "archivo_drive": "Drive file",
-            "tipo_produccion_audiovisual": "Type of audiovisual production"
+            "tipo_produccion_audiovisual": "Type of audiovisual production",
+            "tipo_universidad": "University type",
+            "titulo_convalidado": "Grade with which it was validated"
         },
 
         "placeholders": {
@@ -707,7 +714,9 @@
             "soporte_audiovisual": "Video or audio file of the audiovisual product support",
             "ejecutable_software": "Program executable file",
             "codigo_software": "Application source code file",
-            "tipo_produccion_audiovisual": "Ej: Video"
+            "tipo_produccion_audiovisual": "Ej: Video",
+            "tipo_universidad": "Ej: National",
+            "titulo_convalidado": "Ej: Software Engineering"
         },
 
         "categorias": {
@@ -744,13 +753,16 @@
             "por_modificar": "Requests pending to modify",
             "por_evaluar": "Requests that require an external peer review",
             "verificada": "Requests that are verified",
-            "rechazada": "Requests that have been rejected"
+            "rechazada": "Requests that have been rejected",
+            "Salarial": "Applications that earn salary points",
+            "Bonificacion": "Requests that earn bonus points"
         },
 
         "alerta_llenar_campo": "You must fill this field",
         "alerta_llenar_campos_datos_basicos": "You must fill all basic data fields",
         "alerta_llenar_campos": "You must fill all data fields required",
         "alerta_llenar_archivo_soporte": "You Must select all files support",
+        "seguro_continuar_generar_paquete": "Are you sure to generate package with the selected requests?",
         "seguro_continuar_enviar_invitacion": "Are you sure you want to send this invitation?",
         "seguro_continuar_rechazar_produccion": "Are you sure you want to reject this request?",
         "seguro_continuar_verificar_produccion": "Are you sure you want to verify this request?",

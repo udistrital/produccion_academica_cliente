@@ -186,6 +186,12 @@
 
   .span-production {
     text-align: center;
+    background-color: #fff;
+    padding-bottom: 10px;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   .mat-input-element, mat-select {
