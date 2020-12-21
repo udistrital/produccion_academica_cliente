@@ -121,7 +121,8 @@ export class SendInvitacionComponent implements OnInit {
 
   validarForm() {
     if (this.invitacionTemplate.NombreDocente && this.correoTemp) {
-      this.invitacionTemplate.Fecha = new Date().toDateString();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      this.invitacionTemplate.Fecha = new Date().toLocaleDateString('es-CO', options);
       this.invitacionTemplate.urlCreacionCuentaLogin = 'http://www.google.com';
       this.invitacionTemplate.urlRechazarEvaluacion = 'https://httpbin.org/get';
       this.invitacionTemplate.ContenidoProduccion = this.makeHtmlTemplate();
