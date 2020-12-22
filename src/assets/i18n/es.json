@@ -822,6 +822,11 @@
         "titulo": "Alerta",
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
         "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
+        "alerta_evento": "La solicitud presenta una posible coincidencia con el nombre y fecha del evento de otras producciones registradas.",
+        "alerta_issn_volumen_numero": "La solicitud presenta una posible coincidencia con el ISSN, volumen y número de revista de otras producciones registradas.",
+        "alerta_numero_registro": "La solicitud presenta una posible coincidencia con el número de registro de otras producciones registradas.",
+        "alerta_duracion": "La solicitud presenta una duración no aceptada para el estudio de post doctorado.",
+        "alerta_rango": "La solicitud presenta un rango de estudio menor a otras producciones solicitadas anteriormente.",
         "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
         "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
     }
