@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
-import {ToasterService, ToasterConfig, Toast, BodyOutputType} from 'angular2-toaster';
-import {LocalDataSource} from 'ng2-smart-table';
-import {ButtonAlertComponent} from '../../../@theme/components/button-alert/button-alert.component';
-import {SgaMidService} from '../../../@core/data/sga_mid.service';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { LocalDataSource } from 'ng2-smart-table';
+import { ButtonAlertComponent } from '../../../@theme/components/button-alert/button-alert.component';
+import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { TercerosService } from '../../../@core/data/terceros.service';
-import {UserService} from '../../../@core/data/users.service';
-import {ProduccionAcademicaPost} from './../../../@core/data/models/produccion_academica/produccion_academica';
-import {SolicitudDocentePost} from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import { UserService } from '../../../@core/data/users.service';
+import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docente/paquete';
+import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
-import {filterList} from './filtros'
+import { filterList } from './filtros'
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -22,7 +23,9 @@ import 'style-loader!angular2-toaster/toaster.css';
 export class ListAprovedProduccionAcademicaComponent implements OnInit {
   solicitud_selected: SolicitudDocentePost;
   solicitud_selectedReview: SolicitudDocentePost;
+  paquete_solicitud: PaqueteSolicitudPost;
   filtros = filterList;
+  isDateInput: boolean = false;
   cambiotab: number = 0;
   config: ToasterConfig;
   settings: any;
@@ -35,10 +38,11 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private translate: TranslateService,
-              private sgaMidService: SgaMidService,
-              private tercerosService: TercerosService,
-              private user: UserService,
-              private toasterService: ToasterService) {
+    private sgaMidService: SgaMidService,
+    private tercerosService: TercerosService,
+    private user: UserService,
+    private toasterService: ToasterService) {
+    this.paquete_solicitud = new PaqueteSolicitudPost();
     this.persona_id = user.getPersonaId() || 1;
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
@@ -183,7 +187,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
                       solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                       i++
                       if (i === dataSolicitud.length) {
-                        console.info('Paso');
                         resolve(true);
                       }
                     } else {
@@ -196,7 +199,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
                     }
                   }
                 }, (error: HttpErrorResponse) => {
-                  reject({status: 404});
+                  reject({ status: 404 });
                   Swal({
                     type: 'error',
                     title: error.status + '',
@@ -235,14 +238,14 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
     let i: number = 0;
     return new Promise((resolve, reject) => {
       this.solicitudes_list.forEach(solicitud => {
-          this.tercerosService.get('tercero/?query=Id:' + solicitud.Solicitantes[0].TerceroId)
+        this.tercerosService.get('tercero/?query=Id:' + solicitud.Solicitantes[0].TerceroId)
           .subscribe(res => {
             if (Object.keys(res[0]).length > 0) {
               solicitud.Solicitantes[0].Nombre = <Tercero>res[0].NombreCompleto;
               i++
               if (i === this.solicitudes_list.length)
                 resolve(true);
-            }else {
+            } else {
               this.solicitudes_list = [];
               reject({ status: 404 });
             }
@@ -265,11 +268,9 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
 
   onSelect(event): void {
     this.solicitudes_selected_list = event.selected;
-    console.info(this.solicitudes_selected_list);
   }
 
   filterSolicitudes(filter) {
-    console.info(filter);
     let data;
     if (filter) {
       this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
@@ -305,14 +306,36 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       Swal(opt)
         .then((willCreate) => {
           if (willCreate.value) {
-            this.generatePackage();
+            this.isDateInput = true;
           }
         });
     }
   }
 
   generatePackage() {
-    alert('holi');
+    this.closePop();
+    Swal({
+      title: 'Espere',
+      text: 'Enviando Información',
+      allowOutsideClick: false,
+    });
+    Swal.showLoading();
+    this.paquete_solicitud.Solicitudes = this.solicitudes_selected_list;
+    this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
+    this.sgaMidService.post('paquete_solicitud', this.paquete_solicitud)
+      .subscribe((resp: any) => {
+        if (resp.Type === 'error') {
+          Swal({
+            type: 'error',
+            title: resp.Code,
+            text: this.translate.instant('ERROR.' + resp.Code),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
+          this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
+        } else {
+          console.info(resp);
+        }
+      });
   }
 
   activetab(number): void {
@@ -334,6 +357,10 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       this.loadData();
       this.cambiotab = 0;
     }
+  }
+
+  closePop() {
+    this.isDateInput = false;
   }
 
   private showToast(type: string, title: string, body: string) {

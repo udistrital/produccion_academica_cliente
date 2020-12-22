@@ -36,4 +36,18 @@ export const MENU_ITEMS: MenuItem[] = [
       },
     ],
   },
+  {
+    title:  'Inscripcion',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'inscripcion',
+    children:  [
+      {
+        title:  'Pre Inscripcion',
+        icon: 'nb-edit',
+        link:  '/pages/inscripcion/preinscripcion',
+        key:  'preinscripcion',
+      },
+    ],
+  },
 ]

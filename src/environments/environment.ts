@@ -55,4 +55,5 @@ export const environment = {
   ORGANIZACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/organizacion_crud/v1/',
   CIDC_SERVICE: 'http://200.69.103.88:3114/api/v1/',
   EVALUACION_INSCRIPCION_SERVICE: 'http://localhost:8086/v1/',
+  INSCRIPCION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/inscripcion_crud/v2/',
 };

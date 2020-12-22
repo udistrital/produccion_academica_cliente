@@ -32,6 +32,10 @@
             "list_aproved_produccion_academica": "Academic Production List Aproved",
             "crud_produccion_academica": "Academic Production Crud"
         },
+        "inscripcion": {
+            "inscripcion": "Inscription",
+            "preinscripcion": "Pre-registration for academic projects"
+        },
         "auth": {
             "auth": "Auth",
             "login": "Login",
@@ -491,6 +495,11 @@
 
         "generacion_paquete": "Package Generation",
         "alerta_no_seleccion": "You did not select any request",
+        "datos_comite": "Committee data",
+        "datos_comite_subtitulo": "Please, fill in the number and date of the next committee",
+        "numero_comite": "Next committee number",
+        "placeholder_num_congreso": "Ej: 567",
+        "fecha_comite": "Next committee date",
 
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",

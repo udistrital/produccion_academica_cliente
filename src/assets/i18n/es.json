@@ -32,6 +32,10 @@
             "list_aproved_produccion_academica": "Lista Aprobada producción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
+        "inscripcion": {
+            "inscripcion": "Inscripción",
+            "preinscripcion": "Preinscripción a \nproyectos académicos"
+        },
         "auth": {
             "auth": "Autenticacion",
             "login": "Login",
@@ -502,6 +506,11 @@
         
         "generacion_paquete": "Generación de Paquete",
         "alerta_no_seleccion": "No selecciono ningúna solicitud",
+        "datos_comite": "Datos del Comité",
+        "datos_comite_subtitulo": "Por favor diligencie el numero y fecha del proximo comité",
+        "numero_comite": "Número del proximo comité",
+        "placeholder_num_congreso": "Ej: 567",
+        "fecha_comite": "Fecha del proximo comité",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
