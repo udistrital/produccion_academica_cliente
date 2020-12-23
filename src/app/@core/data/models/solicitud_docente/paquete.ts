@@ -7,4 +7,5 @@ export class PaqueteSolicitudPost {
   FechaComite: string;
   Solicitudes: SolicitudDocentePost[];
   EstadoTipoSolicitudId: EstadoTipoSolicitud;
+  TerceroId: number;
 }

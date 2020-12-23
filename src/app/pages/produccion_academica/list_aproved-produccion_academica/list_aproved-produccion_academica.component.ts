@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ButtonAlertComponent } from '../../../@theme/components/button-alert/button-alert.component';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { TercerosService } from '../../../@core/data/terceros.service';
+import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { UserService } from '../../../@core/data/users.service';
 import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docente/paquete';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
+import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { filterList } from './filtros'
 import Swal from 'sweetalert2';
@@ -32,6 +35,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   filter: any;
   rol: string;
   persona_id: number;
+  estadosSolicitudes: Array<EstadoTipoSolicitud>;
   solicitudes_list: SolicitudDocentePost[];
   solicitudes_list_filter: SolicitudDocentePost[];
   solicitudes_selected_list: SolicitudDocentePost[] = [];
@@ -40,7 +44,9 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   constructor(private translate: TranslateService,
     private sgaMidService: SgaMidService,
     private tercerosService: TercerosService,
+    private solicitudDocenteService: SolicitudDocenteService,
     private user: UserService,
+    private router: Router,
     private toasterService: ToasterService) {
     this.paquete_solicitud = new PaqueteSolicitudPost();
     this.persona_id = user.getPersonaId() || 1;
@@ -231,7 +237,37 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
     });
   }
 
+  loadEstadoSolicitud(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + 6)
+        .subscribe(res => {
+          if (Object.keys(res.Data[0]).length > 0) {
+            this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+            resolve(true);
+          } else {
+            this.estadosSolicitudes = [];
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
   ngOnInit() {
+    this.loadEstadoSolicitud()
+    .then(() => {})
+    .catch(error => {
+      if (!error.status) {
+        error.status = 409;
+      }
+      Swal({
+        type: 'error',
+        title: error.status + '',
+        text: this.translate.instant('ERROR.' + error.status),
+        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+      });
+    });
   }
 
   loadTerceroData() {
@@ -322,6 +358,8 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
     Swal.showLoading();
     this.paquete_solicitud.Solicitudes = this.solicitudes_selected_list;
     this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
+    this.paquete_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+    this.paquete_solicitud.TerceroId = this.user.getPersonaId() || 3;
     this.sgaMidService.post('paquete_solicitud', this.paquete_solicitud)
       .subscribe((resp: any) => {
         if (resp.Type === 'error') {
@@ -333,7 +371,13 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
           });
           this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
         } else {
+          this.paquete_solicitud = resp;
           console.info(resp);
+          Swal({
+            title: `Éxito al crear Paquete.`,
+            text: 'Información Guardada correctamente',
+          });
+          this.router.navigate(['./pages/produccion_academica/new-solicitud']);
         }
       });
   }

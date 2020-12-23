@@ -62,7 +62,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   @Output()
   solicitudOut = new EventEmitter<any>();
 
-  @Output() eventChange = new EventEmitter();
+  @Output() eventChange = new EventEmitter<number>();
 
   constructor(
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -377,7 +377,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           title: `Éxito al Verificar Solicitud.`,
           text: 'Información Modificada correctamente',
         });
-        this.reloadTable(true);
+        this.reloadTable(this.info_solicitud.Id);
       }
     });
   }
@@ -414,27 +414,27 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   calculateResult() {
-    const promises = [];
+    // const promises = [];
 
-    promises.push(this.generateResult(this.info_solicitud));
+    // promises.push(this.generateResult(this.info_solicitud));
 
-        Promise.all(promises)
-          .then(() => {
-            console.info('Paso')
-          })
-          .catch(error => {
-            console.info('Error')
-          });
+    //     Promise.all(promises)
+    //       .then(() => {
+    //         console.info('Paso')
+    //       })
+    //       .catch(error => {
+    //         console.info('Error')
+    //       });
 
-    // this.estadosSolicitudes = [];
-    // this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
-    // .subscribe(res => {
-    //   if (Object.keys(res.Data[0]).length > 0) {
-    //     this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-    //     this.updateSolicitudDocente(this.solicitud_docente_selected);
-    //   } else {
-    //     this.estadosSolicitudes = [];
-    //   }
-    // });
+    this.estadosSolicitudes = [];
+    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
+    .subscribe(res => {
+      if (Object.keys(res.Data[0]).length > 0) {
+        this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+        this.updateSolicitudDocente(this.solicitud_docente_selected);
+      } else {
+        this.estadosSolicitudes = [];
+      }
+    });
   }
 }
