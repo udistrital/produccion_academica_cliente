@@ -36,6 +36,10 @@
             "inscripcion": "Inscription",
             "preinscripcion": "Pre-registration for academic projects"
         },
+        "solicitud_paquete": {
+            "solicitud_paquete": "Committee Applications",
+            "paquetes": "Committees list"
+        },
         "auth": {
             "auth": "Auth",
             "login": "Login",

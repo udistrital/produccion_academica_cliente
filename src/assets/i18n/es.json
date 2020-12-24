@@ -29,12 +29,16 @@
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
             "list_produccion_academica": "Lista producción académica",
-            "list_aproved_produccion_academica": "Lista Aprobada producción académica",
+            "list_aproved_produccion_academica": "Lista Aprobada \nproducción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
         "inscripcion": {
             "inscripcion": "Inscripción",
             "preinscripcion": "Preinscripción a \nproyectos académicos"
+        },
+        "solicitud_paquete": {
+            "solicitud_paquete": "Solicitudes para Comité",
+            "paquetes": "Lista de comités"
         },
         "auth": {
             "auth": "Autenticacion",
@@ -826,7 +830,6 @@
         "alerta_nombre_evaluador": "Debe escribir el nombre del evaluador",
         "alerta_correo_evaluador": "Debe escribir el correo del evaluador"
     },
-
     "alerta": {
         "titulo": "Alerta",
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
@@ -838,5 +841,7 @@
         "alerta_rango": "La solicitud presenta un rango de estudio menor a otras producciones solicitadas anteriormente.",
         "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
         "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
+    },
+    "paquetes": {
     }
 }
