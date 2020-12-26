@@ -26,7 +26,7 @@
           ></ng2-smart-table>
         </nb-tab>
         <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
-          <ngx-list-solicitudes-paquete [paquete_solicitud_selected]="solicitud_selected" (eventChange)="onChange($event)">
+          <ngx-list-solicitudes-paquete *ngIf="solicitud_selected" [paquete_solicitud_selected]="solicitud_selected" (eventChange)="onChange($event)">
           </ngx-list-solicitudes-paquete>
           <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
         </nb-tab>

@@ -30,7 +30,7 @@ export class CrudComentarioComponent implements OnInit {
   }
 
   @Output()
-  reloadTable = new EventEmitter<boolean>();
+  reloadTable = new EventEmitter<number>();
 
   solicitud_selected: SolicitudDocentePost;
   info_solicitud: SolicitudDocentePost;
@@ -166,7 +166,7 @@ export class CrudComentarioComponent implements OnInit {
         });
         this.observacion.Titulo = '';
         this.observacion.Valor = '';
-        this.reloadTable.emit(true);
+        this.reloadTable.emit(this.info_solicitud.Id);
       }
     });
   }
