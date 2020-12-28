@@ -76,11 +76,12 @@ export class ListPaquetesComponent implements OnInit {
         FechaComite: {
           title: this.translate.instant('produccion_academica.fecha_comite'),
           valuePrepareFunction: (value) => {
-            // return ((value) + '').substring(0, 10);
+            if (value.length > 0)
+              return ((value) + '').substring(0, 10);
             return value;
           },
           filter: false,
-          width: '15%',
+          width: '20%',
         },
         Activo: {
           title: this.translate.instant('produccion_academica.estado_paquete'),
@@ -90,7 +91,7 @@ export class ListPaquetesComponent implements OnInit {
             return this.translate.instant('produccion_academica.estado_revisado');
           },
           filter: false,
-          width: '15%',
+          width: '20%',
         },
         Solicitudes: {
           title: this.translate.instant('produccion_academica.numero_solicitudes'),

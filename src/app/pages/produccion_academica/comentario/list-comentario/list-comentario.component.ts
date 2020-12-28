@@ -44,7 +44,8 @@ export class ListComentarioComponent implements OnInit {
   }
 
   filterComments() {
-    this.observaciones_selected = this.observaciones_selected.filter(observacion => observacion.TipoObservacionId.Id === 1);
+    this.observaciones_selected = this.observaciones_selected
+    .filter(observacion => (Object.keys(observacion).length > 0) && observacion.TipoObservacionId.Id === 1);
   }
 
   cargarCampos() {

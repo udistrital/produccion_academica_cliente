@@ -295,6 +295,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
                   this.solicitud_updated.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                   this.loadTerceroData(this.solicitud_updated)
                   .then(() => {
+                    console.info(this.solicitud_updated)
                     this.solicitudes_list = this.solicitudes_list.map(solicitud => {
                       if (solicitud.Id === this.solicitud_updated.Id)
                         solicitud = this.solicitud_updated

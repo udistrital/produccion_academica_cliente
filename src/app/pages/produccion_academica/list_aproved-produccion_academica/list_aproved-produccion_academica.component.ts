@@ -64,6 +64,10 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   cargarCampos() {
     this.settings = {
       selectMode: 'multi',
+      pager: {
+        display: true,
+        perPage: 30,
+      },
       actions: {
         position: 'right',
         columnTitle: this.translate.instant('produccion_academica.acciones'),
@@ -303,10 +307,18 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   }
 
   onSelect(event): void {
-    this.solicitudes_selected_list = event.selected;
+    console.info(event)
+    if (event.data)
+      this.solicitudes_selected_list = event.selected;
+    else if (event.selected.length > 0)
+      this.solicitudes_selected_list = this.solicitudes_list;
+    else
+      this.solicitudes_selected_list = [];
+    console.info(this.solicitudes_selected_list);
   }
 
   filterSolicitudes(filter) {
+    this.solicitudes_selected_list = [];
     let data;
     if (filter) {
       this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>

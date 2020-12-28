@@ -85,14 +85,16 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
 
   filterObservations() {
     this.solicitud_docente_selected.Observaciones.forEach(observacion => {
-      if (observacion.TipoObservacionId.Id === 1)
-        this.observaciones_comments.push(observacion)
-      else {
-        observacion.Persona = <Tercero>{
-          NombreCompleto: 'Sistema',
-          Id: 0,
+      if (Object.keys(observacion).length > 0) {
+        if (observacion.TipoObservacionId.Id === 1)
+          this.observaciones_comments.push(observacion)
+        else {
+          observacion.Persona = <Tercero>{
+            NombreCompleto: 'Sistema',
+            Id: 0,
+          }
+          this.observaciones_alerts.push(observacion);
         }
-        this.observaciones_alerts.push(observacion);
       }
     });
   }
