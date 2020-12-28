@@ -24,7 +24,7 @@ export class SendInvitacionComponent implements OnInit {
   }
 
   @Output()
-  reloadTable = new EventEmitter<boolean>();
+  reloadTable = new EventEmitter<number>();
 
   correoTemp: string
   solicitud_selected: SolicitudDocentePost;
@@ -107,7 +107,7 @@ export class SendInvitacionComponent implements OnInit {
         this.invitacion.to = [];
         this.invitacion.templateData = null;
         this.correoTemp = '';
-        this.reloadTable.emit(true);
+        this.reloadTable.emit(this.info_solicitud.Id);
       }
     });
   }

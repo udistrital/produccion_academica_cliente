@@ -1,6 +1,10 @@
 export const filterList = [
   {
-    Id: 4,
-    Nombre: 'verificada',
+    Id: 1,
+    Nombre: 'Salarial',
+  },
+  {
+    Id: 2,
+    Nombre: 'Bonificacion',
   },
 ]

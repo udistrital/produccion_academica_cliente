@@ -36,4 +36,32 @@ export const MENU_ITEMS: MenuItem[] = [
       },
     ],
   },
+  {
+    title:  'Solicitud Paquete',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'solicitud_paquete',
+    children:  [
+      {
+        title:  'Paquetes',
+        icon: 'nb-edit',
+        link:  '/pages/admin_docencia/list_paquetes',
+        key:  'paquetes',
+      },
+    ],
+  },
+  {
+    title:  'Inscripcion',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'inscripcion',
+    children:  [
+      {
+        title:  'Pre Inscripcion',
+        icon: 'nb-edit',
+        link:  '/pages/inscripcion/preinscripcion',
+        key:  'preinscripcion',
+      },
+    ],
+  },
 ]

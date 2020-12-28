@@ -29,8 +29,16 @@
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
             "list_produccion_academica": "Lista producción académica",
-            "list_aproved_produccion_academica": "Lista Aprobada producción académica",
+            "list_aproved_produccion_academica": "Lista Aprobada \nproducción académica",
             "crud_produccion_academica": "Crud producción académica"
+        },
+        "inscripcion": {
+            "inscripcion": "Inscripción",
+            "preinscripcion": "Preinscripción a \nproyectos académicos"
+        },
+        "solicitud_paquete": {
+            "solicitud_paquete": "Solicitudes para Comité",
+            "paquetes": "Lista de comités"
         },
         "auth": {
             "auth": "Autenticacion",
@@ -487,8 +495,13 @@
 
         "acciones": "Acciones",
         "alerta": "Alerta",
+        "campos_obligatorios": "Los campos que empiezan con el signo * son campos obligatorios y deben ser diligenciados.",
         "placeholder_filtro": "Ej: Solicitudes completadas",
         "estado_solicitud": "Estado de Solicitud",
+        "estado_paquete": "Estado de Paquete",
+        "estado_por_revisar": "Por revisión del comité",
+        "estado_revisado": "Revisado por comité",
+        "numero_solicitudes": "Número de solicitudes",
         "ver_detalle": "Ver Detalles",
         "datos_solicitud": "Datos solicitud",
         "espera_Link": "En espera de link en Drive",
@@ -498,6 +511,17 @@
         "exito_alerta": "Éxito al subir alerta",
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
+        
+        "generar_documento": "Generar Documento",
+        "generar_acta": "Generar Acta",
+        "aceptar_acta": "Aceptar Acta",
+        "generacion_paquete": "Generación de Paquete",
+        "alerta_no_seleccion": "No selecciono ningúna solicitud",
+        "datos_comite": "Datos del Comité",
+        "datos_comite_subtitulo": "Por favor diligencie el numero y fecha del proximo comité",
+        "numero_comite": "Número del proximo comité",
+        "placeholder_num_congreso": "Ej: 567",
+        "fecha_comite": "Fecha del proximo comité",
 
         "tipo_produccion_academica": "Tipo de producción académica",
         "placeholder_tipo_produccion_academica": "ej: Artículo",
@@ -632,7 +656,9 @@
             "EPRO": "Ejecutable del software",
             "CFS": "Código fuente de la aplicación",
             "archivo_drive": "Archivo drive",
-            "tipo_produccion_audiovisual": "Tipo de producción audiovisual"
+            "tipo_produccion_audiovisual": "Tipo de producción audiovisual",
+            "tipo_universidad": "Tipo de Universidad",
+            "titulo_convalidado": "Título con que fue convalidado"
         },
 
         "placeholders": {
@@ -719,7 +745,9 @@
             "soporte_audiovisual": "Archivo de vídeo o audio del soporte del producto audiovisual",
             "ejecutable_software": "Archivo del ejecutable del programa",
             "codigo_software": "Archivo del código fuente de la aplicación",
-            "tipo_produccion_audiovisual": "Ej: Video"
+            "tipo_produccion_audiovisual": "Ej: Video",
+            "tipo_universidad": "Ej: Nacional",
+            "titulo_convalidado": "Ej: Ingeniería de sistemas"
         },
 
         "categorias": {
@@ -756,13 +784,16 @@
             "por_modificar": "Solicitudes pendientes por modificar",
             "por_evaluar": "Solicitudes que requieren una evaluación por par externo",
             "verificada": "Solicitudes que están verificadas",
-            "rechazada": "Solicitudes que han sido rechazadas"
+            "rechazada": "Solicitudes que han sido rechazadas",
+            "Salarial": "Solicitudes que obtienen puntos salariales",
+            "Bonificacion": "Solicitudes que obtienen puntos de bonificación"
         },
 
         "alerta_llenar_campo": "Debe llenar este campo",
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
+        "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
         "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
         "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",
@@ -806,12 +837,18 @@
         "alerta_nombre_evaluador": "Debe escribir el nombre del evaluador",
         "alerta_correo_evaluador": "Debe escribir el correo del evaluador"
     },
-
     "alerta": {
         "titulo": "Alerta",
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
         "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
+        "alerta_evento": "La solicitud presenta una posible coincidencia con el nombre y fecha del evento de otras producciones registradas.",
+        "alerta_issn_volumen_numero": "La solicitud presenta una posible coincidencia con el ISSN, volumen y número de revista de otras producciones registradas.",
+        "alerta_numero_registro": "La solicitud presenta una posible coincidencia con el número de registro de otras producciones registradas.",
+        "alerta_duracion": "La solicitud presenta una duración no aceptada para el estudio de post doctorado.",
+        "alerta_rango": "La solicitud presenta un rango de estudio menor a otras producciones solicitadas anteriormente.",
         "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
         "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
+    },
+    "paquetes": {
     }
 }

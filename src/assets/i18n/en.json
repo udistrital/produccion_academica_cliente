@@ -32,6 +32,14 @@
             "list_aproved_produccion_academica": "Academic Production List Aproved",
             "crud_produccion_academica": "Academic Production Crud"
         },
+        "inscripcion": {
+            "inscripcion": "Inscription",
+            "preinscripcion": "Pre-registration for academic projects"
+        },
+        "solicitud_paquete": {
+            "solicitud_paquete": "Committee Applications",
+            "paquetes": "Committees list"
+        },
         "auth": {
             "auth": "Auth",
             "login": "Login",
@@ -476,8 +484,13 @@
 
         "acciones": "Actions",
         "alerta": "Alert",
+        "campos_obligatorios": "The fields that start with the * sign are mandatory fields and must be filled out.",
         "placeholder_filtro": "e.g. Completed Request",
         "estado_solicitud": "Request State",
+        "estado_paquete": "Package State",
+        "estado_por_revisar": "By committee review",
+        "estado_revisado": "Reviewed by committee",
+        "numero_solicitudes": "Applications number",
         "ver_detalle": "See Details",
         "datos_solicitud": "Request data",
         "espera_Link": "Waiting link Drive",
@@ -487,6 +500,18 @@
         "exito_alerta": "Success to uploading alert",
         "error_alerta": "Error uploading alert",
         "alerta_fecha_expirada": "The request is late with respect to the current status.",
+
+        "generar_documento": "Generate Document",
+        "generar_acta": "Generate Certificate",
+        "aceptar_acta": "Accept Minutes",
+        "generacion_paquete": "Package Generation",
+        "alerta_no_seleccion": "You did not select any request",
+        "datos_comite": "Committee data",
+        "datos_comite_subtitulo": "Please, fill in the number and date of the next committee",
+        "numero_comite": "Next committee number",
+        "placeholder_num_congreso": "Ej: 567",
+        "fecha_comite": "Next committee date",
+
         "tipo_produccion_academica": "Type of academic production",
         "placeholder_tipo_produccion_academica": "e.g.: Article",
         "alerta_tipo_produccion_academica": "You must select the type of academic production",
@@ -620,7 +645,9 @@
             "EPRO": "Software executable",
             "CFS": "Application source code",
             "archivo_drive": "Drive file",
-            "tipo_produccion_audiovisual": "Type of audiovisual production"
+            "tipo_produccion_audiovisual": "Type of audiovisual production",
+            "tipo_universidad": "University type",
+            "titulo_convalidado": "Grade with which it was validated"
         },
 
         "placeholders": {
@@ -707,7 +734,9 @@
             "soporte_audiovisual": "Video or audio file of the audiovisual product support",
             "ejecutable_software": "Program executable file",
             "codigo_software": "Application source code file",
-            "tipo_produccion_audiovisual": "Ej: Video"
+            "tipo_produccion_audiovisual": "Ej: Video",
+            "tipo_universidad": "Ej: National",
+            "titulo_convalidado": "Ej: Software Engineering"
         },
 
         "categorias": {
@@ -744,13 +773,16 @@
             "por_modificar": "Requests pending to modify",
             "por_evaluar": "Requests that require an external peer review",
             "verificada": "Requests that are verified",
-            "rechazada": "Requests that have been rejected"
+            "rechazada": "Requests that have been rejected",
+            "Salarial": "Applications that earn salary points",
+            "Bonificacion": "Requests that earn bonus points"
         },
 
         "alerta_llenar_campo": "You must fill this field",
         "alerta_llenar_campos_datos_basicos": "You must fill all basic data fields",
         "alerta_llenar_campos": "You must fill all data fields required",
         "alerta_llenar_archivo_soporte": "You Must select all files support",
+        "seguro_continuar_generar_paquete": "Are you sure to generate package with the selected requests?",
         "seguro_continuar_enviar_invitacion": "Are you sure you want to send this invitation?",
         "seguro_continuar_rechazar_produccion": "Are you sure you want to reject this request?",
         "seguro_continuar_verificar_produccion": "Are you sure you want to verify this request?",
@@ -799,6 +831,11 @@
         "titulo": "Alert",
         "alerta_numero_coincidencias": "The application presents a possible high match in the title with a total of other applications:",
         "alerta_isbn": "The request presents a possible match with the ISBN of other registered productions.",
+        "alerta_evento": "The request presents a possible match with the name and date of the event of other registered productions.",
+        "alerta_issn_volumen_numero": "The request presents a possible coincidence with the ISSN, volume and magazine number of other registered productions.",
+        "alerta_numero_registro": "The request presents a possible match with the registration number of other registered productions.",
+        "alerta_duracion": "The application has an unacceptable duration for post-doctoral study.",
+        "alerta_rango": "The application presents a lower study range than other previously requested productions.",
         "alerta_numero_produccion_anual_5": "The application of the same type may have been presented more than 5 times for the year of publication or filing.",
         "alerta_numero_produccion_anual_3": "The application of the same type may have been presented more than 3 times for the year of publication or filing."
     }

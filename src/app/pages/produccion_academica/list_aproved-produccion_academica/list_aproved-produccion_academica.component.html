@@ -6,6 +6,12 @@
         <nb-tab tabTitle="{{ 'GLOBAL.lista' | translate }}" [active]="cambiotab == 0">
           <h2>{{ 'GLOBAL.lista' | translate }}</h2>
 
+          <div class="pack-generate">
+            <button (click)="verifySelected()">
+              {{ 'produccion_academica.generacion_paquete' | translate }}
+            </button>
+          </div>
+
           <div class="filter">
             <p>Filtro de Solicitudes:</p>
             <mat-select
@@ -24,7 +30,7 @@
             [settings]="settings"
             [source]="source"
             (custom)="onView($event)"
-            (edit)="onEdit($event)"
+            (userRowSelect)="onSelect($event)"
           ></ng2-smart-table>
         </nb-tab>
         <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
@@ -45,7 +51,38 @@
   </nb-card>
 </div>
 
-
+<div class="pop-committee" *ngIf="isDateInput">
+  <div class="pop-content">
+    <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
+    <h2>{{ 'produccion_academica.datos_comite' | translate }}</h2>
+    <p>{{ 'produccion_academica.datos_comite_subtitulo' | translate }}</p>
+    <div class="col-10">
+      <mat-form-field style="width: 100%;" class="form-group" floatLabel="always">
+        <mat-label>* {{'produccion_academica.numero_comite' | translate}}:</mat-label>
+        <input matInput [(ngModel)]="paquete_solicitud.NumeroComite" [ngModelOptions]="{standalone: true}"
+          type="text" id="Titulo"
+          [placeholder]="translate.instant('produccion_academica.placeholder_num_congreso')" />
+        <mat-hint class="text-danger" *ngIf="!paquete_solicitud.NumeroComite">
+          {{'produccion_academica.alerta_llenar_campo' | translate}}</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-10">
+      <mat-form-field style="width: 100%;" floatLabel="always">
+        <mat-label>* {{'produccion_academica.fecha_comite' | translate}}:</mat-label>
+        <input matInput [(ngModel)]="paquete_solicitud.FechaComite" [matDatepicker]="picker"
+          [ngModelOptions]="{standalone: true}"
+          [placeholder]="translate.instant('produccion_academica.placeholder_fecha_publicacion')">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint class="text-danger" *ngIf="!paquete_solicitud.FechaComite">
+          {{'produccion_academica.alerta_llenar_campo' | translate}}</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-10 pop-button" (click)="generatePackage()">
+      <button>{{ 'GLOBAL.guardar' | translate }}</button>
+    </div>
+  </div>
+</div>
 
 
 

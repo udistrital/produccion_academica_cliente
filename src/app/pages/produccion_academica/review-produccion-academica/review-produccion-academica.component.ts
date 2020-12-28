@@ -62,7 +62,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   @Output()
   solicitudOut = new EventEmitter<any>();
 
-  @Output() eventChange = new EventEmitter();
+  @Output() eventChange = new EventEmitter<number>();
 
   constructor(
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -73,7 +73,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     private sgaMidService: SgaMidService,
     private user: UserService,
     private solicitudDocenteService: SolicitudDocenteService,
-    ) {
+  ) {
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
       .split('.')[1])).role)
@@ -85,14 +85,16 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
 
   filterObservations() {
     this.solicitud_docente_selected.Observaciones.forEach(observacion => {
-      if (observacion.TipoObservacionId.Id === 1)
-        this.observaciones_comments.push(observacion)
-      else {
-        observacion.Persona = <Tercero> {
-          NombreCompleto: 'Sistema',
-          Id: 0,
+      if (Object.keys(observacion).length > 0) {
+        if (observacion.TipoObservacionId.Id === 1)
+          this.observaciones_comments.push(observacion)
+        else {
+          observacion.Persona = <Tercero>{
+            NombreCompleto: 'Sistema',
+            Id: 0,
+          }
+          this.observaciones_alerts.push(observacion);
         }
-        this.observaciones_alerts.push(observacion);
       }
     });
   }
@@ -100,11 +102,11 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   public setButtonOptions() {
     if (this.rol !== 'DOCENTE') {
       (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 1)
-      ? this.buttonAdmin = true : this.buttonAdmin = false;
+        ? this.buttonAdmin = true : this.buttonAdmin = false;
       (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 8)
-      ? this.buttonModify = true : this.buttonModify = false;
+        ? this.buttonModify = true : this.buttonModify = false;
     } else {
-        (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) ? this.buttonModify = true : this.buttonModify = false;
+      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }
@@ -179,29 +181,29 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
     const query = `query=SubtipoProduccionId:${subtipoProduccionAcademica.Id}`;
     this.produccionAcademicaService.get(`metadato_subtipo_produccion/?limit=0&${query}`)
-        .subscribe(res => {
-          if (res !== null) {
-            (<Array<MetadatoSubtipoProduccion>>res).forEach(metadato => {
-              if (Object.keys(metadato).length > 0) {
-                const field = JSON.parse(metadato.TipoMetadatoId.FormDefinition);
-                field.nombre = metadato.Id;
-                this.formProduccionAcademica.campos.push(field);
-              }
-            });
-            if (callback !== undefined) {
-              console.info('campos review: ', this.formProduccionAcademica.campos)
-              console.info('Metadatos review: ', this.info_produccion_academica.Metadatos)
-              callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService, this);
+      .subscribe(res => {
+        if (res !== null) {
+          (<Array<MetadatoSubtipoProduccion>>res).forEach(metadato => {
+            if (Object.keys(metadato).length > 0) {
+              const field = JSON.parse(metadato.TipoMetadatoId.FormDefinition);
+              field.nombre = metadato.Id;
+              this.formProduccionAcademica.campos.push(field);
             }
-          }
-        }, (error: HttpErrorResponse) => {
-          Swal({
-            type: 'error',
-            title: error.status + '',
-            text: this.translate.instant('ERROR.' + error.status),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
+          if (callback !== undefined) {
+            console.info('campos review: ', this.formProduccionAcademica.campos)
+            console.info('Metadatos review: ', this.info_produccion_academica.Metadatos)
+            callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService, this);
+          }
+        }
+      }, (error: HttpErrorResponse) => {
+        Swal({
+          type: 'error',
+          title: error.status + '',
+          text: this.translate.instant('ERROR.' + error.status),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
         });
+      });
   }
 
   seeDetailsState() {
@@ -216,7 +218,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           </div>
           <div class="col-4">
             <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
-              .EstadoTipoSolicitudId.EstadoId.Nombre}</p>
+          .EstadoTipoSolicitudId.EstadoId.Nombre}</p>
           </div>
         </div>
         <div class="row">
@@ -225,7 +227,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           </div>
           <div class="col-4">
             <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
-              .FechaCreacion.substring(0, 10)}</p>
+          .FechaCreacion.substring(0, 10)}</p>
           </div>
         </div>
         <div class="row">
@@ -234,7 +236,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           </div>
           <div class="col-4">
             <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
-              .FechaLimite.substring(0, 10)}</p>
+          .FechaLimite.substring(0, 10)}</p>
           </div>
         </div>
         <div class="row">
@@ -256,11 +258,11 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
 
   getTerceroData(terceroId) {
     this.tercerosService.get('tercero/?query=Id:' + terceroId)
-    .subscribe(res => {
-      if (Object.keys(res[0]).length > 0) {
-        this.userData = <Tercero>res[0];
-      }
-    });
+      .subscribe(res => {
+        if (Object.keys(res[0]).length > 0) {
+          this.userData = <Tercero>res[0];
+        }
+      });
   }
 
   download(url, title, w, h) {
@@ -285,9 +287,9 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       html: `
         <p style="width: 80%; margin: auto">
           ${(alert.Valor.length < 37)
-            ? this.translate.instant(alert.Valor.substring(0, 34)) + ' ' + alert.Valor.substring(34, alert.Valor.length)
-            : this.translate.instant(alert.Valor)
-          }
+          ? this.translate.instant(alert.Valor.substring(0, 34)) + ' ' + alert.Valor.substring(34, alert.Valor.length)
+          : this.translate.instant(alert.Valor)
+        }
         </p> <br> <br>
         <small>Escrito por: ${alert.Persona.NombreCompleto}</small> <br>
         <small>Fecha observación: ${(alert.FechaCreacion + '').substring(0, 10)}</small>
@@ -318,11 +320,11 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willCreate) => {
-      if (willCreate.value) {
-        this.esRechazada = true;
-      }
-    });
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.esRechazada = true;
+        }
+      });
   }
 
   verifyRequest() {
@@ -335,26 +337,26 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       showCancelButton: true,
     };
     Swal(opt)
-    .then((willCreate) => {
-      if (willCreate.value) {
-        Swal({
-          title: 'Espere',
-          text: 'Enviando Información',
-          allowOutsideClick: false,
-        });
-        Swal.showLoading();
-        switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
-          case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
-            this.passForEvaluation();
-            break;
-          case 2: case 3: case 4: case 5: case 9: case 11: case 15: case 16: case 17: case 18: case 19: case 20:
-            this.calculateResult();
-            break;
-          default:
-            break;
+      .then((willCreate) => {
+        if (willCreate.value) {
+          Swal({
+            title: 'Espere',
+            text: 'Enviando Información',
+            allowOutsideClick: false,
+          });
+          Swal.showLoading();
+          switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
+            case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
+              this.passForEvaluation();
+              break;
+            case 2: case 3: case 4: case 5: case 9: case 11: case 15: case 16: case 17: case 18: case 19: case 20:
+              this.calculateResult();
+              break;
+            default:
+              break;
+          }
         }
-      }
-    });
+      });
   }
 
   updateSolicitudDocente(solicitudDocente: any): void {
@@ -362,43 +364,40 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
     console.info(this.info_solicitud);
-    this.sgaMidService.put('solicitud_docente', this.info_solicitud)
-    .subscribe((resp: any) => {
-      if (resp.Type === 'error') {
-        Swal({
-          type: 'error',
-          title: resp.Code,
-          text: this.translate.instant('ERROR.' + resp.Code),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      } else {
-        this.info_solicitud = <SolicitudDocentePost>resp;
-        Swal({
-          title: `Éxito al Verificar Solicitud.`,
-          text: 'Información Modificada correctamente',
-        });
-        this.reloadTable(true);
-      }
-    });
+    this.sgaMidService.put('solicitud_produccion/', solicitudDocente)
+      .subscribe((resp: any) => {
+        if (resp.Type === 'error') {
+          Swal({
+            type: 'error',
+            title: resp.Code,
+            text: this.translate.instant('ERROR.' + resp.Code),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
+        } else {
+          this.info_solicitud = <SolicitudDocentePost>resp;
+          this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+            .subscribe((res: any) => {
+              if (res.Type === 'error') {
+                Swal({
+                  type: 'error',
+                  title: res.Code,
+                  text: this.translate.instant('ERROR.' + res.Code),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                });
+              } else {
+                this.info_solicitud = <SolicitudDocentePost>res;
+                console.info(this.info_solicitud)
+                Swal({
+                  title: `Éxito al Verificar Solicitud.`,
+                  text: 'Información Modificada correctamente',
+                });
+                this.reloadTable(this.info_solicitud.Id);
+              }
+            });
+        }
+      });
   }
 
-  generateResult(solicitudDocente: SolicitudDocentePost) {
-    return new Promise((resolve, reject) => {
-      this.sgaMidService.put(
-        'solicitud_produccion/' + solicitudDocente.Id,
-        solicitudDocente,
-      )
-        .subscribe((res: any) => {
-          if (res !== null) {
-            resolve(true);
-          } else {
-            reject({ status: 404 });
-          }
-        }, (error: HttpErrorResponse) => {
-          reject(error);
-        });
-    });
-  }
 
   passForEvaluation() {
     this.estadosSolicitudes = [];
@@ -414,27 +413,15 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   calculateResult() {
-    const promises = [];
-
-    promises.push(this.generateResult(this.info_solicitud));
-
-        Promise.all(promises)
-          .then(() => {
-            console.info('Paso')
-          })
-          .catch(error => {
-            console.info('Error')
-          });
-
-    // this.estadosSolicitudes = [];
-    // this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
-    // .subscribe(res => {
-    //   if (Object.keys(res.Data[0]).length > 0) {
-    //     this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-    //     this.updateSolicitudDocente(this.solicitud_docente_selected);
-    //   } else {
-    //     this.estadosSolicitudes = [];
-    //   }
-    // });
+    this.estadosSolicitudes = [];
+    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:4')
+      .subscribe(res => {
+        if (Object.keys(res.Data[0]).length > 0) {
+          this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+          this.updateSolicitudDocente(this.solicitud_docente_selected);
+        } else {
+          this.estadosSolicitudes = [];
+        }
+      });
   }
 }

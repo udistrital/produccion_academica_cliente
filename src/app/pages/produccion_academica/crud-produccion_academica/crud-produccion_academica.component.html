@@ -222,6 +222,10 @@
 </div>
 
 <div class="span-production" [hidden]="!formConstruido">
+  <p>{{'produccion_academica.campos_obligatorios' | translate}}</p>
+</div>
+
+<div class="span-production" [hidden]="!formConstruido">
   <p [hidden]="!tipoArticulo">*{{'produccion_academica.span_articulo' | translate}}</p>
   <p [hidden]="!tipoCapitulo">*{{'produccion_academica.span_capitulo' | translate}}</p>
 </div>

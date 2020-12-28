@@ -1,0 +1,56 @@
+<div class="col-md-12 col-lg-12 ">
+  <nb-card>
+    <nb-card-body>
+      <toaster-container [toasterconfig]="config"></toaster-container>
+      <nb-tabset fullWidth (changeTab)="selectTab($event)">
+        <nb-tab tabTitle="{{ 'GLOBAL.lista' | translate }}" [active]="cambiotab == 0">
+          <h2>{{ 'GLOBAL.lista' | translate }}</h2>
+            
+          <div class="filter">
+            <p>Filtro de Solicitudes:</p>
+            <mat-select
+              placeholder="{{ 'produccion_academica.placeholder_filtro' | translate }}"
+              [(ngModel)]="filter" 
+              (ngModelChange)="filterSolicitudes(filter)"
+              [ngModelOptions]="{standalone: true}">
+              <mat-option>--Seleccionar--</mat-option>
+              <mat-option *ngFor="let filtro of filtros" [value]="filtro">
+                {{'produccion_academica.filtros.' + filtro.Nombre | translate}}
+              </mat-option>
+            </mat-select>
+          </div>
+
+          <ng2-smart-table 
+            [settings]="settings" 
+            [source]="source" 
+            (edit)="onEdit($event)"
+            (custom)="onCustomAction($event)" 
+          ></ng2-smart-table>
+          <div class="row">
+            <button class="btn-review" (click)="generateDocument()">{{'produccion_academica.generar_documento' | translate}}</button>
+            <button class="btn-review" (click)="generateCertificate()">{{'produccion_academica.generar_acta' | translate}}</button>
+            <button class="btn-review" (click)="aceptCertificate()">{{'produccion_academica.aceptar_acta' | translate}}</button>
+          </div>
+        </nb-tab>
+        <!-- <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
+          <ngx-crud-produccion-academica [solicitud_docente_selected]="solicitud_selected" (eventChange)="onChange($event)">
+          </ngx-crud-produccion-academica>
+          <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
+        </nb-tab>
+        <nb-tab tabTitle="{{ 'GLOBAL.vista' | translate }}" [active]="cambiotab == 2" *ngIf="solicitud_selectedReview">
+          <ngx-review-produccion-academica 
+          [solicitud_docente_selected]="solicitud_selectedReview" 
+          (eventChange)="onChange($event)"
+          (solicitudOut)="onEdit($event)">
+          </ngx-review-produccion-academica>
+          <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
+        </nb-tab> -->
+      </nb-tabset>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+
+
+
+

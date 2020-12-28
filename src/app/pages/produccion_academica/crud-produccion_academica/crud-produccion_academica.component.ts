@@ -38,7 +38,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.loadProduccionAcademica();
   }
 
-  @Output() eventChange = new EventEmitter();
+  @Output() eventChange = new EventEmitter<number>();
 
   config: ToasterConfig;
   solicitud_docente_selected: SolicitudDocentePost;
@@ -134,7 +134,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.formProduccionAcademica.campos[i].placeholder =
         this.translate.instant('produccion_academica.placeholders.' + this.formProduccionAcademica.campos[i].placeholder_i18n);
     }
-    this.formProduccionAcademica.campos.sort((campoA, campoB) => (campoA.nombre > campoB.nombre) ? 1 : -1);
+    this.formProduccionAcademica.campos.sort((campoA, campoB) => (campoA.orden > campoB.orden) ? 1 : -1);
   }
 
   useLanguage(language: string) {
@@ -397,6 +397,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             if (Object.keys(metadato).length > 0) {
               const field = JSON.parse(metadato.TipoMetadatoId.FormDefinition);
               field.nombre = metadato.Id;
+              field.orden = metadato.Orden;
               this.formProduccionAcademica.campos.push(field);
               if (metadato.TipoMetadatoId.FormDefinition === '{}') {
                 this.id_data_drive.push(metadato.Id)
@@ -549,7 +550,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                   text: 'Información Modificada correctamente',
                 });
                 this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.produccion_actualizada'));
-                this.eventChange.emit(true);
+                this.eventChange.emit(this.info_solicitud.Id);
                 Promise.all(promises)
                   .then(() => {
                     this.showToast('success', this.translate.instant('GLOBAL.actualizar'), this.translate.instant('produccion_academica.exito_drive'));
@@ -599,7 +600,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 this.info_solicitud.ProduccionAcademica = this.info_produccion_academica;
                 console.info(this.info_solicitud);
                 console.info(info_solicitud_res);
-                this.eventChange.emit(true);
                 Swal({
                   title: `Éxito al cargar solicitud.`,
                   text: 'Información Guardada correctamente',
