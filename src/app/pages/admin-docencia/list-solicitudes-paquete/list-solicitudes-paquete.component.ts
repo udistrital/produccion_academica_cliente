@@ -62,18 +62,31 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      edit: {
+        editButtonContent: '<i class="nb-edit"></i>',
+        saveButtonContent: '<i class="nb-checkmark"></i>',
+        cancelButtonContent: '<i class="nb-close"></i>',
+      },
       actions: {
         position: 'right',
         columnTitle: this.translate.instant('produccion_academica.acciones'),
+        delete: false,
+        add: false,
+        edit: true,
         custom: [
           {
             name: 'view',
             title: '<i class="nb-search" title="view"></i>',
           },
+          {
+            name: 'postpone',
+            title: '<i class="fa fa-calendar" title="postpone"></i>',
+          },
+          {
+            name: 'reject',
+            title: '<i class="fa fa-ban" title="reject"></i>',
+          },
         ],
-        delete: false,
-        add: false,
-        edit: false,
       },
       mode: 'external',
       columns: {
@@ -254,6 +267,27 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   ngOnInit() { }
 
+  onCustomAction(event): void {
+    switch (event.action) {
+      case 'view':
+        this.onView(event);
+        break;
+      case 'postpone':
+        this.onPostpone(event);
+        break;
+      case 'reject':
+        this.onReject(event);
+    }
+  }
+
+  onReject(event): void {
+
+  }
+
+  onPostpone(event): void {
+
+  }
+
   onEdit(event): void {
     this.solicitud_selected = event.data;
     this.activetab(1);
@@ -319,23 +353,23 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                 if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
                   this.solicitud_updated.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                   this.loadTerceroDataOne(this.solicitud_updated)
-                  .then(() => {
-                    this.solicitudes_list = this.solicitudes_list.map(solicitud => {
-                      if (solicitud.Id === this.solicitud_updated.Id)
-                        solicitud = this.solicitud_updated
-                      return solicitud;
+                    .then(() => {
+                      this.solicitudes_list = this.solicitudes_list.map(solicitud => {
+                        if (solicitud.Id === this.solicitud_updated.Id)
+                          solicitud = this.solicitud_updated
+                        return solicitud;
+                      })
+                      this.source.load(this.solicitudes_list);
+                      Swal.close();
                     })
-                    this.source.load(this.solicitudes_list);
-                    Swal.close();
-                  })
-                  .catch(error => {
-                    Swal({
-                      type: 'error',
-                      title: '404',
-                      text: this.translate.instant('ERROR.404'),
-                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                    });
-                  })
+                    .catch(error => {
+                      Swal({
+                        type: 'error',
+                        title: '404',
+                        text: this.translate.instant('ERROR.404'),
+                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                      });
+                    })
                 } else {
                   Swal({
                     type: 'error',
@@ -388,6 +422,18 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
           reject(error);
         });
     })
+  }
+
+  generateDocument() {
+
+  }
+
+  generateCertificate() {
+
+  }
+
+  aceptCertificate() {
+
   }
 
   private showToast(type: string, title: string, body: string) {

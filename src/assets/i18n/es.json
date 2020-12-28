@@ -512,6 +512,9 @@
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
         
+        "generar_documento": "Generar Documento",
+        "generar_acta": "Generar Acta",
+        "aceptar_acta": "Aceptar Acta",
         "generacion_paquete": "Generación de Paquete",
         "alerta_no_seleccion": "No selecciono ningúna solicitud",
         "datos_comite": "Datos del Comité",

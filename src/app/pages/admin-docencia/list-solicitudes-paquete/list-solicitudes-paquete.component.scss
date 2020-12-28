@@ -29,6 +29,14 @@ nb-tabset /deep/ ul li {
   height: 0 !important;
 }
 
+:host /deep/ ng2-st-tbody-custom {
+  display: flex;
+}
+
+:host /deep/ ng2-st-tbody-custom i {
+  font-size: 22px;
+}
+
 :host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom {
   display: inline-block;
   width: 50px;
@@ -47,4 +55,13 @@ nb-tabset /deep/ ul li {
   width: 70%;
   margin: 20px auto;
   padding: 20px;
+}
+
+.btn-review {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
 }

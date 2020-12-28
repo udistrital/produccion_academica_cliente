@@ -501,6 +501,9 @@
         "error_alerta": "Error uploading alert",
         "alerta_fecha_expirada": "The request is late with respect to the current status.",
 
+        "generar_documento": "Generate Document",
+        "generar_acta": "Generate Certificate",
+        "aceptar_acta": "Accept Minutes",
         "generacion_paquete": "Package Generation",
         "alerta_no_seleccion": "You did not select any request",
         "datos_comite": "Committee data",
