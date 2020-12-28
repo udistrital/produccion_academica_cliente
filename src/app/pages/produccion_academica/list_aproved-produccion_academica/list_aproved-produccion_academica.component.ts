@@ -356,7 +356,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       allowOutsideClick: false,
     });
     Swal.showLoading();
-    this.paquete_solicitud.Solicitudes = this.solicitudes_selected_list;
+    this.paquete_solicitud.SolicitudesList = this.solicitudes_selected_list;
     this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
     this.paquete_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.paquete_solicitud.TerceroId = this.user.getPersonaId() || 3;

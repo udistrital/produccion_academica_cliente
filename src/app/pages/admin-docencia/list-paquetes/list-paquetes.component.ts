@@ -82,6 +82,24 @@ export class ListPaquetesComponent implements OnInit {
           filter: false,
           width: '15%',
         },
+        Activo: {
+          title: this.translate.instant('produccion_academica.estado_paquete'),
+          valuePrepareFunction: (value) => {
+            if (value)
+              return this.translate.instant('produccion_academica.estado_por_revisar');
+            return this.translate.instant('produccion_academica.estado_revisado');
+          },
+          filter: false,
+          width: '15%',
+        },
+        Solicitudes: {
+          title: this.translate.instant('produccion_academica.numero_solicitudes'),
+          valuePrepareFunction: (value) => {
+            return value
+          },
+          filter: false,
+          width: '15%',
+        },
       },
     };
   }
