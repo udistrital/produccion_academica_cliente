@@ -40,6 +40,10 @@ nb-tabset /deep/ ul li {
   color: #5dcfe3;
 }
 
+:host /deep/ ng2-smart-table-cell {
+  text-align: center;
+}
+
 .filter {
   display: flex;
   align-items: center;

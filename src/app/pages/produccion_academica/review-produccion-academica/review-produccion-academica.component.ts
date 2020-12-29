@@ -86,7 +86,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   filterObservations() {
     this.solicitud_docente_selected.Observaciones.forEach(observacion => {
       if (Object.keys(observacion).length > 0) {
-        if (observacion.TipoObservacionId.Id === 1)
+        if (observacion.TipoObservacionId.Id === 1 || observacion.TipoObservacionId.Id === 3)
           this.observaciones_comments.push(observacion)
         else {
           observacion.Persona = <Tercero>{
@@ -217,8 +217,16 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Estado:</h5>
           </div>
           <div class="col-4">
-            <p">${this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
-          .EstadoTipoSolicitudId.EstadoId.Nombre}</p>
+            <p">${
+              (
+                this.rol === "DOCENTE" &&
+                this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 6 ||
+                this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 7 
+              )
+              ? "Preparada para presentar a Comité"
+              : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
+                .EstadoTipoSolicitudId.EstadoId.Nombre
+            }</p>
           </div>
         </div>
         <div class="row">
