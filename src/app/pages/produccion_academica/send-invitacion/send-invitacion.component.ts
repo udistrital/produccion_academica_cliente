@@ -29,6 +29,7 @@ export class SendInvitacionComponent implements OnInit {
   correoTemp: string
   solicitud_selected: SolicitudDocentePost;
   info_solicitud: SolicitudDocentePost;
+  info_solicitud_hija: SolicitudDocentePost;
   invitacion: Invitacion;
   invitacionTemplate: InvitacionTemplate;
   userData: Tercero;
@@ -112,6 +113,30 @@ export class SendInvitacionComponent implements OnInit {
     });
   }
 
+  newSolicitudHija() {
+    console.info(this.info_solicitud);
+
+    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + 1 + '&TipoSolicitud:' + 2)
+      .subscribe(res => {
+        if (Object.keys(res.Data[0]).length > 0) {
+          this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+        } else {
+          this.estadosSolicitudes = [];
+        }
+      }, (error: HttpErrorResponse) => {
+        console.info("error estado solicitu hija")
+      })
+
+    this.info_solicitud_hija.SolicitudPadreId = this.info_solicitud.Id;
+    this.info_solicitud_hija.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+    this.info_solicitud_hija.Referencia = `{ \"nombre\": ${this.invitacionTemplate.NombreDocente} \"correo\": ${this.correoTemp}}` 
+    this.solicitudDocenteService.post('solicitud', this.info_solicitud_hija)
+    .subscribe(res => {
+      console.info(res);
+    })
+    
+  }
+
   sendInvitation() {
     this.googleMidService.post('notificacion', this.invitacion)
       .subscribe(res => {
@@ -146,6 +171,7 @@ export class SendInvitacionComponent implements OnInit {
           if (willCreate.value) {
             this.sendInvitation();
             this.updateSolicitudDocente(this.solicitud_selected);
+            this.newSolicitudHija();
           }
         });
     }
