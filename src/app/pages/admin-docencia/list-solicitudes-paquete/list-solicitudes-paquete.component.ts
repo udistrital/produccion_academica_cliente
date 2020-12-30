@@ -3,13 +3,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
-import { ButtonAlertComponent } from '../../../@theme/components/button-alert/button-alert.component';
+import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { TercerosService } from '../../../@core/data/terceros.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { UserService } from '../../../@core/data/users.service';
 import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docente/paquete';
+import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
 import { filterList } from './filtros'
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
@@ -23,7 +24,7 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 export class ListSolicitudesPaqueteComponent implements OnInit {
 
   @Input('paquete_solicitud_selected')
-  set solicitud(paquete_solicitud_selected: PaqueteSolicitudPost) {
+  set paquete_solicitud_input(paquete_solicitud_selected: PaqueteSolicitudPost) {
     this.paquete_solicitud_selected = paquete_solicitud_selected;
     console.info(this.paquete_solicitud_selected)
     this.showData();
@@ -34,6 +35,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   solicitud_updated: SolicitudDocentePost;
   solicitud_selected: SolicitudDocentePost;
   solicitud_selectedReview: SolicitudDocentePost;
+  estadosSolicitudes: Array<EstadoTipoSolicitud>;
   filtros = filterList;
   cambiotab: number = 0;
   config: ToasterConfig;
@@ -48,6 +50,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   constructor(private translate: TranslateService,
     private sgaMidService: SgaMidService,
     private user: UserService,
+    private solicitudDocenteService: SolicitudDocenteService,
     private tercerosService: TercerosService,
     private toasterService: ToasterService) {
     this.persona_id = user.getPersonaId() || 1;
@@ -80,7 +83,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
           },
           {
             name: 'postpone',
-            title: '<i class="fa fa-calendar" title="postpone"></i>',
+            title: '<i class="fa fa-angle-double-left" title="postpone"></i>',
           },
           {
             name: 'reject',
@@ -197,7 +200,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                     if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
                       solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                       if (solicitud.Id === data[data.length - 1].Id) {
-                        console.info('Paso');
                         resolve(true);
                       }
                     } else {
@@ -264,6 +266,26 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       });
     })
   }
+
+  loadEstadoSolicitud(numState): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if(numState === 0)
+        resolve(true)
+      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + numState)
+        .subscribe(res => {
+          if (Object.keys(res.Data[0]).length > 0) {
+            this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+            resolve(true);
+          } else {
+            this.estadosSolicitudes = [];
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
 
   ngOnInit() { }
 
@@ -361,6 +383,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                       })
                       this.source.load(this.solicitudes_list);
                       Swal.close();
+                      this.updatePackage(0);
                     })
                     .catch(error => {
                       Swal({
@@ -429,11 +452,87 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   }
 
   generateCertificate() {
-
+    const opt = {
+      title: this.translate.instant('GLOBAL.registrar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.updatePackage(8);
+        }
+      });
   }
 
   aceptCertificate() {
+    const opt = {
+      title: this.translate.instant('GLOBAL.registrar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.updatePackage(9);
+        }
+      });
+  }
 
+  updatePackage(numberState) {
+    this.estadosSolicitudes = [];
+    this.loadEstadoSolicitud(numberState)
+      .then(() => {
+        Swal({
+          title: 'Espere',
+          text: 'Enviando Información',
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+        this.paquete_solicitud_selected.SolicitudesList = this.solicitudes_list;
+        if(numberState === 0)
+          this.paquete_solicitud_selected.EstadoTipoSolicitudId = null;
+        else 
+          this.paquete_solicitud_selected.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+        this.paquete_solicitud_selected.TerceroId = this.user.getPersonaId() || 3;
+        this.sgaMidService.put('paquete_solicitud', this.paquete_solicitud_selected)
+          .subscribe((resp: any) => {
+            if (resp.Type === 'error') {
+              Swal({
+                type: 'error',
+                title: resp.Code,
+                text: this.translate.instant('ERROR.' + resp.Code),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+              this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
+            } else {
+              this.paquete_solicitud_selected = resp;
+              console.info(resp);
+              Swal({
+                title: `Éxito al crear Paquete.`,
+                text: 'Información Guardada correctamente',
+              });
+              // this.router.navigate(['./pages/produccion_academica/new-solicitud']);
+            }
+          });
+      })
+      .catch(error => {
+        if (!error.status) {
+          error.status = 409;
+        }
+        Swal({
+          type: 'error',
+          title: error.status + '',
+          text: this.translate.instant('ERROR.' + error.status),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        });
+      });
   }
 
   private showToast(type: string, title: string, body: string) {

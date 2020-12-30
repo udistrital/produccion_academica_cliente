@@ -21,9 +21,9 @@ import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docen
   styleUrls: ['./list-paquetes.component.scss']
 })
 export class ListPaquetesComponent implements OnInit {
-  solicitud_updated: SolicitudDocentePost;
-  solicitud_selected: SolicitudDocentePost;
-  solicitud_selectedReview: SolicitudDocentePost;
+  paquete_update: PaqueteSolicitudPost;
+  paquete_selected: PaqueteSolicitudPost;
+  paquete_selected_Review: PaqueteSolicitudPost;
   filtros = filterList;
   cambiotab: number = 0;
   config: ToasterConfig;
@@ -152,12 +152,12 @@ export class ListPaquetesComponent implements OnInit {
   ngOnInit() { }
 
   onEdit(event): void {
-    this.solicitud_selected = event.data;
+    this.paquete_selected = event.data;
     this.activetab(1);
   }
 
   onView(event): void {
-    this.solicitud_selected = event.data;
+    this.paquete_selected = event.data;
     this.activetab(1);
   }
 
@@ -208,18 +208,18 @@ export class ListPaquetesComponent implements OnInit {
   //   this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
   //     if (res !== null) {
   //       if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
-  //         this.solicitud_updated = <SolicitudDocentePost>res[0];
-  //         if (JSON.parse(this.solicitud_updated.Referencia).Id !== undefined) {
-  //           const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(this.solicitud_updated.Referencia).Id;
+  //         this.paquete_update = <SolicitudDocentePost>res[0];
+  //         if (JSON.parse(this.paquete_update.Referencia).Id !== undefined) {
+  //           const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(this.paquete_update.Referencia).Id;
   //           this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
   //             if (resp !== null) {
   //               if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-  //                 this.solicitud_updated.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
-  //                 this.loadTerceroData(this.solicitud_updated)
+  //                 this.paquete_update.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
+  //                 this.loadTerceroData(this.paquete_update)
   //                   .then(() => {
   //                     this.solicitudes_list = this.solicitudes_list.map(solicitud => {
-  //                       if (solicitud.Id === this.solicitud_updated.Id)
-  //                         solicitud = this.solicitud_updated
+  //                       if (solicitud.Id === this.paquete_update.Id)
+  //                         solicitud = this.paquete_update
   //                       return solicitud;
   //                     })
   //                     this.source.load(this.solicitudes_list);

@@ -38,6 +38,11 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.loadProduccionAcademica();
   }
 
+  @Input('estadoNum')
+  set estado(estadoNum: string) {
+    this.estadoNum = estadoNum;
+  }
+
   @Output() eventChange = new EventEmitter<number>();
 
   config: ToasterConfig;
@@ -51,6 +56,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   title_tipo_produccion: string;
   date_tipo_produccion: string;
   category_id: number;
+  estadoNum: string;
   link_data_drive: string[] = [];
   id_data_drive: number[] = [];
   files_to_drive: any[] = [];
@@ -228,7 +234,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   loadEstadoSolicitud(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:1')
+      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum || 1))
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;

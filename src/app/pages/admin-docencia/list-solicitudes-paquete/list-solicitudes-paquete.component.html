@@ -32,8 +32,8 @@
             <button class="btn-review" (click)="aceptCertificate()">{{'produccion_academica.aceptar_acta' | translate}}</button>
           </div>
         </nb-tab>
-        <!-- <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
-          <ngx-crud-produccion-academica [solicitud_docente_selected]="solicitud_selected" (eventChange)="onChange($event)">
+        <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
+          <ngx-crud-produccion-academica [solicitud_docente_selected]="solicitud_selected" [estadoNum] = "6" (eventChange)="onChange($event)">
           </ngx-crud-produccion-academica>
           <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
         </nb-tab>
@@ -44,7 +44,7 @@
           (solicitudOut)="onEdit($event)">
           </ngx-review-produccion-academica>
           <button (click)="activetab(0)" class="btn btn-info btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
-        </nb-tab> -->
+        </nb-tab>
       </nb-tabset>
     </nb-card-body>
   </nb-card>
