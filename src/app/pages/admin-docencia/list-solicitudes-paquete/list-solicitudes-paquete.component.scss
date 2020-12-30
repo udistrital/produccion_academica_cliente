@@ -37,6 +37,10 @@ nb-tabset /deep/ ul li {
   font-size: 22px;
 }
 
+:host /deep/ ng2-st-tbody-custom a:last-child i {
+  font-size: 18px;
+}
+
 :host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom {
   display: inline-block;
   width: 50px;
@@ -64,4 +68,8 @@ nb-tabset /deep/ ul li {
   color: #fff;
   border: none;
   border-radius: 10px;
+}
+
+.row {
+  margin-left: 5px;
 }

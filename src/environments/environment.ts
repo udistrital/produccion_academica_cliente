@@ -30,6 +30,7 @@ export const environment = {
   PERSONA_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8121/v1/',
   PRODUCCION_ACADEMICA_SERVICE: 'http://pruebasapi2.intranetoas.udistrital.edu.co:8111/v1/',
   SOLICITUD_DOCENTE_SERVICE: 'http://pruebasapi2.intranetoas.udistrital.edu.co:8117/v1/',
+  // SOLICITUD_DOCENTE_SERVICE: 'http://localhost:8085/v1/',
   DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
   SPAGOBI: {
     PROTOCOL: 'https',
@@ -43,6 +44,7 @@ export const environment = {
   OIKOS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1/',
   // SGA_MID_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8119/v1/',
   SGA_MID_SERVICE: 'http://localhost:8090/v1/',
+  // SGA_MID_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/sga_mid/v1/',
   GOOGLE_MID_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8514/v1/',
   UBICACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/ubicaciones_crud/v1/',
   // DOCUMENTO_PROGRAMA_SERVICE: 'https://autenticacion.udistrital.edu.co/apioas/documento_programa_crud/v1/',

@@ -15,8 +15,4 @@ export const filterList = [
     Id: 4,
     Nombre: 'verificada',
   },
-  {
-    Id: 8,
-    Nombre: 'rechazada',
-  },
 ]

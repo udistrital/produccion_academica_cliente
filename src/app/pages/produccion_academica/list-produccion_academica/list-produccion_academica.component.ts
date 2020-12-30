@@ -87,7 +87,14 @@ export class ListProduccionAcademicaComponent implements OnInit {
         EvolucionEstado: {
           title: this.translate.instant('produccion_academica.estado_solicitud'),
           valuePrepareFunction: (value) => {
-            return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+            if(this.rol !== 'DOCENTE') {
+              return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+            } else {
+              if (value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 || 
+                  value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7)
+                return "Preparada para presentar a Comité"
+              return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+            }
           },
           filter: false,
           width: '10%',
