@@ -41,10 +41,11 @@ export class SendInvitacionComponent implements OnInit {
     private sgaMidService: SgaMidService,
     private googleMidService: GoogleService,
     private solicitudDocenteService: SolicitudDocenteService,
-    ) {
-      this.invitacion = new Invitacion();
-      this.invitacionTemplate = new InvitacionTemplate();
-    }
+  ) {
+    this.invitacion = new Invitacion();
+    this.invitacionTemplate = new InvitacionTemplate();
+    this.info_solicitud_hija = new SolicitudDocentePost();
+  }
 
   ngOnInit() {
     this.loadDataObservation();
@@ -90,36 +91,46 @@ export class SendInvitacionComponent implements OnInit {
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
     console.info(this.info_solicitud);
     this.sgaMidService.put('solicitud_docente', this.info_solicitud)
-    .subscribe((resp: any) => {
-      if (resp.Type === 'error') {
-        Swal({
-          type: 'error',
-          title: resp.Code,
-          text: this.translate.instant('ERROR.' + resp.Code),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      } else {
-        this.info_solicitud = <SolicitudDocentePost>resp;
-        Swal({
-          title: `Éxito al Enviar Observación.`,
-          text: 'Información Modificada correctamente',
-        });
-        this.invitacion.templateData.NombreDocente = '';
-        this.invitacion.to = [];
-        this.invitacion.templateData = null;
-        this.correoTemp = '';
-        this.reloadTable.emit(this.info_solicitud.Id);
-      }
-    });
+      .subscribe((resp: any) => {
+        if (resp.Type === 'error') {
+          Swal({
+            type: 'error',
+            title: resp.Code,
+            text: this.translate.instant('ERROR.' + resp.Code),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
+        } else {
+          this.info_solicitud = <SolicitudDocentePost>resp;
+          this.newSolicitudHija();
+        }
+      });
   }
 
   newSolicitudHija() {
     console.info(this.info_solicitud);
 
-    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + 1 + '&TipoSolicitud:' + 2)
+    this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + 10)
       .subscribe(res => {
         if (Object.keys(res.Data[0]).length > 0) {
           this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+          this.info_solicitud_hija.SolicitudPadreId = this.solicitud_selected;
+          this.info_solicitud_hija.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+          this.info_solicitud_hija.Referencia = `{ \"Nombre\": \"${this.invitacionTemplate.NombreDocente}\", \"Correo\": \"${this.correoTemp}\"}`
+          this.info_solicitud_hija.TerceroId = this.user.getPersonaId() || 3;
+          this.info_solicitud_hija.Autores = []
+          this.sgaMidService.post('solicitud_docente', this.info_solicitud_hija)
+            .subscribe(resp => {
+              console.info(resp);
+              Swal({
+                title: `Éxito al Enviar Observación.`,
+                text: 'Información Modificada correctamente',
+              });
+              this.invitacion.templateData.NombreDocente = '';
+              this.invitacion.to = [];
+              this.invitacion.templateData = null;
+              this.correoTemp = '';
+              this.reloadTable.emit(this.info_solicitud.Id);
+            })
         } else {
           this.estadosSolicitudes = [];
         }
@@ -127,14 +138,6 @@ export class SendInvitacionComponent implements OnInit {
         console.info("error estado solicitu hija")
       })
 
-    this.info_solicitud_hija.SolicitudPadreId = this.info_solicitud.Id;
-    this.info_solicitud_hija.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
-    this.info_solicitud_hija.Referencia = `{ \"nombre\": ${this.invitacionTemplate.NombreDocente} \"correo\": ${this.correoTemp}}` 
-    this.solicitudDocenteService.post('solicitud', this.info_solicitud_hija)
-    .subscribe(res => {
-      console.info(res);
-    })
-    
   }
 
   sendInvitation() {
@@ -171,7 +174,6 @@ export class SendInvitacionComponent implements OnInit {
           if (willCreate.value) {
             this.sendInvitation();
             this.updateSolicitudDocente(this.solicitud_selected);
-            this.newSolicitudHija();
           }
         });
     }
@@ -202,13 +204,13 @@ export class SendInvitacionComponent implements OnInit {
     let metadatoList: string = ``;
     this.solicitud_selected.ProduccionAcademica.Metadatos.forEach(metadato => {
       if (JSON.parse(metadato.MetadatoSubtipoProduccionId.TipoMetadatoId.FormDefinition).etiqueta === 'input' &&
-          metadato.Valor) {
-            metadatoList += `
+        metadato.Valor) {
+        metadatoList += `
             <div class=\"row\">
               <div class=\"encabezado\">
                 ${this.translate
-                  .instant('produccion_academica.labels.' + JSON.parse(metadato.MetadatoSubtipoProduccionId.TipoMetadatoId.FormDefinition).label_i18n)
-                }
+            .instant('produccion_academica.labels.' + JSON.parse(metadato.MetadatoSubtipoProduccionId.TipoMetadatoId.FormDefinition).label_i18n)
+          }
               </div>
               <div class=\"dato\">
                 ${metadato.Valor}
@@ -216,7 +218,7 @@ export class SendInvitacionComponent implements OnInit {
             </div>
 
             `
-          }
+      }
     })
     return metadatoList;
   }
