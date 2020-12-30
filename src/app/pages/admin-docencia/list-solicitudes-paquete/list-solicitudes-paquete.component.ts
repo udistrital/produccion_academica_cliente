@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { TercerosService } from '../../../@core/data/terceros.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
@@ -52,6 +53,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     private user: UserService,
     private solicitudDocenteService: SolicitudDocenteService,
     private tercerosService: TercerosService,
+    private router: Router,
     private toasterService: ToasterService) {
     this.persona_id = user.getPersonaId() || 1;
     this.rol = (JSON.parse(atob(localStorage
@@ -496,9 +498,9 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         });
         Swal.showLoading();
         this.paquete_solicitud_selected.SolicitudesList = this.solicitudes_list;
-        if(numberState === 0)
+        if (numberState === 0)
           this.paquete_solicitud_selected.EstadoTipoSolicitudId = null;
-        else 
+        else
           this.paquete_solicitud_selected.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
         this.paquete_solicitud_selected.TerceroId = this.user.getPersonaId() || 3;
         this.sgaMidService.put('paquete_solicitud', this.paquete_solicitud_selected)
@@ -518,7 +520,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                 title: `Éxito al crear Paquete.`,
                 text: 'Información Guardada correctamente',
               });
-              // this.router.navigate(['./pages/produccion_academica/new-solicitud']);
+              this.router.navigate(['./pages/dashboard']);
             }
           });
       })

@@ -94,13 +94,13 @@
       [observaciones_selected]="observaciones_comments"
       style="width: 100%;"></ngx-list-comentario>
     <ngx-crud-comentario 
-      [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3)"
+      [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3 && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 5))"
       (reloadTable)="reloadTable($event)"
       [estadoNum] = "2"
       [obsNum] = "1"
       [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
     <ngx-send-invitacion 
-      [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 3)"
+      [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 3 || solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 5))"
       (reloadTable)="reloadTable($event)"
       [solicitud_selected]="solicitud_docente_selected"></ngx-send-invitacion>
   </div>

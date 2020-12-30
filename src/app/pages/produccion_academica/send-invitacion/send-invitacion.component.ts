@@ -35,6 +35,7 @@ export class SendInvitacionComponent implements OnInit {
   userData: Tercero;
   userNum: string;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
+  estadosSolicitudesHija: Array<EstadoTipoSolicitud>;
 
   constructor(private translate: TranslateService,
     private user: UserService,
@@ -107,44 +108,64 @@ export class SendInvitacionComponent implements OnInit {
   }
 
   newSolicitudHija() {
-    console.info(this.info_solicitud);
-
     this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + 10)
       .subscribe(res => {
         if (Object.keys(res.Data[0]).length > 0) {
-          this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+          this.estadosSolicitudesHija = <Array<EstadoTipoSolicitud>>res.Data;
           this.info_solicitud_hija.SolicitudPadreId = this.solicitud_selected;
-          this.info_solicitud_hija.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+          this.info_solicitud_hija.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudesHija[0];
           this.info_solicitud_hija.Referencia = `{ \"Nombre\": \"${this.invitacionTemplate.NombreDocente}\", \"Correo\": \"${this.correoTemp}\"}`
           this.info_solicitud_hija.TerceroId = this.user.getPersonaId() || 3;
           this.info_solicitud_hija.Autores = []
           this.sgaMidService.post('solicitud_docente', this.info_solicitud_hija)
-            .subscribe(resp => {
-              console.info(resp);
-              Swal({
-                title: `Éxito al Enviar Observación.`,
-                text: 'Información Modificada correctamente',
-              });
-              this.invitacion.templateData.NombreDocente = '';
-              this.invitacion.to = [];
-              this.invitacion.templateData = null;
-              this.correoTemp = '';
-              this.reloadTable.emit(this.info_solicitud.Id);
-            })
+            .subscribe((resp: any) => {
+              if (resp.Type === 'error') {
+                Swal({
+                  type: 'error',
+                  title: resp.Code,
+                  text: this.translate.instant('ERROR.' + resp.Code),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                });
+              } else {
+                console.info(resp);
+                this.info_solicitud_hija = <SolicitudDocentePost>resp;
+                console.info('http://localhost:8090/v1/solicitud_evaluacion/' + resp.Solicitud.Id);
+                this.invitacionTemplate.urlRechazarEvaluacion = 'http://localhost:8090/v1/solicitud_evaluacion/' + resp.Solicitud.Id;
+                this.sendInvitation();
+              }
+            });
         } else {
-          this.estadosSolicitudes = [];
+          this.estadosSolicitudesHija = [];
         }
       }, (error: HttpErrorResponse) => {
-        console.info("error estado solicitu hija")
+        console.info('error estado solicitud hija')
       })
 
   }
 
   sendInvitation() {
     this.googleMidService.post('notificacion', this.invitacion)
-      .subscribe(res => {
-        console.info(res);
-      })
+      .subscribe((res: any) => {
+        // if (res.Type === 'error') {
+        //   Swal({
+        //     type: 'error',
+        //     title: res.Code,
+        //     text: this.translate.instant('ERROR.' + res.Code),
+        //     confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        //   });
+        // } else {
+          console.info(res);
+          Swal({
+            title: `Éxito al Enviar Observación.`,
+            text: 'Información Modificada correctamente',
+          });
+          this.invitacion.templateData.NombreDocente = '';
+          this.invitacion.to = [];
+          this.invitacion.templateData = null;
+          this.correoTemp = '';
+          this.reloadTable.emit(this.info_solicitud.Id);
+        // }
+      });
   }
 
   validarForm() {
@@ -152,7 +173,6 @@ export class SendInvitacionComponent implements OnInit {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       this.invitacionTemplate.Fecha = new Date().toLocaleDateString('es-CO', options);
       this.invitacionTemplate.urlCreacionCuentaLogin = 'http://www.google.com';
-      this.invitacionTemplate.urlRechazarEvaluacion = 'https://httpbin.org/get';
       this.invitacionTemplate.ContenidoProduccion = this.makeHtmlTemplate();
       this.invitacion.to = [];
       this.invitacion.to.push(this.correoTemp);
@@ -172,7 +192,6 @@ export class SendInvitacionComponent implements OnInit {
       Swal(opt)
         .then((willCreate) => {
           if (willCreate.value) {
-            this.sendInvitation();
             this.updateSolicitudDocente(this.solicitud_selected);
           }
         });
