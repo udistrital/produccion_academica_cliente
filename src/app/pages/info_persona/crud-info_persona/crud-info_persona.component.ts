@@ -146,6 +146,7 @@ export class CrudInfoPersonaComponent implements OnInit {
   }
 
   createInfoPersona(infoPersona: any): void {
+    console.log("Entra a guardar persona")
     const opt: any = {
       title: this.translate.instant('GLOBAL.crear'),
       text: this.translate.instant('GLOBAL.crear_info_persona'),
@@ -165,6 +166,8 @@ export class CrudInfoPersonaComponent implements OnInit {
           this.info_info_persona.FechaNacimiento = momentTimezone.tz(this.info_info_persona.FechaNacimiento, 'America/Bogota').format('YYYY-MM-DD HH:mm');
           this.info_info_persona.FechaExpedicion = momentTimezone.tz(this.info_info_persona.FechaExpedicion, 'America/Bogota').format('YYYY-MM-DD HH:mm');
           this.info_info_persona.Usuario = this.autenticationService.getPayload().sub;
+          console.log("crear persona")
+          console.log(this.info_info_persona)
           this.sgamidService.post('persona/guardar_persona', this.info_info_persona).subscribe(res => {
             const r = <any>res
             console.info(JSON.stringify(res));
@@ -394,6 +397,7 @@ export class CrudInfoPersonaComponent implements OnInit {
   }
 
   validarForm(event) {
+    console.log("Entra a validar form")
     if (event.valid) {
       if (this.info_inscripcion === undefined) {
         console.info('Listo para registro')
@@ -421,6 +425,7 @@ export class CrudInfoPersonaComponent implements OnInit {
     })
       .then((result) => {
         console.log(event)
+        console.log("Entra a validar terminos")
         if (result.value) {
           console.info('info_info_persona' + this.info_info_persona)
           if (this.info_info_persona === undefined) {
