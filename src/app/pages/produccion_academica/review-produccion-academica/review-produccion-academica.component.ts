@@ -217,16 +217,15 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             <h5>Estado:</h5>
           </div>
           <div class="col-4">
-            <p">${
-              (
-                this.rol === "DOCENTE" &&
-                this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 6 ||
-                this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 7 
-              )
-              ? "Preparada para presentar a Comité"
-              : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
-                .EstadoTipoSolicitudId.EstadoId.Nombre
-            }</p>
+            <p">${(
+          this.rol === "DOCENTE" &&
+          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 6 ||
+          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 7
+        )
+          ? "Preparada para presentar a Comité"
+          : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
+            .EstadoTipoSolicitudId.EstadoId.Nombre
+        }</p>
           </div>
         </div>
         <div class="row">
@@ -372,36 +371,23 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
     console.info(this.info_solicitud);
-    this.sgaMidService.put('solicitud_produccion/', solicitudDocente)
-      .subscribe((resp: any) => {
-        if (resp.Type === 'error') {
+    this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+      .subscribe((res: any) => {
+        if (res.Type === 'error') {
           Swal({
             type: 'error',
-            title: resp.Code,
-            text: this.translate.instant('ERROR.' + resp.Code),
+            title: res.Code,
+            text: this.translate.instant('ERROR.' + res.Code),
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
         } else {
-          this.info_solicitud = <SolicitudDocentePost>resp;
-          this.sgaMidService.put('solicitud_docente', this.info_solicitud)
-            .subscribe((res: any) => {
-              if (res.Type === 'error') {
-                Swal({
-                  type: 'error',
-                  title: res.Code,
-                  text: this.translate.instant('ERROR.' + res.Code),
-                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                });
-              } else {
-                this.info_solicitud = <SolicitudDocentePost>res;
-                console.info(this.info_solicitud)
-                Swal({
-                  title: `Éxito al Verificar Solicitud.`,
-                  text: 'Información Modificada correctamente',
-                });
-                this.reloadTable(this.info_solicitud.Id);
-              }
-            });
+          this.info_solicitud = <SolicitudDocentePost>res;
+          console.info(this.info_solicitud)
+          Swal({
+            title: `Éxito al Verificar Solicitud.`,
+            text: 'Información Modificada correctamente',
+          });
+          this.reloadTable(this.info_solicitud.Id);
         }
       });
   }
@@ -426,7 +412,20 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       .subscribe(res => {
         if (Object.keys(res.Data[0]).length > 0) {
           this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-          this.updateSolicitudDocente(this.solicitud_docente_selected);
+          this.sgaMidService.put('solicitud_produccion/', this.solicitud_docente_selected)
+            .subscribe((resp: any) => {
+              if (resp.Type === 'error') {
+                Swal({
+                  type: 'error',
+                  title: resp.Code,
+                  text: this.translate.instant('ERROR.' + resp.Code),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                });
+              } else {
+                this.info_solicitud = <SolicitudDocentePost>resp;
+                this.updateSolicitudDocente(this.info_solicitud);
+              }
+            });
         } else {
           this.estadosSolicitudes = [];
         }
