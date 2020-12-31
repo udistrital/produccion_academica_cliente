@@ -73,6 +73,7 @@
         "formulario": "Form",
         "lista": "Request List",
         "regresar": "Return",
+        "regresar_paquetes": "Return to package list",
         "terminos_datos": "Privacy and data processing policy",
         "acepto_terminos": "I have read and agree to the privacy and treatment of information policy terms",
         "error": "Error",

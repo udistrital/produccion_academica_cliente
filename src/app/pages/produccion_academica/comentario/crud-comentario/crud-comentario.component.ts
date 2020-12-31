@@ -29,6 +29,11 @@ export class CrudComentarioComponent implements OnInit {
     this.estadoNum = estadoNum;
   }
 
+  @Input('obsNum')
+  set observation(obsNum: string) {
+    this.obsNum = obsNum;
+  }
+
   @Output()
   reloadTable = new EventEmitter<number>();
 
@@ -37,6 +42,7 @@ export class CrudComentarioComponent implements OnInit {
   observacion: Observacion;
   userData: Tercero;
   userNum: string;
+  obsNum: string;
   estadoNum: string;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
   tipoObservaciones: Array<TipoObservacion>;
@@ -85,10 +91,16 @@ export class CrudComentarioComponent implements OnInit {
 
   loadEstadoSolicitud(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + this.estadoNum)
+      let endpoint;
+      if (this.solicitud_selected.EstadoTipoSolicitudId.Id === 6 || this.solicitud_selected.EstadoTipoSolicitudId.Id === 7)
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + 7;
+      else
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + this.estadoNum;
+      this.solicitudDocenteService.get(endpoint)
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+            console.info(this.estadosSolicitudes)
             resolve(true);
           } else {
             this.estadosSolicitudes = [];
@@ -102,7 +114,7 @@ export class CrudComentarioComponent implements OnInit {
 
   loadObservationType(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.solicitudDocenteService.get('tipo_observacion/?query=Id:1')
+      this.solicitudDocenteService.get('tipo_observacion/?query=Id:' + this.obsNum)
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.tipoObservaciones = <Array<TipoObservacion>>res.Data;
@@ -148,6 +160,8 @@ export class CrudComentarioComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
+    if(this.info_solicitud.EstadoTipoSolicitudId.Id === 4)
+      this.info_solicitud.Resultado = `{ \"Puntaje\": ${0} }`
     console.info(this.info_solicitud);
     this.sgaMidService.put('solicitud_docente', this.info_solicitud)
     .subscribe((resp: any) => {

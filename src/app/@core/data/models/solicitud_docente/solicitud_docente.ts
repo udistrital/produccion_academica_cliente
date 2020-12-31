@@ -6,6 +6,7 @@ export class SolicitudDocentePost {
   Id: number;
   ProduccionAcademica: ProduccionAcademicaPost;
   Referencia: any;
+  Resultado: any;
   FechaRadicacion: string;
   EstadoTipoSolicitudId: EstadoTipoSolicitud;
   EvolucionEstado: any[];
@@ -14,4 +15,5 @@ export class SolicitudDocentePost {
   Invitaciones: any[];
   TerceroId: number;
   Solicitantes: any[];
+  SolicitudPadreId: SolicitudDocentePost;
 }

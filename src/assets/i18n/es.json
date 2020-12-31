@@ -75,6 +75,7 @@
         "formulario": "Formulario",
         "lista": "Lista de Solicitudes",
         "regresar": "Regresar",
+        "regresar_paquetes": "Regresar a listado de paquetes",
         "error": "Error",
         "si": "Si",
         "no": "No",
@@ -783,7 +784,7 @@
             "radicado": "Solicitudes en estado de radicación",
             "por_modificar": "Solicitudes pendientes por modificar",
             "por_evaluar": "Solicitudes que requieren una evaluación por par externo",
-            "verificada": "Solicitudes que están verificadas",
+            "verificada": "Solicitudes preparadas para presentar a comité",
             "rechazada": "Solicitudes que han sido rechazadas",
             "Salarial": "Solicitudes que obtienen puntos salariales",
             "Bonificacion": "Solicitudes que obtienen puntos de bonificación"
