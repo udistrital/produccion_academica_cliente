@@ -51,6 +51,20 @@ export const MENU_ITEMS: MenuItem[] = [
     ],
   },
   {
+    title:  'Evaluacion Pares',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'evaluacion_pares',
+    children:  [
+      {
+        title:  'Lista Invitaciones',
+        icon: 'nb-edit',
+        link:  '/pages/evaluacion_pares/list_invitaciones',
+        key:  'lista_invitaciones',
+      },
+    ],
+  },
+  {
     title:  'Inscripcion',
     icon:  'nb-compose',
     link:  '',

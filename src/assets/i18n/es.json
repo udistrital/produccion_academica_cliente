@@ -40,6 +40,10 @@
             "solicitud_paquete": "Solicitudes para Comité",
             "paquetes": "Lista de comités"
         },
+        "evaluacion_pares": {
+            "evaluacion_pares": "Evaluación de \nproducción académica",
+            "lista_invitaciones": "Lista de invitaciones"
+        },
         "auth": {
             "auth": "Autenticacion",
             "login": "Login",

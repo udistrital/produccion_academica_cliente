@@ -21,6 +21,10 @@ const routes: Routes = [{
       loadChildren: './admin-docencia/admin-docencia.module#AdminDocenciaModule',
     },
     {
+      path: 'evaluacion_pares',
+      loadChildren: './evaluacion-pares/evaluacion-pares.module#EvaluacionParesModule',
+    },
+    {
       path: 'inscripcion',
       loadChildren: './inscripcion/inscripcion.module#InscripcionModule',
     },

@@ -40,6 +40,10 @@
             "solicitud_paquete": "Committee Applications",
             "paquetes": "Committees list"
         },
+        "evaluacion_pares": {
+            "evaluacion_pares": "Academic production evaluation",
+            "lista_invitaciones": "Invitations list"
+        },
         "auth": {
             "auth": "Auth",
             "login": "Login",
