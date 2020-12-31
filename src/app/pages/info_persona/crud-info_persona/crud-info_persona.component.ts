@@ -35,7 +35,7 @@ export class CrudInfoPersonaComponent implements OnInit {
   @Input('info_persona_id')
   set persona(info_persona_id: number) {
     this.info_persona_id = info_persona_id;
-    // this.loadInfoPersona();
+    this.loadInfoPersona();
     console.info('InfoPersonaIdPersona: ' + info_persona_id);
   }
 
@@ -45,7 +45,7 @@ export class CrudInfoPersonaComponent implements OnInit {
     this.inscripcion_id = inscripcion_id;
     if (this.inscripcion_id !== undefined && this.inscripcion_id !== 0 && this.inscripcion_id.toString() !== ''
       && this.inscripcion_id.toString() !== '0') {
-      // this.loadInscripcion();
+      this.loadInscripcion();
       console.info('inscripcionId: ' + inscripcion_id);
     }
   }
