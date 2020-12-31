@@ -770,6 +770,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           const filesToUpload = [];
           if (event.data.ProduccionAcademica) {
             console.info('validarForm - event.data.produccionAcademica: ', event.data.ProduccionAcademica);
+            console.info('validarForm - info_produccion_academica.Fecha: ', this.info_produccion_academica.Fecha);
             const tempMetadatos = event.data.ProduccionAcademica;
             const keys = Object.keys(tempMetadatos);
             for (let i = 0; i < keys.length; i++) {

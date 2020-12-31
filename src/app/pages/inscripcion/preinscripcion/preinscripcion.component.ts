@@ -134,8 +134,8 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
       this.info_persona_id = this.userService.getPersonaId();
       console.info('Carga hecha')
       console.info(this.info_persona_id)
-      await this.cargarPeriodo();
-      await this.loadInfoInscripcion();
+      // await this.cargarPeriodo();
+      // await this.loadInfoInscripcion();
     } catch (error) {
       Swal({
         type: 'error',

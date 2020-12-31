@@ -35,20 +35,21 @@ export class CrudInfoPersonaComponent implements OnInit {
   @Input('info_persona_id')
   set persona(info_persona_id: number) {
     this.info_persona_id = info_persona_id;
-    this.loadInfoPersona();
+    if (!isNaN(this.info_persona_id))
+      this.loadInfoPersona();
     console.info('InfoPersonaIdPersona: ' + info_persona_id);
   }
 
 
-  @Input('inscripcion_id')
-  set admision(inscripcion_id: number) {
-    this.inscripcion_id = inscripcion_id;
-    if (this.inscripcion_id !== undefined && this.inscripcion_id !== 0 && this.inscripcion_id.toString() !== ''
-      && this.inscripcion_id.toString() !== '0') {
-      this.loadInscripcion();
-      console.info('inscripcionId: ' + inscripcion_id);
-    }
-  }
+  // @Input('inscripcion_id')
+  // set admision(inscripcion_id: number) {
+  //   this.inscripcion_id = inscripcion_id;
+  //   if (this.inscripcion_id !== undefined && this.inscripcion_id !== 0 && this.inscripcion_id.toString() !== ''
+  //     && this.inscripcion_id.toString() !== '0') {
+  //     this.loadInscripcion();
+  //     console.info('inscripcionId: ' + inscripcion_id);
+  //   }
+  // }
 
   @Output() eventChange = new EventEmitter();
   // tslint:disable-next-line: no-output-rename
@@ -89,7 +90,7 @@ export class CrudInfoPersonaComponent implements OnInit {
     this.listService.findEstadoCivil();
     this.listService.findTipoIdentificacion();
     this.loading = false;
-    this.cargarPeriodo();
+    // this.cargarPeriodo();
     this.loadLists();
   }
 
@@ -163,8 +164,10 @@ export class CrudInfoPersonaComponent implements OnInit {
         if (willDelete.value) {
           const files = []
           this.info_info_persona = <any>infoPersona;
-          this.info_info_persona.FechaNacimiento = momentTimezone.tz(this.info_info_persona.FechaNacimiento, 'America/Bogota').format('YYYY-MM-DD HH:mm');
-          this.info_info_persona.FechaExpedicion = momentTimezone.tz(this.info_info_persona.FechaExpedicion, 'America/Bogota').format('YYYY-MM-DD HH:mm');
+          this.info_info_persona.FechaNacimiento = momentTimezone.tz(this.info_info_persona.FechaNacimiento, 'America/Bogota').format('YYYY-MM-DD HH:mm:ss');
+          this.info_info_persona.FechaNacimiento =  this.info_info_persona.FechaNacimiento + ' +0000 +0000';
+          this.info_info_persona.FechaExpedicion = momentTimezone.tz(this.info_info_persona.FechaExpedicion, 'America/Bogota').format('YYYY-MM-DD HH:mm:ss');
+          this.info_info_persona.FechaExpedicion =  this.info_info_persona.FechaExpedicion + ' +0000 +0000';
           this.info_info_persona.Usuario = this.autenticationService.getPayload().sub;
           console.log("crear persona")
           console.log(this.info_info_persona)
@@ -174,8 +177,9 @@ export class CrudInfoPersonaComponent implements OnInit {
             if (r !== null && r.Type !== 'error') {
               window.localStorage.setItem('ente', r.Id);
               this.info_persona_id = r.Id;
+              console.info(r.Id)
               sessionStorage.setItem('IdTercero', String(this.info_persona_id));
-              this.createInscripcion(this.info_persona_id);
+              // this.createInscripcion(this.info_persona_id);
               this.loading = false;
               this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
             } else {
@@ -429,6 +433,7 @@ export class CrudInfoPersonaComponent implements OnInit {
         if (result.value) {
           console.info('info_info_persona' + this.info_info_persona)
           if (this.info_info_persona === undefined) {
+            console.info('Creacion')
             this.createInfoPersona(event.data.InfoPersona);
           } else {
             // this.updateInfoPersona(event.data.InfoPersona);

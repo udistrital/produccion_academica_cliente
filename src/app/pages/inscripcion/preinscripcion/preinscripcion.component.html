@@ -13,7 +13,7 @@
       </div>
       <nb-tabset fullWidth>
         <nb-tab tabTitle="{{ 'inscripcion.info_persona' | translate }}" [active]="info_persona">
-          <ngx-crud-info-persona info_persona_id={{this.info_persona_id}} inscripcion_id={{this.inscripcion_id}}
+          <ngx-crud-info-persona info_persona_id={{this.info_persona_id}}
             (eventChange)="perfil_editar('info_preinscripcion')" (result)="setPercentage_info($event,0)">
           </ngx-crud-info-persona>
         </nb-tab>
