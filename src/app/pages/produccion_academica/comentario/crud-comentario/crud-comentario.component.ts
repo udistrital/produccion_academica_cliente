@@ -160,7 +160,7 @@ export class CrudComentarioComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    if(this.info_solicitud.EstadoTipoSolicitudId.Id === 4)
+    if (this.info_solicitud.EstadoTipoSolicitudId.Id === 4)
       this.info_solicitud.Resultado = `{ \"Puntaje\": ${0} }`
     console.info(this.info_solicitud);
     this.sgaMidService.put('solicitud_docente', this.info_solicitud)

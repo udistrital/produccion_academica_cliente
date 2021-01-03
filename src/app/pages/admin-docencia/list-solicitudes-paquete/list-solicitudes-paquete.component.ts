@@ -12,10 +12,10 @@ import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docente/paquete';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
+import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { filterList } from './filtros'
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { Tercero } from '../../../@core/data/models/terceros/tercero';
 
 @Component({
   selector: 'ngx-list-solicitudes-paquete',
