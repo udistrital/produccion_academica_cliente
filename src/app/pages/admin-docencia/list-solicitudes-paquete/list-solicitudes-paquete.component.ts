@@ -43,6 +43,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   settings: any;
   filter: any;
   rol: string;
+  esRechazada: boolean;
   persona_id: number;
   solicitudes_list: SolicitudDocentePost[];
   solicitudes_list_filter: SolicitudDocentePost[];
@@ -304,8 +305,26 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     }
   }
 
-  onReject(event): void {
+  closePop() {
+    this.esRechazada = false;
+  }
 
+  onReject(event): void {
+    this.solicitud_selected = event.data;
+    const opt = {
+      title: this.translate.instant('produccion_academica.rechazar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_rechazar_produccion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.esRechazada = true;
+        }
+      });
   }
 
   onPostpone(event): void {
