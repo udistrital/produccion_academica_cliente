@@ -24,6 +24,7 @@ export class ListInvitacionesComponent implements OnInit {
   settings: any;
   source: LocalDataSource = new LocalDataSource();
   persona_id: number;
+  par_email: string;
   evaluador: Solicitante;
   invitacion_updated: SolicitudDocentePost;
   invitacion_selected: SolicitudDocentePost;
@@ -36,6 +37,10 @@ export class ListInvitacionesComponent implements OnInit {
     private tercerosService: TercerosService,
     private sgaMidService: SgaMidService,
     private toasterService: ToasterService) {
+    this.par_email = (JSON.parse(atob(localStorage
+      .getItem('id_token')
+      .split('.')[1])).email);
+    console.info(this.par_email);
     this.persona_id = user.getPersonaId();
     this.evaluador = new Solicitante();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -138,7 +143,7 @@ export class ListInvitacionesComponent implements OnInit {
   loadData(): Promise<any> {
     return new Promise((resolve, reject) => {
       let endpointSolicitud: string;
-      endpointSolicitud = 'solicitud/centrodeestudiosanbasilio@gmail.com';
+      endpointSolicitud = 'solicitud/' + this.par_email;
       this.solicitudDocenteService.get(endpointSolicitud).subscribe((res: any) => {
         console.info(res);
         if (res !== null) {
@@ -213,75 +218,88 @@ export class ListInvitacionesComponent implements OnInit {
   ngOnInit() { }
 
   onCheck(event): void {
-    this.loadEstadoSolicitud(12)
-      .then(() => {
-        Swal({
-          title: 'Espere',
-          text: 'Enviando Información',
-          allowOutsideClick: false,
-        });
-        Swal.showLoading();
-        this.invitacion_selected = <SolicitudDocentePost> event.data;
-        this.invitacion_selected.EstadoTipoSolicitudId = this.estadosSolicitudes[0];
-        this.invitacion_selected.Observaciones = [];
-        this.evaluador.TerceroId = this.persona_id;
-        this.evaluador.SolicitudId = this.invitacion_selected;
-        this.evaluador.Activo = true;
-        console.info(this.invitacion_selected)
-        console.info(this.evaluador)
-        if (this.invitacion_selected.Solicitantes.length === 0)
-          this.postSolicitante();
-        else
-          this.updateSolicitudDocente();
-      })
-      .catch(error => {
-        console.info(error)
-        if (!error.status) {
-          error.status = 409;
+    const opt = {
+      title: this.translate.instant('GLOBAL.aceptar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_aceptar_invitacion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.loadEstadoSolicitud(12)
+            .then(() => {
+              Swal({
+                title: 'Espere',
+                text: 'Enviando Información',
+                allowOutsideClick: false,
+              });
+              Swal.showLoading();
+              this.invitacion_selected = <SolicitudDocentePost>event.data;
+              this.invitacion_selected.EstadoTipoSolicitudId = this.estadosSolicitudes[0];
+              this.invitacion_selected.Observaciones = [];
+              this.evaluador.TerceroId = this.persona_id;
+              this.evaluador.SolicitudId = this.invitacion_selected;
+              this.evaluador.Activo = true;
+              console.info(this.invitacion_selected)
+              console.info(this.evaluador)
+              if (this.invitacion_selected.Solicitantes.length === 0)
+                this.postSolicitante();
+              else
+                this.updateSolicitudDocente();
+            })
+            .catch(error => {
+              console.info(error)
+              if (!error.status) {
+                error.status = 409;
+              }
+              Swal({
+                type: 'error',
+                title: error.status + '',
+                text: this.translate.instant('ERROR.' + error.status),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+            })
         }
-        Swal({
-          type: 'error',
-          title: error.status + '',
-          text: this.translate.instant('ERROR.' + error.status),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      })
+      });
   }
 
   postSolicitante(): void {
     this.solicitudDocenteService.post('solicitante', this.evaluador)
-    .subscribe((res: any) => {
-      if (res !== null) {
-        if (res.Type === 'error') {
-          Swal({
-            type: 'error',
-            title: res.Code,
-            text: this.translate.instant('ERROR.' + res.Code),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
-        } else {
-          this.updateSolicitudDocente();
+      .subscribe((res: any) => {
+        if (res !== null) {
+          if (res.Type === 'error') {
+            Swal({
+              type: 'error',
+              title: res.Code,
+              text: this.translate.instant('ERROR.' + res.Code),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+          } else {
+            this.updateSolicitudDocente();
+          }
         }
-      }
-    })
+      })
   }
 
   updateSolicitudDocente(): void {
     this.sgaMidService.put('solicitud_docente', this.invitacion_selected)
-    .subscribe((resp: any) => {
-      if (resp.Type === 'error') {
-        Swal({
-          type: 'error',
-          title: resp.Code,
-          text: this.translate.instant('ERROR.' + resp.Code),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      } else {
-        this.invitacion_selected = <SolicitudDocentePost>resp;
-        console.info(this.invitacion_selected);
-        this.updateData(this.invitacion_selected)
-      }
-    });
+      .subscribe((resp: any) => {
+        if (resp.Type === 'error') {
+          Swal({
+            type: 'error',
+            title: resp.Code,
+            text: this.translate.instant('ERROR.' + resp.Code),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
+        } else {
+          this.invitacion_selected = <SolicitudDocentePost>resp;
+          console.info(this.invitacion_selected);
+          this.updateData(this.invitacion_selected)
+        }
+      });
   }
 
   selectTab(event): void { }

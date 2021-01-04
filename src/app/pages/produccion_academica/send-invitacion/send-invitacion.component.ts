@@ -127,9 +127,7 @@ export class SendInvitacionComponent implements OnInit {
                   confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
               } else {
-                console.info(resp);
                 this.info_solicitud_hija = <SolicitudDocentePost>resp;
-                console.info('http://localhost:8090/v1/solicitud_evaluacion/' + resp.Solicitud.Id);
                 this.invitacionTemplate.urlRechazarEvaluacion = 'http://localhost:8090/v1/solicitud_evaluacion/' + resp.Solicitud.Id;
                 this.sendInvitation();
               }
@@ -140,7 +138,6 @@ export class SendInvitacionComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         console.info('error estado solicitud hija')
       })
-
   }
 
   sendInvitation() {
@@ -172,7 +169,7 @@ export class SendInvitacionComponent implements OnInit {
     if (this.invitacionTemplate.NombreDocente && this.correoTemp) {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       this.invitacionTemplate.Fecha = new Date().toLocaleDateString('es-CO', options);
-      this.invitacionTemplate.urlCreacionCuentaLogin = 'http://www.google.com';
+      this.invitacionTemplate.urlCreacionCuentaLogin = 'http://localhost:4200/#/pages/dashboard';
       this.invitacionTemplate.ContenidoProduccion = this.makeHtmlTemplate();
       this.invitacion.to = [];
       this.invitacion.to.push(this.correoTemp);
