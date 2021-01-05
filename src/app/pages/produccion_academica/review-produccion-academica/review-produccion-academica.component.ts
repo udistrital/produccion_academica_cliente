@@ -38,11 +38,13 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
   editando: boolean;
+  pointRequest: number;
   esRechazada: boolean;
   clean: boolean;
   formProduccionAcademica: any;
   userData: Tercero;
   autorSeleccionado: Tercero;
+  isExistPoint: boolean;
   tiposProduccionAcademica: Array<TipoProduccionAcademica>;
   estadosAutor: Array<EstadoAutorProduccion>;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
@@ -54,6 +56,12 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
     this.observaciones_alerts = [];
+    this.isExistPoint = false;
+    if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
+      console.info(JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje)
+      this.isExistPoint = true;
+      this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+    }
     this.filterObservations()
     this.loadProduccionAcademica();
     this.setButtonOptions();

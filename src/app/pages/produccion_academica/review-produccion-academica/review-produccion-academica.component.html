@@ -4,12 +4,28 @@
       <legend align="left">
         <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
       </legend>
+      <div class="row" *ngIf="isExistPoint">
+        <div class="col-8">
+          <h4>{{'produccion_academica.puntaje' | translate}}</h4>
+        </div>
+        <div class="col-4">
+          <h4>{{pointRequest}}</h4>
+        </div>
+      </div>
       <div class="row" *ngIf="solicitud_docente_selected">
         <div class="col-8">
           <h5>{{'produccion_academica.estado_solicitud' | translate}}</h5>
         </div>
         <div class="col-4">
           <button class="btn-state" (click)="seeDetailsState()">{{'produccion_academica.ver_detalle' | translate}}</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.tipo_puntaje' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.CategoriaProduccion.TipoPuntaje}}</label>
         </div>
       </div>
       <div class="row" *ngIf="solicitud_docente_selected">

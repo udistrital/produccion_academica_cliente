@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EvaluacionParesComponent } from './evaluacion-pares.component';
 import { ListInvitacionesComponent } from './list-invitaciones/list-invitaciones.component';
+import { SendInvitacionComponent } from '../evaluacion-pares/send-invitacion/send-invitacion.component';
+
 const routes: Routes = [{
   path: '',
   component: EvaluacionParesComponent,
@@ -20,4 +22,5 @@ export class EvaluacionParesRoutingModule { }
 export const routedComponents = [
   EvaluacionParesComponent,
   ListInvitacionesComponent,
+  SendInvitacionComponent,
 ];

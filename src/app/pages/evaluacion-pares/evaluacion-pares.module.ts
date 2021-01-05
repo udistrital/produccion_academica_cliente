@@ -12,6 +12,7 @@ import { NuxeoService } from '../../@core/utils/nuxeo.service';
 
 import { EvaluacionParesRoutingModule, routedComponents } from './evaluacion-pares-routing.module';
 import { ListInvitacionesComponent } from './list-invitaciones/list-invitaciones.component';
+import { SendInvitacionComponent } from './send-invitacion/send-invitacion.component';
 
 @NgModule({
   declarations: [...routedComponents],
@@ -30,6 +31,6 @@ import { ListInvitacionesComponent } from './list-invitaciones/list-invitaciones
     PersonaService,
     NuxeoService,
   ],
-  exports: [ListInvitacionesComponent],
+  exports: [ListInvitacionesComponent, SendInvitacionComponent],
 })
 export class EvaluacionParesModule { }

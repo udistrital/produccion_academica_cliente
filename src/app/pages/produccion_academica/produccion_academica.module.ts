@@ -16,8 +16,9 @@ import { ReviewProduccionAcademicaComponent } from './review-produccion-academic
 import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
 import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
-import { SendInvitacionComponent } from './send-invitacion/send-invitacion.component';
+import { SendInvitacionComponent } from '../evaluacion-pares/send-invitacion/send-invitacion.component';
 import { ButtonAlertComponent } from '../../@theme/components/button-alert/button-alert.component';
+import { EvaluacionParesModule } from '../evaluacion-pares/evaluacion-pares.module';
 
 
 
@@ -28,9 +29,11 @@ import { ButtonAlertComponent } from '../../@theme/components/button-alert/butto
     Ng2SmartTableModule,
     ToasterModule,
     SharedModule,
+    EvaluacionParesModule,
   ],
   entryComponents: [
     ButtonAlertComponent,
+    SendInvitacionComponent,
   ],
   declarations: [
     ...routedComponents,
@@ -49,7 +52,6 @@ import { ButtonAlertComponent } from '../../@theme/components/button-alert/butto
     CrudComentarioComponent,
     ListComentarioComponent,
     NewSolicitudComponent,
-    SendInvitacionComponent,
     ListAprovedProduccionAcademicaComponent,
   ],
 })

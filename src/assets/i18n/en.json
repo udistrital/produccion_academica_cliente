@@ -493,6 +493,8 @@
         "alerta": "Alert",
         "campos_obligatorios": "The fields that start with the * sign are mandatory fields and must be filled out.",
         "placeholder_filtro": "e.g. Completed Request",
+        "puntaje": "Application score",
+        "tipo_puntaje": "Score type",
         "estado_solicitud": "Request State",
         "estado_paquete": "Package State",
         "estado_por_revisar": "By committee review",
@@ -743,7 +745,8 @@
             "codigo_software": "Application source code file",
             "tipo_produccion_audiovisual": "Ej: Video",
             "tipo_universidad": "Ej: National",
-            "titulo_convalidado": "Ej: Software Engineering"
+            "titulo_convalidado": "Ej: Software Engineering",
+            "puntaje": "Ej: 25"
         },
 
         "categorias": {

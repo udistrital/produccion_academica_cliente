@@ -504,6 +504,8 @@
         "alerta": "Alerta",
         "campos_obligatorios": "Los campos que empiezan con el signo * son campos obligatorios y deben ser diligenciados.",
         "placeholder_filtro": "Ej: Solicitudes completadas",
+        "puntaje": "Puntaje de solicitud",
+        "tipo_puntaje": "Tipo de puntaje",
         "estado_solicitud": "Estado de Solicitud",
         "estado_paquete": "Estado de Paquete",
         "estado_por_revisar": "Por revisión del comité",
@@ -754,7 +756,8 @@
             "codigo_software": "Archivo del código fuente de la aplicación",
             "tipo_produccion_audiovisual": "Ej: Video",
             "tipo_universidad": "Ej: Nacional",
-            "titulo_convalidado": "Ej: Ingeniería de sistemas"
+            "titulo_convalidado": "Ej: Ingeniería de sistemas",
+            "puntaje": "Ej: 25"
         },
 
         "categorias": {

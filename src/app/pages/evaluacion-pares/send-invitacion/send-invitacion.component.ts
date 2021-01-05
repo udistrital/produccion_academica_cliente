@@ -127,8 +127,10 @@ export class SendInvitacionComponent implements OnInit {
                   confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
               } else {
+                console.info(resp)
                 this.info_solicitud_hija = <SolicitudDocentePost>resp;
-                this.invitacionTemplate.urlRechazarEvaluacion = 'http://localhost:8090/v1/solicitud_evaluacion/' + resp.Solicitud.Id;
+                this.invitacionTemplate.urlRechazarEvaluacion =
+                  'https://autenticacion.portaloas.udistrital.edu.co/apioas/sga_mid/v1/solicitud_evaluacion/' + resp.Solicitud.Id;
                 this.sendInvitation();
               }
             });
@@ -160,7 +162,7 @@ export class SendInvitacionComponent implements OnInit {
           this.invitacion.to = [];
           this.invitacion.templateData = null;
           this.correoTemp = '';
-          this.reloadTable.emit(this.info_solicitud.Id);
+          this.reloadTable.emit(this.solicitud_selected.Id);
         // }
       });
   }
@@ -189,7 +191,10 @@ export class SendInvitacionComponent implements OnInit {
       Swal(opt)
         .then((willCreate) => {
           if (willCreate.value) {
-            this.updateSolicitudDocente(this.solicitud_selected);
+            if (this.solicitud_selected.EstadoTipoSolicitudId.EstadoId.Id === 5)
+              this.newSolicitudHija();
+            else
+              this.updateSolicitudDocente(this.solicitud_selected);
           }
         });
     }
