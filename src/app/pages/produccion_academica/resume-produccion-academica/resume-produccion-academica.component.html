@@ -1,0 +1,91 @@
+<div class="row">
+  <form class="form-horizontal" style="width: 100%;">
+    <fieldset [ngClass]="{'fieldseter':true}">
+      <legend align="left">
+        <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
+      </legend>
+      <div class="row">
+        <div class="col-4" *ngIf="info_solicitud">
+          <div class="col-12">
+            <h5>{{'produccion_academica.tipo_puntaje' | translate}}</h5>
+          </div>
+          <div class="col-12">
+            <label>{{info_solicitud.ProduccionAcademica.SubtipoProduccionId.CategoriaProduccion.TipoPuntaje}}</label>
+          </div>
+        </div>
+
+        <div class="col-4" *ngIf="info_solicitud">
+          <div class="col-12">
+            <h5>{{'produccion_academica.tipo_produccion_academica' | translate}}</h5>
+          </div>
+          <div class="col-12">
+            <label>{{info_solicitud.ProduccionAcademica.SubtipoProduccionId.Nombre}}</label>
+          </div>
+        </div>
+        <div class="col-4" *ngIf="info_solicitud">
+          <div class="col-12">
+            <h5>{{'produccion_academica.titulo_produccion_academica' | translate}}</h5>
+          </div>
+          <div class="col-12">
+            <label>{{info_solicitud.ProduccionAcademica.Titulo}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4" *ngIf="info_solicitud">
+          <div class="col-12">
+            <h5>{{'produccion_academica.autores' | translate}}</h5>
+          </div>
+          <div class="col-12">
+            <label>{{info_produccion_academica.Autores[0].Nombre}}</label>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="col-12">
+            <h5>{{'produccion_academica.fecha_publicacion' | translate}}</h5>
+          </div>
+          <div class="col-12">
+            <label>{{info_solicitud.ProduccionAcademica.Fecha.toString().substring(0,10)}}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="divisor"></div>
+      <div class="row">
+        <div class="col-4" *ngFor="let campo of formProduccionAcademica.campos">
+          <div class="col-12">
+            <h5>{{'produccion_academica.labels.' + campo.label_i18n | translate}}</h5>
+          </div>
+          <ng-container *ngIf="!campo.etiqueta">
+            <div class="col-12" *ngIf="campo.valor">
+              <a [href]="campo.valor" target="_blank">Link archivo Drive</a>
+            </div>
+            <div class="col-12" *ngIf="!campo.valor">
+              <p>{{'produccion_academica.espera_Link' | translate}}</p>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'file'">
+            <div class="col-8 col-file">
+              <nb-card-body class="col-4" *ngIf="!(campo.tipo == 'image')">
+                <img class="carousel-image" [src]="'assets/images/file.png'"
+                  (click)="download(campo.urlTemp, campo.nombre,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+                  height="50px">
+              </nb-card-body>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
+            <div class="col-12">
+              <label>{{campo.etiqueta === 'select' && campo.valor
+                ? campo.valor.Nombre
+                : (campo.etiqueta === 'mat-date' && campo.valor)
+                ? campo.valor.substring(0,10)
+                : campo.valor}}</label>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

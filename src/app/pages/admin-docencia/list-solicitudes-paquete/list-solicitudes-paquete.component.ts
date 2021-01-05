@@ -272,7 +272,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   loadEstadoSolicitud(numState): Promise<any> {
     return new Promise((resolve, reject) => {
-      if(numState === 0)
+      if (numState === 0)
         resolve(true)
       this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + numState)
         .subscribe(res => {

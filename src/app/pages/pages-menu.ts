@@ -62,6 +62,12 @@ export const MENU_ITEMS: MenuItem[] = [
         link:  '/pages/evaluacion_pares/list_invitaciones',
         key:  'lista_invitaciones',
       },
+      {
+        title: 'Listar Evaluacion',
+        icon: 'nb-list',
+        link: '/pages/evaluacion_pares/list_evaluaciones',
+        key: 'lista_evaluaciones',
+      },
     ],
   },
   {

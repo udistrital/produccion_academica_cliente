@@ -42,7 +42,8 @@
         },
         "evaluacion_pares": {
             "evaluacion_pares": "Evaluación de \nproducción académica",
-            "lista_invitaciones": "Lista de invitaciones"
+            "lista_invitaciones": "Lista de invitaciones",
+            "lista_evaluaciones": "Lista de evaluaciones"
         },
         "auth": {
             "auth": "Autenticacion",
@@ -80,6 +81,7 @@
         "lista": "Lista de Solicitudes",
         "lista_paquete": "Lista de Solicitudes para Comité",
         "lista_invitaciones": "Lista de Invitaciones por aceptar",
+        "lista_evaluaciones": "Lista de Evaluaciones",
         "regresar": "Regresar",
         "regresar_paquetes": "Regresar a listado de paquetes",
         "error": "Error",

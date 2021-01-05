@@ -18,8 +18,8 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
 import { EstadoAutorProduccion } from './../../../@core/data/models/produccion_academica/estado_autor_produccion';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
-import Swal from 'sweetalert2';
 import { Observacion } from '../../../@core/data/models/solicitud_docente/observacion';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-review-produccion-academica',
@@ -37,7 +37,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   source_authors: Array<any> = [];
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
-  editando: boolean;
   pointRequest: number;
   esRechazada: boolean;
   clean: boolean;
@@ -175,12 +174,10 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         }
       }
       this.loadSubTipoFormFields(this.info_produccion_academica.SubtipoProduccionId, fillForm);
-      this.editando = true;
     } else {
       this.info_produccion_academica = new ProduccionAcademicaPost();
       this.info_solicitud = new SolicitudDocentePost();
       this.clean = !this.clean;
-      this.editando = false;
       this.Metadatos = [];
     }
   }
@@ -226,11 +223,11 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           </div>
           <div class="col-4">
             <p">${(
-          this.rol === "DOCENTE" &&
-          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 6 ||
-          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 7
+          this.rol === 'DOCENTE' &&
+          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 ||
+          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7
         )
-          ? "Preparada para presentar a Comité"
+          ? 'Preparada para presentar a Comité'
           : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
             .EstadoTipoSolicitudId.EstadoId.Nombre
         }</p>

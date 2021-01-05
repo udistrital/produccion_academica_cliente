@@ -42,7 +42,8 @@
         },
         "evaluacion_pares": {
             "evaluacion_pares": "Academic production evaluation",
-            "lista_invitaciones": "Invitations list"
+            "lista_invitaciones": "Invitations list",
+            "lista_evaluaciones": "Assessment list"
         },
         "auth": {
             "auth": "Auth",
@@ -78,6 +79,7 @@
         "lista": "Request List",
         "lista_paquete": "Request List for Committee",
         "lista_invitaciones": "List of Invitations to accept",
+        "lista_evaluaciones": "Assessment list",
         "regresar": "Return",
         "regresar_paquetes": "Return to package list",
         "terminos_datos": "Privacy and data processing policy",
