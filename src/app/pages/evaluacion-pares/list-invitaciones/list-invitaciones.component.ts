@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { ToasterConfig } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
-import { TercerosService } from '../../../@core/data/terceros.service';
 import { UserService } from '../../../@core/data/users.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
@@ -34,9 +33,8 @@ export class ListInvitacionesComponent implements OnInit {
   constructor(private translate: TranslateService,
     private user: UserService,
     private solicitudDocenteService: SolicitudDocenteService,
-    private tercerosService: TercerosService,
     private sgaMidService: SgaMidService,
-    private toasterService: ToasterService) {
+  ) {
     this.par_email = (JSON.parse(atob(localStorage
       .getItem('id_token')
       .split('.')[1])).email);

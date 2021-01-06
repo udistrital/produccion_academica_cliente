@@ -8,7 +8,6 @@ import { ReviewProduccionAcademicaComponent } from './review-produccion-academic
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
 import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
-import { ResumeProduccionAcademicaComponent } from './resume-produccion-academica/resume-produccion-academica.component';
 
 const routes: Routes = [{
   path: '',
@@ -51,5 +50,4 @@ export const routedComponents = [
   ListComentarioComponent,
   NewSolicitudComponent,
   ListAprovedProduccionAcademicaComponent,
-  ResumeProduccionAcademicaComponent,
 ];

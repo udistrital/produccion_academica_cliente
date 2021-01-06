@@ -143,6 +143,14 @@
     style="width: 100%;"></ngx-list-comentario>
 </div>
 
+<div class="row">
+  <ngx-resume-list-evaluaciones
+    *ngIf="esEvaluada" 
+    [solicitud_padre]="solicitud_docente_selected"
+    style="width: 100%;">
+  </ngx-resume-list-evaluaciones>
+</div>
+
 <div class="pop-comment" [hidden]="!esRechazada">
   <div class="pop-content">
     <button (click)="closePop()"><i class="nb-close" title="view"></i></button>

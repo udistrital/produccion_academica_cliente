@@ -19,7 +19,7 @@ import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 import { SendInvitacionComponent } from '../evaluacion-pares/send-invitacion/send-invitacion.component';
 import { ButtonAlertComponent } from '../../@theme/components/button-alert/button-alert.component';
 import { EvaluacionParesModule } from '../evaluacion-pares/evaluacion-pares.module';
-import { ResumeProduccionAcademicaComponent } from './resume-produccion-academica/resume-produccion-academica.component';
+import { ResumeListEvaluacionesComponent } from '../evaluacion-pares/resume-list-evaluaciones/resume-list-evaluaciones.component';
 
 @NgModule({
   imports: [
@@ -33,6 +33,7 @@ import { ResumeProduccionAcademicaComponent } from './resume-produccion-academic
   entryComponents: [
     ButtonAlertComponent,
     SendInvitacionComponent,
+    ResumeListEvaluacionesComponent,
   ],
   declarations: [
     ...routedComponents,
@@ -52,7 +53,6 @@ import { ResumeProduccionAcademicaComponent } from './resume-produccion-academic
     ListComentarioComponent,
     NewSolicitudComponent,
     ListAprovedProduccionAcademicaComponent,
-    ResumeProduccionAcademicaComponent,
   ],
 })
 export class ProduccionAcademicaModule { }

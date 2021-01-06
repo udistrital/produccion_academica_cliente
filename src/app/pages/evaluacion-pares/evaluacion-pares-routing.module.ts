@@ -6,6 +6,8 @@ import { SendInvitacionComponent } from '../evaluacion-pares/send-invitacion/sen
 import { ListEvaluacionesComponent } from './list-evaluaciones/list-evaluaciones.component';
 import { CrudEvaluacionComponent } from './crud-evaluacion/crud-evaluacion.component';
 import { ReviewEvaluacionComponent } from './review-evaluacion/review-evaluacion.component';
+import { ResumeProduccionAcademicaComponent } from '../produccion_academica/resume-produccion-academica/resume-produccion-academica.component';
+import { ResumeListEvaluacionesComponent } from './resume-list-evaluaciones/resume-list-evaluaciones.component';
 
 const routes: Routes = [{
   path: '',
@@ -32,4 +34,6 @@ export const routedComponents = [
   ListEvaluacionesComponent,
   CrudEvaluacionComponent,
   ReviewEvaluacionComponent,
+  ResumeListEvaluacionesComponent,
+  ResumeProduccionAcademicaComponent,
 ];

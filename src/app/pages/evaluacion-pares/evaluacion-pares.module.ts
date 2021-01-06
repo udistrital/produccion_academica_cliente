@@ -16,10 +16,10 @@ import { SendInvitacionComponent } from './send-invitacion/send-invitacion.compo
 import { ListEvaluacionesComponent } from './list-evaluaciones/list-evaluaciones.component';
 import { CrudEvaluacionComponent } from './crud-evaluacion/crud-evaluacion.component';
 import { ReviewEvaluacionComponent } from './review-evaluacion/review-evaluacion.component';
-import { ResumeProduccionAcademicaComponent } from '../produccion_academica/resume-produccion-academica/resume-produccion-academica.component';
+import { ResumeListEvaluacionesComponent } from './resume-list-evaluaciones/resume-list-evaluaciones.component';
 
 @NgModule({
-  declarations: [...routedComponents, ResumeProduccionAcademicaComponent],
+  declarations: [...routedComponents],
   imports: [
     CommonModule,
     EvaluacionParesRoutingModule,
@@ -35,6 +35,13 @@ import { ResumeProduccionAcademicaComponent } from '../produccion_academica/resu
     PersonaService,
     NuxeoService,
   ],
-  exports: [ListInvitacionesComponent, SendInvitacionComponent, ListEvaluacionesComponent, CrudEvaluacionComponent, ReviewEvaluacionComponent],
+  exports: [
+    ListInvitacionesComponent,
+    SendInvitacionComponent,
+    ListEvaluacionesComponent,
+    CrudEvaluacionComponent,
+    ReviewEvaluacionComponent,
+    ResumeListEvaluacionesComponent,
+  ],
 })
 export class EvaluacionParesModule { }
