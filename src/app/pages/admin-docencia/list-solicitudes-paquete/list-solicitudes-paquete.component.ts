@@ -36,6 +36,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   solicitud_updated: SolicitudDocentePost;
   solicitud_selected: SolicitudDocentePost;
   solicitud_selectedReview: SolicitudDocentePost;
+  solicitud_selectedPostpone: SolicitudDocentePost;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
   filtros = filterList;
   cambiotab: number = 0;
@@ -289,6 +290,58 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     });
   }
 
+  postponeSolicitud(event) {
+    const opt = {
+      title: this.translate.instant('GLOBAL.registrar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.estadosSolicitudes = [];
+          this.loadEstadoSolicitud(14)
+          .then(() => {
+            Swal({
+              title: 'Espere',
+              text: 'Trayendo Información',
+              allowOutsideClick: false,
+            });
+            Swal.showLoading();
+            this.solicitud_selectedPostpone = <SolicitudDocentePost>event;
+            console.info(this.estadosSolicitudes);
+            this.solicitud_selectedPostpone.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+            this.solicitud_selectedPostpone.TerceroId = this.user.getPersonaId() || 3;
+            console.info(this.solicitud_selectedPostpone);
+            this.sgaMidService.put('solicitud_docente', this.solicitud_selectedPostpone)
+              .subscribe((res: any) => {
+                if (res.Type === 'error') {
+                  Swal({
+                    type: 'error',
+                    title: res.Code,
+                    text: this.translate.instant('ERROR.' + res.Code),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
+                } else {
+                  this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
+                  this.updatePackage(0);
+                  console.info(this.solicitud_selectedPostpone)
+                  Swal({
+                    title: `Éxito al Verificar Solicitud.`,
+                    text: 'Información Modificada correctamente',
+                  });
+                }
+              });
+          })
+          .catch(error => {
+            console.error(error);
+          })
+        }
+      });
+  }
 
   ngOnInit() { }
 
@@ -328,7 +381,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   }
 
   onPostpone(event): void {
-
+    this.solicitud_selected = event.data;
+    this.postponeSolicitud(this.solicitud_selected);
   }
 
   onEdit(event): void {
