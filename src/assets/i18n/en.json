@@ -928,7 +928,7 @@
         "libro_texto_item_7":"7. The work assessed is published by a publisher renowned in the international or national level and an appropriate print run?" ,
         "libro_texto_item_8":"8. What degree of diffusion that has considered this work is of character",
         "libro_texto_item_9":"9. Do you have an identification number on recognized database (ISBN) assigned?" ,
-        
+
         "libro_ensayo_item_1":"The work evaluated 1.1.¿ presents a thematic development itself?",
         "libro_ensayo_item_2":"1.2.¿ The book presents assessed adequate theoretical foundation regarding the subject treated?" ,
         "libro_ensayo_item_3":"1.3.¿ The work presents a methodological evaluated treatment of the own subject of books of this nature?",
@@ -1034,8 +1034,41 @@
         "total_evaluacion":"SUM" ,
         "puntaje_total":"SCORE TOTAL PRODUCTION TECHNIQUE",
         "numero_autores":"Number of authors"
+      },
+      "placeholders": {
+        "item_1":"iTEM 1",
+        "item_2":"iTEM 2",
+        "item_3":"iTEM 3",
+        "item_4":"item 4",
+
+        "justificacion_puntaje":"Justification of scoring",
+        "total":"Total",
+        "total_plus":"Item 1 + item 2",
+        "ponderado":"Weighted",
+
+        "obras_creacion_original_salarial_item_1":"Up to 3.5 or 5 points",
+        "obras_creacion_original_salarial_item_2":"Up to 3.5 or 5 points",
+        "obras_creacion_original_salarial_item_3":"Up to 3.5 or 5 points",
+        "obras_creacion_original_salarial_item_4":"Up to 3.5 or 5 points",
+        "obras_creacion_complementaria_salarial_item_1":"Up to 2 or 3 points",
+        "obras_creacion_complementaria_salarial_item_2":"Up to 2 or 3 points",
+        "obras_creacion_complementaria_salarial_item_3":"Up to 2 or 3 points",
+        "obras_creacion_complementaria_salarial_item_4":"Up to 2 or 3 points",
+        "interpretacion_salarial_item_1":"Up to 2 or 3.5 points",
+        "interpretacion_salarial_item_2":"Up to 2 or 3.5 points",
+        "interpretacion_salarial_item_3":"Up to 2 or 3.5 points",
+        "interpretacion_salarial_item_4":"Up to 2 or 3.5 points",
+
+        "puntaje":"Score",
+        "escriba_aqui":"Type here ...",
+        "aprobacion":"X",
+        "seleccione":"Choose one",
+        "subtotal":"Subtotal",
+        "calificacion":"Qualification",
+        "numero_autores":""
       }
     },
+
 
     "alerta": {
         "titulo": "Alert",
