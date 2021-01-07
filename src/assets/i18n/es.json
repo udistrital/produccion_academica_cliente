@@ -512,7 +512,7 @@
         "exito_alerta": "Éxito al subir alerta",
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
-        
+
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
         "aceptar_acta": "Aceptar Acta",
@@ -856,14 +856,11 @@
             "fundamentacion_cientifica": "3. FUNDAMENTACION CIENTÍFICA",
             "presentacion_informacion": "4. PRESENTACION DE LA INFORMACION:",
             "manejo_fuentes": "5. MANEJO DE FUENTES: ",
-            "aprobacion_par": "CONCEPTO FINAL DEL PAR ACADEMICO:
-            APRUEBA EL TRABAJO PARA LA PROMOCION A LA CATEGORIA DE:",
+            "aprobacion_par": "CONCEPTO FINAL DEL PAR ACADEMICO:\nAPRUEBA EL TRABAJO PARA LA PROMOCION A LA CATEGORIA DE:",
             "total_cambio_categoria": "ESCALA DE VALORACION:",
             "libro_investigacion": "EVALUACION:",
-            "libro_texto": "EVALUACION:
-            Libro de texto, es el realizado con una finalidad pedagógica:",
-            "libro_ensayo": "EVALUACION:
-            Libro producido en el campo de la actividad académica o investigativa del docente:",
+            "libro_texto": "EVALUACION:\nLibro de texto, es el realizado con una finalidad pedagógica:",
+            "libro_ensayo": "EVALUACION:\nLibro producido en el campo de la actividad académica o investigativa del docente:",
             "capitulo_libro": "EVALUACION:",
             "software": "",
             "caracteristicas_calidad": "CARACTERÍSTICAS DE CALIDAD EN SOFTWARE (20%)",
@@ -879,99 +876,22 @@
             "impactos_es": "2.4. Impactos sobre la economía y la sociedad",
             "aspectos": "3. RELATIVOS A LOS ASPECTOS ECONÓMICOS Y FINANCIEROS",
             "criterios": "CRITERIOS",
-            "totales": "El reconocimiento de puntos a la producción tecnológica, se determinará con la aplicación de la siguiente formula, en la Tabla 5:
-            P= s x 15 / 30, para los productos de innovación tecnológica.
-            P= s x 8/ 30,   para los productos de adaptación tecnológica.
-            
-            En donde “P”, es el puntaje por determinar, y “s” la sumatoria de los puntos otorgados a la calificación de los criterios que por este acto se establecen y se hará proporcional de acuerdo con los lineamientos del Decreto 1279/02 y Resolución 693 de 2004.",
+            "totales": "El reconocimiento de puntos a la producción tecnológica, se determinará con la aplicación de la siguiente formula, en la Tabla 5\nP= s x 15 / 30, para los productos de innovación tecnológica\nP= s x 8/ 30,   para los productos de adaptación tecnológica.\nEn donde “P”, es el puntaje por determinar, y “s” la sumatoria de los puntos otorgados a la calificación de los criterios que por este acto se establecen y se hará proporcional de acuerdo con los lineamientos del Decreto 1279/02 y Resolución 693 de 2004.",
 
             "item_1": "ÍTEM 1",
             "item_2": "ÍTEM 2",
             "item_3": "ÍTEM 3",
             "item_4": "ÍTEM 4",
             "total": "TOTAL",
-            "ponderado": "PONDERADO",
+            "ponderado": "PONDERADO\n",
             "justificacion_puntaje": "Por favor, haga una breve justificación de este puntaje: ",
 
-            "produccion_videos_obras_bonificacion": "CON BASE EN LOS SOPORTES SE DEBEN TENER EN CUENTA LOS SIGUIENTES ITEMS AL EVALUAR:
-            ITEM 1.Hasta 48 puntos. El carácter regional o local de la producción se mide por el impacto
-            regional o local y el grado de utilización, difusión o generalización en la aplicación del medio
-            Construido en el exterior o en el país, sin alcance nacional o internacional.
-            ITEM 2. Hasta 48 puntos. La demanda explícita de dicho trabajo o la participación institucional en
-            el proceso, restringida al marco regional o local, reafirman este carácter de la producción.
-            ITEM 3. Hasta 48 puntos. El nivel alto (48), mediano (30) o bajo (15), de aplicación de estrategias
-            didácticas; el nivel de diseño, producción y posproducción; y la forma en que responde a las
-            exigencias de formación en pregrado, posgrado, y educación comunitaria.
-            ITEM 4.Hasta 48 puntos. El grado de complejidad, versatilidad y facilidad de difusión del medio
-            empleado.
-            Los criterios anteriores se aplican a la utilización de los productos con fines esencialmente
-            didácticos. En el caso de productos cuya función principal no es didáctica, o son de carácter
-            documental, la producción de los videos, obras cinematográficas o fonográficas, debe superar las
-            tareas normales y rutinarias del docente, debe contribuir en la mejora de los procesos educativos,
-            debe acreditar una calidad académica, una metodología rigurosa y se evalúa no solo la calidad del
-            producto, sino la finalidad académica del mismo.",
+            "produccion_videos_obras_bonificacion": "CON BASE EN LOS SOPORTES SE DEBEN TENER EN CUENTA LOS SIGUIENTES ITEMS AL EVALUAR:\nITEM 1.Hasta 48 puntos. El carácter regional o local de la producción se mide por el impacto\nregional o local y el grado de utilización, difusión o generalización en la aplicación del medio\nConstruido en el exterior o en el país, sin alcance nacional o internacional.\nITEM 2. Hasta 48 puntos. La demanda explícita de dicho trabajo o la participación institucional en\nel proceso, restringida al marco regional o local, reafirman este carácter de la producción.\nITEM 3. Hasta 48 puntos. El nivel alto (48), mediano (30) o bajo (15), de aplicación de estrategias\ndidácticas; el nivel de diseño, producción y posproducción; y la forma en que responde a las\nexigencias de formación en pregrado, posgrado, y educación comunitaria.\nITEM 4.Hasta 48 puntos. El grado de complejidad, versatilidad y facilidad de difusión del medio\nempleado.\nLos criterios anteriores se aplican a la utilización de los productos con fines esencialmente\ndidácticos. En el caso de productos cuya función principal no es didáctica, o son de carácter\ndocumental, la producción de los videos, obras cinematográficas o fonográficas, debe superar las\ntareas normales y rutinarias del docente, debe contribuir en la mejora de los procesos educativos,\ndebe acreditar una calidad académica, una metodología rigurosa y se evalúa no solo la calidad del\nproducto, sino la finalidad académica del mismo.",
 
-            "obras_artísticas_bonificacion": "OBRAS ARTÍSTICAS.
-            Los productos, en esta modalidad, que tengan impacto regional o local pueden recibir bonificaciones.
-            1. Alcance de la aplicación de este literal.
-            Para efectos del reconocimiento de las obras artísticas propiamente dichas, no se considera aquí la
-            producción en el campo artístico mediante ensayos, artículos, libros, reseñas, traducciones o
-            publicaciones impresas, que se evalúan y reconocen de acuerdo con lo definido en otras disposiciones
-            del Decreto 1279/2002
-            Tampoco se consideran, los trabajos de carácter científico, técnico, humanístico, artístico, o
-            pedagógico, mediante producciones de videos, cinematográficas o fonográficas, que tienen una
-            finalidad didáctica, o documental, que se evalúan y reconocen de acuerdo con lo definido en otras
-            disposiciones del Decreto 1279/2002.
-            2. Asignación de bonificaciones
-            Se asume que las Obras Artísticas que tengan un impacto regional o local pueden recibir
-            bonificaciones, de acuerdo con lo establecido en el numeral II del Capítulo IV del decreto 1279/2002.
-            3. Reconocimiento de obras artísticas
-            Se pueden reconocer bonificaciones por obras artísticas ampliamente difundidas en los campos de la
-            música, las artes plásticas, artes visuales, artes representativas, el diseño, la literatura. Para el
-            reconocimiento de una obra artística, se exige que la misma esté inscrita dentro del campo de la
-            actividad académica, docente o investigativa, desarrollada por el docente.
-            No se pueden reconocer bonificaciones sino por una sola presentación, exposición, interpretación, o
-            divulgación de una obra y solamente cuando hayan cambios esenciales en el contenido de la misma
-            se pueden hacer nuevos reconocimientos.
-            4. Rangos de clasificación de las obras artísticas.
-            4.1. Para el reconocimiento de las obras artísticas, se establecen tres rangos, que deben adaptarse al
-            campo específico considerado:
-            4.1.1. La creación original artística (composición musical, pintura, dramaturgia, novela, guión original, y
-            otras modalidades análogas).
-            4.1.2. La creación complementaria o de apoyo a una obra original (arreglos, transcripciones,
-            orquestaciones, adaptaciones y versiones, escenografía, luminotecnia, y otras modalidades análogas).
-            4.1.3. La interpretación (Directores, solistas, actores, y otros de papeles protagonistas relevantes).
-            4.2. En cada uno de los tres rangos definidos, se establecen jerarquías para el reconocimiento de los
-            puntajes de bonificación, de acuerdo con los siguientes factores:
-            ITEM 1. Trascendencia e impacto regional o local de la obra artística.
-            ITEM 2. Complejidad, naturaleza y calidad de la obra en el campo artístico específico o, cuando sea
-            pertinente, el número de elementos implicados o la duración.
-            No se reconocen puntajes por participaciones colectivas. Únicamente, para aquellos cuyo
-            papel o interpretación queda claramente diferenciado; tales como, directores, solistas,
-            conjuntos de cámara, papeles protagónicos, y tienen relevancia en la obra o en el evento.
-            Sólo hay un reconocimiento de puntajes por interpretación, una vez por cada obra. Las
-            diversas representaciones de la misma obra, incluso en años diferentes, no generan
-            reconocimientos adicionales.",
+            "obras_artísticas_bonificacion": "OBRAS ARTÍSTICAS\nLos productos, en esta modalidad, que tengan impacto regional o local pueden recibir bonificaciones\n1. Alcance de la aplicación de este literal\nPara efectos del reconocimiento de las obras artísticas propiamente dichas, no se considera aquí l\nproducción en el campo artístico mediante ensayos, artículos, libros, reseñas, traducciones \npublicaciones impresas, que se evalúan y reconocen de acuerdo con lo definido en otras disposicione\ndel Decreto 1279/200\nTampoco se consideran, los trabajos de carácter científico, técnico, humanístico, artístico, \npedagógico, mediante producciones de videos, cinematográficas o fonográficas, que tienen un\nfinalidad didáctica, o documental, que se evalúan y reconocen de acuerdo con lo definido en otra\ndisposiciones del Decreto 1279/2002\n2. Asignación de bonificacione\nSe asume que las Obras Artísticas que tengan un impacto regional o local pueden recibi\nbonificaciones, de acuerdo con lo establecido en el numeral II del Capítulo IV del decreto 1279/2002\n3. Reconocimiento de obras artística\nSe pueden reconocer bonificaciones por obras artísticas ampliamente difundidas en los campos de l\nmúsica, las artes plásticas, artes visuales, artes representativas, el diseño, la literatura. Para e\nreconocimiento de una obra artística, se exige que la misma esté inscrita dentro del campo de l\nactividad académica, docente o investigativa, desarrollada por el docente\nNo se pueden reconocer bonificaciones sino por una sola presentación, exposición, interpretación, \ndivulgación de una obra y solamente cuando hayan cambios esenciales en el contenido de la mism\nse pueden hacer nuevos reconocimientos\n4. Rangos de clasificación de las obras artísticas\n4.1. Para el reconocimiento de las obras artísticas, se establecen tres rangos, que deben adaptarse a\ncampo específico considerado\n4.1.1. La creación original artística (composición musical, pintura, dramaturgia, novela, guión original, \notras modalidades análogas)\n4.1.2. La creación complementaria o de apoyo a una obra original (arreglos, transcripciones\norquestaciones, adaptaciones y versiones, escenografía, luminotecnia, y otras modalidades análogas)\n4.1.3. La interpretación (Directores, solistas, actores, y otros de papeles protagonistas relevantes)\n4.2. En cada uno de los tres rangos definidos, se establecen jerarquías para el reconocimiento de lo\npuntajes de bonificación, de acuerdo con los siguientes factores\nITEM 1. Trascendencia e impacto regional o local de la obra artística\nITEM 2. Complejidad, naturaleza y calidad de la obra en el campo artístico específico o, cuando se\npertinente, el número de elementos implicados o la duración\nNo se reconocen puntajes por participaciones colectivas. Únicamente, para aquellos cuy\npapel o interpretación queda claramente diferenciado; tales como, directores, solistas\nconjuntos de cámara, papeles protagónicos, y tienen relevancia en la obra o en el evento\nSólo hay un reconocimiento de puntajes por interpretación, una vez por cada obra. La\ndiversas representaciones de la misma obra, incluso en años diferentes, no genera\nreconocimientos adicionales.",
 
-            "produccion_videos_obras_salarial": "CON BASE EN LOS SOPORTES SE DEBEN TENER EN CUENTA LOS SIGUIENTES PARAMETROS AL EVALUAR:
-            ITEM 1.El carácter nacional o internacional del producto no lo mide simplemente el hecho de su
-            diseño, planeación, elaboración o divulgación en un país extranjero, sino el impacto internacional
-            y el grado de utilización, difusión o generalización en la aplicación del producto, construido en el
-            exterior o en el país con difusión internacional.
-            ITEM 2.La demanda explícita de dicho trabajo en el exterior por una entidad de reconocida
-            trayectoria o la participación institucional en el proceso con grupos de otras naciones, reafirman el
-            carácter internacional del producto.
-            ITEM 3. El nivel (alto, mediano o bajo) de aplicación de estrategias didácticas; el nivel de diseño,
-            producción y posproducción; y la forma en que responde a las exigencias de formación en
-            pregrado, posgrado, y educación comunitaria.
-            ITEM 4. El grado de complejidad, versatilidad y facilidad de difusión del medio empleado.
-            Los criterios anteriores se aplican a la utilización de los productos con fines esencialmente
-            didácticos. En el caso de productos cuya función principal no es didáctica, o son de carácter
-            documental, la producción debe superar las tareas normales y rutinarias del docente, debe
-            contribuir en la mejora de los procesos educativos, debe acreditar una calidad académica, una
-            metodología rigurosa, se evalúa no solo la calidad del producto, sino la finalidad académica del
-            mismo.",
-            
+            "produccion_videos_obras_salarial": "CON BASE EN LOS SOPORTES SE DEBEN TENER EN CUENTA LOS SIGUIENTES PARAMETROS AL EVALUAR:\nITEM 1.El carácter nacional o internacional del producto no lo mide simplemente el hecho de su\ndiseño, planeación, elaboración o divulgación en un país extranjero, sino el impacto internacional\ny el grado de utilización, difusión o generalización en la aplicación del producto, construido en el\nexterior o en el país con difusión internacional.\nITEM 2.La demanda explícita de dicho trabajo en el exterior por una entidad de reconocida\ntrayectoria o la participación institucional en el proceso con grupos de otras naciones, reafirman el\ncarácter internacional del producto.\nITEM 3. El nivel (alto, mediano o bajo) de aplicación de estrategias didácticas; el nivel de diseño,\nproducción y posproducción; y la forma en que responde a las exigencias de formación en\npregrado, posgrado, y educación comunitaria.\nITEM 4. El grado de complejidad, versatilidad y facilidad de difusión del medio empleado.\nLos criterios anteriores se aplican a la utilización de los productos con fines esencialmente\ndidácticos. En el caso de productos cuya función principal no es didáctica, o son de carácter\ndocumental, la producción debe superar las tareas normales y rutinarias del docente, debe\ncontribuir en la mejora de los procesos educativos, debe acreditar una calidad académica, una\nmetodología rigurosa, se evalúa no solo la calidad del producto, sino la finalidad académica del\nmismo.",
+
             "obras_creacion_original_salarial_item_1": "Número de elementos implicados en la obra o duración de la misma",
             "obras_creacion_original_salarial_item_2": "Naturaleza y calidad de la obra",
             "obras_creacion_original_salarial_item_3": "Trascendencia e impacto internacional o nacional",
@@ -984,7 +904,7 @@
             "interpretacion_salarial_item_2": "Naturaleza y calidad de la obra",
             "interpretacion_salarial_item_3": "Trascendencia e impacto internacional o nacional",
             "interpretacion_salarial_item_4": "Grado de complejidad de la obra",
-            
+
             "puntaje": "Puntaje",
 
             "valor_academico_item": "Señalar los aportes significativos del trabajo evaluado: aplicaciones, propuestas metodológicas, uso del lenguaje, enfoque, construcción de conceptos nuevos, reformulación de los existentes.",
@@ -996,8 +916,7 @@
             "manejo_fuentes_item": "Indique si es posible distinguir los aportes del autor respecto a la información proveniente de otros materiales y autores:",
             "aprobacion_asistente_asociado": "ASISTENTE A ASOCIADO",
             "aprobacion_asociado_titular": "ASOCIADO A TITULAR",
-            "explicacion_puntaje": "El rango de valoración es de 0.00 a 100.00.
-            La calificación aprobatoria es de 70/100",
+            "explicacion_puntaje": "El rango de valoración es de 0.00 a 100.00.\nLa calificación aprobatoria es de 70/100",
             "parametro_1": "Valor Académico (30)",
             "parametro_2": "Originalidad (10)",
             "parametro_3": "Fundamentación científica (30)",
@@ -1092,11 +1011,7 @@
             "impacto_ct_b": "Registro y homologación de patentes",
             "impacto_ct_c": "Registro y documentación técnica del “Know-How” (saber previo).",
             "impacto_ct_d": "Desarrollo de capacidades de diseño en la entidad o grupo.",
-            "impacto_ct_e": "Consolidación de capacidades para realizar actividades de innovación y desarrollo en la entidad:
-            • Creación o fortalecimiento de Grupos de Innovación y Desarrollo
-            • Dotación de laboratorios de Innovación y Desarrollo o de calidad y plantas
-            piloto
-            • Redes de información y colaboración científico tecnológica.",
+            "impacto_ct_e": "Consolidación de capacidades para realizar actividades de innovación y desarrollo en la entidad:\n• Creación o fortalecimiento de Grupos de Innovación y Desarrollo\n• Dotación de laboratorios de Innovación y Desarrollo o de calidad y plantas\npiloto\n• Redes de información y colaboración científico tecnológica.",
             "impacto_ct_f": "Mejoramiento en la oferta de servicios tecnológicos.",
             "impacto_otros": "Otros impactos",
             "subtotal_impactos_ct": "SUBTOTAL Relativos a los Impactos científicos y tecnológicos del proyecto en la empresa, centro o grupo de investigación (Promedio)",
@@ -1148,7 +1063,7 @@
             "total": "Total",
             "total_plus": "ÍTEM 1 + ÍTEM 2",
             "ponderado": "Ponderado",
-            
+
             "obras_creacion_original_salarial_item_1": "Hasta 3.5 o 5 puntos",
             "obras_creacion_original_salarial_item_2": "Hasta 3.5 o 5 puntos",
             "obras_creacion_original_salarial_item_3": "Hasta 3.5 o 5 puntos",
