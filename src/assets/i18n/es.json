@@ -40,6 +40,11 @@
             "solicitud_paquete": "Solicitudes para Comité",
             "paquetes": "Lista de comités"
         },
+        "evaluacion_pares": {
+            "evaluacion_pares": "Evaluación de \nproducción académica",
+            "lista_invitaciones": "Lista de invitaciones",
+            "lista_evaluaciones": "Lista de evaluaciones"
+        },
         "auth": {
             "auth": "Autenticacion",
             "login": "Login",
@@ -60,6 +65,7 @@
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
         "cancelar": "Cancelar",
         "persona": "Persona",
+        "info_evaluacion": "Información evaluación",
         "info_persona": "Información personal",
         "info_criterio": "Criterios ICFES",
         "info_estado": "Estado de inscripción",
@@ -74,6 +80,9 @@
         "guardar": "Guardar",
         "formulario": "Formulario",
         "lista": "Lista de Solicitudes",
+        "lista_paquete": "Lista de Solicitudes para Comité",
+        "lista_invitaciones": "Lista de Invitaciones por aceptar",
+        "lista_evaluaciones": "Lista de Evaluaciones",
         "regresar": "Regresar",
         "regresar_paquetes": "Regresar a listado de paquetes",
         "error": "Error",
@@ -498,10 +507,15 @@
         "alerta": "Alerta",
         "campos_obligatorios": "Los campos que empiezan con el signo * son campos obligatorios y deben ser diligenciados.",
         "placeholder_filtro": "Ej: Solicitudes completadas",
+        "puntaje": "Puntaje de solicitud",
+        "tipo_puntaje": "Tipo de puntaje",
+        "estado_evaluacion": "Estado de la evaluación",
         "estado_solicitud": "Estado de Solicitud",
         "estado_paquete": "Estado de Paquete",
         "estado_por_revisar": "Por revisión del comité",
         "estado_revisado": "Revisado por comité",
+        "par_academico": "Nombre par académico",
+        "correo_enviado": "Correo par académico",
         "numero_solicitudes": "Número de solicitudes",
         "ver_detalle": "Ver Detalles",
         "datos_solicitud": "Datos solicitud",
@@ -512,6 +526,10 @@
         "exito_alerta": "Éxito al subir alerta",
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
+
+        "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
+        "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
+        "evaluacion_en_evaluacion": "La invitación de evaluación ha sido aceptada por parte del par externo y se esta esperando que el par realice la evaluación",
         
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
@@ -531,6 +549,7 @@
         "placeholder_subtipo_produccion_academica": "ej: Artículo de revisión",
         "alerta_subtipo_produccion_academica": "Debe seleccionar el subtipo de producción académica",
 
+        "fecha_envio": "Fecha de envío de invitación",
         "fecha_radicacion": "Fecha de radicación",
         "fecha_publicacion": "Fecha de publicación",
         "fecha_obtencion": "Fecha de obtención",
@@ -748,7 +767,8 @@
             "codigo_software": "Archivo del código fuente de la aplicación",
             "tipo_produccion_audiovisual": "Ej: Video",
             "tipo_universidad": "Ej: Nacional",
-            "titulo_convalidado": "Ej: Ingeniería de sistemas"
+            "titulo_convalidado": "Ej: Ingeniería de sistemas",
+            "puntaje": "Ej: 25"
         },
 
         "categorias": {
@@ -795,6 +815,7 @@
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
         "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
+        "seguro_continuar_aceptar_invitacion": "¿Está seguro de aceptar esta invitación?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
         "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
         "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",

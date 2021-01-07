@@ -12,10 +12,10 @@ import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docente/paquete';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
+import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { filterList } from './filtros'
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
-import { Tercero } from '../../../@core/data/models/terceros/tercero';
 
 @Component({
   selector: 'ngx-list-solicitudes-paquete',
@@ -36,6 +36,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   solicitud_updated: SolicitudDocentePost;
   solicitud_selected: SolicitudDocentePost;
   solicitud_selectedReview: SolicitudDocentePost;
+  solicitud_selectedPostpone: SolicitudDocentePost;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
   filtros = filterList;
   cambiotab: number = 0;
@@ -43,6 +44,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   settings: any;
   filter: any;
   rol: string;
+  esRechazada: boolean;
   persona_id: number;
   solicitudes_list: SolicitudDocentePost[];
   solicitudes_list_filter: SolicitudDocentePost[];
@@ -271,7 +273,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   loadEstadoSolicitud(numState): Promise<any> {
     return new Promise((resolve, reject) => {
-      if(numState === 0)
+      if (numState === 0)
         resolve(true)
       this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + numState)
         .subscribe(res => {
@@ -288,6 +290,58 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     });
   }
 
+  postponeSolicitud(event) {
+    const opt = {
+      title: this.translate.instant('GLOBAL.registrar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.estadosSolicitudes = [];
+          this.loadEstadoSolicitud(14)
+          .then(() => {
+            Swal({
+              title: 'Espere',
+              text: 'Trayendo Información',
+              allowOutsideClick: false,
+            });
+            Swal.showLoading();
+            this.solicitud_selectedPostpone = <SolicitudDocentePost>event;
+            console.info(this.estadosSolicitudes);
+            this.solicitud_selectedPostpone.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+            this.solicitud_selectedPostpone.TerceroId = this.user.getPersonaId() || 3;
+            console.info(this.solicitud_selectedPostpone);
+            this.sgaMidService.put('solicitud_docente', this.solicitud_selectedPostpone)
+              .subscribe((res: any) => {
+                if (res.Type === 'error') {
+                  Swal({
+                    type: 'error',
+                    title: res.Code,
+                    text: this.translate.instant('ERROR.' + res.Code),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
+                } else {
+                  this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
+                  this.updatePackage(0);
+                  console.info(this.solicitud_selectedPostpone)
+                  Swal({
+                    title: `Éxito al Verificar Solicitud.`,
+                    text: 'Información Modificada correctamente',
+                  });
+                }
+              });
+          })
+          .catch(error => {
+            console.error(error);
+          })
+        }
+      });
+  }
 
   ngOnInit() { }
 
@@ -304,12 +358,31 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     }
   }
 
-  onReject(event): void {
+  closePop() {
+    this.esRechazada = false;
+  }
 
+  onReject(event): void {
+    this.solicitud_selected = event.data;
+    const opt = {
+      title: this.translate.instant('produccion_academica.rechazar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_rechazar_produccion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.esRechazada = true;
+        }
+      });
   }
 
   onPostpone(event): void {
-
+    this.solicitud_selected = event.data;
+    this.postponeSolicitud(this.solicitud_selected);
   }
 
   onEdit(event): void {

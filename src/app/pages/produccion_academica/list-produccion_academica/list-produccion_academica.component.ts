@@ -87,14 +87,17 @@ export class ListProduccionAcademicaComponent implements OnInit {
         EvolucionEstado: {
           title: this.translate.instant('produccion_academica.estado_solicitud'),
           valuePrepareFunction: (value) => {
-            if(this.rol !== 'DOCENTE') {
-              return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
-            } else {
-              if (value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 || 
-                  value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7)
-                return "Preparada para presentar a Comité"
-              return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+            if (value.length > 0) {
+              if (this.rol !== 'DOCENTE') {
+                return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+              } else {
+                if (value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 ||
+                    value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7)
+                  return 'Preparada para presentar a Comité'
+                return value[value.length - 1].EstadoTipoSolicitudId.EstadoId.Nombre;
+              }
             }
+            return 'Radicada';
           },
           filter: false,
           width: '10%',
@@ -128,7 +131,9 @@ export class ListProduccionAcademicaComponent implements OnInit {
       this.settings.columns.Solicitantes = {
         title: this.translate.instant('GLOBAL.persona'),
         valuePrepareFunction: (value) => {
-          return value[0].Nombre;
+          if (value.length > 0)
+            return value[0].Nombre;
+          return 'none';
         },
         filter: false,
         width: '20%',
@@ -171,6 +176,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
 
   loadData(): Promise<any> {
     return new Promise((resolve, reject) => {
+      let i = 0;
       let endpointSolicitud: string;
       if (this.rol === 'DOCENTE')
         endpointSolicitud = 'solicitud_docente/' + this.persona_id;
@@ -187,7 +193,8 @@ export class ListProduccionAcademicaComponent implements OnInit {
                   if (resp !== null) {
                     if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
                       solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
-                      if (solicitud.Id === data[data.length - 1].Id) {
+                      i++;
+                      if (i === data.length) {
                         console.info('Paso');
                         resolve(true);
                       }
