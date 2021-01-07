@@ -35,6 +35,15 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    this.isExistPoint = false;
+    if (this.solicitud_docente_selected !== undefined) {
+      if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
+        console.info(JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje)
+        this.isExistPoint = true;
+        this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+      }
+    }
+    this.loadEstadoSolicitud();
     this.loadProduccionAcademica();
   }
 
@@ -53,6 +62,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   produccionSoftware: boolean;
   tipoArticulo: boolean;
   tipoCapitulo: boolean;
+  isExistPoint: boolean;
+  pointRequest: number;
   title_tipo_produccion: string;
   date_tipo_produccion: string;
   category_id: number;
@@ -72,6 +83,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   source_authors: Array<any> = [];
   userData: Tercero;
   userNum: string;
+  rol: string;
   autorSeleccionado: Tercero;
   formProduccionAcademica: any;
   clean: boolean;
@@ -95,6 +107,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     private sgaMidService: SgaMidService,
     private googleMidService: GoogleService,
   ) {
+    this.rol = (JSON.parse(atob(localStorage
+      .getItem('id_token')
+      .split('.')[1])).role)
+      .filter((data: any) => (data.indexOf('/') === -1))[0];
     this.formProduccionAcademica = JSON.parse(JSON.stringify(FORM_produccion_academica));
     this.loadOptions();
     this.loadTableSettings();
@@ -234,10 +250,18 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   loadEstadoSolicitud(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum || 1))
+      let endpoint: string;
+      if (this.solicitud_docente_selected !== undefined && this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 4) {
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + 4;
+      } else {
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum || 1)
+      }
+      console.info(endpoint)
+      this.solicitudDocenteService.get(endpoint)
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+            console.info(this.estadosSolicitudes)
             resolve(true);
           } else {
             this.estadosSolicitudes = [];
@@ -447,7 +471,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             this.info_produccion_academica.SubtipoProduccionId.Id === 26 ||
             this.info_produccion_academica.SubtipoProduccionId.Id === 27
           ) ? this.produccionAudiovisual = true : this.produccionAudiovisual = false;
-          this.source_authors = this.info_produccion_academica.Autores;
+          this.source_authors = this.info_solicitud.Solicitantes;
           this.source.load(this.source_authors);
           const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
             tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
@@ -529,6 +553,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         } else {
           this.info_produccion_academica = <ProduccionAcademicaPost>res;
           this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
+          if (this.isExistPoint)
+            this.info_solicitud.Resultado = `{ \"Puntaje\": ${this.pointRequest} }`
           console.info('updateProduccionAcademica - info_solicitud: ', this.info_solicitud)
           this.sgaMidService.put('solicitud_docente', this.info_solicitud)
             .subscribe((resp: any) => {

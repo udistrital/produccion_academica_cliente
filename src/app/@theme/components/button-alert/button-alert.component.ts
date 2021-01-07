@@ -21,11 +21,14 @@ export class ButtonAlertComponent implements ViewCell, OnInit {
   constructor(private translate: TranslateService) { this.date = new Date(); }
 
   ngOnInit() {
-    const expDate = this.rowData.EvolucionEstado[this.rowData.EvolucionEstado.length - 1].FechaLimite;
-    const year = expDate.substring(0, 4);
-    const month = (parseInt(expDate.substring(5, 7), 10) - 1) + '';
-    const day = (parseInt(expDate.substring(8, 10), 10) + 1) + '';
-    this.isExpired = this.calculateDate(year, month, day);
+    if (this.rowData.EvolucionEstado.length > 0) {
+      const expDate = this.rowData.EvolucionEstado[this.rowData.EvolucionEstado.length - 1].FechaLimite;
+      const year = expDate.substring(0, 4);
+      const month = (parseInt(expDate.substring(5, 7), 10) - 1) + '';
+      const day = (parseInt(expDate.substring(8, 10), 10) + 1) + '';
+      this.isExpired = this.calculateDate(year, month, day);
+    } else
+      this.isExpired = false;
   }
 
   calculateDate(year, month, day) {

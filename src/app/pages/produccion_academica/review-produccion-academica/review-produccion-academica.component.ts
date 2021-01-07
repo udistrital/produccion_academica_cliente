@@ -18,8 +18,8 @@ import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { TipoProduccionAcademica } from './../../../@core/data/models/produccion_academica/tipo_produccion_academica';
 import { EstadoAutorProduccion } from './../../../@core/data/models/produccion_academica/estado_autor_produccion';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
-import Swal from 'sweetalert2';
 import { Observacion } from '../../../@core/data/models/solicitud_docente/observacion';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-review-produccion-academica',
@@ -37,12 +37,14 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   source_authors: Array<any> = [];
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
-  editando: boolean;
+  pointRequest: number;
   esRechazada: boolean;
+  esEvaluada: boolean;
   clean: boolean;
   formProduccionAcademica: any;
   userData: Tercero;
   autorSeleccionado: Tercero;
+  isExistPoint: boolean;
   tiposProduccionAcademica: Array<TipoProduccionAcademica>;
   estadosAutor: Array<EstadoAutorProduccion>;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
@@ -54,6 +56,13 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
     this.observaciones_alerts = [];
+    this.isExistPoint = false;
+    if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
+      console.info(JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje)
+      this.isExistPoint = true;
+      this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+    }
+    this.verifyType();
     this.filterObservations()
     this.loadProduccionAcademica();
     this.setButtonOptions();
@@ -167,12 +176,10 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         }
       }
       this.loadSubTipoFormFields(this.info_produccion_academica.SubtipoProduccionId, fillForm);
-      this.editando = true;
     } else {
       this.info_produccion_academica = new ProduccionAcademicaPost();
       this.info_solicitud = new SolicitudDocentePost();
       this.clean = !this.clean;
-      this.editando = false;
       this.Metadatos = [];
     }
   }
@@ -206,6 +213,22 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       });
   }
 
+  verifyType() {
+    switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
+      case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
+        if(this.rol !== 'DOCENTE' && this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id >= 5)
+          this.esEvaluada = true
+        else
+          this.esEvaluada = false;
+        break;
+      case 2: case 3: case 4: case 5: case 9: case 11: case 15: case 16: case 17: case 18: case 19: case 20:
+        this.esEvaluada = false;
+        break;
+      default:
+        break;
+    }
+  }
+
   seeDetailsState() {
     const opt: any = {
       width: '550px',
@@ -218,11 +241,11 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           </div>
           <div class="col-4">
             <p">${(
-          this.rol === "DOCENTE" &&
-          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 6 ||
-          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id == 7
+          this.rol === 'DOCENTE' &&
+          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 ||
+          this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7
         )
-          ? "Preparada para presentar a Comité"
+          ? 'Preparada para presentar a Comité'
           : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
             .EstadoTipoSolicitudId.EstadoId.Nombre
         }</p>
