@@ -148,20 +148,36 @@ export class DinamicformComponent implements OnInit, OnChanges {
     if (!this.normalform.tipo_formulario) {
       this.normalform.tipo_formulario = 'grid';
     }
+    if (this.normalform.tipo_formulario === 'eval') {
+      // this.normalform.secciones = this.normalform.secciones.map(d => {
+      //   d.clase = 'form-control';
+      //   if (d.relacion === undefined) {
+      //     d.relacion = true;
+      //   }
+      //   if (!d.valor) {
+      //     d.valor = '';
+      //   }
+      //   if (!d.deshabilitar) {
+      //     d.deshabilitar = false;
+      //   }
+      //   return d;
+      // });
+    } else {
+      this.normalform.campos = this.normalform.campos.map(d => {
+        d.clase = 'form-control';
+        if (d.relacion === undefined) {
+          d.relacion = true;
+        }
+        if (!d.valor) {
+          d.valor = '';
+        }
+        if (!d.deshabilitar) {
+          d.deshabilitar = false;
+        }
+        return d;
+      });
+    }
 
-    this.normalform.campos = this.normalform.campos.map(d => {
-      d.clase = 'form-control';
-      if (d.relacion === undefined) {
-        d.relacion = true;
-      }
-      if (!d.valor) {
-        d.valor = '';
-      }
-      if (!d.deshabilitar) {
-        d.deshabilitar = false;
-      }
-      return d;
-    });
   }
 
   onChangeDate(event, c) {
@@ -244,9 +260,12 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   clearForm() {
-    this.normalform.campos.forEach(d => {
-      d.valor = null;
-    });
+    if (this.normalform.tipo_formulario === 'eval') {
+    } else {
+      this.normalform.campos.forEach(d => {
+        d.valor = null;
+      });
+    }
   }
 
   validForm() {

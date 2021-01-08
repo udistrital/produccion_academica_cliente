@@ -494,13 +494,13 @@
 
   <!-- Form  eval -->
   <form class="form-horizontal" *ngSwitchCase="'eval'">
-    <ng-container *ngFor="let s of normalform.section">
+    <ng-container *ngFor="let s of normalform.seccion">
       <fieldset [ngClass]="{'fieldseter':!normalform.hidefield}">
         <legend align="{{normalform.alineacion_titulo}}">
-          <small>{{normalform.section.titulo}}</small>
+          <small>{{normalform.seccion.titulo}}</small>
         </legend>
         <div class="row">
-          <div *ngFor="let c of normalform.section.campos" class="{{c.claseGrid}}" [ngSwitch]="c.etiqueta">
+          <div *ngFor="let c of normalform.seccion.campos" class="{{c.claseGrid}}" [ngSwitch]="c.etiqueta">
             <div class=" form-group">
               <!-- input -->
               <mat-form-field *ngSwitchCase="'input'" style="width: 100%;" class="form-group" floatLabel="always"
