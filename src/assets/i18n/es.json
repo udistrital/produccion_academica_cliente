@@ -527,13 +527,10 @@
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
 
-<<<<<<< HEAD
         "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
         "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
         "evaluacion_en_evaluacion": "La invitación de evaluación ha sido aceptada por parte del par externo y se esta esperando que el par realice la evaluación",
         
-=======
->>>>>>> origin/feat/formularioEvaluacion
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
         "aceptar_acta": "Aceptar Acta",
