@@ -57,7 +57,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
       mode: 'external',
       columns: {
         'Referencia.Nombre': {
-          title: this.translate.instant('produccion_academica.nombre_par_academico'),
+          title: this.translate.instant('produccion_academica.par_academico'),
           valuePrepareFunction: (cell, row) => {
             if (row.Referencia) {
               if (Object.keys(JSON.parse(row.Referencia)).length > 0)
@@ -78,7 +78,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
             return 'No encontrado';
           },
           filter: false,
-          width: '15%',
+          width: '25%',
         },
         EstadoTipoSolicitudId: {
           title: this.translate.instant('produccion_academica.estado_evaluacion'),
@@ -88,7 +88,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
             return 'No encontrado';
           },
           filter: false,
-          width: '10%',
+          width: '25%',
         },
         FechaRadicacion: {
           title: this.translate.instant('produccion_academica.fecha_envio'),
