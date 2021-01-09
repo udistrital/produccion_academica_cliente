@@ -3,7 +3,7 @@ export let FORM_evaluacion_docente = {
     titulo: 'EvaluacionDocente',
     tipo_formulario: 'eval',
     alertas: true,
-    modelo: 'EvaluacionDocente',
+    modelo: 'EvaluacionDocentePost',
     secciones: [
     ],
 }

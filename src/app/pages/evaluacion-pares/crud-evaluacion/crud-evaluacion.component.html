@@ -2,7 +2,7 @@
 </ngx-resume-produccion-academica>
 
 
-<div [hidden]="!formConstruido">
+<div *ngIf="formConstruido">
   <toaster-container [toasterconfig]="config"></toaster-container>
   <ngx-dinamicform [normalform]="formEvaluacionPar" (result)="validarForm($event)" [clean]="clean">
   </ngx-dinamicform>

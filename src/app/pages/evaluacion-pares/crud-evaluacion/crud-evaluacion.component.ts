@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToasterConfig } from 'angular2-toaster';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { EvaluacionDocenteService } from '../../../@core/data/evaluacion-docente.service';
-import { FORM_evaluacion_docente } from './form-produccion_academica'
+import { FORM_evaluacion_docente } from './form-evaluacion_docente'
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { ProduccionAcademicaPost } from '../../../@core/data/models/produccion_academica/produccion_academica';
 import { TipoEvaluacion } from '../../../@core/data/models/evaluacion_par/tipo_evaluacion';
@@ -21,7 +21,6 @@ export class CrudEvaluacionComponent implements OnInit {
   @Input('evaluacion_selected')
   set evaluacion(evaluacion_selected: SolicitudDocentePost) {
     this.evaluacion_selected = evaluacion_selected;
-    console.info(this.evaluacion_selected)
     this.loadSubTipoFormFields(this.evaluacion_selected.SolicitudPadreId.ProduccionAcademica, null);
   }
 
@@ -39,17 +38,25 @@ export class CrudEvaluacionComponent implements OnInit {
     public translate: TranslateService,
     private evaluacionDocenteService: EvaluacionDocenteService,
   ) {
+    // this.formConstruido = JSON.parse(JSON.stringify(FORM_evaluacion_docente));
+    // this.loadOptions();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.construirForm();
+    });
   }
 
   construirForm() {
-    this.formEvaluacionPar.titulo = this.translate.instant('produccion_academica.produccion_academica');
+    this.formEvaluacionPar.titulo = this.translate.instant('evaluacion.evaluacion_docente');
     this.formEvaluacionPar.btn = this.translate.instant('GLOBAL.guardar');
-    for (let i = 0; i < this.formEvaluacionPar.secciones.campos.length; i++) {
-      this.formEvaluacionPar.campos[i].label = this.translate.instant('produccion_academica.labels.' + this.formEvaluacionPar.campos[i].label_i18n);
-      this.formEvaluacionPar.campos[i].placeholder =
-        this.translate.instant('produccion_academica.placeholders.' + this.formEvaluacionPar.campos[i].placeholder_i18n);
-    }
-    this.formEvaluacionPar.campos.sort((campoA, campoB) => (campoA.orden > campoB.orden) ? 1 : -1);
+    this.formEvaluacionPar.secciones.forEach(seccion => {
+      seccion.campos.forEach(campo => {
+        campo.label = this.translate.instant('evaluacion.labels.' + campo.label_i18n);
+        (campo.placeholder_i18n) &&
+          (campo.placeholder = this.translate.instant('evaluacion.placeholders.' + campo.placeholder_i18n));
+      })
+    });
+    console.info(this.formEvaluacionPar);
+    // this.formEvaluacionPar.secciones.campos.sort((campoA, campoB) => (campoA.orden > campoB.orden) ? 1 : -1);
   }
 
   loadSubTipoFormFields(produccionAcademica: ProduccionAcademicaPost, callback: Function) {
@@ -65,16 +72,13 @@ export class CrudEvaluacionComponent implements OnInit {
       query = `query=nombre:${produccionAcademica.SubtipoProduccionId.TipoProduccionId.Nombre}`;
 
     query = this.prepararQuery(query);
-    console.info(query);
     this.evaluacionDocenteService.get(`tipos-evaluacion?${query}`)
       .subscribe(res => {
         if (res !== null) {
           this.tipoEvaluacion = <TipoEvaluacion>res.Data[0]
           console.info(this.tipoEvaluacion);
-          // console.info('loadSubtipoFormField - res(metadatos)', res);
           (<Array<Seccion>>this.tipoEvaluacion.secciones_id).forEach(seccion => {
             if (Object.keys(seccion).length > 0) {
-              console.info(seccion);
               const section = seccion.estructura_seccion;
               section.titulo = this.translate.instant('evaluacion.labels.' + section.label_i18n);
               section.orden = section.nombre;
@@ -84,6 +88,8 @@ export class CrudEvaluacionComponent implements OnInit {
                 if (Object.keys(item).length > 0) {
                   const field = item.estructura_item;
                   field.orden = field.nombre;
+                  if (field.etiqueta === 'select')
+                    field.key = 'Nombre';
                   section.campos.push(field);
                 }
               });
@@ -101,8 +107,8 @@ export class CrudEvaluacionComponent implements OnInit {
           //     this.link_data_drive,
           //   );
           // }
-          // this.construirForm();
-          // this.formConstruido = true;
+          this.construirForm();
+          this.formConstruido = true;
         }
       }, (error: HttpErrorResponse) => {
         Swal({

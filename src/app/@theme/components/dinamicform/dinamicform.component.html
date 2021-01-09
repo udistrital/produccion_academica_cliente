@@ -493,14 +493,14 @@
 
 
   <!-- Form  eval -->
-  <form class="form-horizontal" *ngSwitchCase="'eval'">
-    <ng-container *ngFor="let s of normalform.seccion">
+  <form class="form-horizontal" *ngSwitchCase="'eval'" style="max-width: 1200px;margin: auto;">
+    <ng-container *ngFor="let s of normalform.secciones">
       <fieldset [ngClass]="{'fieldseter':!normalform.hidefield}">
         <legend align="{{normalform.alineacion_titulo}}">
-          <small>{{normalform.seccion.titulo}}</small>
+          <small>{{s.titulo}}</small>
         </legend>
-        <div class="row">
-          <div *ngFor="let c of normalform.seccion.campos" class="{{c.claseGrid}}" [ngSwitch]="c.etiqueta">
+        <div class="row" style="padding: 50px;">
+          <div *ngFor="let c of s.campos" class="{{c.claseGrid}}" [ngSwitch]="c.etiqueta" style="margin: auto;">
             <div class=" form-group">
               <!-- input -->
               <mat-form-field *ngSwitchCase="'input'" style="width: 100%;" class="form-group" floatLabel="always"
@@ -508,23 +508,17 @@
                 <mat-label>{{c.requerido?'* '+c.label:c.label}}:</mat-label>
                 <input matInput [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)"
                   [ngModelOptions]="{standalone: true}" type="{{c.tipo}}" id="{{c.nombre}}" [placeholder]="c.placeholder"
-                  [disabled]="c.deshabilitar" pattern="c.pattern || *" />
+                  [disabled]="c.deshabilitar" pattern="c.pattern || *" max="{{c.max?c.max:100}}" min="{{c.min?c.min:0}}" step="0.1"/>
                 <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
                 <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
                 <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
               </mat-form-field>
   
               <!-- p -->
-              <mat-form-field *ngSwitchCase="'p'" style="width: 100%;" class="form-group" floatLabel="always"
-                [hidden]="c.ocultar">
-                <p id="{{c.nombre}}">{{c.label}}:</p>
-              </mat-form-field>
+              <pre *ngSwitchCase="'p'" class="form-group" id="{{c.nombre}}">{{c.label}}:</pre>
   
               <!-- img -->
-              <mat-form-field *ngSwitchCase="'img'" style="width: 100%;" class="form-group" floatLabel="always"
-                [hidden]="c.ocultar">
-                <img id="{{c.nombre}}" [src]="c.src" [alt]="c.alt" />
-              </mat-form-field>
+              <img id="{{c.nombre}}"  *ngSwitchCase="'img'" style="width: 85%;" class="form-group" [src]="c.label" [alt]="c.placeholder" />
   
               <!-- input confirmacion -->
               <mat-form-field *ngSwitchCase="'inputConfirmacion'" style="width: 100%;" class="form-group"
@@ -682,14 +676,14 @@
             </div>
           </div>
         </div>
-        <div align="right" class="form-group">
-          <button class="btn btn-primary btn-sm" (click)="clearForm()"
-            [hidden]="!normalform.btnLimpiar">{{normalform.btnLimpiar}}</button>
-          <button class="btn btn-success btn-sm" (click)="validForm()"
-            [hidden]="!normalform.btn">{{normalform.btn}}</button>
-        </div>
       </fieldset>
     </ng-container>
+    <div align="right" class="form-group">
+      <button class="btn btn-primary btn-sm" (click)="clearForm()"
+        [hidden]="!normalform.btnLimpiar">{{normalform.btnLimpiar}}</button>
+      <button class="btn btn-success btn-sm" (click)="validForm()"
+        [hidden]="!normalform.btn">{{normalform.btn}}</button>
+    </div>
     <!-- Botones de form con acción de botones -->
   </form>
 </div>
