@@ -514,8 +514,11 @@
                 <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
               </mat-form-field>
   
+              <!-- h3 -->
+              <h3 *ngSwitchCase="'h3'" class="form-group" id="{{c.nombre}}">{{c.label}}</h3>
+
               <!-- p -->
-              <pre *ngSwitchCase="'p'" class="form-group" id="{{c.nombre}}">{{c.label}}:</pre>
+              <pre *ngSwitchCase="'p'" class="form-group" id="{{c.nombre}}">{{c.label}}</pre>
   
               <!-- img -->
               <img id="{{c.nombre}}"  *ngSwitchCase="'img'" style="width: 85%;" class="form-group" [src]="c.label" [alt]="c.placeholder" />
