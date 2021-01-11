@@ -84,6 +84,7 @@ export class CrudEvaluacionComponent implements OnInit {
               section.orden = section.nombre;
               section.campos = [];
               this.formEvaluacionPar.secciones.push(section);
+              console.info(section.nombre);
               (<Array<Item>>seccion.items_id).forEach(item => {
                 if (Object.keys(item).length > 0) {
                   const field = item.estructura_item;
@@ -91,6 +92,7 @@ export class CrudEvaluacionComponent implements OnInit {
                   if (field.etiqueta === 'select')
                     field.key = 'Nombre';
                   section.campos.push(field);
+                  console.info(field.nombre);
                 }
               });
             }

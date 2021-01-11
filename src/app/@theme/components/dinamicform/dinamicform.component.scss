@@ -1,6 +1,6 @@
-@import '../../../@theme/styles/themes';
-@import '~bootstrap/scss/mixins/breakpoints';
-@import '~@nebular/theme/styles/global/breakpoints';
+@import "../../../@theme/styles/themes";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~@nebular/theme/styles/global/breakpoints";
 @include nb-install-component() {
   /deep/ .mat-input-element::placeholder {
     color: transparentize($color: nb-theme(color-fg-heading), $amount: 0.6);
@@ -38,8 +38,8 @@
     display: flex;
     justify-content: space-between;
 
-  .custom-control {
-    margin-left: 1rem;
+    .custom-control {
+      margin-left: 1rem;
     }
   }
 
@@ -120,13 +120,12 @@
     position: relative;
 
     .form-control {
-
       padding-left: 3rem;
     }
 
     &::before {
-      content: '\F47D';
-      font-family: 'Ionicons';
+      content: "\F47D";
+      font-family: "Ionicons";
       font-size: 2rem;
       position: absolute;
       z-index: 100;
@@ -154,10 +153,14 @@
   }
 
   mat-label {
-    font-size: 18px;
+    font-size: 1.375rem;
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word;
+    margin-bottom: 5px;
   }
 
-  .mat-input-element, mat-select {
+  .mat-input-element,
+  mat-select {
     margin-top: 12px;
   }
 
@@ -217,7 +220,7 @@
 
   img {
     cursor: pointer;
-    }
+  }
 
   ngb-rating {
     outline: none;
@@ -241,10 +244,28 @@ pre {
   white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
   word-wrap: break-word; /* IE 5.5+ */
   width: 90%;
-  font-family: 'Exo';
+  font-family: "Exo";
   text-align: justify;
   font-size: 1.15rem;
   margin: 0px auto;
   margin-bottom: 50px;
-  color: #444;
+  color: #333;
+}
+
+h3,
+h4,
+h5 {
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+h5 {
+  font-size: 1.2rem;
 }

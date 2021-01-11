@@ -508,7 +508,19 @@
                 <mat-label>{{c.requerido?'* '+c.label:c.label}}:</mat-label>
                 <input matInput [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)"
                   [ngModelOptions]="{standalone: true}" type="{{c.tipo}}" id="{{c.nombre}}" [placeholder]="c.placeholder"
-                  [disabled]="c.deshabilitar" pattern="c.pattern || *" max="{{c.max?c.max:100}}" min="{{c.min?c.min:0}}" step="0.1"/>
+                  [disabled]="c.deshabilitar" pattern="c.pattern || *" max="{{c.max?c.max:100}}" min="{{c.min?c.min:0}}" step="0.1" style="margin-top: 22px;"/>
+                <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
+                <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
+                <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
+              </mat-form-field>
+              
+              <!-- input-l -->
+              <mat-form-field *ngSwitchCase="'input-l'" style="width: 100%;" class="form-group" floatLabel="always"
+                [hidden]="c.ocultar">
+                <mat-label>{{c.requerido?'* '+c.label:c.label}}:</mat-label>
+                <input matInput [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)"
+                  [ngModelOptions]="{standalone: true}" type="{{c.tipo}}" id="{{c.nombre}}" [placeholder]="c.placeholder"
+                  [disabled]="c.deshabilitar" pattern="c.pattern || *" max="{{c.max?c.max:100}}" min="{{c.min?c.min:0}}" step="0.1" style="margin-top: 55px;"/>
                 <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
                 <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
                 <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
@@ -516,6 +528,12 @@
   
               <!-- h3 -->
               <h3 *ngSwitchCase="'h3'" class="form-group" id="{{c.nombre}}">{{c.label}}</h3>
+  
+              <!-- h4 -->
+              <h4 *ngSwitchCase="'h4'" class="form-group" id="{{c.nombre}}">{{c.label}}</h4>
+  
+              <!-- h5 -->
+              <h5 *ngSwitchCase="'h5'" class="form-group" id="{{c.nombre}}">{{c.label}}</h5>
 
               <!-- p -->
               <pre *ngSwitchCase="'p'" class="form-group" id="{{c.nombre}}">{{c.label}}</pre>
@@ -558,7 +576,7 @@
                 <textarea matInput placeholder="Autosize textarea" matTextareaAutosize matAutosizeMinRows="3"
                   matAutosizeMaxRows="6" [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)"
                   [ngModelOptions]="{standalone: true}" type="text" id="{{c.nombre}}" class="{{c.clase}}"
-                  placeholder="{{c.placeholder}}" [disabled]="c.deshabilitar"></textarea>
+                  placeholder="{{c.placeholder}}" [disabled]="c.deshabilitar" style="margin-top: 18px;"></textarea>
                 <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
               </mat-form-field>
   
@@ -595,7 +613,7 @@
                 <mat-label>{{c.requerido?'* '+c.label:c.label}}:</mat-label>
                 <mat-select [placeholder]="c.valor?(c.key?c.valor[c.key]:c.valor|json):c.placeholder"
                   [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)" [ngModelOptions]="{standalone: true}"
-                  [disabled]="c.deshabilitar">
+                  [disabled]="c.deshabilitar" style="margin-top: 22px;">
                   <mat-option>--Seleccionar--</mat-option>
                   <mat-option *ngFor="let item of c.opciones" [value]="item">
                     {{c.key?item[c.key]:item | json}}
