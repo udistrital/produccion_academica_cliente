@@ -868,9 +868,10 @@
             "titulo_capitulo_libro_2": "DE CONFORMIDAD CON EL Decreto No 1279 de 2002, art. 10, III, d).",
             "titulo_software_1": "FORMATO DE REGISTRO DE VALORACIÓN DE PRODUCCIÓN DE SOTWARE",
             "titulo_software_2": "(Artículo 10 k, 24 k, Decreto 1279/02 y Resolución 285 y 693 de 2004 Colciencias)",
+            "titulo_produccion_tecnica": "",
             "titulo_produccion_tecnica_1": "FORMATO DE REGISTRO DE VALORACIÓN DE PRODUCCIÓN TÉCNICA.",
             "titulo_produccion_tecnica_2": "(Artículo 10 k, 24 k, Decreto 1279/02 y 693 de 2004 Colciencias)",
-
+            "introduccion_produccion_tecnica": "La evaluación de producción técnica, está compuesta de tres (3) criterios relacionados a continuación: 1. Aportes en investigación, innovación o adaptación. 2. Impactos del proyecto. 2.1. Impactos científicos y tecnológicos del proyecto en la empresa, centro o grupo de investigación. 2.2. Impactos sobre la productividad y competitividad de la empresa o sector productivo. 2.3. Impactos sobre el medio ambiente y la sociedad. 2.4. Impactos sobre la economía y la sociedad. 3. Aspectos económicos y financieros Cada criterio tiene asociado una serie de características concretas (Tabla 1,Tabla 2, Tabla 3), las cuales deben ser valoradas en un rango de (1) a (10). Luego de calificar todas las características, súmelas por criterio, divídalas por el número de características que tiene ese criterio.",
             "obra_didactica": "OBRA DIDACTICA.",
             "obra_documental": "OBRA DOCUMENTAL.",
             "obra_creacion_original": "OBRAS DE CREACIÓN ORIGINAL.",
@@ -907,7 +908,8 @@
             "impactos_es": "2.4. Impactos sobre la economía y la sociedad",
             "aspectos": "3. RELATIVOS A LOS ASPECTOS ECONÓMICOS Y FINANCIEROS",
             "criterios": "CRITERIOS",
-            "totales": "El reconocimiento de puntos a la producción tecnológica, se determinará con la aplicación de la siguiente formula, en la Tabla 5\nP= s x 15 / 30, para los productos de innovación tecnológica\nP= s x 8/ 30,   para los productos de adaptación tecnológica.\nEn donde “P”, es el puntaje por determinar, y “s” la sumatoria de los puntos otorgados a la calificación de los criterios que por este acto se establecen y se hará proporcional de acuerdo con los lineamientos del Decreto 1279/02 y Resolución 693 de 2004.",
+            "totales": "Puntaje total",
+            "explicacion_evaluacion_produccion_tecnica": "El reconocimiento de puntos a la producción tecnológica, se determinará con la aplicación de la siguiente formula, en la Tabla 5\nP= s x 15 / 30, para los productos de innovación tecnológica\nP= s x 8/ 30,   para los productos de adaptación tecnológica.\nEn donde “P”, es el puntaje por determinar, y “s” la sumatoria de los puntos otorgados a la calificación de los criterios que por este acto se establecen y se hará proporcional de acuerdo con los lineamientos del Decreto 1279/02 y Resolución 693 de 2004.",
 
             "item_1": "ÍTEM 1",
             "item_2": "ÍTEM 2",
@@ -987,6 +989,7 @@
             "libro_ensayo_item_7": "1.7.La obra evaluada, que grado de divulgación posee:",
             "libro_ensayo_item_8": "1.8.¿La obra evaluada, obedece a un proceso de edición y publicación serio a cargo de una editorial de reconocido prestigio en el nivel nacional o internacional y con un tiraje apropiado?",
             "libro_ensayo_item_9": "1.9.¿La obra evaluada tiene un número de identificación en base de datos reconocida (ISBN) asignado? ",
+            
             "capitulo_libro_item_1": "1. ¿El Capítulo evaluado es: ",
             "capitulo_libro_item_2": "1.1. ¿El Capítulo de libro tiene orientación en el proceso de enseñanza aprendizaje?",
             "capitulo_libro_item_3": "1.2. ¿Desarrolla completamente el nivel del tema?",
@@ -996,6 +999,7 @@
             "capitulo_libro_item_7": "1.6. ¿La obra es de carácter inédito?",
             "capitulo_libro_item_8": "1.7. ¿Se evidencia un proceso de edición y publicación serio a cargo de una editorial de reconocido prestigio en el nivel nacional, o internacional y con un tiraje apropiado?",
             "capitulo_libro_item_9": "1.8. ¿Tiene un número de identificación en base de datos reconocida (ISBN) asignado?",
+            
             "produccion_software_texto_1": "La evaluación está compuesta de cinco (5) criterios (Características de Calidad en Software, Modelo, Metodología o Ciclo de Desarrollo, Documentación y aportaciones, Interfaz y Navegación e Impacto), cada uno de ellos es valorado según la ponderación de la siguiente tabla.",
             "produccion_software_texto_2": "Cada criterio tiene asociado una serie de características concretas, las cuales pueden ser valoradas en un rango de (1) a (5). Luego de calificar todas las características, súmelas por criterio, divídalas por el número de características que tiene ese criterio y multiplíquelas por su respectiva ponderación en la tabla 2",
             "produccion_software_caracteristicas_calidad_1": "Modularidad o Legibilidad de Código Fuente (Estructuras de Clases, Librerías, Paquetes, otras)",
@@ -1031,6 +1035,7 @@
             "produccion_software_impacto_5": "Pertinencia, Verifique la necesidad según el contexto",
             "produccion_software_impacto_total": "SUBTOTAL CRITERIO IMPACTO (20%)",
             "produccion_software_total": "TOTAL (Sume todos los Subtotales una vez fueron multiplicados por su ponderación)",
+            
             "aporte_a": "Carácter original o innovativo de la propuesta, en relación con el aporte al desarrollo de innovaciones de sistemas, productos, procesos y servicios, así como al mejoramiento significativo de los mismos).",
             "aporte_b": "Adaptación de productos o procesos, considerando la mejora sustancial de los existentes.",
             "aporte_c": "Aporte al fortalecimiento de la capacidad nacional de investigación, innovación y desarrollo tecnológico.",
