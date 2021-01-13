@@ -207,7 +207,16 @@ export class DinamicformComponent implements OnInit, OnChanges {
       }
     }
     if (c.etiqueta === 'input' && c.tipo === 'number') {
-      c.valor = parseInt(c.valor, 10);
+      if(this.normalform.tipo_formulario === 'eval') {
+        c.valor = parseFloat(c.valor);
+        if (c.valor < c.min) {
+          c.clase = 'form-control form-control-danger';
+          c.alerta = 'El valor no puede ser menor que ' + c.min;
+          return false;
+        }
+      } else {
+        c.valor = parseInt(c.valor, 10);
+      }
       if (c.valor < c.minimo) {
         c.clase = 'form-control form-control-danger';
         c.alerta = 'El valor no puede ser menor que ' + c.minimo;
@@ -215,11 +224,20 @@ export class DinamicformComponent implements OnInit, OnChanges {
       }
     }
     if (c.etiqueta === 'input' && c.tipo === 'number') {
-      c.valor = parseInt(c.valor, 10);
-      if (c.valor > c.maximolog) {
-        c.clase = 'form-control form-control-danger';
-        c.alerta = 'El valor no puede ser mayor que ' + c.maximolog;
-        return false;
+      if(this.normalform.tipo_formulario === 'eval') {
+        c.valor = parseFloat(c.valor);
+        if (c.valor > c.max) {
+          c.clase = 'form-control form-control-danger';
+          c.alerta = 'El valor no puede ser mayor que ' + c.max;
+          return false;
+        }
+      } else {
+        c.valor = parseInt(c.valor, 10);
+        if (c.valor > c.maximolog) {
+          c.clase = 'form-control form-control-danger';
+          c.alerta = 'El valor no puede ser mayor que ' + c.maximolog;
+          return false;
+        }
       }
     }
     if (c.etiqueta === 'radio') {
@@ -282,23 +300,45 @@ export class DinamicformComponent implements OnInit, OnChanges {
     this.data.files = [];
     this.data.valid = true;
 
-    this.normalform.campos.forEach(d => {
-      requeridos = d.requerido ? requeridos + 1 : requeridos;
-      if (this.validCampo(d)) {
-        if (d.etiqueta === 'file') {
-          result[d.nombre] = { nombre: d.nombre, file: d.File, url: d.url, IdDocumento: d.tipoDocumento };
-          // result[d.nombre].push({ nombre: d.name, file: d.valor });
-        } else if (d.etiqueta === 'select') {
-          result[d.nombre] = d.relacion ? d.valor : d.valor.Id;
+    if (this.normalform.tipo_formulario !== 'eval') {
+      this.normalform.campos.forEach(d => {
+        requeridos = d.requerido ? requeridos + 1 : requeridos;
+        if (this.validCampo(d)) {
+          if (d.etiqueta === 'file') {
+            result[d.nombre] = { nombre: d.nombre, file: d.File, url: d.url, IdDocumento: d.tipoDocumento };
+            // result[d.nombre].push({ nombre: d.name, file: d.valor });
+          } else if (d.etiqueta === 'select') {
+            result[d.nombre] = d.relacion ? d.valor : d.valor.Id;
+          } else {
+            result[d.nombre] = d.valor;
+          }
+          resueltos = d.requerido ? resueltos + 1 : resueltos;
         } else {
-          result[d.nombre] = d.valor;
+          this.data.valid = false;
         }
-        resueltos = d.requerido ? resueltos + 1 : resueltos;
-      } else {
-        this.data.valid = false;
-      }
-    });
-
+      });
+    } else {
+      this.normalform.secciones.forEach(seccion => {
+        seccion.campos.forEach(d => {
+          requeridos = d.requerido ? requeridos + 1 : requeridos;
+          if (this.validCampo(d)) {
+            if (d.etiqueta === 'file') {
+              result[d.nombre] = { nombre: d.nombre, file: d.File, url: d.url, IdDocumento: d.tipoDocumento };
+              // result[d.nombre].push({ nombre: d.name, file: d.valor });
+            } else if (d.etiqueta === 'select') {
+              result[d.nombre] = d.relacion ? d.valor : d.valor.Id;
+            } else if (d.tipo === 'number') {
+              result[d.nombre] = parseFloat(d.valor);
+            } else {
+              result[d.nombre] = d.valor;
+            }
+            resueltos = d.requerido ? resueltos + 1 : resueltos;
+          } else {
+            this.data.valid = false;
+          }
+        })
+      });
+    }
     if (this.data.valid && (resueltos / requeridos) === 1) {
       if (this.normalform.modelo) {
         this.data.data[this.normalform.modelo] = result;

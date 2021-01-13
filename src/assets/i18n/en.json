@@ -841,6 +841,15 @@
     "alerta_descripcion_comentario": "You must enter the body of the observation"
   },
   "evaluacion": {
+    "datos_evaluador": "Evaluator data",
+    "nombre_completo": "Evaluator name",
+    "numero_identificacion": "ID Number",
+    "fecha_expedicion": "Expedition daten",
+    "fecha_evaluacion": "Evaluation daten",
+    "ciudad_evaluacion": "City where evaluation is carried out",
+    "ciudad_evaluacion_placeholder": "Ej: New York",
+    "ciudad_evaluacion_alerta": "Must fill the city field",
+
     "evaluacion_doncete": "Teacher evaluation",
     "envio_invitacion": "Invitation Sending",
     "nombre_evaluacion": "External evaluator name",
@@ -1089,7 +1098,12 @@
       "subtotal": "Subtotal",
       "calificacion": "Qualification",
       "numero_autores": ""
-    }
+    },
+    "alerta_llenar_campo": "You must fill this field",
+    "alerta_llenar_campos": "You must fill all data fields required",
+    "alerta_llenar_campos_evaluador": "You must fill all evaluator data fields",
+    "seguro_continuar_registrar_evaluacion": "Are you sure you want to register this evaluation?",
+    "seguro_continuar_actualizar_evaluacion": "Are you sure you want to update this evaluation?"
   },
 
   "alerta": {

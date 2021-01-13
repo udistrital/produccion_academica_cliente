@@ -852,6 +852,15 @@
         "alerta_descripcion_comentario": "Debe escribir la descripción del comentario"
     },
     "evaluacion": {
+        "datos_evaluador": "DATOS EVALUADOR",
+        "nombre_completo": "Nombre del evaluador",
+        "numero_identificacion": "Numero de identificación",
+        "fecha_expedicion": "Fecha de Expedición",
+        "fecha_evaluacion": "Fecha de Expedición",
+        "ciudad_evaluacion": "Ciudad donde se realiza la evaluación",
+        "ciudad_evaluacion_placeholder": "Ej: Bogotá",
+        "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",
+
         "evaluacion_doncete": "Evaluación Docente",
         "envio_invitacion": "Envió de Invitación",
         "nombre_evaluacion": "Nombre evaluador externo",
@@ -893,7 +902,7 @@
             "titulo_produccion_tecnica": "",
             "titulo_produccion_tecnica_1": "FORMATO DE REGISTRO DE VALORACIÓN DE PRODUCCIÓN TÉCNICA.",
             "titulo_produccion_tecnica_2": "(Artículo 10 k, 24 k, Decreto 1279/02 y 693 de 2004 Colciencias)",
-            "introduccion_produccion_tecnica": "La evaluación de producción técnica, está compuesta de tres (3) criterios relacionados a continuación: 1. Aportes en investigación, innovación o adaptación. 2. Impactos del proyecto. 2.1. Impactos científicos y tecnológicos del proyecto en la empresa, centro o grupo de investigación. 2.2. Impactos sobre la productividad y competitividad de la empresa o sector productivo. 2.3. Impactos sobre el medio ambiente y la sociedad. 2.4. Impactos sobre la economía y la sociedad. 3. Aspectos económicos y financieros Cada criterio tiene asociado una serie de características concretas (Tabla 1,Tabla 2, Tabla 3), las cuales deben ser valoradas en un rango de (1) a (10). Luego de calificar todas las características, súmelas por criterio, divídalas por el número de características que tiene ese criterio.",
+            "introduccion_produccion_tecnica": "La evaluación de producción técnica, está compuesta de tres (3) criterios relacionados a continuación: \n\n1. Aportes en investigación, innovación o adaptación. \n2. Impactos del proyecto. \n-  2.1. Impactos científicos y tecnológicos del proyecto en la empresa, centro o grupo de investigación. \n-  2.2. Impactos sobre la productividad y competitividad de la empresa o sector productivo. \n-  2.3. Impactos sobre el medio ambiente y la sociedad. \n-  2.4. Impactos sobre la economía y la sociedad. \n3. Aspectos económicos y financieros \n\nCada criterio tiene asociado una serie de características concretas (Tabla 1,Tabla 2, Tabla 3), las cuales deben ser valoradas en un rango de (1) a (10). Luego de calificar todas las características, súmelas por criterio, divídalas por el número de características que tiene ese criterio.",
             "obra_didactica": "OBRA DIDACTICA.",
             "obra_documental": "OBRA DOCUMENTAL.",
             "obra_creacion_original": "OBRAS DE CREACIÓN ORIGINAL.",
@@ -931,7 +940,7 @@
             "aspectos": "3. RELATIVOS A LOS ASPECTOS ECONÓMICOS Y FINANCIEROS",
             "criterios": "CRITERIOS",
             "totales": "Puntaje total",
-            "explicacion_evaluacion_produccion_tecnica": "El reconocimiento de puntos a la producción tecnológica, se determinará con la aplicación de la siguiente formula, en la Tabla 5\nP= s x 15 / 30, para los productos de innovación tecnológica\nP= s x 8/ 30,   para los productos de adaptación tecnológica.\nEn donde “P”, es el puntaje por determinar, y “s” la sumatoria de los puntos otorgados a la calificación de los criterios que por este acto se establecen y se hará proporcional de acuerdo con los lineamientos del Decreto 1279/02 y Resolución 693 de 2004.",
+            "explicacion_evaluacion_produccion_tecnica": "El reconocimiento de puntos a la producción tecnológica, se determinará con la aplicación de la siguiente formula, en la Tabla 5\n\nP= s x 15 / 30, para los productos de innovación tecnológica\nP= s x 8/ 30,   para los productos de adaptación tecnológica.\n\nEn donde “P”, es el puntaje por determinar, y “s” la sumatoria de los puntos otorgados a la calificación de los criterios que por este acto se establecen y se hará proporcional de acuerdo con los lineamientos del Decreto 1279/02 y Resolución 693 de 2004.",
 
             "item_1": "ÍTEM 1",
             "item_2": "ÍTEM 2",
@@ -1146,7 +1155,12 @@
             "calificacion": "Calificación",
             "numero_autores": "",
             "produccion_software_imagen_1":"imagen"
-        }
+        },
+        "alerta_llenar_campo": "Debe llenar este campo",
+        "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
+        "alerta_llenar_campos_evaluador": "Debe llenar todos los datos del evaluador",
+        "seguro_continuar_registrar_evaluacion": "¿Está seguro de registrar esta evaluación?",
+        "seguro_continuar_actualizar_evaluacion": "¿Está seguro de actualizar esta evaluación?"
     },
     "alerta": {
         "titulo": "Alerta",

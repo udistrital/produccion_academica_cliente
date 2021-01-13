@@ -249,7 +249,7 @@ pre {
   font-size: 1.15rem;
   margin: 0px auto;
   margin-bottom: 50px;
-  color: #333;
+  color: #222;
 }
 
 h3,
@@ -267,5 +267,12 @@ h4 {
 }
 
 h5 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
+  color: #555;
+  font-family: "Exo";
+  text-align: justify;
+}
+
+.form-ev button {
+  margin: 20px;
 }

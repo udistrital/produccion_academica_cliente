@@ -1,5 +1,5 @@
 export class Item {
-  id: string;
+  _id: string;
   nombre: string;
   descripcion: string;
   estructura_item: any;

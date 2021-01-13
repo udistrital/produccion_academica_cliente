@@ -493,7 +493,7 @@
 
 
   <!-- Form  eval -->
-  <form class="form-horizontal" *ngSwitchCase="'eval'" style="max-width: 1200px;margin: auto;">
+  <form class="form-horizontal form-ev" *ngSwitchCase="'eval'" style="max-width: 1200px;margin: auto;">
     <ng-container *ngFor="let s of normalform.secciones">
       <fieldset [ngClass]="{'fieldseter':!normalform.hidefield}">
         <legend align="{{normalform.alineacion_titulo}}">
@@ -533,7 +533,7 @@
               <h4 *ngSwitchCase="'h4'" class="form-group" id="{{c.nombre}}">{{c.label}}</h4>
   
               <!-- h5 -->
-              <h5 *ngSwitchCase="'h5'" class="form-group" id="{{c.nombre}}">{{c.label}}</h5>
+              <h5 *ngSwitchCase="'h5'" class="form-group" id="{{c.nombre}}">*{{c.label}}</h5>
 
               <!-- p -->
               <pre *ngSwitchCase="'p'" class="form-group" id="{{c.nombre}}">{{c.label}}</pre>

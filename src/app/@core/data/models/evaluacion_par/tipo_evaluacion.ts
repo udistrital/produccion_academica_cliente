@@ -1,7 +1,7 @@
 import { Seccion } from './seccion';
 
 export class TipoEvaluacion {
-  id: string;
+  _id: string;
   nombre: string;
   descripcion: string;
   estructura_tipo_evaluacion: any;
