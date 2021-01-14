@@ -508,7 +508,7 @@
                 <mat-label>{{c.requerido?'* '+c.label:c.label}}:</mat-label>
                 <input matInput [(ngModel)]="c.valor" (ngModelChange)="validCampo(c)"
                   [ngModelOptions]="{standalone: true}" type="{{c.tipo}}" id="{{c.nombre}}" [placeholder]="c.placeholder"
-                  [disabled]="c.deshabilitar" pattern="c.pattern || *" max="{{c.max?c.max:100}}" min="{{c.min?c.min:0}}" step="0.1" style="margin-top: 22px;"/>
+                  [disabled]="c.deshabilitar" pattern="c.pattern || *" max="{{c.max?c.max:100}}" min="{{c.min?c.min:0}}" step="0.01" style="margin-top: 22px;"/>
                 <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
                 <span class="nb-span" [class.alert]="validAlert(c)">{{c.span}}</span>
                 <span matPrefix *ngIf="c.prefix">{{c.prefix.value}}</span>
