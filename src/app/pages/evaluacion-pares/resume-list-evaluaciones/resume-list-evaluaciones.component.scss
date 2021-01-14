@@ -1,3 +1,41 @@
 :host /deep/ .nb-theme-default ng2-smart-table table tr td {
   font-size: 0.85rem;
 }
+
+.pop-comment {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+  transition: all 0.3s ease-in;
+}
+
+.pop-content button {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.pop-content button i {
+  font-size: 30px;
+}

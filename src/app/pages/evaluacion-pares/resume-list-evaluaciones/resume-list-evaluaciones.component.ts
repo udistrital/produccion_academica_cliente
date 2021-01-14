@@ -28,6 +28,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   par_nombre: string;
   par_email: string;
+  is_evaluacion_selected: boolean;
   evaluacion_selected: SolicitudDocentePost;
   evaluaciones_list: SolicitudDocentePost[];
 
@@ -164,39 +165,47 @@ export class ResumeListEvaluacionesComponent implements OnInit {
   onView(event): void {
     this.evaluacion_selected = <SolicitudDocentePost>event.data;
     if (this.evaluacion_selected.EstadoTipoSolicitudId) {
-      let opt: any;
-      if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 10) {
-        opt = {
-          width: '550px',
-          title: this.translate.instant('GLOBAL.info_evaluacion'),
-          text: this.translate.instant('produccion_academica.evaluacion_espera'),
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true,
-        };
+      if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 13) {
+        this.is_evaluacion_selected = true;
+      } else {
+        let opt: any;
+        if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 10) {
+          opt = {
+            width: '550px',
+            title: this.translate.instant('GLOBAL.info_evaluacion'),
+            text: this.translate.instant('produccion_academica.evaluacion_espera'),
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          };
+        }
+        if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 11) {
+          opt = {
+            width: '550px',
+            title: this.translate.instant('GLOBAL.info_evaluacion'),
+            text: this.translate.instant('produccion_academica.evaluacion_rechazo'),
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          };
+        }
+        if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 12) {
+          opt = {
+            width: '550px',
+            title: this.translate.instant('GLOBAL.info_evaluacion'),
+            text: this.translate.instant('produccion_academica.evaluacion_en_evaluacion'),
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          };
+        }
+        Swal(opt)
       }
-      if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 11) {
-        opt = {
-          width: '550px',
-          title: this.translate.instant('GLOBAL.info_evaluacion'),
-          text: this.translate.instant('produccion_academica.evaluacion_rechazo'),
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true,
-        };
-      }
-      if (this.evaluacion_selected.EstadoTipoSolicitudId.EstadoId.Id === 12) {
-        opt = {
-          width: '550px',
-          title: this.translate.instant('GLOBAL.info_evaluacion'),
-          text: this.translate.instant('produccion_academica.evaluacion_en_evaluacion'),
-          icon: 'warning',
-          buttons: true,
-          dangerMode: true,
-        };
-      }
-      Swal(opt)
     }
+  }
+
+  closePop() {
+    this.is_evaluacion_selected = false;
   }
 
   selectTab(event): void { }

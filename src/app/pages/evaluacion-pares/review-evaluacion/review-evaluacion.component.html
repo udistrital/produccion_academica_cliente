@@ -1,3 +1,63 @@
-<p>
-  review-evaluacion works!
-</p>
+<div class="row">
+  <form class="form-horizontal" style="width: 100%;">
+    <fieldset [ngClass]="{'fieldseter':true}">
+      <legend align="left">
+        <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
+      </legend>
+      <div class="divisor"></div>
+      <fieldset [ngClass]="{'fieldseter':true}" *ngFor="let seccion of formEvaluacionPar.secciones">
+        <legend align="left">
+          <small>{{seccion.titulo}}</small>
+        </legend>
+        <div class="row" *ngFor="let campo of seccion.campos">
+          <ng-container *ngIf="campo.etiqueta === 'h3' || campo.etiqueta === 'h4'">
+            <div class="col-12" style="text-align: center">
+              <h5>{{'evaluacion.labels.' + campo.label_i18n | translate}}</h5>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'p'">
+            <div class="col-12">
+              <pre>{{'evaluacion.labels.' + campo.label_i18n | translate}}</pre>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'img'">
+            <div class="col-12" style="text-align: center">
+              <img src="{{'evaluacion.labels.' + campo.label_i18n | translate}}"/>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'h5'">
+          </ng-container>
+          <ng-container
+            *ngIf="campo.etiqueta !== 'h3' && campo.etiqueta !== 'h4' && campo.etiqueta !== 'h5' && campo.etiqueta !== 'p' && campo.etiqueta !== 'img'">
+            <div class="col-6" style="padding-left: 70px;">
+              <h5>{{'evaluacion.labels.' + campo.label_i18n | translate}}</h5>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="campo.etiqueta === 'file'">
+            <div class="col-6">
+              <nb-card-body class="col-4" *ngIf="!(campo.tipo == 'image')">
+                <img class="carousel-image" [src]="'assets/images/file.png'"
+                  (click)="download(campo.urlTemp, campo.nombre,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+                  height="50px">
+              </nb-card-body>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
+            <ng-container *ngIf="id_tipo_produccion === 10 || id_tipo_produccion === 12">
+              <div class="col-6" style="text-align: center">
+                <label>{{campo.valor}}</label>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="id_tipo_produccion !== 10 && id_tipo_produccion !== 12">
+              <div class="col-6">
+                <label>{{campo.valor}}
+                </label>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </fieldset>
+    </fieldset>
+  </form>
+</div>

@@ -12,3 +12,12 @@
     </fieldset>
   </form>
 </div>
+
+<div class="pop-comment" *ngIf="is_evaluacion_selected">
+  <div class="pop-content">
+    <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
+
+    <ngx-review-evaluacion [solicitud_evaluacion_selected]="evaluacion_selected" [solicitud_padre]="solicitud_padre">
+    </ngx-review-evaluacion>
+  </div>
+</div>
