@@ -51,6 +51,7 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
   show_acad = false;
 
   info_persona: boolean;
+  info_complementario: boolean;
   selectedTipo: any;
   tipo_inscripcion_selected: any;
   selectTipo: any;
@@ -126,6 +127,9 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
       case 'info_preinscripcion':
         this.preinscripcion = true;
         break;
+      case 'info_complementario':
+        this.show_info = true;
+        break;
       case 'perfil':
         this.show_info = false;
         this.show_profile = true;
@@ -145,6 +149,9 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
       this.perfil_editar('info_caracteristica');
     } else if (event.tabTitle === this.translate.instant('GLOBAL.informacion_contacto')) {
       this.perfil_editar('info_contacto');
+    } else if (event.tabTitle === this.translate.instant('GLOBAL.info_complementaria')) {
+      if (this.info_complementario)
+        this.perfil_editar('info_complementaria');
     }
   }
 

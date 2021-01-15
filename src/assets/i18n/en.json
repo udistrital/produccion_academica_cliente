@@ -445,7 +445,8 @@
     "DireccionColegio": "Address of the school where grade 11 ended",
     "placeholder_DireccionColegio": "E.g: Street 1 # 2 -03",
     "formacion_academica": "Academic information",
-    "porcentaje_total": "Enter the percentage of the ICFES criterion over the general percentage of the total evaluation",
+    "placeholder_formacion_academica": "Ej: technical",
+        "porcentaje_total": "Enter the percentage of the ICFES criterion over the general percentage of the total evaluation",
     "placeholder_porcentaje_total": "E.g: 50% of 100% of the evaluation",
     "area_1": "Math",
     "placeholder_area_1": "E.g: 40% of 100% of the ICFES criteria ",
@@ -469,7 +470,17 @@
     "Tipo": "TYPE",
     "Documento": "ID CARD",
     "Puntaje": "SCORE",
-    "acciones": "Actions"
+    "acciones": "Actions",
+        "crear_info_complementaria": "The complementary information will be created",
+        "Informacion_complementaria": "Additional information",
+        "gran_area_conocimiento": "Great area of knowledge",
+        "placeholder_gran_area_conocimiento": "Ej: natural sciences",
+        "area_conocimiento_especifica": "Specific knowledge area",
+        "placeholder_area_conocimiento_especifica": "Ej: Mathematics\n",
+        "nivel_formacion": "Level of education",
+        "placeholder_nivel_formacion": "Ej: Specialization",
+        "institucion": "Institution",
+        "placeholder_institucion": "Ej: district University"
   },
   "ERROR": {
     "general": "The request could not be satisfied",
@@ -869,7 +880,7 @@
     "resumen_evaluaciones_subtitulo": "Below are the evaluations carried out and their scores",
     "evaluacion_numero": "Evaluation Number",
     "evaluacion_total": "Final score",
-    "verificar": "Verify Evaluations", 
+    "verificar": "Verify Evaluations",
 
     "labes": {
       "obra_didactica": "Didactic work.",

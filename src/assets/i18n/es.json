@@ -456,6 +456,7 @@
         "DireccionColegio": "Dirección del colegio donde culmunó el grado 11",
         "placeholder_DireccionColegio": "Ej: Calle 1 # 2 -03",
         "formacion_academica": "Informacion Academica",
+        "placeholder_formacion_academica": "Ej: Tecnico",
         "porcentaje_total": "Ingrese el porcentaje del criterio ICFES sobre el porcentaje general de la evaluación total",
         "placeholder_porcentaje_total": "Ej: 50 % del 100% de la evaluación",
         "area_1": "Matematicas",
@@ -480,7 +481,17 @@
         "Tipo": "TIPO",
         "Documento": "Número Documento",
         "Puntaje": "PUNTAJE",
-        "acciones": "Acciones"
+        "acciones": "Acciones",
+        "crear_info_complementaria": "Se va a crear la informacion complementaria",
+        "Informacion_complementaria": "Informacion complementaria",
+        "gran_area_conocimiento": "Gran área de conocimiento",
+        "placeholder_gran_area_conocimiento": "Ej: Ciencias Naturales",
+        "area_conocimiento_especifica": "Área de conocimiento específica",
+        "placeholder_area_conocimiento_especifica": "Ej: Matemáticas",
+        "nivel_formacion": "Nivel de formacion",
+        "placeholder_nivel_formacion": "Ej: Especializacion",
+        "institucion": "Institucion",
+        "placeholder_institucion": "Ej: Universidad Distrital"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
@@ -532,7 +543,7 @@
         "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
         "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
         "evaluacion_en_evaluacion": "La invitación de evaluación ha sido aceptada por parte del par externo y se esta esperando que el par realice la evaluación",
-        
+
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
         "aceptar_acta": "Aceptar Acta",
