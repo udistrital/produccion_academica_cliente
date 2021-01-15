@@ -849,6 +849,7 @@
     "ciudad_evaluacion": "City where evaluation is carried out",
     "ciudad_evaluacion_placeholder": "Ej: New York",
     "ciudad_evaluacion_alerta": "Must fill the city field",
+    "puntaje": "Evaluation result",
 
     "evaluacion_doncete": "Teacher evaluation",
     "envio_invitacion": "Invitation Sending",

@@ -1,13 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ProduccionAcademicaService } from '../../../@core/data/produccion_academica.service';
-import { SgaMidService } from '../../../@core/data/sga_mid.service';
-import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DocumentoService } from '../../../@core/data/documento.service';
 import { EvaluacionDocenteService } from '../../../@core/data/evaluacion-docente.service';
-import { UserService } from '../../../@core/data/users.service';
+import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
 import { FORM_evaluacion_docente } from './form-evaluacion_docente';
 import { EvaluacionDocentePost } from '../../../@core/data/models/evaluacion_par/evaluacion';
@@ -33,10 +29,11 @@ export class ReviewEvaluacionComponent implements OnInit {
   @Input('solicitud_evaluacion_selected')
   set evaluacion_id(solicitud_evaluacion_selected: SolicitudDocentePost) {
     this.solicitud_evaluacion_selected = solicitud_evaluacion_selected;
-
+    console.info(this.solicitud_evaluacion_selected)
 
     this.isExistPoint = false;
     this.loadEvaluacionDocente();
+    this.loadTerceroData();
   }
 
   @Input('solicitud_padre')
@@ -51,6 +48,7 @@ export class ReviewEvaluacionComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter<number>();
 
+  evaluador: Tercero;
   id_tipo_produccion: number;
   solicitud_evaluacion_selected: SolicitudDocentePost;
   solicitud_padre: SolicitudDocentePost;
@@ -74,15 +72,12 @@ export class ReviewEvaluacionComponent implements OnInit {
   observaciones_alerts: Observacion[] = [];
 
   constructor(
-    private produccionAcademicaService: ProduccionAcademicaService,
     private evaluacionDocenteService: EvaluacionDocenteService,
     private nuxeoService: NuxeoService,
     private documentoService: DocumentoService,
     private translate: TranslateService,
-    private tercerosService: TercerosService,
-    private sgaMidService: SgaMidService,
-    private user: UserService,
     private solicitudDocenteService: SolicitudDocenteService,
+    private tercerosService: TercerosService,
   ) {
     this.formEvaluacionPar = JSON.parse(JSON.stringify(FORM_evaluacion_docente));
   }
@@ -213,6 +208,30 @@ export class ReviewEvaluacionComponent implements OnInit {
           text: this.translate.instant('ERROR.' + error.status),
           confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
         });
+      });
+  }
+
+  loadTerceroData() {
+    this.solicitudDocenteService.get('solicitante/?query=SolicitudId:' + this.solicitud_evaluacion_selected.Id)
+      .subscribe(response => {
+        if (response !== null) {
+          this.tercerosService.get('tercero/?query=Id:' + (response[0].TerceroId || 1))
+            .subscribe(res => {
+              if (Object.keys(res[0]).length > 0) {
+                this.evaluador = <Tercero>res[0];
+                this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (response[0].TerceroId || 1))
+                  .subscribe(resp => {
+                    if (Object.keys(resp[0]).length > 0) {
+                      this.evaluador.DatosDocumento = resp[0];
+                    }
+                  })
+              } else {
+                this.evaluador = null;
+              }
+            }, (error: HttpErrorResponse) => {
+              console.info(error)
+            });
+        }
       });
   }
 

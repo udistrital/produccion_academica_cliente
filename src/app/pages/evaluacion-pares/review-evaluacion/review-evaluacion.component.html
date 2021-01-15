@@ -4,6 +4,14 @@
       <legend align="left">
         <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
       </legend>
+      <div class="row" style="padding-left: 50px;" *ngIf="info_evaluacion_docente">
+        <div class="col-8">
+          <h4>{{'evaluacion.puntaje' | translate}}</h4>
+        </div>
+        <div class="col-4">
+          <h4>{{info_evaluacion_docente.resultado.resultado}}</h4>
+        </div>
+      </div>
       <div class="divisor"></div>
       <fieldset [ngClass]="{'fieldseter':true}" *ngFor="let seccion of formEvaluacionPar.secciones">
         <legend align="left">
@@ -59,5 +67,61 @@
         </div>
       </fieldset>
     </fieldset>
+  </form>
+
+  <form class="form-horizontal form-eval" style="width: 100%;" *ngIf="evaluador">
+    <ng-container *ngIf="evaluador.DatosDocumento">
+      <fieldset [ngClass]="{'fieldseter':true}">
+        <legend align="left">
+          <small>{{'evaluacion.datos_evaluador' | translate}}</small>
+        </legend>
+        <div class="row">
+          <div class="col-12">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.nombre_completo' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{evaluador.NombreCompleto}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.numero_identificacion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{evaluador.DatosDocumento.Numero}}</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.fecha_expedicion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{(evaluador.DatosDocumento.FechaExpedicion + '').substring(0, 10)}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.ciudad_evaluacion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{(info_evaluacion_docente.estructura_evaluacion) ? info_evaluacion_docente.estructura_evaluacion.ciudad : 'No encontrada'}}</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.fecha_evaluacion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{(info_evaluacion_docente.fecha_creacion).substring(0, 10)}}</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </ng-container>
   </form>
 </div>

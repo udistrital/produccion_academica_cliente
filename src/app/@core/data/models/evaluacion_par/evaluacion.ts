@@ -11,4 +11,5 @@ export class EvaluacionDocentePost {
   respuestas_por_fecha: any[];
   fecha: Date;
   ciudad: string;
+  fecha_creacion: string;
 }

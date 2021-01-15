@@ -860,6 +860,7 @@
         "ciudad_evaluacion": "Ciudad donde se realiza la evaluación",
         "ciudad_evaluacion_placeholder": "Ej: Bogotá",
         "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",
+        "puntaje": "Resultado de Evaluación",
 
         "evaluacion_doncete": "Evaluación Docente",
         "envio_invitacion": "Envió de Invitación",

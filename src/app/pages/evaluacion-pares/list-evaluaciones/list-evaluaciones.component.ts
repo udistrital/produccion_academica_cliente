@@ -334,7 +334,7 @@ export class ListEvaluacionesComponent implements OnInit {
     this.evaluacion_selected = null;
     this.evaluacion_updated = null;
     Swal({
-      title: `Éxito al Enviar invitación.`,
+      title: `Éxito al Enviar evaluación.`,
       text: 'Información Modificada correctamente',
     });
   }
