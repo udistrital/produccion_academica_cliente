@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
@@ -18,6 +18,8 @@ import { EvaluacionDocentePost } from '../../../@core/data/models/evaluacion_par
 import { Seccion } from '../../../@core/data/models/evaluacion_par/seccion';
 import { Item } from '../../../@core/data/models/evaluacion_par/item';
 import Swal from 'sweetalert2';
+import pdfMake from 'pdfmake/build/pdfmake';
+import html2canvas from 'html2canvas';
 import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
@@ -39,6 +41,8 @@ export class CrudEvaluacionComponent implements OnInit {
 
   @Output() eventChange = new EventEmitter<any>();
 
+  @ViewChild('formPdf') formPdf: ElementRef;
+
   orden_result_id: string[] = ['6', '13', '19', '22', '25', '31', '36', '41', '46', '51', '56', '61', '82', '92', '102', '112', '122', '158', '213'];
   resultado_evaluacion: number;
   config: ToasterConfig;
@@ -54,6 +58,8 @@ export class CrudEvaluacionComponent implements OnInit {
   editando: boolean;
   evaluador: Tercero;
   fecha_actual: string;
+  id_documento: number;
+  url_documento: string;
 
   constructor(
     public translate: TranslateService,
@@ -254,11 +260,11 @@ export class CrudEvaluacionComponent implements OnInit {
 
 
   createEvaluacionDocente(evlauacionPost: any): void {
-    this.evaluacion_post = <EvaluacionDocentePost> evlauacionPost;
+    this.evaluacion_post = <EvaluacionDocentePost>evlauacionPost;
     this.evaluacion_post.tipo_evaluacion_id = this.tipoEvaluacion._id;
     this.evaluacion_post.nombre = `${this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.Titulo}-${this.evaluador.NombreCompleto}`;
     this.evaluacion_post.descripcion = 'Evaluación docente';
-    this.evaluacion_post.estructura_evaluacion = {ciudad: this.evaluacion_post.ciudad};
+    this.evaluacion_post.estructura_evaluacion = { ciudad: this.evaluacion_post.ciudad };
     this.evaluacion_post.estado = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.evaluacion_post.resultado = { resultado: this.resultado_evaluacion };
     console.info(this.evaluacion_post);
@@ -277,7 +283,7 @@ export class CrudEvaluacionComponent implements OnInit {
           console.info(this.evaluacion_post)
           const referencia = JSON.parse(this.solicitud_evaluacion_selected.Referencia);
           this.solicitud_evaluacion_selected.Referencia =
-          `{ \"Nombre\": \"${referencia.Nombre}\", \"Correo\": \"${referencia.Correo}\", \"IdEvaluacion\": \"${this.evaluacion_post._id}\"}`;
+            `{\"Nombre\": \"${referencia.Nombre}\", \"Correo\": \"${referencia.Correo}\", \"IdEvaluacion\": \"${this.evaluacion_post._id}\", \"IdDocumento\": ${this.id_documento}, \"UrlDocumento\": \"${this.url_documento}\"}`;
           console.info(this.solicitud_evaluacion_selected);
           this.updateSolicitudDocente(this.solicitud_evaluacion_selected);
         }
@@ -387,6 +393,7 @@ export class CrudEvaluacionComponent implements OnInit {
                 promises.push(this.uploadFilesToMetadaData(filesToUpload, respuestas));
               }
               promises.push(this.loadEstadoSolicitud(13));
+              promises.push(this.downloadAsPDF());
               this.evaluacion_post.respuestas_por_fecha = respuestas;
               Promise.all(promises)
                 .then(() => {
@@ -428,10 +435,62 @@ export class CrudEvaluacionComponent implements OnInit {
         }
       });
     });
+  }
 
+  public downloadAsPDF() {
+    const filesToUpload = [];
+    return new Promise((resolve, reject) => {
+      let docDefinition;
+      html2canvas(this.formPdf.nativeElement)
+      .then(canvas => {
+        if (this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 10 ||
+            this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 12
+          ) {
+          docDefinition = {
+            content: [
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 550,
+                height: 1608,
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 550,
+                height: 1600,
+                absolutePosition: {x: 40, y: -795},
+                pageBreak: 'before',
+              },
+            ],
+          };
+        } else {
+          docDefinition = {
+            content: [
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 550,
+                height: 790,
+              },
+            ],
+          };
+        }
+        const pdfDoc = pdfMake.createPdf(docDefinition);
+        pdfDoc.getBlob((blob) => {
+          const file = {
+            IdDocumento: 15,
+            file: blob,
+            nombre: this.solicitud_evaluacion_selected.Id,
+          }
+          filesToUpload.push(file);
+          this.uploadFilesToMetadaData(filesToUpload, [])
+          .then(() => resolve(true))
+          .catch(error => reject(error));
+        });
+      });
+    });
   }
 
   uploadFilesToMetadaData(files, respuestas) {
+    const filesToGet = [];
     return new Promise((resolve, reject) => {
       files.forEach((file) => {
         file.Id = file.nombre,
@@ -442,18 +501,25 @@ export class CrudEvaluacionComponent implements OnInit {
         .subscribe(response => {
           console.info('uploadFilesToMetadata - Resp nuxeo: ', response);
           if (Object.keys(response).length === files.length) {
-            files.forEach((file) => {
-              respuestas.push({
-                fecha_presentacion: (new Date()).toISOString(),
-                respuestas: [
-                  {
-                    item_id: file.Id,
-                    respuesta: response[file.Id].Id,
-                  },
-                ],
+
+            filesToGet.push({ Id: response[this.solicitud_evaluacion_selected.Id].Id, key: this.solicitud_evaluacion_selected.Id });
+            this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
+            .subscribe(resp => {
+              const filesResponse = <any>resp;
+              if (Object.keys(filesResponse).length === filesToGet.length) {
+                this.id_documento = response[this.solicitud_evaluacion_selected.Id].Id;
+                this.url_documento = filesResponse[this.solicitud_evaluacion_selected.Id];
+                resolve(true);
+              }
+            },
+              (error: HttpErrorResponse) => {
+                Swal({
+                  type: 'error',
+                  title: error.status + '',
+                  text: this.translate.instant('ERROR.' + error.status),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                });
               });
-            });
-            resolve(true);
           }
         }, error => {
           reject(error);
