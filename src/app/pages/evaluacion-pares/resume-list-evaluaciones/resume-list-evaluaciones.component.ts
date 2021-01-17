@@ -1,9 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
+import { UserService } from '../../../@core/data/users.service';
+import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
+import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -18,22 +21,33 @@ export class ResumeListEvaluacionesComponent implements OnInit {
   set solicitud(solicitud_padre: SolicitudDocentePost) {
     this.solicitud_padre = solicitud_padre;
     console.info(this.solicitud_padre)
+    this.is_evaluated = false;
     this.showData();
     this.cargarCampos();
   }
 
+  @Output()
+  reloadTable = new EventEmitter<number>();
+
   solicitud_padre: SolicitudDocentePost;
+  info_solicitud: SolicitudDocentePost;
   cambiotab: number = 0;
   settings: any;
   source: LocalDataSource = new LocalDataSource();
   par_nombre: string;
   par_email: string;
+  is_evaluated: boolean;
+  is_evaluacion_verify: boolean;
   is_evaluacion_selected: boolean;
   evaluacion_selected: SolicitudDocentePost;
+  estadosSolicitudes: EstadoTipoSolicitud[];
   evaluaciones_list: SolicitudDocentePost[];
+  evaluaciones_evaluated_list: SolicitudDocentePost[];
 
   constructor(private translate: TranslateService,
     private solicitudDocenteService: SolicitudDocenteService,
+    private user: UserService,
+    private sgaMidService: SgaMidService,
   ) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.cargarCampos();
@@ -119,6 +133,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
     this.loadData()
       .then(() => {
         this.source.load(this.evaluaciones_list);
+        this.verifyIsEvaluated();
         Swal.close();
       })
       .catch(error => {
@@ -158,6 +173,12 @@ export class ResumeListEvaluacionesComponent implements OnInit {
         });
       }
     });
+  }
+
+  verifyIsEvaluated() {
+    this.evaluaciones_evaluated_list = this.evaluaciones_list.filter(evaluacion => evaluacion.EstadoTipoSolicitudId.EstadoId.Id === 13);
+    if (this.evaluaciones_evaluated_list.length > 1 && this.solicitud_padre.EstadoTipoSolicitudId.EstadoId.Id === 5)
+      this.is_evaluated = true;
   }
 
   ngOnInit() { }
@@ -206,6 +227,105 @@ export class ResumeListEvaluacionesComponent implements OnInit {
 
   closePop() {
     this.is_evaluacion_selected = false;
+    this.is_evaluacion_verify = false;
+  }
+
+  loadEstadoSolicitud(estadoNum): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + estadoNum;
+      this.solicitudDocenteService.get(endpoint)
+        .subscribe(res => {
+          if (Object.keys(res.Data[0]).length > 0) {
+            this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
+            console.info(this.estadosSolicitudes)
+            resolve(true);
+          } else {
+            this.estadosSolicitudes = [];
+            reject({ status: 404 });
+          }
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        });
+    });
+  }
+
+  updateSolicitudDocente(solicitudDocente: any): void {
+    this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
+    this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+    this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
+    console.info(this.info_solicitud);
+    this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+    .subscribe((resp: any) => {
+      if (resp.Type === 'error') {
+        Swal({
+          type: 'error',
+          title: resp.Code,
+          text: this.translate.instant('ERROR.' + resp.Code),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        });
+      } else {
+        this.info_solicitud = <SolicitudDocentePost>resp;
+        Swal({
+          title: `Éxito al Enviar Observación.`,
+          text: 'Información Modificada correctamente',
+        });
+        this.reloadTable.emit(this.info_solicitud.Id);
+      }
+    });
+  }
+
+  verifyRequest() {
+    this.closePop();
+    const opt = {
+      title: this.translate.instant('produccion_academica.verificar'),
+      text: this.translate.instant('evaluacion.seguro_continuar_verificar_evaluaciones'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (willCreate.value) {
+          this.loadEstadoSolicitud(4)
+          .then(() => {
+            this.solicitud_padre.Resultado = `{ \"Puntaje\": ${this.calculateResult()} }`
+            this.updateSolicitudDocente(this.solicitud_padre);
+          })
+          .catch(error => {
+            Swal({
+              type: 'warning',
+              title: 'ERROR',
+              text: this.translate.instant('ERROR.general'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+          })
+        }
+      });
+  }
+
+  getEvaluationResult(evaluacion: SolicitudDocentePost): number {
+    if (evaluacion.Resultado) {
+      if (Object.keys(JSON.parse(evaluacion.Resultado)).length > 0)
+        return JSON.parse(evaluacion.Resultado).Puntaje;
+    }
+    return 0;
+  }
+
+  getEvaluationName(evaluacion: SolicitudDocentePost): string {
+    if (evaluacion.Referencia) {
+      if (Object.keys(JSON.parse(evaluacion.Referencia)).length > 0)
+        return JSON.parse(evaluacion.Referencia).Nombre;
+    }
+    return 'No encontrado';
+  }
+
+  calculateResult(): number {
+    let result = 0;
+    for (const evaluacion of this.evaluaciones_evaluated_list){
+      result += this.getEvaluationResult(evaluacion);
+    }
+    return (result / this.evaluaciones_evaluated_list.length);
   }
 
   selectTab(event): void { }

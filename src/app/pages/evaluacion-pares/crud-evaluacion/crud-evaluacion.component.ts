@@ -31,6 +31,7 @@ export class CrudEvaluacionComponent implements OnInit {
   @Input('solicitud_evaluacion_selected')
   set evaluacion(solicitud_evaluacion_selected: SolicitudDocentePost) {
     this.solicitud_evaluacion_selected = solicitud_evaluacion_selected;
+    this.evaluacion_post.ciudad = '';
     this.loadSubTipoFormFields(this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica, null);
   }
   @Input('evaluador_id_selected')

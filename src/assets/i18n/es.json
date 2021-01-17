@@ -869,6 +869,12 @@
 
         "alerta_nombre_evaluador": "Debe escribir el nombre del evaluador",
         "alerta_correo_evaluador": "Debe escribir el correo del evaluador",
+        
+        "resumen_evaluaciones": "Resumen de resultados de evaluaciones",
+        "resumen_evaluaciones_subtitulo": "A continuación se muestran las evaluaciones realizadas y sus puntajes",
+        "evaluacion_numero": "Evaluación Número", 
+        "evaluacion_total": "Resultado final", 
+        "verificar": "Verificar Evaluaciones", 
 
         "labels": {
 
@@ -1161,7 +1167,8 @@
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_campos_evaluador": "Debe llenar todos los datos del evaluador",
         "seguro_continuar_registrar_evaluacion": "¿Está seguro de registrar esta evaluación?",
-        "seguro_continuar_actualizar_evaluacion": "¿Está seguro de actualizar esta evaluación?"
+        "seguro_continuar_actualizar_evaluacion": "¿Está seguro de actualizar esta evaluación?",
+        "seguro_continuar_verificar_evaluaciones": "¿Está seguro de verificar el resultado de estas evaluaciones?"
     },
     "alerta": {
         "titulo": "Alerta",
