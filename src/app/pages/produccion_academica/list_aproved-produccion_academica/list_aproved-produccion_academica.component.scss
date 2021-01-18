@@ -48,3 +48,88 @@ nb-tabset /deep/ ul li {
   margin: 20px auto;
   padding: 20px;
 }
+
+:host /deep/ .ng2-smart-action-multiple-select{
+  text-align: center;
+}
+  
+:host /deep/ .ng2-smart-action-multiple-select > input{
+  margin: auto;
+  width:15px;
+  height:15px;
+}
+
+.pack-generate {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    margin-right: 20px;
+    padding: 10px;
+    color: #fff;
+    background-color: #34393D;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+}
+
+.pop-committee {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  width: 500px;
+  height: 40%;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease-in;
+}
+
+.pop-content button {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.pop-content button i {
+  font-size: 30px;
+}
+
+.col-10 {
+  margin-top: 30px;
+  flex: 0 0 10.666667%;
+}
+
+mat-label {
+  font-size: 18px;
+}
+
+.pop-button {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    color: #fff;
+    background-color: #0095DD;
+  }
+}

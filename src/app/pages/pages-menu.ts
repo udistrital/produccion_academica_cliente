@@ -36,4 +36,52 @@ export const MENU_ITEMS: MenuItem[] = [
       },
     ],
   },
+  {
+    title:  'Solicitud Paquete',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'solicitud_paquete',
+    children:  [
+      {
+        title:  'Paquetes',
+        icon: 'nb-edit',
+        link:  '/pages/admin_docencia/list_paquetes',
+        key:  'paquetes',
+      },
+    ],
+  },
+  {
+    title:  'Evaluacion Pares',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'evaluacion_pares',
+    children:  [
+      {
+        title:  'Lista Invitaciones',
+        icon: 'nb-edit',
+        link:  '/pages/evaluacion_pares/list_invitaciones',
+        key:  'lista_invitaciones',
+      },
+      {
+        title: 'Listar Evaluacion',
+        icon: 'nb-list',
+        link: '/pages/evaluacion_pares/list_evaluaciones',
+        key: 'lista_evaluaciones',
+      },
+    ],
+  },
+  {
+    title:  'Inscripcion',
+    icon:  'nb-compose',
+    link:  '',
+    key:  'inscripcion',
+    children:  [
+      {
+        title:  'Pre Inscripcion',
+        icon: 'nb-edit',
+        link:  '/pages/inscripcion/preinscripcion',
+        key:  'preinscripcion',
+      },
+    ],
+  },
 ]

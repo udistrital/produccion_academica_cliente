@@ -17,6 +17,18 @@ const routes: Routes = [{
       loadChildren: './produccion_academica/produccion_academica.module#ProduccionAcademicaModule',
     },
     {
+      path: 'admin_docencia',
+      loadChildren: './admin-docencia/admin-docencia.module#AdminDocenciaModule',
+    },
+    {
+      path: 'evaluacion_pares',
+      loadChildren: './evaluacion-pares/evaluacion-pares.module#EvaluacionParesModule',
+    },
+    {
+      path: 'inscripcion',
+      loadChildren: './inscripcion/inscripcion.module#InscripcionModule',
+    },
+    {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',

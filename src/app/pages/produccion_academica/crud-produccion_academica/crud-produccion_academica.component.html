@@ -39,9 +39,6 @@
           </mat-form-field>
         </div>
       </div>
-      <!--div align="right" class="form-group">
-                <button class="btn btn-success btn-sm" (click)="validForm()">{{'GLOBAL.guardar' | translate}}</button>
-            </div-->
     </fieldset>
   </form>
 </div>
@@ -90,6 +87,24 @@
           </ng2-smart-table>
         </div>
       </div>
+    </fieldset>
+  </form>
+</div>
+
+<div class="dinamic-form" *ngIf="editando">
+  <form class="form-horizontal" [hidden]="!isExistPoint">
+    <fieldset [ngClass]="{'fieldseter':true}" style="text-align: center;">
+      <legend align="left">
+        <small>{{'produccion_academica.puntaje' | translate}}</small>
+      </legend>
+      <mat-form-field style="width: 60%;" class="form-group" floatLabel="always">
+        <mat-label>{{'produccion_academica.puntaje' | translate}}:</mat-label>
+        <input matInput [(ngModel)]="pointRequest" [ngModelOptions]="{standalone: true}"
+          type="text" id="point-request"
+          [placeholder]="translate.instant('produccion_academica.placeholders.puntaje')" />
+        <mat-hint class="text-danger" *ngIf="!pointRequest">
+          {{'produccion_academica.alerta_llenar_campo' | translate}}</mat-hint>
+      </mat-form-field>
     </fieldset>
   </form>
 </div>
@@ -219,6 +234,10 @@
   <toaster-container [toasterconfig]="config"></toaster-container>
   <ngx-dinamicform [normalform]="formProduccionAcademica" (result)="validarForm($event)" [clean]="clean">
   </ngx-dinamicform>
+</div>
+
+<div class="span-production" [hidden]="!formConstruido">
+  <p>{{'produccion_academica.campos_obligatorios' | translate}}</p>
 </div>
 
 <div class="span-production" [hidden]="!formConstruido">

@@ -44,7 +44,17 @@ export class ListComentarioComponent implements OnInit {
   }
 
   filterComments() {
-    this.observaciones_selected = this.observaciones_selected.filter(observacion => observacion.TipoObservacionId.Id === 1);
+    if (this.rol === 'DOCENTE'){
+      this.observaciones_selected = this.observaciones_selected.filter(observacion => (Object.keys(observacion).length > 0) && observacion.TipoObservacionId.Id === 1)
+    }
+    this.observaciones_selected = this.observaciones_selected
+    .filter(observacion => {
+      if (Object.keys(observacion).length > 0) {
+        if (observacion.TipoObservacionId.Id === 1 || observacion.TipoObservacionId.Id === 3) {
+          return observacion;
+        }
+      } 
+    });
   }
 
   cargarCampos() {
@@ -116,6 +126,7 @@ export class ListComentarioComponent implements OnInit {
       this.loadTerceroData()
         .then(() => {
           const data = <Array<Observacion>>this.observaciones_selected;
+          console.info(data)
           this.source.load(data);
           this.cargarCampos();
         })

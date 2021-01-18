@@ -4,12 +4,28 @@
       <legend align="left">
         <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
       </legend>
+      <div class="row" *ngIf="isExistPoint">
+        <div class="col-8">
+          <h4>{{'produccion_academica.puntaje' | translate}}</h4>
+        </div>
+        <div class="col-4">
+          <h4>{{pointRequest}}</h4>
+        </div>
+      </div>
       <div class="row" *ngIf="solicitud_docente_selected">
         <div class="col-8">
           <h5>{{'produccion_academica.estado_solicitud' | translate}}</h5>
         </div>
         <div class="col-4">
           <button class="btn-state" (click)="seeDetailsState()">{{'produccion_academica.ver_detalle' | translate}}</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="solicitud_docente_selected">
+        <div class="col-8">
+          <h5>{{'produccion_academica.tipo_puntaje' | translate}}</h5>
+        </div>
+        <div class="col-4">
+          <label>{{solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.CategoriaProduccion.TipoPuntaje}}</label>
         </div>
       </div>
       <div class="row" *ngIf="solicitud_docente_selected">
@@ -78,7 +94,7 @@
         </ng-container>
         <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
           <div class="col-4">
-            <label>{{campo.etiqueta === 'select' 
+            <label>{{campo.etiqueta === 'select' && campo.valor
                       ? campo.valor.Nombre 
                       : (campo.etiqueta === 'mat-date' && campo.valor) 
                       ? campo.valor.substring(0,10)
@@ -94,12 +110,13 @@
       [observaciones_selected]="observaciones_comments"
       style="width: 100%;"></ngx-list-comentario>
     <ngx-crud-comentario 
-      [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3)"
+      [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3 && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 5))"
       (reloadTable)="reloadTable($event)"
       [estadoNum] = "2"
+      [obsNum] = "1"
       [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
     <ngx-send-invitacion 
-      [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 3)"
+      [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 3 || solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 5))"
       (reloadTable)="reloadTable($event)"
       [solicitud_selected]="solicitud_docente_selected"></ngx-send-invitacion>
   </div>
@@ -126,6 +143,15 @@
     style="width: 100%;"></ngx-list-comentario>
 </div>
 
+<div class="row">
+  <ngx-resume-list-evaluaciones
+    *ngIf="esEvaluada" 
+    [solicitud_padre]="solicitud_docente_selected"
+    (reloadTable)="reloadTable($event)"
+    style="width: 100%;">
+  </ngx-resume-list-evaluaciones>
+</div>
+
 <div class="pop-comment" [hidden]="!esRechazada">
   <div class="pop-content">
     <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
@@ -134,7 +160,8 @@
     <ngx-crud-comentario
         [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3)"
         (reloadTable)="reloadTable($event)"
-        [estadoNum] = "8"
+        [estadoNum] = "4"
+        [obsNum] = "3"
         [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
   </div>
 </div>
