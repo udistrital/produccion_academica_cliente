@@ -254,12 +254,13 @@ export class ListProduccionAcademicaComponent implements OnInit {
   }
 
   filterSolicitudes(filter) {
-    console.info(filter);
     let data;
     if (filter) {
-      this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
-        solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id,
-      )
+      this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud => {
+        if (solicitud.EvolucionEstado.length > 0)
+          if (solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id)
+            return solicitud; 
+      });
       data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
     } else {
       data = <Array<SolicitudDocentePost>>this.solicitudes_list;

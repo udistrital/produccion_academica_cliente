@@ -12,3 +12,43 @@
     </fieldset>
   </form>
 </div>
+<div class="row">
+  <button class="btn-review" [hidden]="!is_evaluated" (click)="is_evaluacion_verify = true" style="margin-left: 40px;">{{'evaluacion.verificar' | translate}}</button>
+</div>
+
+<div class="pop-comment" *ngIf="is_evaluacion_verify">
+  <div class="pop-content-resume">
+    <button class="clc-btn" (click)="closePop()"><i class="nb-close" title="view"></i></button>
+    <h2>{{'evaluacion.resumen_evaluaciones' | translate}}</h2>
+    <h5>{{'evaluacion.resumen_evaluaciones_subtitulo' | translate}}</h5>
+    <div class="resume_body" *ngFor="let evaluacion of evaluaciones_evaluated_list; index as i">
+      <div class="row">
+        <div class="col-12"><h6>{{'evaluacion.evaluacion_numero' | translate}} {{i + 1}}:</h6></div>
+      </div>
+      <div class="row">
+        <div class="col-8"> {{'produccion_academica.par_academico' | translate}} </div>
+        <div class="col-4"> {{getEvaluationName(evaluacion)}} </div>
+      </div>
+      <div class="row">
+        <div class="col-8"> {{'evaluacion.puntaje' | translate}} </div>
+        <div class="col-4"> {{getEvaluationResult(evaluacion)}} </div>
+      </div>
+    </div>
+    <div class="resume_body row">
+      <div class="col-8"><h4>{{'evaluacion.evaluacion_total' | translate}}</h4></div>
+      <div class="col-4"><h4>{{calculateResult()}}</h4></div>
+    </div>
+    <div class="resume_body-btn">
+      <button class="btn-resume" (click)="verifyRequest()">{{'produccion_academica.verificar' | translate}}</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="pop-comment" *ngIf="is_evaluacion_selected">
+  <div class="pop-content">
+    <button class="clc-btn" (click)="closePop()"><i class="nb-close" title="view"></i></button>
+    <ngx-review-evaluacion [solicitud_evaluacion_selected]="evaluacion_selected" [solicitud_padre]="solicitud_padre">
+    </ngx-review-evaluacion>
+  </div>
+</div>

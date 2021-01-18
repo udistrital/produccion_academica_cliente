@@ -30,6 +30,7 @@ export const environment = {
   PRODUCCION_ACADEMICA_SERVICE: 'http://pruebasapi2.intranetoas.udistrital.edu.co:8111/v1/',
   SOLICITUD_DOCENTE_SERVICE: 'http://pruebasapi2.intranetoas.udistrital.edu.co:8117/v1/',
   // SOLICITUD_DOCENTE_SERVICE: 'http://localhost:8085/v1/',
+  EVALUACION_DOCENTE_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8512/',
   DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
   SPAGOBI: {
     PROTOCOL: 'https',

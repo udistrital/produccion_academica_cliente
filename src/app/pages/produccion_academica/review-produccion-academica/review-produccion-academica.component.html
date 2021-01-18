@@ -147,6 +147,7 @@
   <ngx-resume-list-evaluaciones
     *ngIf="esEvaluada" 
     [solicitud_padre]="solicitud_docente_selected"
+    (reloadTable)="reloadTable($event)"
     style="width: 100%;">
   </ngx-resume-list-evaluaciones>
 </div>
