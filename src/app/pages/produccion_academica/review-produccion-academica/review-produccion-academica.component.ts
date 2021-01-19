@@ -112,10 +112,12 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     if (this.rol !== 'DOCENTE') {
       (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 1)
         ? this.buttonAdmin = true : this.buttonAdmin = false;
-      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 8)
+      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 9)
         ? this.buttonModify = true : this.buttonModify = false;
     } else {
-      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2) ? this.buttonModify = true : this.buttonModify = false;
+      (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2
+      || this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 14)
+      ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }
@@ -216,7 +218,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   verifyType() {
     switch (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id) {
       case 1: case 6: case 7: case 8: case 10: case 12: case 13: case 14:
-        if(this.rol !== 'DOCENTE' && this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id >= 4)
+        if (this.rol !== 'DOCENTE' && this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id >= 4)
           this.esEvaluada = true
         else
           this.esEvaluada = false;

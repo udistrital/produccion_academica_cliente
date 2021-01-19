@@ -45,6 +45,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   filter: any;
   rol: string;
   esRechazada: boolean;
+  certificadoExiste: boolean;
+  certificadoAprobado: boolean;
   persona_id: number;
   solicitudes_list: SolicitudDocentePost[];
   solicitudes_list_filter: SolicitudDocentePost[];
@@ -172,6 +174,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
           .then(() => {
             Swal.close();
             this.source.load(this.solicitudes_list);
+            this.verifyCertificateExist();
+            this.verifyCertificateApproved();
           })
       })
       .catch(error => {
@@ -290,10 +294,20 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     });
   }
 
+  verifyCertificateExist() {
+    if (this.solicitudes_list.some(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id === 8))
+      this.certificadoExiste = true;
+  }
+
+  verifyCertificateApproved() {
+    if (this.solicitudes_list.some(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id === 9))
+      this.certificadoAprobado = true;
+  }
+
   postponeSolicitud(event) {
     const opt = {
-      title: this.translate.instant('GLOBAL.registrar'),
-      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      title: this.translate.instant('produccion_academica.alerta'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_posponer_solicitud'),
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -346,15 +360,27 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   ngOnInit() { }
 
   onCustomAction(event): void {
-    switch (event.action) {
-      case 'view':
-        this.onView(event);
-        break;
-      case 'postpone':
-        this.onPostpone(event);
-        break;
-      case 'reject':
-        this.onReject(event);
+    if (event.data.EstadoTipoSolicitudId.EstadoId.Id === 9) {
+      const opt: any = {
+        width: '550px',
+        title: this.translate.instant('produccion_academica.alerta'),
+        text: this.translate.instant('produccion_academica.solicitud_finalizada'),
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      };
+      Swal(opt)
+    } else {
+      switch (event.action) {
+        case 'view':
+          this.onView(event);
+          break;
+        case 'postpone':
+          this.onPostpone(event);
+          break;
+        case 'reject':
+          this.onReject(event);
+      }
     }
   }
 
@@ -387,7 +413,19 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   onEdit(event): void {
     this.solicitud_selected = event.data;
-    this.activetab(1);
+    if (this.solicitud_selected.EstadoTipoSolicitudId.EstadoId.Id === 9) {
+      const opt: any = {
+        width: '550px',
+        title: this.translate.instant('produccion_academica.alerta'),
+        text: this.translate.instant('produccion_academica.solicitud_finalizada'),
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true,
+      };
+      Swal(opt)
+    } else {
+      this.activetab(1);
+    }
   }
 
   onView(event): void {
@@ -528,8 +566,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   generateCertificate() {
     const opt = {
-      title: this.translate.instant('GLOBAL.registrar'),
-      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      title: this.translate.instant('GLOBAL.enviar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_generar_acta'),
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -538,6 +576,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     Swal(opt)
       .then((willCreate) => {
         if (willCreate.value) {
+          this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.updatePackage(8);
         }
       });
@@ -545,8 +584,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   acceptCertificate() {
     const opt = {
-      title: this.translate.instant('GLOBAL.registrar'),
-      text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
+      title: this.translate.instant('GLOBAL.enviar'),
+      text: this.translate.instant('produccion_academica.seguro_continuar_aceptar_acta'),
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -579,6 +618,10 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         else
           this.paquete_solicitud_selected.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
         this.paquete_solicitud_selected.TerceroId = this.user.getPersonaId() || 3;
+        if (numberState === 9)
+          this.paquete_solicitud_selected.PaqueteRevisado = true;
+        else
+          this.paquete_solicitud_selected.PaqueteRevisado = false;
         this.sgaMidService.put('paquete_solicitud', this.paquete_solicitud_selected)
           .subscribe((resp: any) => {
             if (resp.Type === 'error') {
@@ -593,7 +636,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
               this.paquete_solicitud_selected = resp;
               console.info(resp);
               Swal({
-                title: `Éxito al crear Paquete.`,
+                title: `Éxito al actualizar Paquete.`,
                 text: 'Información Guardada correctamente',
               });
               this.router.navigate(['./pages/dashboard']);

@@ -83,10 +83,10 @@ export class ListPaquetesComponent implements OnInit {
           filter: false,
           width: '20%',
         },
-        Activo: {
+        PaqueteRevisado: {
           title: this.translate.instant('produccion_academica.estado_paquete'),
           valuePrepareFunction: (value) => {
-            if (value)
+            if (!value)
               return this.translate.instant('produccion_academica.estado_por_revisar');
             return this.translate.instant('produccion_academica.estado_revisado');
           },

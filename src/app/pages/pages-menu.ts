@@ -25,8 +25,14 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         title: 'Listar Producciones',
         icon: 'nb-list',
-        link: '/pages/produccion_academica/list-produccion_academica',
+        link: '/pages/produccion_academica/list-produccion_academica/active',
         key: 'list_produccion_academica',
+      },
+      {
+        title: 'Listar Producciones inactivas',
+        icon: 'nb-list',
+        link: '/pages/produccion_academica/list-produccion_academica/inactive',
+        key: 'list_produccion_academica_inactive',
       },
       {
         title: 'Listar Producciones Aprobadas',
