@@ -29,6 +29,7 @@
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
             "list_produccion_academica": "Lista producción académica",
+            "list_produccion_academica_inactive": "Lista producción académica \ntratadas en comité",
             "list_aproved_produccion_academica": "Lista Aprobada \nproducción académica",
             "crud_produccion_academica": "Crud producción académica"
         },
@@ -526,6 +527,7 @@
         "exito_alerta": "Éxito al subir alerta",
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
+        "solicitud_finalizada": "La solicitud ya fue tratada en comité y no es posible realizar acción",
 
         "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
         "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
@@ -803,8 +805,9 @@
         "filtros" : {
             "radicado": "Solicitudes en estado de radicación",
             "por_modificar": "Solicitudes pendientes por modificar",
-            "por_evaluar": "Solicitudes que requieren una evaluación por par externo",
+            "por_evaluar": "Solicitudes que requieren una invitación a par externo",
             "verificada": "Solicitudes preparadas para presentar a comité",
+            "en_evaluacion": "Solicitudes que están en proceso de evaluación",
             "rechazada": "Solicitudes que han sido rechazadas",
             "Salarial": "Solicitudes que obtienen puntos salariales",
             "Bonificacion": "Solicitudes que obtienen puntos de bonificación"
@@ -814,6 +817,9 @@
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
+        "seguro_continuar_generar_acta": "¿Está seguro de generar acta para este comité?",
+        "seguro_continuar_aceptar_acta": "¿Está seguro de aceptar acta para este comité?",
+        "seguro_continuar_posponer_solicitud": "¿Está seguro de posponer esta solicitud a otro comité?",
         "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
         "seguro_continuar_aceptar_invitacion": "¿Está seguro de aceptar esta invitación?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",

@@ -29,6 +29,7 @@
       "produccion_academica": "Academic Production",
       "new_solicitud": "New Request",
       "list_produccion_academica": "Academic Production List",
+      "list_produccion_academica_inactive": "Academic Production List \ntreated in committee",
       "list_aproved_produccion_academica": "Academic Production List Aproved",
       "crud_produccion_academica": "Academic Production Crud"
     },
@@ -515,6 +516,7 @@
     "exito_alerta": "Success to uploading alert",
     "error_alerta": "Error uploading alert",
     "alerta_fecha_expirada": "The request is late with respect to the current status.",
+    "solicitud_finalizada": "The request has already been dealt with in committee and no action can be taken",
 
     "evaluacion_espera": "The evaluation invitation has already been sent to the external peer and is awaiting acceptance or rejection",
     "evaluacion_rechazo": "The evaluation invitation has been rejected by the external peer",
@@ -791,18 +793,22 @@
 
     "filtros": {
       "radicado": "Applications in status of filing",
-      "por_modificar": "Requests pending to modify",
-      "por_evaluar": "Requests that require an external peer review",
-      "verificada": "Requests that are verified",
-      "rechazada": "Requests that have been rejected",
+      "por_modificar": "Applications pending to modify",
+      "por_evaluar": "Applications that require an invitation to an external peer",
+      "verificada": "Applications that are verified",
+      "en_evaluacion": "Applications that are in the evaluation process",
+      "rechazada": "Applications that have been rejected",
       "Salarial": "Applications that earn salary points",
-      "Bonificacion": "Requests that earn bonus points"
+      "Bonificacion": "Applications that earn bonus points"
     },
 
     "alerta_llenar_campo": "You must fill this field",
     "alerta_llenar_campos_datos_basicos": "You must fill all basic data fields",
     "alerta_llenar_campos": "You must fill all data fields required",
     "alerta_llenar_archivo_soporte": "You Must select all files support",
+    "seguro_continuar_generar_acta": "Are you sure to generate certificate for this committee",
+    "seguro_continuar_aceptar_acta": "Are you sure to accept certificate for this committee",
+    "seguro_continuar_posponer_solicitud": "Are you sure to postpone this request to another committee?",
     "seguro_continuar_generar_paquete": "Are you sure to generate package with the selected requests?",
     "seguro_continuar_aceptar_invitacion": "Are you sure you want to accept this invitation?",
     "seguro_continuar_enviar_invitacion": "Are you sure you want to send this invitation?",

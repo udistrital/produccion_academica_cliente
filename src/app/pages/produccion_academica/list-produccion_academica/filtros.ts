@@ -15,4 +15,8 @@ export const filterList = [
     Id: 4,
     Nombre: 'verificada',
   },
+  {
+    Id: 5,
+    Nombre: 'en_evaluacion',
+  },
 ]

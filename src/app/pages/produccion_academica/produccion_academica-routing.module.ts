@@ -13,7 +13,7 @@ const routes: Routes = [{
   path: '',
   component: ProduccionAcademicaComponent,
   children: [{
-    path: 'list-produccion_academica',
+    path: 'list-produccion_academica/:estado',
     component: ListProduccionAcademicaComponent,
   }, {
     path: 'crud-produccion_academica/:id',
