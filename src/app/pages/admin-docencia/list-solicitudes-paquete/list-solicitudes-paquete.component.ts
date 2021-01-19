@@ -543,7 +543,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       });
   }
 
-  aceptCertificate() {
+  acceptCertificate() {
     const opt = {
       title: this.translate.instant('GLOBAL.registrar'),
       text: this.translate.instant('produccion_academica.seguro_continuar_generar_paquete'),
@@ -555,6 +555,9 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     Swal(opt)
       .then((willCreate) => {
         if (willCreate.value) {
+          this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
+          this.solicitudes_list.forEach(solicitud => solicitud.SolicitudFinalizada = true);
+          console.info(this.solicitudes_list);
           this.updatePackage(9);
         }
       });

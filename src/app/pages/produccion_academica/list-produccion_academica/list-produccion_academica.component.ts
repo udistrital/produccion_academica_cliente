@@ -179,9 +179,9 @@ export class ListProduccionAcademicaComponent implements OnInit {
       let i = 0;
       let endpointSolicitud: string;
       if (this.rol === 'DOCENTE')
-        endpointSolicitud = 'solicitud_docente/' + this.persona_id;
+        endpointSolicitud = 'solicitud_docente/active/' + this.persona_id;
       if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
-        endpointSolicitud = 'solicitud_docente/';
+        endpointSolicitud = 'solicitud_docente/active/';
       this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
         if (res !== null) {
           if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
