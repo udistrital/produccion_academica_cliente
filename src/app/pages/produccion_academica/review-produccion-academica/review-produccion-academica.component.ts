@@ -40,6 +40,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   pointRequest: number;
   esRechazada: boolean;
   esEvaluada: boolean;
+  existeCoincidencia: boolean;
   clean: boolean;
   formProduccionAcademica: any;
   userData: Tercero;
@@ -51,11 +52,14 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   creandoAutor: boolean;
   observaciones_comments: Observacion[] = [];
   observaciones_alerts: Observacion[] = [];
+  observaciones_coincidences: Observacion[] = [];
+  id_coincidences: string[];
 
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
     this.observaciones_alerts = [];
+    this.observaciones_coincidences = [];
     this.isExistPoint = false;
     if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
       console.info(JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje)
@@ -97,13 +101,14 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
       if (Object.keys(observacion).length > 0) {
         if (observacion.TipoObservacionId.Id === 1 || observacion.TipoObservacionId.Id === 3)
           this.observaciones_comments.push(observacion)
-        else {
+        else if (observacion.TipoObservacionId.Id === 2) {
           observacion.Persona = <Tercero>{
             NombreCompleto: 'Sistema',
             Id: 0,
           }
           this.observaciones_alerts.push(observacion);
-        }
+        } else
+          this.observaciones_coincidences.push(observacion);
       }
     });
   }
@@ -333,6 +338,12 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     Swal(opt)
   }
 
+  onViewCoincidence(alert) {
+    this.id_coincidences = alert.Valor.split(',');
+    this.id_coincidences.pop();
+    this.existeCoincidencia = true;
+  }
+
   reloadTable(event) {
     this.eventChange.emit(event);
     this.closePop();
@@ -340,6 +351,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
 
   closePop() {
     this.esRechazada = false;
+    this.existeCoincidencia = false;
   }
 
   rejectRequest() {

@@ -495,6 +495,9 @@
 
     "acciones": "Actions",
     "alerta": "Alert",
+    "ver": "View",
+    "aceptar_coincidencia": "Accept coincidence",
+    "coincidencia": "Coincidence",
     "campos_obligatorios": "The fields that start with the * sign are mandatory fields and must be filled out.",
     "placeholder_filtro": "e.g. Completed Request",
     "puntaje": "Application score",
@@ -517,6 +520,7 @@
     "error_alerta": "Error uploading alert",
     "alerta_fecha_expirada": "The request is late with respect to the current status.",
     "solicitud_finalizada": "The request has already been dealt with in committee and no action can be taken",
+    "produccion_numero": "Application number:",
 
     "evaluacion_espera": "The evaluation invitation has already been sent to the external peer and is awaiting acceptance or rejection",
     "evaluacion_rechazo": "The evaluation invitation has been rejected by the external peer",
@@ -561,6 +565,10 @@
     "titulo_resena": "Critical review title",
     "titulo_trabajo_grado": "Degree work title",
     "titulo_postdoctorado": "Postdoctorado certificate title",
+    "titulo_rechazo": "Rejection observation",
+    "subtitulo_rechazo": "You must make a comment explaining the rejection of the request",
+    "titulo_coincidencia": "Requests that match",
+    "subtitulo_coincidencia": "Below is a list of requests that could have been made previously by another teacher.",
     "placeholder_titulo_produccion_academica": "e.g.: IOT system for get data",
 
     "resumen": "Summary",
