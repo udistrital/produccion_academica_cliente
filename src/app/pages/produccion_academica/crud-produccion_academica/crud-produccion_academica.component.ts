@@ -20,6 +20,8 @@ import { SubTipoProduccionAcademica } from './../../../@core/data/models/producc
 import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
 import { MetadatoSubtipoProduccion } from '../../../@core/data/models/produccion_academica/metadato_subtipo_produccion';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
+import { InfoComplementariaTercero } from '../../../@core/data/models/terceros/info_complementaria_tercero';
+import { InfoComplementaria } from '../../../@core/data/models/terceros/info_complementaria';
 import { FORM_produccion_academica } from './form-produccion_academica';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
@@ -93,6 +95,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   settings_authors: any;
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
+  titulos: InfoComplementariaTercero;
+  idFile: any;
+  nombreFile: any;
+  nivel: any;
 
   constructor(public translate: TranslateService,
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -447,6 +453,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           }
           this.construirForm();
           this.formConstruido = true;
+          if(this.tipoProduccionAcademica.Id === 1)
+            this.filesFromTerceros2();
         }
       }, (error: HttpErrorResponse) => {
         Swal({
@@ -702,6 +710,158 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   ngOnInit() {
     this.loadProduccionAcademica();
   }
+
+  filesFromTerceros2() {
+    this.tercerosService.get('info_complementaria_tercero?query=TerceroId__Id:'+ (this.user.getPersonaId() || 1)+',InfoCompleTerceroPadreId__isnull:true,InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit=0')
+        .subscribe(res => {
+          (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
+            this.titulos = info1;
+            this.tercerosService.get('info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18,InfoCompleTerceroPadreId:' + (this.titulos.Id)+'&limit=0')
+              .subscribe(resp => {
+                const filesToGet = [];
+                (<Array<InfoComplementariaTercero>>resp).forEach(info => {
+
+                  if(info.InfoComplementariaId.Nombre === "DOCUMENTO_ID") {
+                    const archivo = JSON.parse(info.Dato);
+                    this.idFile = parseInt(archivo.DocumentoId, 10);
+                    this.nombreFile = parseInt(archivo.DocumentoNombre, 10);
+                  }
+                
+                  if(info.InfoComplementariaId.Nombre === "NIVEL_FORMACION")
+                  {
+                    this.nivel = JSON.parse(info.Dato).NivelFormacion;
+                  }
+
+                  if(this.nivel !== null && this.nivel !== undefined)
+                  {
+                    filesToGet.push({Id: this.idFile, key: this.nombreFile, nivelFormacion: this.nivel})
+                    this.nivel = null;
+                  }
+                  
+                });
+                if (filesToGet.length !== 0) {
+                  console.warn("FILESTOGET")
+                  console.log(filesToGet);
+                  this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
+                    .subscribe(response => {
+                      const filesResponse = <any>response;
+                      let i = 0;
+                      if (Object.keys(filesResponse).length === filesToGet.length) {
+                        console.log(filesResponse);
+                        filesToGet.forEach(file => {
+                          console.warn("FILESRESPONSE")
+                          console.log(file);
+                          let idActa;
+
+                          if(this.info_produccion_academica.SubtipoProduccionId.Id == 1)
+                          {
+                            if(file.nivelFormacion === "Profesional") 
+                              idActa = 3;
+                            if(file.nivelFormacion === "Maestria")
+                              idActa = 4;
+                          }
+
+                          if(this.info_produccion_academica.SubtipoProduccionId.Id == 2)
+                          {
+                            if(file.nivelFormacion === "Profesional") 
+                              idActa = 9;
+                            if(file.nivelFormacion === "Maestria")
+                              idActa = 10;
+                            if(file.nivelFormacion === "postgrado")
+                              idActa = 11;
+                          }
+
+                          if(this.info_produccion_academica.SubtipoProduccionId.Id == 3)
+                          {
+                            if(file.nivelFormacion === "Profesional") 
+                              idActa = 16;
+                            if(file.nivelFormacion === "Maestria")
+                              idActa = 17;
+                            if(file.nivelFormacion === "postgrado")
+                              idActa = 18;
+                          }
+
+                          this.formProduccionAcademica.campos.forEach(campo => {
+                            
+                            console.warn(campo.etiqueta === 'file' && campo.nombre === idActa)
+                            if (campo.etiqueta === 'file' && campo.nombre === idActa) {
+                              campo.url = filesResponse[file.key] + '';
+                              campo.urlTemp = filesResponse[file.key] + '';
+                              campo.valor = file.Id;
+                              i++;
+                            }
+                          });
+
+                        });
+                        console.log(this.formProduccionAcademica.campos)
+                        this.construirForm();
+                      }
+                    });
+                  }
+              });
+          });
+        });
+}
+
+
+  // filesFromTerceros() {
+
+  //     this.tercerosService.get('info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit:0&InfoCompleTerceroPadreId:null&Tercero_Id:' + (this.user.getPersonaId() || 1))
+  //       .subscribe(res => {
+  //         (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
+  //           this.titulos = info1;
+  //           this.tercerosService.get('info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit:0&InfoCompleTerceroPadreId:' + (this.titulos.PadreId))
+  //             .subscribe(resp => {
+  //               const filesToGet = [];
+  //               (<Array<InfoComplementariaTercero>>resp).forEach(info => {
+  //                 this.info_complementaria.Dato = info.Dato;
+  //                   let idFile = "";
+  //                   let nombreFile = "";
+  //                   let nivel = "";
+  //                   if(info.InfoComplementariaId.Nombre === "DOCUMENTO_ID"){
+  //                     const File = JSON.parse(JSON.stringify(this.info_complementaria.Dato));
+  //                     idFile = File.DocumentoId;
+  //                     nombreFile = File.DocumentoNombre;
+  //                   }
+  //                   if(info.InfoComplementariaId.Nombre === "NIVEL_FORMACION")
+  //                   {
+  //                     nivel = JSON.parse(JSON.stringify(this.info_complementaria.Dato)).NivelFormacion;
+  //                   }
+                    
+  //                   filesToGet.push({Id: idFile, key: nombreFile, nivelFormacion: nivel})
+  //               });
+  //               if (filesToGet.length !== 0) {
+  //                 this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
+  //                   .subscribe(response => {
+  //                     const filesResponse = <any>response;
+  //                     let i = 0;
+  //                     if (Object.keys(filesResponse).length === filesToGet.length) {
+  //                       filesToGet.forEach(file => {
+  //                         let idActa;
+  //                         if(file.nivelFormacion === "Pregrado") 
+  //                           idActa = 76;
+  //                         if(file.nivelFormacion === "Especializacion")
+  //                           idActa = 77;
+  //                         if(file.nivelFormacion === "Maestria")
+  //                           idActa = 78;
+  //                         if(file.nivelFormacion === "Doctorado")
+  //                           idActa = 79;
+
+  //                         this.formProduccionAcademica.campos.forEach(campo => {
+  //                           if (campo.etiqueta === 'file' && campo.nombre === idActa) {
+  //                             campo.url = filesResponse[file.nombreFile] + '';
+  //                             campo.urlTemp = filesResponse[file.nombreFile] + '';
+  //                             i++;
+  //                           }
+  //                         });
+  //                       });
+  //                     }
+  //                   });
+  //                 }
+  //             });
+  //         });
+  //       });
+  // }
 
   uploadFilesToMetadaData(files, metadatos) {
     return new Promise((resolve, reject) => {
