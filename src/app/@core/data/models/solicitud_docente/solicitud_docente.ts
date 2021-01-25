@@ -12,6 +12,7 @@ export class SolicitudDocentePost {
   EvolucionEstado: any[];
   Autores: any[];
   Observaciones: Observacion[];
+  SolicitudFinalizada: boolean;
   Invitaciones: any[];
   TerceroId: number;
   Solicitantes: any[];

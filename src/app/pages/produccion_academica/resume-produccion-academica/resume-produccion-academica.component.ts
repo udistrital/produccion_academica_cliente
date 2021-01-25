@@ -22,12 +22,20 @@ export class ResumeProduccionAcademicaComponent implements OnInit {
   set evaluacion(evaluacion_selected: SolicitudDocentePost) {
     this.evaluacion_selected = evaluacion_selected;
     console.info(this.evaluacion_selected)
-    this.loadProduccionAcademica();
+    this.loadProduccionAcademica(this.evaluacion_selected.SolicitudPadreId);
+  }
+
+  @Input('solicitud_docente_selected')
+  set solicitud_input(solicitud_docente_selected: SolicitudDocentePost) {
+    this.solicitud_docente_selected = solicitud_docente_selected;
+    console.info(this.solicitud_docente_selected)
+    this.loadProduccionAcademica(this.solicitud_docente_selected);
   }
 
   @Output() eventChange = new EventEmitter<number>();
 
   evaluacion_selected: SolicitudDocentePost;
+  solicitud_docente_selected: SolicitudDocentePost;
   info_solicitud: SolicitudDocentePost;
   info_produccion_academica: ProduccionAcademicaPost;
   formProduccionAcademica: any;
@@ -48,11 +56,10 @@ export class ResumeProduccionAcademicaComponent implements OnInit {
   ngOnInit() {
   }
 
-  public loadProduccionAcademica(): void {
-    if (this.evaluacion_selected !== undefined) {
-      this.info_solicitud = this.evaluacion_selected.SolicitudPadreId;
+  public loadProduccionAcademica(solicitud: SolicitudDocentePost): void {
+    if (this.evaluacion_selected !== undefined || this.solicitud_docente_selected !== undefined) {
+      this.info_solicitud = solicitud;
       this.info_produccion_academica = this.info_solicitud.ProduccionAcademica;
-      console.info(this.evaluacion_selected)
       this.getTerceroData(this.info_produccion_academica.Autores[0].Persona);
       // const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
       //   tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];

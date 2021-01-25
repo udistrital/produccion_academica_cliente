@@ -169,7 +169,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.translate.use(language);
   }
 
-  loadOptions(): void {
+      loadOptions(): void {
     this.loadEstadosAutor()
       .then(() => {
         Promise.all([
@@ -354,7 +354,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  filterSubTypes(tipoProduccionAcademica: TipoProduccionAcademica) {
+    filterSubTypes(tipoProduccionAcademica: TipoProduccionAcademica) {
     this.SubtipoProduccionId = undefined;
     this.formConstruido = false;
     this.addAdditionalItems();

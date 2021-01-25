@@ -28,8 +28,8 @@
           ></ng2-smart-table>
           <div class="row">
             <button class="btn-review" (click)="generateDocument()">{{'produccion_academica.generar_documento' | translate}}</button>
-            <button class="btn-review" (click)="generateCertificate()">{{'produccion_academica.generar_acta' | translate}}</button>
-            <button class="btn-review" (click)="aceptCertificate()">{{'produccion_academica.aceptar_acta' | translate}}</button>
+            <button class="btn-review" *ngIf="!certificadoAprobado" (click)="generateCertificate()">{{'produccion_academica.generar_acta' | translate}}</button>
+            <button class="btn-review" *ngIf="certificadoExiste" (click)="acceptCertificate()">{{'produccion_academica.aceptar_acta' | translate}}</button>
           </div>
         </nb-tab>
         <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">

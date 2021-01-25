@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
@@ -37,6 +38,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
   constructor(private translate: TranslateService,
     private sgaMidService: SgaMidService,
     private user: UserService,
+    private route: ActivatedRoute,
     private tercerosService: TercerosService,
     private toasterService: ToasterService) {
     this.persona_id = user.getPersonaId() || 1;
@@ -176,67 +178,72 @@ export class ListProduccionAcademicaComponent implements OnInit {
 
   loadData(): Promise<any> {
     return new Promise((resolve, reject) => {
-      let i = 0;
-      let endpointSolicitud: string;
-      if (this.rol === 'DOCENTE')
-        endpointSolicitud = 'solicitud_docente/' + this.persona_id;
-      if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
-        endpointSolicitud = 'solicitud_docente/';
-      this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
-        if (res !== null) {
-          if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
-            const data = <Array<SolicitudDocentePost>>res;
-            data.forEach(solicitud => {
-              if (JSON.parse(solicitud.Referencia).Id !== undefined) {
-                const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
-                this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
-                  if (resp !== null) {
-                    if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-                      solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
-                      i++;
-                      if (i === data.length) {
-                        console.info('Paso');
-                        resolve(true);
+      this.route.params.subscribe((params: Params) => {
+        if (params.estado) {
+          const estado = params.estado;
+          let i = 0;
+          let endpointSolicitud: string;
+          if (this.rol === 'DOCENTE')
+            endpointSolicitud = 'solicitud_docente/' + estado + '/' + this.persona_id;
+          if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
+            endpointSolicitud = 'solicitud_docente/' + estado + '/';
+          this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
+            if (res !== null) {
+              if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+                const data = <Array<SolicitudDocentePost>>res;
+                data.forEach(solicitud => {
+                  if (JSON.parse(solicitud.Referencia).Id !== undefined) {
+                    const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
+                    this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
+                      if (resp !== null) {
+                        if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
+                          solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
+                          i++;
+                          if (i === data.length) {
+                            console.info('Paso');
+                            resolve(true);
+                          }
+                        } else {
+                          Swal({
+                            type: 'error',
+                            title: '404',
+                            text: this.translate.instant('ERROR.404'),
+                            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                          });
+                        }
                       }
-                    } else {
+                    }, (error: HttpErrorResponse) => {
+                      reject({ status: 404 });
                       Swal({
                         type: 'error',
-                        title: '404',
-                        text: this.translate.instant('ERROR.404'),
+                        title: error.status + '',
+                        text: this.translate.instant('ERROR.' + error.status),
                         confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                       });
-                    }
+                    });
                   }
-                }, (error: HttpErrorResponse) => {
-                  reject({ status: 404 });
-                  Swal({
-                    type: 'error',
-                    title: error.status + '',
-                    text: this.translate.instant('ERROR.' + error.status),
-                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                  });
+                });
+                console.info(data);
+                this.solicitudes_list = data;
+              } else {
+                Swal({
+                  type: 'error',
+                  title: '404',
+                  text: this.translate.instant('ERROR.404'),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
               }
-            });
-            console.info(data);
-            this.solicitudes_list = data;
-          } else {
+            }
+          }, (error: HttpErrorResponse) => {
+            reject({ status: 404 });
             Swal({
               type: 'error',
-              title: '404',
-              text: this.translate.instant('ERROR.404'),
+              title: error.status + '',
+              text: this.translate.instant('ERROR.' + error.status),
               confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             });
-          }
+          });
         }
-      }, (error: HttpErrorResponse) => {
-        reject({ status: 404 });
-        Swal({
-          type: 'error',
-          title: error.status + '',
-          text: this.translate.instant('ERROR.' + error.status),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
       });
     });
   }
@@ -254,12 +261,13 @@ export class ListProduccionAcademicaComponent implements OnInit {
   }
 
   filterSolicitudes(filter) {
-    console.info(filter);
     let data;
     if (filter) {
-      this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
-        solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id,
-      )
+      this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud => {
+        if (solicitud.EvolucionEstado.length > 0)
+          if (solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id)
+            return solicitud; 
+      });
       data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
     } else {
       data = <Array<SolicitudDocentePost>>this.solicitudes_list;

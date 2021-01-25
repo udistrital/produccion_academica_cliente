@@ -114,9 +114,10 @@ export class SendInvitacionComponent implements OnInit {
           this.estadosSolicitudesHija = <Array<EstadoTipoSolicitud>>res.Data;
           this.info_solicitud_hija.SolicitudPadreId = this.solicitud_selected;
           this.info_solicitud_hija.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudesHija[0];
-          this.info_solicitud_hija.Referencia = `{ \"Nombre\": \"${this.invitacionTemplate.NombreDocente}\", \"Correo\": \"${this.correoTemp}\"}`
+          this.info_solicitud_hija.Referencia = `{ \"Nombre\": \"${this.invitacionTemplate.NombreDocente}\", \"Correo\": \"${this.correoTemp}\"}`;
           this.info_solicitud_hija.TerceroId = this.user.getPersonaId() || 3;
           this.info_solicitud_hija.Autores = []
+          console.info(this.info_solicitud_hija)
           this.sgaMidService.post('solicitud_docente', this.info_solicitud_hija)
             .subscribe((resp: any) => {
               if (resp.Type === 'error') {

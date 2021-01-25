@@ -11,4 +11,5 @@ export class PaqueteSolicitudPost {
   SolicitudesList: SolicitudDocentePost[];
   EstadoTipoSolicitudId: EstadoTipoSolicitud;
   TerceroId: number;
+  PaqueteRevisado: boolean;
 }

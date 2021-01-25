@@ -69,7 +69,7 @@ export let FORM_INFO_PERSONA = {
             placeholder_i18n: 'segundo_apellido',
             requerido: false,
             tipo: 'text',
-        },       
+        },
         {
             etiqueta: 'select',
             claseGrid: 'col-lg-4 col-md-6 col-sm-12 col-xs-12',
@@ -100,6 +100,6 @@ export let FORM_INFO_PERSONA = {
             placeholder_i18n: 'fecha_nacimiento',
             requerido: true,
             tipo: 'date',
-        }, 
+        },
     ],
 }

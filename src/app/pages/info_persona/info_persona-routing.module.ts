@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InfoPersonaComponent } from './info_persona.component';
+import { CrudInfoComplementarioComponent } from './crud-info-complementario/crud-info-complementario.component';
 import { CrudInfoPersonaComponent } from './crud-info_persona/crud-info_persona.component';
 import { ViewInfoPersonaComponent } from './view-info-persona/view-info-persona.component';
 import { AuthGuard } from '../../@core/_guards/auth.guard';
@@ -32,6 +33,18 @@ const routes: Routes = [{
         'Internal/everyone',
       ],
     },
+  }, {
+    path: 'crud-info_complementario',
+    component: CrudInfoComplementarioComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: [
+        'ADMIN_CAMPUS',
+        'ASPIRANTE',
+        'Internal/selfsignup',
+        'Internal/everyone',
+      ],
+    },
   }],
 }];
 
@@ -50,4 +63,5 @@ export const routedComponents = [
   InfoPersonaComponent,
   CrudInfoPersonaComponent,
   ViewInfoPersonaComponent,
+  CrudInfoComplementarioComponent,
 ];

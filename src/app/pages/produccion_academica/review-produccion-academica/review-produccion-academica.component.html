@@ -9,7 +9,7 @@
           <h4>{{'produccion_academica.puntaje' | translate}}</h4>
         </div>
         <div class="col-4">
-          <h4>{{pointRequest}}</h4>
+          <h4>{{pointRequest.toString().substring(0,5)}}</h4>
         </div>
       </div>
       <div class="row" *ngIf="solicitud_docente_selected">
@@ -110,7 +110,9 @@
       [observaciones_selected]="observaciones_comments"
       style="width: 100%;"></ngx-list-comentario>
     <ngx-crud-comentario 
-      [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3 && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 5))"
+      [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3 
+                  && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 5
+                  && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 9))"
       (reloadTable)="reloadTable($event)"
       [estadoNum] = "2"
       [obsNum] = "1"
@@ -122,6 +124,14 @@
   </div>
 </div>
 <div class="row">
+  <ng-container *ngIf="solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id < 3">
+    <ng-container *ngFor="let alert of observaciones_coincidences">
+      <button class="btn btn-labeled btn-info" [hidden]="!(rol !== 'DOCENTE')" (click)="onViewCoincidence(alert)">
+        <span class="btn-label"><img src="assets/images/copia.png"></span>
+        {{'produccion_academica.coincidencia' | translate}}
+      </button>
+    </ng-container>
+  </ng-container>
   <ng-container *ngFor="let alert of observaciones_alerts">
     <button class="btn btn-labeled btn-warning" [hidden]="!(rol !== 'DOCENTE')" (click)="onView(alert)">
       <span class="btn-label"><img src="assets/images/alert2.png"></span>
@@ -147,6 +157,7 @@
   <ngx-resume-list-evaluaciones
     *ngIf="esEvaluada" 
     [solicitud_padre]="solicitud_docente_selected"
+    (reloadTable)="reloadTable($event)"
     style="width: 100%;">
   </ngx-resume-list-evaluaciones>
 </div>
@@ -154,13 +165,28 @@
 <div class="pop-comment" [hidden]="!esRechazada">
   <div class="pop-content">
     <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
-    <h2>Comentario de rechazo</h2>
-    <p>Debe registrar un comentario de razón de rechazo</p>
+    <h2>{{'produccion_academica.titulo_rechazo' | translate}}</h2>
+    <p>{{'produccion_academica.subtitulo_rechazo' | translate}}</p>
     <ngx-crud-comentario
         [hidden]="!(rol !== 'DOCENTE' && solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id !== 3)"
         (reloadTable)="reloadTable($event)"
         [estadoNum] = "4"
         [obsNum] = "3"
         [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
+  </div>
+</div>
+
+<div class="pop-comment" *ngIf="existeCoincidencia">
+  <div class="pop-content-resume">
+    <button class="clc-btn" (click)="closePop()"><i class="nb-close" title="view"></i></button>
+    <h2>{{'produccion_academica.titulo_coincidencia' | translate}}</h2>
+    <p>{{'produccion_academica.subtitulo_coincidencia' | translate}}</p>
+    <ngx-list-coincidencias
+      style="width: 80%;"
+      (reloadTable)="reloadTable($event)"
+      [solicitud_docente_selected]="solicitud_docente_selected"
+      [id_coincidencias_list]="id_coincidences"
+    >
+    </ngx-list-coincidencias>
   </div>
 </div>

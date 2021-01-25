@@ -29,6 +29,7 @@ export const environment = {
   PERSONA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/personas_crud/v1/',
   PRODUCCION_ACADEMICA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/produccion_academica_crud/v2/',
   SOLICITUD_DOCENTE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/solicitudes_crud/v1/',
+  EVALUACION_DOCENTE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluaciones_crud/v1/',
   DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
   SPAGOBI: {
     PROTOCOL: 'https',

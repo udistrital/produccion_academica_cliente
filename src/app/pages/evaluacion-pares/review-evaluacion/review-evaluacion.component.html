@@ -1,3 +1,127 @@
-<p>
-  review-evaluacion works!
-</p>
+<div class="row">
+  <form class="form-horizontal" style="width: 100%;">
+    <fieldset [ngClass]="{'fieldseter':true}">
+      <legend align="left">
+        <small>{{'produccion_academica.datos_solicitud' | translate}}</small>
+      </legend>
+      <div class="row" style="padding-left: 50px;" *ngIf="info_evaluacion_docente">
+        <div class="col-8">
+          <h4>{{'evaluacion.puntaje' | translate}}</h4>
+        </div>
+        <div class="col-4">
+          <h4>{{info_evaluacion_docente.resultado.resultado.toString().substring(0,5)}}</h4>
+        </div>
+      </div>
+      <div class="divisor"></div>
+      <fieldset [ngClass]="{'fieldseter':true}" *ngFor="let seccion of formEvaluacionPar.secciones">
+        <legend align="left">
+          <small>{{seccion.titulo}}</small>
+        </legend>
+        <div class="row" *ngFor="let campo of seccion.campos">
+          <ng-container *ngIf="campo.etiqueta === 'h3' || campo.etiqueta === 'h4'">
+            <div class="col-12" style="text-align: center">
+              <h5>{{'evaluacion.labels.' + campo.label_i18n | translate}}</h5>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'p'">
+            <div class="col-12">
+              <pre>{{'evaluacion.labels.' + campo.label_i18n | translate}}</pre>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'img'">
+            <div class="col-12" style="text-align: center">
+              <img src="{{'evaluacion.labels.' + campo.label_i18n | translate}}"/>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta === 'h5'">
+          </ng-container>
+          <ng-container
+            *ngIf="campo.etiqueta !== 'h3' && campo.etiqueta !== 'h4' && campo.etiqueta !== 'h5' && campo.etiqueta !== 'p' && campo.etiqueta !== 'img'">
+            <div class="col-6" style="padding-left: 70px;">
+              <h5>{{'evaluacion.labels.' + campo.label_i18n | translate}}</h5>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="campo.etiqueta === 'file'">
+            <div class="col-6">
+              <nb-card-body class="col-4" *ngIf="!(campo.tipo == 'image')">
+                <img class="carousel-image" [src]="'assets/images/file.png'"
+                  (click)="download(campo.urlTemp, campo.nombre,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+                  height="50px">
+              </nb-card-body>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="campo.etiqueta && campo.etiqueta != 'file'">
+            <ng-container *ngIf="id_tipo_produccion === 10 || id_tipo_produccion === 12">
+              <div class="col-6" style="text-align: center">
+                <label>{{campo.valor}}</label>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="id_tipo_produccion !== 10 && id_tipo_produccion !== 12">
+              <div class="col-6">
+                <label>{{campo.valor}}
+                </label>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </fieldset>
+    </fieldset>
+  </form>
+
+  <form class="form-horizontal form-eval" style="width: 100%;" *ngIf="evaluador">
+    <ng-container *ngIf="evaluador.DatosDocumento">
+      <fieldset [ngClass]="{'fieldseter':true}">
+        <legend align="left">
+          <small>{{'evaluacion.datos_evaluador' | translate}}</small>
+        </legend>
+        <div class="row">
+          <div class="col-12">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.nombre_completo' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{evaluador.NombreCompleto}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.numero_identificacion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{evaluador.DatosDocumento.Numero}}</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.fecha_expedicion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{(evaluador.DatosDocumento.FechaExpedicion + '').substring(0, 10)}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.ciudad_evaluacion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{(info_evaluacion_docente.estructura_evaluacion) ? info_evaluacion_docente.estructura_evaluacion.ciudad : 'No encontrada'}}</label>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="col-12">
+              <h5 for="">{{'evaluacion.fecha_evaluacion' | translate}}:</h5>
+            </div>
+            <div class="col-12">
+              <label>{{(info_evaluacion_docente.fecha_creacion).substring(0, 10)}}</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </ng-container>
+  </form>
+</div>

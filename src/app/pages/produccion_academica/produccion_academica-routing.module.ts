@@ -8,12 +8,13 @@ import { ReviewProduccionAcademicaComponent } from './review-produccion-academic
 import { NewSolicitudComponent } from './new-solicitud/new-solicitud.component';
 import { CrudComentarioComponent } from './comentario/crud-comentario/crud-comentario.component';
 import { ListComentarioComponent } from './comentario/list-comentario/list-comentario.component';
+import { ListCoincidenciasComponent } from './list-coincidencias/list-coincidencias.component';
 
 const routes: Routes = [{
   path: '',
   component: ProduccionAcademicaComponent,
   children: [{
-    path: 'list-produccion_academica',
+    path: 'list-produccion_academica/:estado',
     component: ListProduccionAcademicaComponent,
   }, {
     path: 'crud-produccion_academica/:id',
@@ -50,4 +51,5 @@ export const routedComponents = [
   ListComentarioComponent,
   NewSolicitudComponent,
   ListAprovedProduccionAcademicaComponent,
+  ListCoincidenciasComponent,
 ];
