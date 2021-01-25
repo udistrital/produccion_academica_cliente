@@ -10,6 +10,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { SharedModule } from '../../shared/shared.module';
 import { CrudInfoPersonaComponent } from './crud-info_persona/crud-info_persona.component';
 import { ViewInfoPersonaComponent } from './view-info-persona/view-info-persona.component';
+import { CrudInfoComplementarioComponent } from './crud-info-complementario/crud-info-complementario.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ViewInfoPersonaComponent } from './view-info-persona/view-info-persona.
   ],
   declarations: [
     ...routedComponents,
+    CrudInfoComplementarioComponent,
   ],
   providers: [
     PersonaService,
@@ -29,6 +31,7 @@ import { ViewInfoPersonaComponent } from './view-info-persona/view-info-persona.
     InscripcionService,
   ],
   exports: [
+    CrudInfoComplementarioComponent,
     CrudInfoPersonaComponent,
     ViewInfoPersonaComponent,
   ],
