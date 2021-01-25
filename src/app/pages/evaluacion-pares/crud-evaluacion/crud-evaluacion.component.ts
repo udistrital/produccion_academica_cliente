@@ -475,6 +475,7 @@ export class CrudEvaluacionComponent implements OnInit {
           };
         }
         const pdfDoc = pdfMake.createPdf(docDefinition);
+        pdfDoc.download();
         pdfDoc.getBlob((blob) => {
           const file = {
             IdDocumento: 15,

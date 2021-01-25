@@ -28,6 +28,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   set paquete_solicitud_input(paquete_solicitud_selected: PaqueteSolicitudPost) {
     this.paquete_solicitud_selected = paquete_solicitud_selected;
     console.info(this.paquete_solicitud_selected)
+    this.certificadoAprobado = false;
     this.showData();
     this.cargarCampos();
   }
