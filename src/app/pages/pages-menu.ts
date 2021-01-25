@@ -12,7 +12,7 @@ export const MENU_ITEMS: MenuItem[] = [
   },
   {
     title: 'Producción Academica',
-    icon: 'nb-edit',
+    icon: 'nb-compose',
     link: '',
     key: 'produccion_academica',
     children: [
@@ -23,36 +23,42 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'new_solicitud',
       },
       {
-        title: 'Listar Producciones',
+        title: 'Listar Solicitudes Proceso',
         icon: 'nb-list',
         link: '/pages/produccion_academica/list-produccion_academica/active',
-        key: 'list_produccion_academica',
+        key: 'list_solicitudes_proceso',
       },
       {
-        title: 'Listar Producciones Aprobadas',
+        title: 'Listar Solicitudes para revision de comite',
         icon: 'nb-list',
         link: '/pages/produccion_academica/list_aproved-produccion_academica',
-        key: 'list_aproved_produccion_academica',
+        key: 'list_solicitudes_revision_comite',
       },
       {
-        title: 'Listar Producciones inactivas',
+        title: 'Listar Solicitudes inactivas',
         icon: 'nb-list',
         link: '/pages/produccion_academica/list-produccion_academica/inactive',
-        key: 'list_produccion_academica_inactive',
+        key: 'list_solicitudes_inactivas',
       },
     ],
   },
   {
-    title:  'Solicitud Paquete',
+    title:  'Administracion',
     icon:  'nb-compose',
     link:  '',
-    key:  'solicitud_paquete',
+    key:  'administracion',
     children:  [
       {
         title:  'Paquetes',
-        icon: 'nb-edit',
+        icon: 'nb-list',
         link:  '/pages/admin_docencia/list_paquetes',
         key:  'paquetes',
+      },
+      {
+        title:  'Reportes',
+        icon: 'nb-edit',
+        link:  '/pages/admin_docencia/reportes',
+        key:  'reportes',
       },
     ],
   },
@@ -64,7 +70,7 @@ export const MENU_ITEMS: MenuItem[] = [
     children:  [
       {
         title:  'Lista Invitaciones',
-        icon: 'nb-edit',
+        icon: 'nb-list',
         link:  '/pages/evaluacion_pares/list_invitaciones',
         key:  'lista_invitaciones',
       },
@@ -83,10 +89,10 @@ export const MENU_ITEMS: MenuItem[] = [
     key:  'inscripcion',
     children:  [
       {
-        title:  'Pre Inscripcion',
+        title:  'Inscripcion Par Academico',
         icon: 'nb-edit',
         link:  '/pages/inscripcion/preinscripcion',
-        key:  'preinscripcion',
+        key:  'inscripcion_par_academico',
       },
     ],
   },

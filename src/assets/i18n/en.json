@@ -17,32 +17,25 @@
     "opciones": "Options",
     "notificaciones": "Notifications",
     "dashboard": "Home",
-    "administracion": {
-      "administracion": "Administration",
-      "enfasis": {
-        "enfasis": "Emphasis",
-        "list_enfasis": "Emphasis List",
-        "crud_enfasis": "Create Emphasis"
-      }
-    },
     "produccion_academica": {
       "produccion_academica": "Academic Production",
       "new_solicitud": "New Application",
-      "list_produccion_academica": "List of applications in process",
-      "list_produccion_academica_inactive": "List of applications \ndealt with in committee",
-      "list_aproved_produccion_academica": "List of requests for \ncommittee review",
+      "list_solicitudes_proceso": "List of applications \nin process",
+      "list_solicitudes_inactivas": "List of applications \ndealt with in committee",
+      "list_solicitudes_revision_comite": "List of requests for \ncommittee review",
       "crud_produccion_academica": "Academic Production Crud"
     },
     "inscripcion": {
       "inscripcion": "Inscription",
-      "preinscripcion": "Academic data registration"
+      "inscripcion_par_academico": "Academic data \nregistration"
     },
-    "solicitud_paquete": {
-      "solicitud_paquete": "Committee Applications",
-      "paquetes": "Committees list"
+    "administracion": {
+      "administracion": "Administration",
+      "paquetes": "Committees list",
+      "reportes": "Reports"
     },
     "evaluacion_pares": {
-      "evaluacion_pares": "Academic production evaluation",
+      "evaluacion_pares": "Academic production \nevaluation",
       "lista_invitaciones": "Invitations list",
       "lista_evaluaciones": "Assessment list"
     },

@@ -17,29 +17,22 @@
         "opciones": "Opciones",
         "notificaciones": "Notificaciones",
         "dashboard": "Inicio",
-        "administracion": {
-            "administracion": "Administración",
-            "enfasis": {
-                "enfasis": "Enfásis",
-                "list_enfasis": "Listar enfásis",
-                "crud_enfasis": "Crear enfásis"
-            }
-        },
         "produccion_academica": {
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
-            "list_produccion_academica": "Lista solicitudes en proceso",
-            "list_produccion_academica_inactive": "Lista solicitudes \ntratadas en comité",
-            "list_aproved_produccion_academica": "Lista solicitudes para \nrevisión de comité",
+            "list_solicitudes_proceso": "Lista solicitudes \nen proceso",
+            "list_solicitudes_inactivas": "Lista solicitudes \ntratadas en comité",
+            "list_solicitudes_revision_comite": "Lista solicitudes para \nrevisión de comité",
             "crud_produccion_academica": "Crud producción académica"
         },
         "inscripcion": {
             "inscripcion": "Inscripción",
-            "preinscripcion": "Inscripción datos \npar académico"
+            "inscripcion_par_academico": "Inscripción datos \npar académico"
         },
-        "solicitud_paquete": {
-            "solicitud_paquete": "Solicitudes en Comité",
-            "paquetes": "Lista de comités"
+        "administracion": {
+            "administracion": "Administración",
+            "paquetes": "Lista de comités",
+            "reportes": "Reportes"
         },
         "evaluacion_pares": {
             "evaluacion_pares": "Evaluación de \nproducción académica",
