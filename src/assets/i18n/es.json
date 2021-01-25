@@ -28,17 +28,17 @@
         "produccion_academica": {
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
-            "list_produccion_academica": "Lista producción académica",
-            "list_produccion_academica_inactive": "Lista producción académica \ntratadas en comité",
-            "list_aproved_produccion_academica": "Lista Aprobada \nproducción académica",
+            "list_produccion_academica": "Lista solicitudes en proceso",
+            "list_produccion_academica_inactive": "Lista solicitudes \ntratadas en comité",
+            "list_aproved_produccion_academica": "Lista solicitudes para \nrevisión de comité",
             "crud_produccion_academica": "Crud producción académica"
         },
         "inscripcion": {
             "inscripcion": "Inscripción",
-            "preinscripcion": "Preinscripción a \nproyectos académicos"
+            "preinscripcion": "Inscripción datos \npar académico"
         },
         "solicitud_paquete": {
-            "solicitud_paquete": "Solicitudes para Comité",
+            "solicitud_paquete": "Solicitudes en Comité",
             "paquetes": "Lista de comités"
         },
         "evaluacion_pares": {

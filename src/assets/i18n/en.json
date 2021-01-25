@@ -27,15 +27,15 @@
     },
     "produccion_academica": {
       "produccion_academica": "Academic Production",
-      "new_solicitud": "New Request",
-      "list_produccion_academica": "Academic Production List",
-      "list_produccion_academica_inactive": "Academic Production List \ntreated in committee",
-      "list_aproved_produccion_academica": "Academic Production List Aproved",
+      "new_solicitud": "New Application",
+      "list_produccion_academica": "List of applications in process",
+      "list_produccion_academica_inactive": "List of applications \ndealt with in committee",
+      "list_aproved_produccion_academica": "List of requests for \ncommittee review",
       "crud_produccion_academica": "Academic Production Crud"
     },
     "inscripcion": {
       "inscripcion": "Inscription",
-      "preinscripcion": "Pre-registration for academic projects"
+      "preinscripcion": "Academic data registration"
     },
     "solicitud_paquete": {
       "solicitud_paquete": "Committee Applications",
