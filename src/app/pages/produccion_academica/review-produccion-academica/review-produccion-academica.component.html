@@ -9,7 +9,7 @@
           <h4>{{'produccion_academica.puntaje' | translate}}</h4>
         </div>
         <div class="col-4">
-          <h4>{{pointRequest}}</h4>
+          <h4>{{pointRequest.toString().substring(0,5)}}</h4>
         </div>
       </div>
       <div class="row" *ngIf="solicitud_docente_selected">
@@ -124,11 +124,13 @@
   </div>
 </div>
 <div class="row">
-  <ng-container *ngFor="let alert of observaciones_coincidences">
-    <button class="btn btn-labeled btn-info" [hidden]="!(rol !== 'DOCENTE')" (click)="onViewCoincidence(alert)">
-      <span class="btn-label"><img src="assets/images/copia.png"></span>
-      {{'produccion_academica.coincidencia' | translate}}
-    </button>
+  <ng-container *ngIf="solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id < 3">
+    <ng-container *ngFor="let alert of observaciones_coincidences">
+      <button class="btn btn-labeled btn-info" [hidden]="!(rol !== 'DOCENTE')" (click)="onViewCoincidence(alert)">
+        <span class="btn-label"><img src="assets/images/copia.png"></span>
+        {{'produccion_academica.coincidencia' | translate}}
+      </button>
+    </ng-container>
   </ng-container>
   <ng-container *ngFor="let alert of observaciones_alerts">
     <button class="btn btn-labeled btn-warning" [hidden]="!(rol !== 'DOCENTE')" (click)="onView(alert)">

@@ -11,9 +11,13 @@
       <div class="col-8"> {{'produccion_academica.titulo_produccion_academica' | translate}} </div>
       <div class="col-4"> {{solicitud.ProduccionAcademica.Titulo}} </div>
     </div>
+    <div class="row">
+      <div class="col-8"> {{'produccion_academica.puntaje' | translate}} </div>
+      <div class="col-4"> {{getResult(solicitud.Resultado).substring(0, 5)}} </div>
+    </div>
     <div class="body_coincidence-btn">
       <button class="btn_view" (click)="isView = true">{{'produccion_academica.ver' | translate}}</button>
-      <button class="btn_accept">{{'produccion_academica.aceptar_coincidencia' | translate}}</button>
+      <button class="btn_accept" (click)="acceptCoincidence(solicitud)">{{'produccion_academica.aceptar_coincidencia' | translate}}</button>
     </div>
   </div>
 </div>
