@@ -454,7 +454,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.construirForm();
           this.formConstruido = true;
           if(this.tipoProduccionAcademica.Id === 1)
-            this.filesFromTerceros2();
+            this.filesFromTerceros();
         }
       }, (error: HttpErrorResponse) => {
         Swal({
@@ -711,7 +711,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.loadProduccionAcademica();
   }
 
-  filesFromTerceros2() {
+  filesFromTerceros() {
     this.tercerosService.get('info_complementaria_tercero?query=TerceroId__Id:'+ (this.user.getPersonaId() || 1)+',InfoCompleTerceroPadreId__isnull:true,InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit=0')
         .subscribe(res => {
           (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
@@ -803,65 +803,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         });
 }
 
-
-  // filesFromTerceros() {
-
-  //     this.tercerosService.get('info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit:0&InfoCompleTerceroPadreId:null&Tercero_Id:' + (this.user.getPersonaId() || 1))
-  //       .subscribe(res => {
-  //         (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
-  //           this.titulos = info1;
-  //           this.tercerosService.get('info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit:0&InfoCompleTerceroPadreId:' + (this.titulos.PadreId))
-  //             .subscribe(resp => {
-  //               const filesToGet = [];
-  //               (<Array<InfoComplementariaTercero>>resp).forEach(info => {
-  //                 this.info_complementaria.Dato = info.Dato;
-  //                   let idFile = "";
-  //                   let nombreFile = "";
-  //                   let nivel = "";
-  //                   if(info.InfoComplementariaId.Nombre === "DOCUMENTO_ID"){
-  //                     const File = JSON.parse(JSON.stringify(this.info_complementaria.Dato));
-  //                     idFile = File.DocumentoId;
-  //                     nombreFile = File.DocumentoNombre;
-  //                   }
-  //                   if(info.InfoComplementariaId.Nombre === "NIVEL_FORMACION")
-  //                   {
-  //                     nivel = JSON.parse(JSON.stringify(this.info_complementaria.Dato)).NivelFormacion;
-  //                   }
-                    
-  //                   filesToGet.push({Id: idFile, key: nombreFile, nivelFormacion: nivel})
-  //               });
-  //               if (filesToGet.length !== 0) {
-  //                 this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
-  //                   .subscribe(response => {
-  //                     const filesResponse = <any>response;
-  //                     let i = 0;
-  //                     if (Object.keys(filesResponse).length === filesToGet.length) {
-  //                       filesToGet.forEach(file => {
-  //                         let idActa;
-  //                         if(file.nivelFormacion === "Pregrado") 
-  //                           idActa = 76;
-  //                         if(file.nivelFormacion === "Especializacion")
-  //                           idActa = 77;
-  //                         if(file.nivelFormacion === "Maestria")
-  //                           idActa = 78;
-  //                         if(file.nivelFormacion === "Doctorado")
-  //                           idActa = 79;
-
-  //                         this.formProduccionAcademica.campos.forEach(campo => {
-  //                           if (campo.etiqueta === 'file' && campo.nombre === idActa) {
-  //                             campo.url = filesResponse[file.nombreFile] + '';
-  //                             campo.urlTemp = filesResponse[file.nombreFile] + '';
-  //                             i++;
-  //                           }
-  //                         });
-  //                       });
-  //                     }
-  //                   });
-  //                 }
-  //             });
-  //         });
-  //       });
-  // }
 
   uploadFilesToMetadaData(files, metadatos) {
     return new Promise((resolve, reject) => {
