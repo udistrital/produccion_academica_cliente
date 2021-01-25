@@ -123,7 +123,9 @@ export class CrudInfoPersonaComponent implements OnInit {
   }
 
   createInfoPersona(infoPersona: any): void {
-    console.log("Entra a guardar persona")
+    /*
+    console.log('Entra a guardar persona')
+     */
     const opt: any = {
       title: this.translate.instant('GLOBAL.crear'),
       text: this.translate.instant('GLOBAL.crear_info_persona'),

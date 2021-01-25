@@ -17,6 +17,7 @@ import { ListEvaluacionesComponent } from './list-evaluaciones/list-evaluaciones
 import { CrudEvaluacionComponent } from './crud-evaluacion/crud-evaluacion.component';
 import { ReviewEvaluacionComponent } from './review-evaluacion/review-evaluacion.component';
 import { ResumeListEvaluacionesComponent } from './resume-list-evaluaciones/resume-list-evaluaciones.component';
+import { ResumeProduccionAcademicaComponent } from '../produccion_academica/resume-produccion-academica/resume-produccion-academica.component';
 
 @NgModule({
   declarations: [...routedComponents],
@@ -42,6 +43,7 @@ import { ResumeListEvaluacionesComponent } from './resume-list-evaluaciones/resu
     CrudEvaluacionComponent,
     ReviewEvaluacionComponent,
     ResumeListEvaluacionesComponent,
+    ResumeProduccionAcademicaComponent,
   ],
 })
 export class EvaluacionParesModule { }

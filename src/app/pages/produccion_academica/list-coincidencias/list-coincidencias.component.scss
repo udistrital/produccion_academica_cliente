@@ -1,0 +1,81 @@
+.body_coincidence {
+  width: 60%;
+  margin: 25px auto;
+}
+
+.body_coincidence-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.body_coincidence .row {
+  margin: 20px auto;
+  font-size: 1.1rem;
+}
+
+.body_coincidence .row h6 {
+  font-size: 1.4rem;
+}
+
+.btn_view {
+  width: 15%;
+  padding: 8px;
+  margin: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+  background-color: #343a40;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+}
+
+.btn_accept {
+  width: 25%;
+  padding: 5px;
+  margin: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+  background-color: #4FB9FF;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+}
+
+.pop-review {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1060;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pop-review-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+  transition: all 0.3s ease-in;
+}
+
+.pop-review-content button {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.pop-review-content button i {
+  font-size: 30px;
+}

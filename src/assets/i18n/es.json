@@ -81,6 +81,7 @@
         "guardar": "Guardar",
         "formulario": "Formulario",
         "lista": "Lista de Solicitudes",
+        "lista_comites": "Lista de Paquetes para presentar a Comité",
         "lista_paquete": "Lista de Solicitudes para Comité",
         "lista_invitaciones": "Lista de Invitaciones por aceptar",
         "lista_evaluaciones": "Lista de Evaluaciones",
@@ -456,6 +457,7 @@
         "DireccionColegio": "Dirección del colegio donde culmunó el grado 11",
         "placeholder_DireccionColegio": "Ej: Calle 1 # 2 -03",
         "formacion_academica": "Informacion Academica",
+        "placeholder_formacion_academica": "Ej: Tecnico",
         "porcentaje_total": "Ingrese el porcentaje del criterio ICFES sobre el porcentaje general de la evaluación total",
         "placeholder_porcentaje_total": "Ej: 50 % del 100% de la evaluación",
         "area_1": "Matematicas",
@@ -480,7 +482,17 @@
         "Tipo": "TIPO",
         "Documento": "Número Documento",
         "Puntaje": "PUNTAJE",
-        "acciones": "Acciones"
+        "acciones": "Acciones",
+        "crear_info_complementaria": "Se va a crear la informacion complementaria",
+        "Informacion_complementaria": "Informacion complementaria",
+        "gran_area_conocimiento": "Gran área de conocimiento",
+        "placeholder_gran_area_conocimiento": "Ej: Ciencias Naturales",
+        "area_conocimiento_especifica": "Área de conocimiento específica",
+        "placeholder_area_conocimiento_especifica": "Ej: Matemáticas",
+        "nivel_formacion": "Nivel de formacion",
+        "placeholder_nivel_formacion": "Ej: Especializacion",
+        "institucion": "Institucion",
+        "placeholder_institucion": "Ej: Universidad Distrital"
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
@@ -506,6 +518,9 @@
 
         "acciones": "Acciones",
         "alerta": "Alerta",
+        "ver": "Ver",
+        "aceptar_coincidencia": "Aceptar coincidencia",
+        "coincidencia": "Coincidencia",
         "campos_obligatorios": "Los campos que empiezan con el signo * son campos obligatorios y deben ser diligenciados.",
         "placeholder_filtro": "Ej: Solicitudes completadas",
         "puntaje": "Puntaje de solicitud",
@@ -528,11 +543,12 @@
         "error_alerta": "Error al subir alerta",
         "alerta_fecha_expirada": "La solicitud presenta retraso con respecto al estado actual.",
         "solicitud_finalizada": "La solicitud ya fue tratada en comité y no es posible realizar acción",
+        "produccion_numero": "Solicitud número:",
 
         "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
         "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
         "evaluacion_en_evaluacion": "La invitación de evaluación ha sido aceptada por parte del par externo y se esta esperando que el par realice la evaluación",
-        
+
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
         "aceptar_acta": "Aceptar Acta",
@@ -572,6 +588,10 @@
         "titulo_resena": "Título de reseña critica",
         "titulo_postdoctorado": "Título certificado postdoctorado",
         "titulo_trabajo_grado": "Título de trabajo de grado",
+        "titulo_rechazo": "Observación de rechazo",
+        "subtitulo_rechazo": "Debe realizar un comentario explicando el rechazo de la solicitud",
+        "titulo_coincidencia": "Solicitudes que presentan coincidencia",
+        "subtitulo_coincidencia": "A continuación se ve un listado de las solicitudes que podrían haberse realizado anteriormente por otro docente.",
         "placeholder_titulo_produccion_academica": "ej: Diseño rueda dentada helicoidal",
 
         "resumen": "Resumen",
@@ -817,6 +837,7 @@
         "alerta_llenar_campos_datos_basicos": "Debe llenar todos los datos básicos",
         "alerta_llenar_campos": "Debe llenar todos los datos obligatorios",
         "alerta_llenar_archivo_soporte": "Debe seleccionar archivos de soporte",
+        "seguro_continuar_aceptar_coincidencia": "¿Está seguro de aceptar la coincidencia entre estas solicitudes?",
         "seguro_continuar_generar_acta": "¿Está seguro de generar acta para este comité?",
         "seguro_continuar_aceptar_acta": "¿Está seguro de aceptar acta para este comité?",
         "seguro_continuar_posponer_solicitud": "¿Está seguro de posponer esta solicitud a otro comité?",

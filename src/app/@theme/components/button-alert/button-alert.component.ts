@@ -26,7 +26,10 @@ export class ButtonAlertComponent implements ViewCell, OnInit {
       const year = expDate.substring(0, 4);
       const month = (parseInt(expDate.substring(5, 7), 10) - 1) + '';
       const day = (parseInt(expDate.substring(8, 10), 10) + 1) + '';
-      this.isExpired = this.calculateDate(year, month, day);
+      if (this.rowData.EstadoTipoSolicitudId.EstadoId.Id !== 9)
+        this.isExpired = this.calculateDate(year, month, day);
+      else
+        this.isExpired = false;
     } else
       this.isExpired = false;
   }
