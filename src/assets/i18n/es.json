@@ -91,6 +91,8 @@
         "fecha_inicio": "Fecha de inicio",
         "placeholder_fecha_inicio": "Ej: 24/12/2016",
         "fecha_fin": "Fecha de finalización",
+        "fecha_expedicion": "Fecha de expedición",
+        "placeholder_fecha_expedicion": "Ej: 24/12/2016",
         "informacion_contacto": "Información de contacto",
         "placeholder_fecha_fin": "Ej: 24/08/2018",
         "periodo": "Período",
@@ -881,6 +883,7 @@
         "ciudad_evaluacion_placeholder": "Ej: Bogotá",
         "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",
         "puntaje": "Resultado de Evaluación",
+        "reporte": "Reporte de Evaluación",
 
         "evaluacion_doncete": "Evaluación Docente",
         "envio_invitacion": "Envió de Invitación",

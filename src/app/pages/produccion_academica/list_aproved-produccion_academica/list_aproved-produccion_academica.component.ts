@@ -310,9 +310,15 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
     console.info(event)
     if (event.data)
       this.solicitudes_selected_list = event.selected;
-    else if (event.selected.length > 0)
-      this.solicitudes_selected_list = this.solicitudes_list;
-    else
+    else if (event.selected.length > 0) {
+      if (this.solicitudes_list_filter) {
+        if (this.solicitudes_list_filter.length > 0)
+          this.solicitudes_selected_list = this.solicitudes_list_filter;
+        else
+          this.solicitudes_selected_list = this.solicitudes_list;
+      } else
+        this.solicitudes_selected_list = this.solicitudes_list;
+    } else
       this.solicitudes_selected_list = [];
     console.info(this.solicitudes_selected_list);
   }
@@ -327,6 +333,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
     } else {
       data = <Array<SolicitudDocentePost>>this.solicitudes_list;
+      this.solicitudes_list_filter = null;
     }
     this.source.load(data);
   }

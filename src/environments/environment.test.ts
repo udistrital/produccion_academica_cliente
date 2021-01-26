@@ -25,6 +25,7 @@ export const environment = {
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
     SIGN_OUT_REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
   },
+  SPAGOBIURL: 'https://intelligentia.udistrital.edu.co:8443/SpagoBIBirtReportEngine/BirtReportServlet?SBICONTEXT=%2FSpagoBI',
   SPAGOBI: {
     PROTOCOL: 'https',
     HOST: 'intelligentia.udistrital.edu.co',

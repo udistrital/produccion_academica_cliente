@@ -92,6 +92,8 @@
     "informacion_contacto": "Contact data",
     "placeholder_fecha_inicio": "E.g.: 24/12/2016",
     "fecha_fin": "End date",
+    "fecha_expedicion": "Expedition date",
+    "placeholder_fecha_expedicion": "E.g.: 24/12/2016",
     "placeholder_fecha_fin": "E.g.: 24/08/2018",
     "periodo": "Period",
     "info_caracteristica": "Characteristic data",
@@ -870,6 +872,7 @@
     "ciudad_evaluacion_placeholder": "Ej: New York",
     "ciudad_evaluacion_alerta": "Must fill the city field",
     "puntaje": "Evaluation result",
+    "reporte": "Evaluation Report",
 
     "evaluacion_doncete": "Teacher evaluation",
     "envio_invitacion": "Invitation Sending",
