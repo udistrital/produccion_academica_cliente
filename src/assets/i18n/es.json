@@ -55,6 +55,7 @@
         "activo": "Activo",
         "enviar": "Enviar",
         "aceptar": "Aceptar",
+        "descargar": "Descargar",
         "terminos_datos": "Política de privacidad y tratamiento de datos",
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
         "cancelar": "Cancelar",
@@ -1205,6 +1206,15 @@
         "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
         "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
     },
-    "paquetes": {
+    "reportes": {
+        "reportes": "Reportes Generales",
+        "reporte_pares": "Reporte de pares académicos",
+        "reporte_titulos": "Reporte de títulos académicos",
+        "reporte_cambios_categoria": "Reporte de cambios de categoría",
+        "reporte_puntos": "Reporte de puntos por docente",
+        "datos_reporte": "Datos Reporte",
+        "datos_reporte_subtitulo": "A continuación diligencie algunos datos para generar reporte",
+        "fecha_inicio": "Fecha de inicio",
+        "fecha_final": "Fecha final"
     }
 }

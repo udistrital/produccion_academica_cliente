@@ -41,7 +41,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   solicitudes_selected_list: SolicitudDocentePost[] = [];
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private translate: TranslateService,
+  constructor(public translate: TranslateService,
     private sgaMidService: SgaMidService,
     private tercerosService: TercerosService,
     private solicitudDocenteService: SolicitudDocenteService,

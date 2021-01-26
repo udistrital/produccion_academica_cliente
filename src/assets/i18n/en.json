@@ -55,6 +55,7 @@
     "activo": "Active",
     "enviar": "Send",
     "aceptar": "Accept",
+    "descargar": "Download",
     "cancelar": "Cancel",
     "salir": "Get out",
     "eliminar": "Delete",
@@ -1148,5 +1149,16 @@
     "alerta_rango": "The application presents a lower study range than other previously requested productions.",
     "alerta_numero_produccion_anual_5": "The application of the same type may have been presented more than 5 times for the year of publication or filing.",
     "alerta_numero_produccion_anual_3": "The application of the same type may have been presented more than 3 times for the year of publication or filing."
-  }
+  },
+  "reportes": {
+    "reportes": "General Reports",
+    "reporte_pares": "Academic peer report",
+    "reporte_titulos": "Academic degree report",
+    "reporte_cambios_categoria": "Category change report",
+    "reporte_puntos": "Report of points per teacher",
+    "datos_reporte": "Report Data",
+    "datos_reporte_subtitulo": "Then fill in some data to generate a report",
+    "fecha_inicio": "Start date",
+    "fecha_final": "End date"
+}
 }

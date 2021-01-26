@@ -565,7 +565,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   }
 
   generateDocument() {
-    this.urlDocument = `${environment.SPAGOBIURL}&idPaquete_description=&documentName=docenResumenComite&SBI_EXECUTION_ROLE=%2Fspagobi%2Fadmin&SBI_COUNTRY=ES&idPaquete=${this.paquete_solicitud_selected.Id}&document=862&SBI_LANGUAGE=es&SBI_HOST=https%3A%2F%2Fintelligentia.udistrital.edu.co%3A8443&dateformat=DD-MM-YYYY&SBI_SPAGO_CONTROLLER=%2Fservlet%2FAdapterHTTP&user_id=sergio_orjuela&SBI_EXECUTION_ID=6b07b65c5d2611eba42cad9b403e2696&isFromCross=false&SBI_ENVIRONMENT=DOCBROWSER&outputType=XLS`
+    this.urlDocument = `${environment.SPAGOBIURL}&idPaquete_description=&documentName=docenResumenComite&SBI_EXECUTION_ROLE=%2Fspagobi%2Fadmin&SBI_COUNTRY=ES&idPaquete=${this.paquete_solicitud_selected.Id}&document=862&SBI_LANGUAGE=es&SBI_HOST=https%3A%2F%2Fintelligentia.udistrital.edu.co%3A8443&dateformat=DD-MM-YYYY&SBI_SPAGO_CONTROLLER=%2Fservlet%2FAdapterHTTP&user_id=sergio_orjuela&SBI_EXECUTION_ID=6b07b65c5d2611eba42cad9b403e2696&isFromCross=false&SBI_ENVIRONMENT=DOCBROWSER&outputType=XLS`;
   }
 
   generateCertificate() {
