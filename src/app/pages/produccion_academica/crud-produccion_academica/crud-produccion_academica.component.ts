@@ -93,6 +93,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   settings_authors: any;
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
+  fechaCategoria: any;
+  categoria: any;
 
   constructor(public translate: TranslateService,
     private produccionAcademicaService: ProduccionAcademicaService,
@@ -447,6 +449,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           }
           this.construirForm();
           this.formConstruido = true;
+          if(this.tipoProduccionAcademica.Id === 1)
+            this.loadDatosCambioCategoria();
         }
       }, (error: HttpErrorResponse) => {
         Swal({
@@ -771,6 +775,88 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     console.info('loadDriveFiles - files_to_drive: ', this.files_to_drive);
   }
 
+  loadDatosCambioCategoria()
+  {
+    return new Promise((resolve, reject) => {
+    this.sgaMidService.get('solicitud_docente/inactive/' + (this.user.getPersonaId() || 1))
+    .subscribe((res: any) => {
+      if (res !== null) {
+        if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+          const dataSolicitud = <Array<SolicitudDocentePost>>res;
+          let i = 1;
+          let solicitud = dataSolicitud[dataSolicitud.length - i];
+          if (JSON.parse(solicitud.Referencia).Id !== undefined) {
+            const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
+            this.sgaMidService.get(endpointProduccion)
+            .subscribe((resp: any) => {
+              if (resp !== null) {
+                if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
+                  solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0]; 
+                  if(solicitud.ProduccionAcademica.Id === 1 || solicitud.ProduccionAcademica.Id === 2 ||solicitud.ProduccionAcademica.Id === 3) {
+                    console.warn(solicitud.ProduccionAcademica.Id);
+
+                    if(solicitud.ProduccionAcademica.Id === 1)
+                      this.categoria = "Asistente";
+                    if(solicitud.ProduccionAcademica.Id === 2)
+                      this.categoria = "Asociado";
+                    if(solicitud.ProduccionAcademica.Id === 3)
+                      this.categoria = "Titular";
+
+                    this.fechaCategoria = solicitud.EstadoTipoSolicitudId.FechaModificacion;
+            
+                  } else {
+                    this.categoria = " ";
+                    this.fechaCategoria = new Date();
+                  }
+
+                  this.formProduccionAcademica.campos.forEach(campo => {
+                    if (campo.nombre === 14) 
+                      campo.valor = this.categoria;
+                      campo
+                    if (campo.nombre === 15)
+                      campo.valor = this.fechaCategoria;
+                  });
+
+                  this.construirForm();
+                    
+                }else {
+                  Swal({
+                    type: 'error',
+                    title: '404',
+                    text: this.translate.instant('ERROR.404'),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
+                }
+              }
+            }, (error: HttpErrorResponse) => {
+              reject({ status: 404 });
+              Swal({
+                type: 'error',
+                title: error.status + '',
+                text: this.translate.instant('ERROR.' + error.status),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+            });
+
+            if(i !== dataSolicitud.length) 
+              i++;
+
+            if(i === dataSolicitud.length) 
+              resolve(true);
+          }
+        } else {
+          Swal({
+            type: 'error',
+            title: '404',
+            text: this.translate.instant('ERROR.404'),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
+        }
+      }
+    });
+  });
+  }
+
   validarForm(event) {
     if (event.valid) {
       if (this.info_produccion_academica.Titulo === undefined ||
@@ -782,6 +868,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
         });
       } else {
+        console.warn(this.info_produccion_academica.Fecha);
         if (!this.editando && this.files_to_drive.length === 0 &&
           (this.tipoProduccionAcademica.Id === 12 || this.tipoProduccionAcademica.Id === 13 || this.tipoProduccionAcademica.Id === 14)) {
           Swal({
