@@ -7,4 +7,5 @@ export class InfoComplementariaTercero {
   InfoComplementariaId: InfoComplementaria;
   Dato: string;
   Activo: boolean;
+  PadreId: number;
 }
