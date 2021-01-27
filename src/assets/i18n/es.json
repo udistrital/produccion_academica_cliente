@@ -945,7 +945,7 @@
             "obra_documental_internacional": "OBRA DOCUMENTAL INTERNACIONAL",
             "obra_documental_nacional": "OBRA DOCUMENTAL NACIONAL",
 
-            "valor_academico": "1. VALOR ACADÉMICO",
+            "valor_acdemico": "1. VALOR ACADÉMICO",
             "originalidad": "2. ORIGINALIDAD:",
             "fundamentacion_cientifica": "3. FUNDAMENTACION CIENTÍFICA",
             "presentacion_informacion": "4. PRESENTACION DE LA INFORMACION:",
@@ -1005,7 +1005,7 @@
             "puntaje": "Puntaje",
 
             "valor_academico_item": "Señalar los aportes significativos del trabajo evaluado: aplicaciones, propuestas metodológicas, uso del lenguaje, enfoque, construcción de conceptos nuevos, reformulación de los existentes.",
-            "originalidad_item": " ",
+            "originalidad_item": "Originalidad",
             "fundamentacion_cientifica_item_1": "Determine si la información incluida en el trabajo evaluado es coherente y confiable en cuanto a manejo de conceptos, teorías, datos, procedimientos, sustentaciones y aplicaciones:",
             "fundamentacion_cientifica_item_2": "Describa si se cumplieron los objetivos planteados por el autor, es decir si hay coherencia entre los objetivos propuestos y los obtenidos:",
             "fundamentacion_cientifica_item_3": "Las fuentes utilizadas por el autor son pertinentes y relevantes en el área del saber en la que se presenta el trabajo: ",
@@ -1198,6 +1198,7 @@
         "titulo": "Alerta",
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
         "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
+        "alerta_puntos_grados": "El docente puede podría el numero máximo de puntos acumulados por títulos de grado con esta solicitud",
         "alerta_evento": "La solicitud presenta una posible coincidencia con el nombre y fecha del evento de otras producciones registradas.",
         "alerta_issn_volumen_numero": "La solicitud presenta una posible coincidencia con el ISSN, volumen y número de revista de otras producciones registradas.",
         "alerta_numero_registro": "La solicitud presenta una posible coincidencia con el número de registro de otras producciones registradas.",
