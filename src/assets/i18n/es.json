@@ -1199,6 +1199,7 @@
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
         "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
         "alerta_puntos_grados": "El docente puede podría el numero máximo de puntos acumulados por títulos de grado con esta solicitud",
+        "alerta_ultima_categoria": "El tiempo con respecto al ultimo cambio de categoría aun no se ha superado",
         "alerta_evento": "La solicitud presenta una posible coincidencia con el nombre y fecha del evento de otras producciones registradas.",
         "alerta_issn_volumen_numero": "La solicitud presenta una posible coincidencia con el ISSN, volumen y número de revista de otras producciones registradas.",
         "alerta_numero_registro": "La solicitud presenta una posible coincidencia con el número de registro de otras producciones registradas.",

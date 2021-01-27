@@ -901,7 +901,7 @@
       "obra_documental_internacional": "WORK INTERNATIONAL DOCUMENTARY",
       "obra_documental_nacional": "DOCUMENTARY NATIONAL WORK",
 
-      "valor_academico": "Academic 1. VALUE",
+      "valor_acdemico": "Academic 1. VALUE",
       "originalidad": "2. ORIGINALITY:",
       "fundamentacion_cientifica": "3. SCIENTIFIC BASIS",
       "presentacion_informacion": "4. Presentation of information:",
@@ -954,7 +954,7 @@
       "puntaje": "Score",
 
       "valor_academico_item": "Pointing out the significant contributions of the work evaluated: applications, methodological approaches, use of language, approach, building new concepts, reformulating existing ones.",
-      "originalidad_item": "",
+      "originalidad_item": "Original",
       "fundamentacion_cientifica_item_1": "Determine whether the information included in the assessed work is consistent and reliable in terms of management concepts, theories, data, procedures, and applications underpinnings",
       "fundamentacion_cientifica_item_2": "Describe whether the objectives were met by the author, ie if there is consistency between the goals set and achieved:",
       "fundamentacion_cientifica_item_3": "The sources used by the author are pertinent and relevant in the area of ​​knowledge in which the work is presented:",
@@ -1143,6 +1143,7 @@
     "alerta_numero_coincidencias": "The application presents a possible high match in the title with a total of other applications:",
     "alerta_isbn": "The application presents a possible match with the ISBN of other registered productions.",
     "alerta_puntos_grados": "The teacher can could the maximum number of points accumulated by degree titles with this application",
+    "alerta_ultima_categoria": "The time respect to the last category change has not yet been exceeded",
     "alerta_evento": "The application presents a possible match with the name and date of the event of other registered productions.",
     "alerta_issn_volumen_numero": "The application presents a possible coincidence with the ISSN, volume and magazine number of other registered productions.",
     "alerta_numero_registro": "The application presents a possible match with the registration number of other registered productions.",
