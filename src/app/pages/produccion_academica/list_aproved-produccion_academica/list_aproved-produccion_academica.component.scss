@@ -97,6 +97,7 @@ nb-tabset /deep/ ul li {
   height: 40%;
   border-radius: 20px;
   overflow: hidden;
+  overflow-y: auto;
   transition: all 0.3s ease-in;
 }
 
