@@ -29,6 +29,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
   config: ToasterConfig;
   settings: any;
   filter: any;
+  estado: string;
   rol: string;
   persona_id: number;
   solicitudes_list: SolicitudDocentePost[];
@@ -180,6 +181,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.route.params.subscribe((params: Params) => {
         if (params.estado) {
+          this.estado = params.estado;
           const estado = params.estado;
           let i = 0;
           let endpointSolicitud: string;
