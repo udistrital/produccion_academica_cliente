@@ -7,4 +7,5 @@ export class EstadoTipoSolicitud {
   EstadoId: Estado;
   DependenciaId: number;
   NumeroDias: number;
+  FechaModificacion: any;
 }
