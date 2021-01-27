@@ -817,6 +817,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                       campo.valor = this.fechaCategoria;
                   });
 
+                  this.info_produccion_academica.Fecha = new Date();
+
                   this.construirForm();
                     
                 }else {
