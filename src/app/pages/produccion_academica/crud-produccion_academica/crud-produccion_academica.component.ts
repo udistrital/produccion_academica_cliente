@@ -40,7 +40,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.isExistPoint = false;
     if (this.solicitud_docente_selected !== undefined) {
       if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
-        console.info(JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje)
         this.isExistPoint = true;
         this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
       }
@@ -744,17 +743,12 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                   
                 });
                 if (filesToGet.length !== 0) {
-                  console.warn("FILESTOGET")
-                  console.log(filesToGet);
                   this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
                     .subscribe(response => {
                       const filesResponse = <any>response;
                       let i = 0;
                       if (Object.keys(filesResponse).length === filesToGet.length) {
-                        console.log(filesResponse);
                         filesToGet.forEach(file => {
-                          console.warn("FILESRESPONSE")
-                          console.log(file);
                           let idActa;
 
                           if(this.info_produccion_academica.SubtipoProduccionId.Id == 1)
@@ -787,7 +781,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
                           this.formProduccionAcademica.campos.forEach(campo => {
                             
-                            console.warn(campo.etiqueta === 'file' && campo.nombre === idActa)
                             if (campo.etiqueta === 'file' && campo.nombre === idActa) {
                               campo.url = filesResponse[file.key] + '';
                               campo.urlTemp = filesResponse[file.key] + '';
@@ -893,17 +886,16 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               if (resp !== null) {
                 if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
                   solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0]; 
-                  if(solicitud.ProduccionAcademica.Id === 1 || solicitud.ProduccionAcademica.Id === 2 ||solicitud.ProduccionAcademica.Id === 3) {
-                    console.warn(solicitud.ProduccionAcademica.Id);
+                  if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 1 || solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 2 ||solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 3) {
 
-                    if(solicitud.ProduccionAcademica.Id === 1)
+                    if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 1)
                       this.categoria = "Asistente";
-                    if(solicitud.ProduccionAcademica.Id === 2)
+                    if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 2)
                       this.categoria = "Asociado";
-                    if(solicitud.ProduccionAcademica.Id === 3)
+                    if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 3)
                       this.categoria = "Titular";
-
-                    this.fechaCategoria = solicitud.EstadoTipoSolicitudId.FechaModificacion;
+                      
+                    this.fechaCategoria = new Date(solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].FechaModificacion);
             
                   } else {
                     this.categoria = " ";
@@ -911,10 +903,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                   }
 
                   this.formProduccionAcademica.campos.forEach(campo => {
-                    if (campo.nombre === 14) 
+                    if (campo.nombre === 14 || campo.nombre === 1 || campo.nombre === 7) 
                       campo.valor = this.categoria;
                       campo
-                    if (campo.nombre === 15)
+                    if (campo.nombre === 15 || campo.nombre === 2 || campo.nombre === 8)
                       campo.valor = this.fechaCategoria;
                   });
 
@@ -971,7 +963,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
         });
       } else {
-        console.warn(this.info_produccion_academica.Fecha);
         if (!this.editando && this.files_to_drive.length === 0 &&
           (this.tipoProduccionAcademica.Id === 12 || this.tipoProduccionAcademica.Id === 13 || this.tipoProduccionAcademica.Id === 14)) {
           Swal({
@@ -985,8 +976,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           const metadatos = [];
           const filesToUpload = [];
           if (event.data.ProduccionAcademica) {
-            console.info('validarForm - event.data.produccionAcademica: ', event.data.ProduccionAcademica);
-            console.info('validarForm - info_produccion_academica.Fecha: ', this.info_produccion_academica.Fecha);
             const tempMetadatos = event.data.ProduccionAcademica;
             const keys = Object.keys(tempMetadatos);
             for (let i = 0; i < keys.length; i++) {
