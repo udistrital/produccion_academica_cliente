@@ -6,7 +6,7 @@
         <nb-tab tabTitle="{{ 'GLOBAL.lista' | translate }}" [active]="cambiotab == 0">
           <h2>{{ 'GLOBAL.lista' | translate }}</h2>
             
-          <div class="filter">
+          <div class="filter" *ngIf="estado === 'active'">
             <p>Filtro de Solicitudes:</p>
             <mat-select
               placeholder="{{ 'produccion_academica.placeholder_filtro' | translate }}"

@@ -30,10 +30,12 @@ export class ReviewEvaluacionComponent implements OnInit {
   set evaluacion_id(solicitud_evaluacion_selected: SolicitudDocentePost) {
     this.solicitud_evaluacion_selected = solicitud_evaluacion_selected;
     console.info(this.solicitud_evaluacion_selected)
-
+    this.urlExiste = false;
     this.isExistPoint = false;
+    this.urlDocument = '';
     this.loadEvaluacionDocente();
     this.loadTerceroData();
+    this.getURLFile();
   }
 
   @Input('solicitud_padre')
@@ -59,11 +61,13 @@ export class ReviewEvaluacionComponent implements OnInit {
   pointRequest: number;
   esRechazada: boolean;
   esEvaluada: boolean;
+  urlExiste: boolean;
   clean: boolean;
   formEvaluacionPar: any;
   userData: Tercero;
   autorSeleccionado: Tercero;
   isExistPoint: boolean;
+  urlDocument: string;
   tiposProduccionAcademica: Array<TipoProduccionAcademica>;
   estadosAutor: Array<EstadoAutorProduccion>;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
@@ -88,66 +92,66 @@ export class ReviewEvaluacionComponent implements OnInit {
     if (this.solicitud_evaluacion_selected !== undefined) {
       const idEvaluacion = JSON.parse(this.solicitud_evaluacion_selected.Referencia).IdEvaluacion;
       this.evaluacionDocenteService.get(`evaluaciones/${idEvaluacion}`)
-      .subscribe(res => {
-        if (res !== null) {
+        .subscribe(res => {
+          if (res !== null) {
 
-          this.info_evaluacion_docente = <EvaluacionDocentePost>res.Data;
-          console.info(this.info_evaluacion_docente);
+            this.info_evaluacion_docente = <EvaluacionDocentePost>res.Data;
+            console.info(this.info_evaluacion_docente);
 
-          this.Respuestas = [];
-          const fillForm = function (secciones, respuestas, nuxeoService, documentoService) {
-            const filesToGet = [];
-            secciones.forEach(seccion => {
-              seccion.campos.forEach(campo => {
-                respuestas.forEach(respuesta => {
-                  if (campo.nombre === respuesta.respuestas[0].item_id) {
-                    campo.valor = respuesta.respuestas[0].respuesta;
-                    if (campo.etiqueta === 'select') {
-                      campo.valor = respuesta.respuestas[0].respuesta.Nombre;
-                    }
-                    if (campo.etiqueta === 'file') {
-                      campo.idFile = parseInt(respuesta.Valor, 10);
-                      filesToGet.push({ Id: campo.idFile, key: campo.nombre });
-                    }
-                    if (!campo.etiqueta) {
-                      campo.label_i18n = respuesta.MetadatoSubtipoProduccionId.TipoMetadatoId.CodigoAbreviacion;
-                    }
-                  };
+            this.Respuestas = [];
+            const fillForm = function (secciones, respuestas, nuxeoService, documentoService) {
+              const filesToGet = [];
+              secciones.forEach(seccion => {
+                seccion.campos.forEach(campo => {
+                  respuestas.forEach(respuesta => {
+                    if (campo.nombre === respuesta.respuestas[0].item_id) {
+                      campo.valor = respuesta.respuestas[0].respuesta;
+                      if (campo.etiqueta === 'select') {
+                        campo.valor = respuesta.respuestas[0].respuesta.Nombre;
+                      }
+                      if (campo.etiqueta === 'file') {
+                        campo.idFile = parseInt(respuesta.Valor, 10);
+                        filesToGet.push({ Id: campo.idFile, key: campo.nombre });
+                      }
+                      if (!campo.etiqueta) {
+                        campo.label_i18n = respuesta.MetadatoSubtipoProduccionId.TipoMetadatoId.CodigoAbreviacion;
+                      }
+                    };
+                  });
                 });
               });
-            });
-            secciones.forEach(seccion => {
-              seccion.campos.filter(campo => campo.valor !== '');
-            });
-            if (filesToGet.length !== 0) {
-              nuxeoService.getDocumentoById$(filesToGet, documentoService)
-                .subscribe(response => {
-                  const filesResponse = <any>response;
-                  if (Object.keys(filesResponse).length === filesToGet.length) {
-                    secciones.forEach(seccion => {
-                      seccion.campos.forEach(campo => {
-                        if (campo.etiqueta === 'file') {
-                          campo.url = filesResponse[campo.nombre] + '';
-                          campo.urlTemp = filesResponse[campo.nombre] + '';
-                        }
+              secciones.forEach(seccion => {
+                seccion.campos.filter(campo => campo.valor !== '');
+              });
+              if (filesToGet.length !== 0) {
+                nuxeoService.getDocumentoById$(filesToGet, documentoService)
+                  .subscribe(response => {
+                    const filesResponse = <any>response;
+                    if (Object.keys(filesResponse).length === filesToGet.length) {
+                      secciones.forEach(seccion => {
+                        seccion.campos.forEach(campo => {
+                          if (campo.etiqueta === 'file') {
+                            campo.url = filesResponse[campo.nombre] + '';
+                            campo.urlTemp = filesResponse[campo.nombre] + '';
+                          }
+                        });
+                      });
+                    }
+                  },
+                    (error: HttpErrorResponse) => {
+                      Swal({
+                        type: 'error',
+                        title: error.status + '',
+                        text: this.translate.instant('ERROR.' + error.status),
+                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                       });
                     });
-                  }
-                },
-                  (error: HttpErrorResponse) => {
-                    Swal({
-                      type: 'error',
-                      title: error.status + '',
-                      text: this.translate.instant('ERROR.' + error.status),
-                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                    });
-                  });
+              }
             }
+            if (this.solicitud_padre)
+              this.loadSubTipoFormFields(this.solicitud_padre.ProduccionAcademica, fillForm);
           }
-          if(this.solicitud_padre)
-            this.loadSubTipoFormFields(this.solicitud_padre.ProduccionAcademica, fillForm);
-        }
-      });
+        });
     } else {
       this.info_evaluacion_docente = new EvaluacionDocentePost();
       this.info_solicitud = new SolicitudDocentePost();
@@ -295,6 +299,32 @@ export class ReviewEvaluacionComponent implements OnInit {
       'location=no, directories=no, status=no, menubar=no,' +
       'scrollbars=no, resizable=no, copyhistory=no, ' +
       'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+  }
+
+  getURLFile() {
+    const filesToGet = [];
+    if (this.solicitud_evaluacion_selected.Referencia.length > 0)
+      if (JSON.parse(this.solicitud_evaluacion_selected.Referencia).IdDocumento) {
+        const idFile = JSON.parse(this.solicitud_evaluacion_selected.Referencia).IdDocumento;
+        filesToGet.push({ Id: idFile, key: this.solicitud_evaluacion_selected.Id });
+
+        this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
+          .subscribe(response => {
+            const filesResponse = <any>response;
+            if (Object.keys(filesResponse).length === filesToGet.length) {
+              this.urlExiste = true;
+              this.urlDocument = filesResponse[this.solicitud_evaluacion_selected.Id] + '';
+            }
+          },
+            (error: HttpErrorResponse) => {
+              Swal({
+                type: 'error',
+                title: error.status + '',
+                text: this.translate.instant('ERROR.' + error.status),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+            });
+      }
   }
 
   sendRequest() {

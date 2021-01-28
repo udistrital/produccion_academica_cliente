@@ -17,32 +17,25 @@
     "opciones": "Options",
     "notificaciones": "Notifications",
     "dashboard": "Home",
-    "administracion": {
-      "administracion": "Administration",
-      "enfasis": {
-        "enfasis": "Emphasis",
-        "list_enfasis": "Emphasis List",
-        "crud_enfasis": "Create Emphasis"
-      }
-    },
     "produccion_academica": {
       "produccion_academica": "Academic Production",
-      "new_solicitud": "New Request",
-      "list_produccion_academica": "Academic Production List",
-      "list_produccion_academica_inactive": "Academic Production List \ntreated in committee",
-      "list_aproved_produccion_academica": "Academic Production List Aproved",
+      "new_solicitud": "New Application",
+      "list_solicitudes_proceso": "List of applications \nin process",
+      "list_solicitudes_inactivas": "List of applications \ndealt with in committee",
+      "list_solicitudes_revision_comite": "List of requests for \ncommittee review",
       "crud_produccion_academica": "Academic Production Crud"
     },
     "inscripcion": {
       "inscripcion": "Inscription",
-      "preinscripcion": "Pre-registration for academic projects"
+      "inscripcion_par_academico": "Academic data \nregistration"
     },
-    "solicitud_paquete": {
-      "solicitud_paquete": "Committee Applications",
-      "paquetes": "Committees list"
+    "administracion": {
+      "administracion": "Administration",
+      "paquetes": "Committees list",
+      "reportes": "Reports"
     },
     "evaluacion_pares": {
-      "evaluacion_pares": "Academic production evaluation",
+      "evaluacion_pares": "Academic production \nevaluation",
       "lista_invitaciones": "Invitations list",
       "lista_evaluaciones": "Assessment list"
     },
@@ -62,6 +55,7 @@
     "activo": "Active",
     "enviar": "Send",
     "aceptar": "Accept",
+    "descargar": "Download",
     "cancelar": "Cancel",
     "salir": "Get out",
     "eliminar": "Delete",
@@ -99,6 +93,8 @@
     "informacion_contacto": "Contact data",
     "placeholder_fecha_inicio": "E.g.: 24/12/2016",
     "fecha_fin": "End date",
+    "fecha_expedicion": "Expedition date",
+    "placeholder_fecha_expedicion": "E.g.: 24/12/2016",
     "placeholder_fecha_fin": "E.g.: 24/08/2018",
     "periodo": "Period",
     "info_caracteristica": "Characteristic data",
@@ -877,6 +873,7 @@
     "ciudad_evaluacion_placeholder": "Ej: New York",
     "ciudad_evaluacion_alerta": "Must fill the city field",
     "puntaje": "Evaluation result",
+    "reporte": "Evaluation Report",
 
     "evaluacion_doncete": "Teacher evaluation",
     "envio_invitacion": "Invitation Sending",
@@ -904,7 +901,7 @@
       "obra_documental_internacional": "WORK INTERNATIONAL DOCUMENTARY",
       "obra_documental_nacional": "DOCUMENTARY NATIONAL WORK",
 
-      "valor_academico": "Academic 1. VALUE",
+      "valor_acdemico": "Academic 1. VALUE",
       "originalidad": "2. ORIGINALITY:",
       "fundamentacion_cientifica": "3. SCIENTIFIC BASIS",
       "presentacion_informacion": "4. Presentation of information:",
@@ -957,7 +954,7 @@
       "puntaje": "Score",
 
       "valor_academico_item": "Pointing out the significant contributions of the work evaluated: applications, methodological approaches, use of language, approach, building new concepts, reformulating existing ones.",
-      "originalidad_item": "",
+      "originalidad_item": "Original",
       "fundamentacion_cientifica_item_1": "Determine whether the information included in the assessed work is consistent and reliable in terms of management concepts, theories, data, procedures, and applications underpinnings",
       "fundamentacion_cientifica_item_2": "Describe whether the objectives were met by the author, ie if there is consistency between the goals set and achieved:",
       "fundamentacion_cientifica_item_3": "The sources used by the author are pertinent and relevant in the area of ​​knowledge in which the work is presented:",
@@ -1144,13 +1141,26 @@
   "alerta": {
     "titulo": "Alert",
     "alerta_numero_coincidencias": "The application presents a possible high match in the title with a total of other applications:",
-    "alerta_isbn": "The request presents a possible match with the ISBN of other registered productions.",
-    "alerta_evento": "The request presents a possible match with the name and date of the event of other registered productions.",
-    "alerta_issn_volumen_numero": "The request presents a possible coincidence with the ISSN, volume and magazine number of other registered productions.",
-    "alerta_numero_registro": "The request presents a possible match with the registration number of other registered productions.",
+    "alerta_isbn": "The application presents a possible match with the ISBN of other registered productions.",
+    "alerta_puntos_grados": "The teacher can could the maximum number of points accumulated by degree titles with this application",
+    "alerta_ultima_categoria": "The time respect to the last category change has not yet been exceeded",
+    "alerta_evento": "The application presents a possible match with the name and date of the event of other registered productions.",
+    "alerta_issn_volumen_numero": "The application presents a possible coincidence with the ISSN, volume and magazine number of other registered productions.",
+    "alerta_numero_registro": "The application presents a possible match with the registration number of other registered productions.",
     "alerta_duracion": "The application has an unacceptable duration for post-doctoral study.",
     "alerta_rango": "The application presents a lower study range than other previously requested productions.",
     "alerta_numero_produccion_anual_5": "The application of the same type may have been presented more than 5 times for the year of publication or filing.",
     "alerta_numero_produccion_anual_3": "The application of the same type may have been presented more than 3 times for the year of publication or filing."
-  }
+  },
+  "reportes": {
+    "reportes": "General Reports",
+    "reporte_pares": "Academic peer report",
+    "reporte_titulos": "Academic degree report",
+    "reporte_cambios_categoria": "Category change report",
+    "reporte_puntos": "Report of points per teacher",
+    "datos_reporte": "Report Data",
+    "datos_reporte_subtitulo": "Then fill in some data to generate a report",
+    "fecha_inicio": "Start date",
+    "fecha_final": "End date"
+}
 }

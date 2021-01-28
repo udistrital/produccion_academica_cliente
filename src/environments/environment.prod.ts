@@ -31,6 +31,7 @@ export const environment = {
   SOLICITUD_DOCENTE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/solicitudes_crud/v1/',
   EVALUACION_DOCENTE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluaciones_crud/v1/',
   DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
+  SPAGOBIURL: 'https://intelligentia.udistrital.edu.co:8443/SpagoBIBirtReportEngine/BirtReportServlet?SBICONTEXT=%2FSpagoBI',
   SPAGOBI: {
     PROTOCOL: 'https',
     HOST: 'intelligentia.udistrital.edu.co',

@@ -121,8 +121,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         ? this.buttonModify = true : this.buttonModify = false;
     } else {
       (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 2
-      || this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 14)
-      ? this.buttonModify = true : this.buttonModify = false;
+        || this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 14)
+        ? this.buttonModify = true : this.buttonModify = false;
       this.buttonAdmin = false;
     }
   }

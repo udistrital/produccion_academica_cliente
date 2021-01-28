@@ -4,6 +4,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { TercerosService } from '../../../@core/data/terceros.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
@@ -20,7 +21,7 @@ import 'style-loader!angular2-toaster/toaster.css';
 @Component({
   selector: 'ngx-list-solicitudes-paquete',
   templateUrl: './list-solicitudes-paquete.component.html',
-  styleUrls: ['./list-solicitudes-paquete.component.scss']
+  styleUrls: ['./list-solicitudes-paquete.component.scss'],
 })
 export class ListSolicitudesPaqueteComponent implements OnInit {
 
@@ -31,6 +32,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     this.certificadoAprobado = false;
     this.showData();
     this.cargarCampos();
+    this.generateDocument();
   }
 
   paquete_solicitud_selected: PaqueteSolicitudPost;
@@ -45,6 +47,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   settings: any;
   filter: any;
   rol: string;
+  urlDocument: string;
   esRechazada: boolean;
   certificadoExiste: boolean;
   certificadoAprobado: boolean;
@@ -562,7 +565,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   }
 
   generateDocument() {
-
+    this.urlDocument = `${environment.SPAGOBIURL}&idPaquete_description=&documentName=docenResumenComite&SBI_EXECUTION_ROLE=%2Fspagobi%2Fadmin&SBI_COUNTRY=ES&idPaquete=${this.paquete_solicitud_selected.Id}&document=862&SBI_LANGUAGE=es&SBI_HOST=https%3A%2F%2Fintelligentia.udistrital.edu.co%3A8443&dateformat=DD-MM-YYYY&SBI_SPAGO_CONTROLLER=%2Fservlet%2FAdapterHTTP&user_id=sergio_orjuela&SBI_EXECUTION_ID=6b07b65c5d2611eba42cad9b403e2696&isFromCross=false&SBI_ENVIRONMENT=DOCBROWSER&outputType=XLS`;
   }
 
   generateCertificate() {

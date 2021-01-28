@@ -17,29 +17,22 @@
         "opciones": "Opciones",
         "notificaciones": "Notificaciones",
         "dashboard": "Inicio",
-        "administracion": {
-            "administracion": "Administración",
-            "enfasis": {
-                "enfasis": "Enfásis",
-                "list_enfasis": "Listar enfásis",
-                "crud_enfasis": "Crear enfásis"
-            }
-        },
         "produccion_academica": {
             "produccion_academica": "Producción académica",
             "new_solicitud": "Nueva solicitud",
-            "list_produccion_academica": "Lista producción académica",
-            "list_produccion_academica_inactive": "Lista producción académica \ntratadas en comité",
-            "list_aproved_produccion_academica": "Lista Aprobada \nproducción académica",
+            "list_solicitudes_proceso": "Lista solicitudes \nen proceso",
+            "list_solicitudes_inactivas": "Lista solicitudes \ntratadas en comité",
+            "list_solicitudes_revision_comite": "Lista solicitudes para \nrevisión de comité",
             "crud_produccion_academica": "Crud producción académica"
         },
         "inscripcion": {
             "inscripcion": "Inscripción",
-            "preinscripcion": "Preinscripción a \nproyectos académicos"
+            "inscripcion_par_academico": "Inscripción datos \npar académico"
         },
-        "solicitud_paquete": {
-            "solicitud_paquete": "Solicitudes para Comité",
-            "paquetes": "Lista de comités"
+        "administracion": {
+            "administracion": "Administración",
+            "paquetes": "Lista de comités",
+            "reportes": "Reportes"
         },
         "evaluacion_pares": {
             "evaluacion_pares": "Evaluación de \nproducción académica",
@@ -62,6 +55,7 @@
         "activo": "Activo",
         "enviar": "Enviar",
         "aceptar": "Aceptar",
+        "descargar": "Descargar",
         "terminos_datos": "Política de privacidad y tratamiento de datos",
         "acepto_terminos": "He leido y estoy de acuerdo con los términos de la política de tratamiento y privacidad de la información",
         "cancelar": "Cancelar",
@@ -98,6 +92,8 @@
         "fecha_inicio": "Fecha de inicio",
         "placeholder_fecha_inicio": "Ej: 24/12/2016",
         "fecha_fin": "Fecha de finalización",
+        "fecha_expedicion": "Fecha de expedición",
+        "placeholder_fecha_expedicion": "Ej: 24/12/2016",
         "informacion_contacto": "Información de contacto",
         "placeholder_fecha_fin": "Ej: 24/08/2018",
         "periodo": "Período",
@@ -888,6 +884,7 @@
         "ciudad_evaluacion_placeholder": "Ej: Bogotá",
         "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",
         "puntaje": "Resultado de Evaluación",
+        "reporte": "Reporte de Evaluación",
 
         "evaluacion_doncete": "Evaluación Docente",
         "envio_invitacion": "Envió de Invitación",
@@ -948,7 +945,7 @@
             "obra_documental_internacional": "OBRA DOCUMENTAL INTERNACIONAL",
             "obra_documental_nacional": "OBRA DOCUMENTAL NACIONAL",
 
-            "valor_academico": "1. VALOR ACADÉMICO",
+            "valor_acdemico": "1. VALOR ACADÉMICO",
             "originalidad": "2. ORIGINALIDAD:",
             "fundamentacion_cientifica": "3. FUNDAMENTACION CIENTÍFICA",
             "presentacion_informacion": "4. PRESENTACION DE LA INFORMACION:",
@@ -1008,7 +1005,7 @@
             "puntaje": "Puntaje",
 
             "valor_academico_item": "Señalar los aportes significativos del trabajo evaluado: aplicaciones, propuestas metodológicas, uso del lenguaje, enfoque, construcción de conceptos nuevos, reformulación de los existentes.",
-            "originalidad_item": " ",
+            "originalidad_item": "Originalidad",
             "fundamentacion_cientifica_item_1": "Determine si la información incluida en el trabajo evaluado es coherente y confiable en cuanto a manejo de conceptos, teorías, datos, procedimientos, sustentaciones y aplicaciones:",
             "fundamentacion_cientifica_item_2": "Describa si se cumplieron los objetivos planteados por el autor, es decir si hay coherencia entre los objetivos propuestos y los obtenidos:",
             "fundamentacion_cientifica_item_3": "Las fuentes utilizadas por el autor son pertinentes y relevantes en el área del saber en la que se presenta el trabajo: ",
@@ -1201,6 +1198,8 @@
         "titulo": "Alerta",
         "alerta_numero_coincidencias": "La solicitud presenta una posible coincidencia alta en el titulo con un total de otras solicitudes:",
         "alerta_isbn": "La solicitud presenta una posible coincidencia con el ISBN de otras producciones registradas.",
+        "alerta_puntos_grados": "El docente puede podría el numero máximo de puntos acumulados por títulos de grado con esta solicitud",
+        "alerta_ultima_categoria": "El tiempo con respecto al ultimo cambio de categoría aun no se ha superado",
         "alerta_evento": "La solicitud presenta una posible coincidencia con el nombre y fecha del evento de otras producciones registradas.",
         "alerta_issn_volumen_numero": "La solicitud presenta una posible coincidencia con el ISSN, volumen y número de revista de otras producciones registradas.",
         "alerta_numero_registro": "La solicitud presenta una posible coincidencia con el número de registro de otras producciones registradas.",
@@ -1209,6 +1208,15 @@
         "alerta_numero_produccion_anual_5": "La solicitud del mismo tipo puede haber sido presentada mas de 5 veces para el año de publicación o radicación.",
         "alerta_numero_produccion_anual_3": "La solicitud del mismo tipo puede haber sido presentada mas de 3 veces para el año de publicación o radicación."
     },
-    "paquetes": {
+    "reportes": {
+        "reportes": "Reportes Generales",
+        "reporte_pares": "Reporte de pares académicos",
+        "reporte_titulos": "Reporte de títulos académicos",
+        "reporte_cambios_categoria": "Reporte de cambios de categoría",
+        "reporte_puntos": "Reporte de puntos por docente",
+        "datos_reporte": "Datos Reporte",
+        "datos_reporte_subtitulo": "A continuación diligencie algunos datos para generar reporte",
+        "fecha_inicio": "Fecha de inicio",
+        "fecha_final": "Fecha final"
     }
 }
