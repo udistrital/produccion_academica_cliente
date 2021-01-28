@@ -1,5 +1,5 @@
-<!--<toaster-container [toasterconfig]="config"></toaster-container>
-<ngx-dinamicform [normalform]="formInfoComplementaria" [modeloData]="info_info_complementario"
+<toaster-container [toasterconfig]="config"></toaster-container>
+<!--<ngx-dinamicform [normalform]="formInfoComplementaria" [modeloData]="info_info_complementario"
                  (result)="validarForm($event)" [clean]="clean"
                  (percentage)="setPercentage($event)">
 </ngx-dinamicform>-->
@@ -62,8 +62,8 @@
         <mat-label>{{'GLOBAL.institucion'|translate}}</mat-label>
         <input matInput [(ngModel)]="institucion" (ngModelChange)="validCampo($event)"
                [ngModelOptions]="{standalone: true}" [value]="institucion"
-               placeholder="{{'GLOBAL.placeholder_institucion'|translate}}"/>
-        <mat-hint class="text-danger" *ngIf="!!institucion">
+               placeholder="{{  'GLOBAL.placeholder_institucion'|translate}}"/>
+        <mat-hint class="text-danger" *ngIf="!institucion">
           {{'GLOBAL.alerta_llenar_campo' | translate}}</mat-hint>
 
       </mat-form-field>
