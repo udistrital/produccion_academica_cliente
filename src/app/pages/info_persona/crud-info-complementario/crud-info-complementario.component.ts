@@ -30,6 +30,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
   info_complementaria_id: number;
   inscripcion_id: number;
   data: any;
+
   @Input('info_complementaria_id')
   set persona(info_complementaria_id: number) {
       this.loadInfoComplementaria();
@@ -57,6 +58,14 @@ export class CrudInfoComplementarioComponent implements OnInit {
   AREA_CONOCIMIENTO: any;
   NIVEL_FORMACION: any;
   INSTITUCION: any;
+  AREA_CONOCIMIENTO2: any;
+  NIVEL_FORMACION2: any;
+  INSTITUCION2: any;
+  listaArea: any;
+  listaGranArea: any;
+  listaEspeArea: any;
+  listaFormacion: any;
+  listaInsti: any;
   aceptaTerminos: boolean;
   userData: Tercero;
   userNum: string;
@@ -131,6 +140,36 @@ export class CrudInfoComplementarioComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
       });
   }
+  loadInfoComplementariaTercero(): void {
+    this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
+      (this.user.getPersonaId() || 1) + ',InfoComplementariaId__Nombre:AREA_CONOCIMIENTO')
+      .subscribe(res => {
+        this.AREA_CONOCIMIENTO2 = res;
+        this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:'   +
+          (this.user.getPersonaId() ||  1 ) + ',InfoComplementariaId__Nombre:FORMACION_ACADEMICA')
+          .subscribe(resp => {
+            this.NIVEL_FORMACION2 = resp
+            this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
+              (this.user.getPersonaId() || 1) + ',InfoComplementariaId__Nombre:INSTITUCION')
+              .subscribe(rest => {
+                this.INSTITUCION2 = rest
+                this.listaArea = JSON.parse(this.AREA_CONOCIMIENTO2[this.AREA_CONOCIMIENTO2.length - 1].Dato)
+                this.listaGranArea = this.listaArea['AreaConocimiento']['GranAreaConocimiento']
+                this.listaEspeArea = this.listaArea['AreaConocimiento']['AreaConocimientoEspecifica']
+                this.listaFormacion = JSON.parse(this.NIVEL_FORMACION2[this.NIVEL_FORMACION2.length - 1].Dato)['NivelFormacion']
+                this.listaInsti = JSON.parse(this.INSTITUCION2[this.INSTITUCION2.length - 1].Dato)
+                this.institucion = this.listaInsti.Institucion
+                this.granAreaConocimiento =  this.listGranAreaConocimiento.find(value => value.Id === this.listaGranArea.Id)
+                this.filterAreaConocimiento(this.granAreaConocimiento)
+                this.areaConocimientoEspecifica = this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id)
+                this.nivelFormacion = this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id)
+              }, (error: HttpErrorResponse) => {
+              });
+          }, (error: HttpErrorResponse) => {
+          });
+      }, (error: HttpErrorResponse) => {
+      });
+  }
 
   constructor(private translate: TranslateService, private popUpManager: PopUpManager,
               private sgamidService: SgaMidService,
@@ -144,6 +183,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
               private toasterService: ToasterService) {
     this.loadInfoComplementaria();
     this.loadGrupinfoComplementaria()
+    this.loadInfoComplementariaTercero()
     this.formInfoComplementaria = JSON.parse(JSON.stringify(FORM_INFO_COMPLEMENTARIA));
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -235,6 +275,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   validarForm(event) {

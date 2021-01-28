@@ -28,6 +28,7 @@ export const environment = {
   PARAMETROS_CRUD_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8510/v1/',
   PROYECTO_ACADEMICO_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8116/v1/',
   TERCEROS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/terceros_crud/v1/',
+  // TERCEROS_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8121/v1/',
   PERSONA_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8121/v1/',
   PRODUCCION_ACADEMICA_SERVICE: 'http://pruebasapi2.intranetoas.udistrital.edu.co:8111/v1/',
   SOLICITUD_DOCENTE_SERVICE: 'http://pruebasapi2.intranetoas.udistrital.edu.co:8117/v1/',
