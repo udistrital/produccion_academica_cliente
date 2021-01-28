@@ -16,6 +16,7 @@ import { ListPaquetesComponent } from './list-paquetes/list-paquetes.component';
 import { ListSolicitudesPaqueteComponent } from './list-solicitudes-paquete/list-solicitudes-paquete.component';
 import { CrudProduccionAcademicaComponent } from '../produccion_academica/crud-produccion_academica/crud-produccion_academica.component';
 import { ReviewProduccionAcademicaComponent } from '../produccion_academica/review-produccion-academica/review-produccion-academica.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 @NgModule({
   declarations: [...routedComponents],
@@ -39,7 +40,7 @@ import { ReviewProduccionAcademicaComponent } from '../produccion_academica/revi
     PersonaService,
     NuxeoService,
   ],
-  exports: [ListPaquetesComponent, ListSolicitudesPaqueteComponent],
+  exports: [ListPaquetesComponent, ListSolicitudesPaqueteComponent, ReportesComponent],
 })
 export class AdminDocenciaModule { }
 

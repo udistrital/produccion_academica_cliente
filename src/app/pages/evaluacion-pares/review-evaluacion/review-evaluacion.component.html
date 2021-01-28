@@ -12,6 +12,18 @@
           <h4>{{info_evaluacion_docente.resultado.resultado.toString().substring(0,5)}}</h4>
         </div>
       </div>
+      <div class="row" style="padding-left: 50px;" *ngIf="info_evaluacion_docente">
+        <div class="col-8">
+          <h4>{{'evaluacion.reporte' | translate}}</h4>
+        </div>
+        <div class="col-4">
+          <nb-card-body class="col-4" *ngIf="urlExiste">
+            <img class="carousel-image" [src]="'assets/images/file.png'"
+              (click)="download(urlDocument, info_evaluacion_docente.nombre,500,500)" class="img-thumbnail" alt="Foto" width="50px"
+              height="50px">
+          </nb-card-body>
+        </div>
+      </div>
       <div class="divisor"></div>
       <fieldset [ngClass]="{'fieldseter':true}" *ngFor="let seccion of formEvaluacionPar.secciones">
         <legend align="left">
