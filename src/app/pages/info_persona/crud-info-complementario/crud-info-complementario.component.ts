@@ -14,7 +14,6 @@ import {ImplicitAutenticationService} from '../../../@core/utils/implicit_autent
 import {Store} from '@ngrx/store';
 import {IAppState} from '../../../@core/store/app.state';
 import {ListService} from '../../../@core/store/services/list.service';
-import * as momentTimezone from 'moment-timezone';
 import {Tercero} from '../../../@core/data/models/terceros/tercero';
 
 
@@ -149,6 +148,8 @@ export class CrudInfoComplementarioComponent implements OnInit {
           (this.user.getPersonaId() ||  1 ) + ',InfoComplementariaId__Nombre:FORMACION_ACADEMICA')
           .subscribe(resp => {
             this.NIVEL_FORMACION2 = resp
+            this.listaFormacion = JSON.parse(this.NIVEL_FORMACION2[this.NIVEL_FORMACION2.length - 1].Dato)['NivelFormacion']
+            this.nivelFormacion = this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id)
             this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
               (this.user.getPersonaId() || 1) + ',InfoComplementariaId__Nombre:INSTITUCION')
               .subscribe(rest => {
@@ -156,13 +157,11 @@ export class CrudInfoComplementarioComponent implements OnInit {
                 this.listaArea = JSON.parse(this.AREA_CONOCIMIENTO2[this.AREA_CONOCIMIENTO2.length - 1].Dato)
                 this.listaGranArea = this.listaArea['AreaConocimiento']['GranAreaConocimiento']
                 this.listaEspeArea = this.listaArea['AreaConocimiento']['AreaConocimientoEspecifica']
-                this.listaFormacion = JSON.parse(this.NIVEL_FORMACION2[this.NIVEL_FORMACION2.length - 1].Dato)['NivelFormacion']
                 this.listaInsti = JSON.parse(this.INSTITUCION2[this.INSTITUCION2.length - 1].Dato)
                 this.institucion = this.listaInsti.Institucion
                 this.granAreaConocimiento =  this.listGranAreaConocimiento.find(value => value.Id === this.listaGranArea.Id)
                 this.filterAreaConocimiento(this.granAreaConocimiento)
                 this.areaConocimientoEspecifica = this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id)
-                this.nivelFormacion = this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id)
               }, (error: HttpErrorResponse) => {
               });
           }, (error: HttpErrorResponse) => {
