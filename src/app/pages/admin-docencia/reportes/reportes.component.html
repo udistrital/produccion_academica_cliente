@@ -5,13 +5,13 @@
     </legend>
     <div class="row">
       <div class="col-6">
-          <button class="report_content" (click)="isReportPares = true">
+          <button class="report_content" (click)="activePop(0)">
             <img [src]="'assets/images/reporte.png'" alt="reporte">
             <p>{{'reportes.reporte_pares' | translate}}</p>
           </button>
         </div>
         <div class="col-6">
-        <button class="report_content">
+        <button class="report_content" (click)="activePop(1)">
           <img [src]="'assets/images/reporte.png'" alt="reporte">
           <p>{{'reportes.reporte_titulos' | translate}}</p>
         </button>
@@ -19,13 +19,13 @@
     </div>
     <div class="row">
       <div class="col-6">
-          <button class="report_content">
+          <button class="report_content" (click)="activePop(2)">
             <img [src]="'assets/images/reporte.png'" alt="reporte">
             <p>{{'reportes.reporte_cambios_categoria' | translate}}</p>
           </button>
         </div>
         <div class="col-6">
-        <button class="report_content">
+        <button class="report_content" (click)="activePop(3)">
           <img [src]="'assets/images/reporte.png'" alt="reporte">
           <p>{{'reportes.reporte_puntos' | translate}}</p>
         </button>
@@ -60,7 +60,32 @@
           [placeholder]="translate.instant('produccion_academica.placeholder_fecha_publicacion')">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
-        <mat-hint class="text-danger" *ngIf="fechaFinal">
+        <mat-hint class="text-danger" *ngIf="!fechaFinal">
+          {{'produccion_academica.alerta_llenar_campo' | translate}}</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-10 pop-button">
+      <!-- <a [href]="this.urlReportPares">{{ 'GLOBAL.descargar' | translate }}</a> -->
+      <button (click)="generateLinks()">{{ 'GLOBAL.descargar' | translate }}</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="pop-committee" *ngIf="isReportAny">
+  <div class="pop-content">
+    <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
+    <h2>{{ 'reportes.datos_reporte' | translate }}</h2>
+    <p>{{ 'reportes.datos_reporte_subtitulo' | translate }}</p>
+    <div class="col-10">
+      <mat-form-field style="width: 100%;" floatLabel="always"> 
+        <mat-label>* {{'reportes.fecha_corte' | translate}}:</mat-label>
+        <input matInput [(ngModel)]="fechaCorte" [matDatepicker]="picker3"
+          [ngModelOptions]="{standalone: true}"
+          [placeholder]="translate.instant('produccion_academica.placeholder_fecha_publicacion')">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+        <mat-hint class="text-danger" *ngIf="!fechaCorte">
           {{'produccion_academica.alerta_llenar_campo' | translate}}</mat-hint>
       </mat-form-field>
     </div>

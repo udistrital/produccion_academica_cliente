@@ -30,9 +30,9 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     this.paquete_solicitud_selected = paquete_solicitud_selected;
     console.info(this.paquete_solicitud_selected)
     this.certificadoAprobado = false;
+    this.certificadoExiste = false;
     this.showData();
     this.cargarCampos();
-    this.generateDocument();
   }
 
   paquete_solicitud_selected: PaqueteSolicitudPost;
@@ -48,6 +48,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   filter: any;
   rol: string;
   urlDocument: string;
+  urlDocumentComplete: string;
   esRechazada: boolean;
   certificadoExiste: boolean;
   certificadoAprobado: boolean;
@@ -63,6 +64,11 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     private tercerosService: TercerosService,
     private router: Router,
     private toasterService: ToasterService) {
+    this.urlDocument =
+      environment.SPAGOBI.URL + environment.SPAGOBI.CONTEXT + environment.SPAGOBI.ROLE +
+      environment.SPAGOBI.CON + environment.SPAGOBI.LAN + environment.SPAGOBI.HOST +
+      environment.SPAGOBI.DFORMAT + environment.SPAGOBI.CONTROLLER + environment.SPAGOBI.USER +
+      environment.SPAGOBI.EXECUTION + environment.SPAGOBI.CROSS + environment.SPAGOBI.ENVIRONMENT;
     this.persona_id = user.getPersonaId() || 1;
     this.rol = (JSON.parse(atob(localStorage
       .getItem('id_token')
@@ -322,41 +328,41 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         if (willCreate.value) {
           this.estadosSolicitudes = [];
           this.loadEstadoSolicitud(14)
-          .then(() => {
-            Swal({
-              title: 'Espere',
-              text: 'Trayendo Información',
-              allowOutsideClick: false,
-            });
-            Swal.showLoading();
-            this.solicitud_selectedPostpone = <SolicitudDocentePost>event;
-            console.info(this.estadosSolicitudes);
-            this.solicitud_selectedPostpone.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
-            this.solicitud_selectedPostpone.TerceroId = this.user.getPersonaId() || 3;
-            console.info(this.solicitud_selectedPostpone);
-            this.sgaMidService.put('solicitud_docente', this.solicitud_selectedPostpone)
-              .subscribe((res: any) => {
-                if (res.Type === 'error') {
-                  Swal({
-                    type: 'error',
-                    title: res.Code,
-                    text: this.translate.instant('ERROR.' + res.Code),
-                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                  });
-                } else {
-                  this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
-                  this.updatePackage(0);
-                  console.info(this.solicitud_selectedPostpone)
-                  Swal({
-                    title: `Éxito al Verificar Solicitud.`,
-                    text: 'Información Modificada correctamente',
-                  });
-                }
+            .then(() => {
+              Swal({
+                title: 'Espere',
+                text: 'Trayendo Información',
+                allowOutsideClick: false,
               });
-          })
-          .catch(error => {
-            console.error(error);
-          })
+              Swal.showLoading();
+              this.solicitud_selectedPostpone = <SolicitudDocentePost>event;
+              console.info(this.estadosSolicitudes);
+              this.solicitud_selectedPostpone.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+              this.solicitud_selectedPostpone.TerceroId = this.user.getPersonaId() || 3;
+              console.info(this.solicitud_selectedPostpone);
+              this.sgaMidService.put('solicitud_docente', this.solicitud_selectedPostpone)
+                .subscribe((res: any) => {
+                  if (res.Type === 'error') {
+                    Swal({
+                      type: 'error',
+                      title: res.Code,
+                      text: this.translate.instant('ERROR.' + res.Code),
+                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                    });
+                  } else {
+                    this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
+                    this.updatePackage(0);
+                    console.info(this.solicitud_selectedPostpone)
+                    Swal({
+                      title: `Éxito al Verificar Solicitud.`,
+                      text: 'Información Modificada correctamente',
+                    });
+                  }
+                });
+            })
+            .catch(error => {
+              console.error(error);
+            })
         }
       });
   }
@@ -564,8 +570,19 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
     })
   }
 
-  generateDocument() {
-    this.urlDocument = `${environment.SPAGOBIURL}&idPaquete_description=&documentName=docenResumenComite&SBI_EXECUTION_ROLE=%2Fspagobi%2Fadmin&SBI_COUNTRY=ES&idPaquete=${this.paquete_solicitud_selected.Id}&document=862&SBI_LANGUAGE=es&SBI_HOST=https%3A%2F%2Fintelligentia.udistrital.edu.co%3A8443&dateformat=DD-MM-YYYY&SBI_SPAGO_CONTROLLER=%2Fservlet%2FAdapterHTTP&user_id=sergio_orjuela&SBI_EXECUTION_ID=6b07b65c5d2611eba42cad9b403e2696&isFromCross=false&SBI_ENVIRONMENT=DOCBROWSER&outputType=XLS`;
+  generateDocument(option: number) {
+    if (option === 0) {
+      this.urlDocumentComplete = this.urlDocument +
+        '&document=862&documentName=docenResumenComite&idPaquete_description=&outputType=XLS&idPaquete=' +
+        this.paquete_solicitud_selected.Id;
+    } else {
+      this.urlDocumentComplete = this.urlDocument +
+        '&document=868&documentName=docenActaComite&idPaquete_description=&outputType=XLS&idPaquete=' +
+        this.paquete_solicitud_selected.Id;
+    }
+    const a = document.createElement('a');
+    a.href = this.urlDocumentComplete;
+    a.click();
   }
 
   generateCertificate() {
@@ -581,6 +598,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       .then((willCreate) => {
         if (willCreate.value) {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
+          this.generateDocument(1);
           this.updatePackage(8);
         }
       });
