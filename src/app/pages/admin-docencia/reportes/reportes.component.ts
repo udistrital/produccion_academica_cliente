@@ -10,33 +10,43 @@ import Swal from 'sweetalert2';
 })
 export class ReportesComponent implements OnInit {
 
+  reportType: number;
   cambiotab: number;
   isReportPares: boolean;
-  isReportTitulos: boolean;
-  isReportCambios: boolean;
-  isReportPuntos: boolean;
-  urlReportPares: string;
-  urlReportTitulos: string;
-  urlReportCambios: string;
-  urlReportPuntos: string;
+  isReportAny: boolean;
+  urlReport: string;
+  urlReportComplete: string;
 
   fechaInicio: Date;
   fechaFinal: Date;
+  fechaCorte: Date;
 
-  constructor(public translate: TranslateService) { }
+  constructor(public translate: TranslateService) {
+    this.urlReport = environment.SPAGOBI.URL + environment.SPAGOBI.CONTEXT + environment.SPAGOBI.ROLE +
+    environment.SPAGOBI.CON + environment.SPAGOBI.LAN + environment.SPAGOBI.HOST +
+    environment.SPAGOBI.DFORMAT + environment.SPAGOBI.CONTROLLER + environment.SPAGOBI.USER +
+    environment.SPAGOBI.EXECUTION + environment.SPAGOBI.CROSS + environment.SPAGOBI.ENVIRONMENT;
+  }
 
   ngOnInit() {
   }
 
+  activePop(option: number) {
+    this.reportType = option;
+    if (this.reportType === 0) 
+      this.isReportPares = true;
+    else
+      this.isReportAny = true;
+  }
+
   closePop() {
     this.isReportPares = false;
-    this.isReportTitulos = false;
-    this.isReportCambios = false;
-    this.isReportPuntos = false;
+    this.isReportAny = false;
   }
 
   generateLinks() {
-    if (this.fechaInicio === undefined || this.fechaFinal === undefined) {
+    if ((this.reportType === 0 && (this.fechaInicio === undefined || this.fechaFinal === undefined)) ||
+      (this.reportType !== 0 && this.fechaCorte === undefined)) {
       Swal({
         type: 'warning',
         title: 'ERROR',
@@ -44,12 +54,38 @@ export class ReportesComponent implements OnInit {
         confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
       });
     } else {
-      this.urlReportPares = `${environment.SPAGOBIURL}&fechaFinal=${this.fechaFinal.toISOString().split('T')[0]}&documentName=docenReportePares&fechaInicio=${this.fechaInicio.toISOString().split('T')[0]}&fechaInicio_description=&SBI_EXECUTION_ROLE=%2Fspagobi%2Fadmin&SBI_COUNTRY=ES&fechaFinal_description=&document=864&SBI_LANGUAGE=es&SBI_HOST=https%3A%2F%2Fintelligentia.udistrital.edu.co%3A8443&dateformat=DD-MM-YYYY&SBI_SPAGO_CONTROLLER=%2Fservlet%2FAdapterHTTP&user_id=sergio_orjuela&SBI_EXECUTION_ID=27df545a5d2611eba42cad9b403e2696&isFromCross=false&SBI_ENVIRONMENT=DOCBROWSER&outputType=XLS`;
-
+      switch(this.reportType) {
+        case 0:
+          this.urlReportComplete = this.urlReport +
+          '&document=864&documentName=docenReportePares&fechaInicio_description=&fechaFinal_description=&outputType=XLS' +
+          '&fechaInicio=' + this.fechaInicio.toISOString().split('T')[0] +
+          '&fechaFinal=' + this.fechaFinal.toISOString().split('T')[0];
+          break;
+        case 1:
+          this.urlReportComplete = this.urlReport +
+          '&document=865&documentName=docenReporteTitulos&fechaReporte_description=&outputType=XLS' +
+          '&fechaReporte=' + this.fechaCorte.toISOString().split('T')[0];
+          break;
+        case 2:
+          this.urlReportComplete = this.urlReport +
+          '&document=866&documentName=docenReporteCategori&fechaReporte_description=&outputType=XLS' +
+          '&fechaReporte=' + this.fechaCorte.toISOString().split('T')[0];
+          break;
+        case 3:
+          this.urlReportComplete = this.urlReport +
+          '&document=867&documentName=docenReporteTotPunto&fechaReporte_description=&outputType=XLS' +
+          '&fechaReporte=' + this.fechaCorte.toISOString().split('T')[0];
+          break;
+        default:
+          break;
+      }
       const a = document.createElement('a');
-      a.href = this.urlReportPares;
+      a.href = this.urlReportComplete;
       a.click();
       this.closePop();
+      this.fechaCorte = null;
+      this.fechaInicio = null;
+      this.fechaFinal = null;
     }
   }
 }
