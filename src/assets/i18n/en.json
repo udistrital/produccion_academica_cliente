@@ -1161,6 +1161,7 @@
     "datos_reporte": "Report Data",
     "datos_reporte_subtitulo": "Then fill in some data to generate a report",
     "fecha_inicio": "Start date",
-    "fecha_final": "End date"
+    "fecha_final": "End date",
+    "fecha_corte": "Cutoff date"
 }
 }

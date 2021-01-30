@@ -1217,6 +1217,7 @@
         "datos_reporte": "Datos Reporte",
         "datos_reporte_subtitulo": "A continuación diligencie algunos datos para generar reporte",
         "fecha_inicio": "Fecha de inicio",
-        "fecha_final": "Fecha final"
+        "fecha_final": "Fecha final",
+        "fecha_corte": "Fecha de corte"
     }
 }

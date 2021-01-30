@@ -27,7 +27,7 @@
             (custom)="onCustomAction($event)" 
           ></ng2-smart-table>
           <div class="row">
-            <a class="btn-review" [href]="urlDocument" target="_blank">{{'produccion_academica.generar_documento' | translate}}</a>
+            <button class="btn-review" (click)="generateDocument(0)">{{'produccion_academica.generar_documento' | translate}}</button>
             <button class="btn-review" *ngIf="!certificadoAprobado" (click)="generateCertificate()">{{'produccion_academica.generar_acta' | translate}}</button>
             <button class="btn-review" *ngIf="certificadoExiste" (click)="acceptCertificate()">{{'produccion_academica.aceptar_acta' | translate}}</button>
           </div>
