@@ -825,6 +825,7 @@
             "verificada": "Solicitudes preparadas para presentar a comité",
             "en_evaluacion": "Solicitudes que están en proceso de evaluación",
             "rechazada": "Solicitudes que han sido rechazadas",
+            "aplazada": "Solicitudes que han sido aplazadas",
             "Salarial": "Solicitudes que obtienen puntos salariales",
             "Bonificacion": "Solicitudes que obtienen puntos de bonificación"
         },

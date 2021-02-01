@@ -283,7 +283,7 @@ export class ListInvitacionesComponent implements OnInit {
   }
 
   updateSolicitudDocente(): void {
-    this.sgaMidService.put('solicitud_docente', this.invitacion_selected)
+    this.sgaMidService.post('solicitud_docente/' + this.invitacion_selected.Id, this.invitacion_selected)
       .subscribe((resp: any) => {
         if (resp.Type === 'error') {
           Swal({

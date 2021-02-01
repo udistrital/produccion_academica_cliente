@@ -813,6 +813,7 @@
       "por_evaluar": "Applications that require an invitation to an external peer",
       "verificada": "Applications that are verified",
       "en_evaluacion": "Applications that are in the evaluation process",
+      "aplazada": "Applications that have been deferred",
       "rechazada": "Applications that have been rejected",
       "Salarial": "Applications that earn salary points",
       "Bonificacion": "Applications that earn bonus points"

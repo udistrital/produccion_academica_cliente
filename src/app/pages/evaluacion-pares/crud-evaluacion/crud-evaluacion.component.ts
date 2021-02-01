@@ -31,7 +31,7 @@ export class CrudEvaluacionComponent implements OnInit {
   @Input('solicitud_evaluacion_selected')
   set evaluacion(solicitud_evaluacion_selected: SolicitudDocentePost) {
     this.solicitud_evaluacion_selected = solicitud_evaluacion_selected;
-    this.evaluacion_post.ciudad = '';
+    this.evaluacion_post.ciudad = undefined;
     this.loadSubTipoFormFields(this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica, null);
   }
   @Input('evaluador_id_selected')
@@ -298,7 +298,7 @@ export class CrudEvaluacionComponent implements OnInit {
     this.solicitud_evaluacion_selected.Resultado = `{ \"Puntaje\": ${this.resultado_evaluacion} }`;
     this.solicitud_evaluacion_selected.Observaciones = [];
     console.info(this.solicitud_evaluacion_selected);
-    this.sgaMidService.put('solicitud_docente', this.solicitud_evaluacion_selected)
+    this.sgaMidService.post('solicitud_docente/' + this.solicitud_evaluacion_selected.Id, this.solicitud_evaluacion_selected)
       .subscribe((resp: any) => {
         if (resp.Type === 'error') {
           Swal({
@@ -322,6 +322,7 @@ export class CrudEvaluacionComponent implements OnInit {
 
   validarForm(event) {
     if (event.valid) {
+      console.info(this.evaluacion_post.ciudad)
       if (this.evaluacion_post.ciudad === undefined) {
         Swal({
           type: 'warning',

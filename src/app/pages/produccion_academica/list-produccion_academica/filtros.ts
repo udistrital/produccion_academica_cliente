@@ -19,4 +19,8 @@ export const filterList = [
     Id: 5,
     Nombre: 'en_evaluacion',
   },
+  {
+    Id: 14,
+    Nombre: 'aplazada',
+  },
 ]
