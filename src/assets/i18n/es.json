@@ -880,7 +880,7 @@
         "nombre_completo": "Nombre del evaluador",
         "numero_identificacion": "Numero de identificación",
         "fecha_expedicion": "Fecha de Expedición",
-        "fecha_evaluacion": "Fecha de Expedición",
+        "fecha_evaluacion": "Fecha de Evacuación",
         "ciudad_evaluacion": "Ciudad donde se realiza la evaluación",
         "ciudad_evaluacion_placeholder": "Ej: Bogotá",
         "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",

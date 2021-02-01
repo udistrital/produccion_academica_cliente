@@ -323,7 +323,7 @@ export class CrudEvaluacionComponent implements OnInit {
   validarForm(event) {
     if (event.valid) {
       console.info(this.evaluacion_post.ciudad)
-      if (this.evaluacion_post.ciudad === undefined) {
+      if (this.evaluacion_post.ciudad === undefined || this.evaluacion_post.ciudad === '') {
         Swal({
           type: 'warning',
           title: 'ERROR',
