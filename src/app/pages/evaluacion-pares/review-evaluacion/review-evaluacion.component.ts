@@ -219,6 +219,7 @@ export class ReviewEvaluacionComponent implements OnInit {
     this.solicitudDocenteService.get('solicitante/?query=SolicitudId:' + this.solicitud_evaluacion_selected.Id)
       .subscribe(response => {
         if (response !== null) {
+          console.info('resp-ter', response)
           this.tercerosService.get('tercero/?query=Id:' + (response[0].TerceroId || 1))
             .subscribe(res => {
               if (Object.keys(res[0]).length > 0) {

@@ -454,9 +454,11 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           }
           this.construirForm();
           this.formConstruido = true;
-          if(this.tipoProduccionAcademica.Id === 1) {
-            this.filesFromTerceros();
-            this.loadDatosCambioCategoria();
+          if (!this.editando) {
+            if (this.tipoProduccionAcademica.Id === 1) {
+              this.filesFromTerceros();
+              this.loadDatosCambioCategoria();
+            }
           }
         }
       }, (error: HttpErrorResponse) => {
@@ -550,7 +552,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.info_produccion_academica = <ProduccionAcademicaPost>ProduccionAcademica;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     console.info('updateProduccionAcademica - info_produccion_academica: ', this.info_produccion_academica)
-    this.sgaMidService.put('produccion_academica', this.info_produccion_academica)
+    this.sgaMidService.post('produccion_academica/' + this.info_produccion_academica.Id, this.info_produccion_academica)
       .subscribe((res: any) => {
         console.info(res)
         if (res.Type === 'error') {
@@ -567,7 +569,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           if (this.isExistPoint)
             this.info_solicitud.Resultado = `{ \"Puntaje\": ${this.pointRequest} }`
           console.info('updateProduccionAcademica - info_solicitud: ', this.info_solicitud)
-          this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+          this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
             .subscribe((resp: any) => {
               if (resp.Type === 'error') {
                 Swal({
