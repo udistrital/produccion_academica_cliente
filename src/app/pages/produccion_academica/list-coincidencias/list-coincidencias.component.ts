@@ -207,7 +207,7 @@ export class ListCoincidenciasComponent implements OnInit {
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
     console.info(this.info_solicitud);
-    this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+    this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {
         Swal({

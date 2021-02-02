@@ -286,7 +286,7 @@ export class ListEvaluacionesComponent implements OnInit {
   }
 
   updateSolicitudDocente(): void {
-    this.sgaMidService.put('solicitud_docente', this.evaluacion_selected)
+    this.sgaMidService.post('solicitud_docente/' + this.evaluacion_selected.Id, this.evaluacion_selected)
       .subscribe((resp: any) => {
         if (resp.Type === 'error') {
           Swal({

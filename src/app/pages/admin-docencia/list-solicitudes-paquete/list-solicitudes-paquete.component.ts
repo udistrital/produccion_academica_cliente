@@ -340,7 +340,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
               this.solicitud_selectedPostpone.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
               this.solicitud_selectedPostpone.TerceroId = this.user.getPersonaId() || 3;
               console.info(this.solicitud_selectedPostpone);
-              this.sgaMidService.put('solicitud_docente', this.solicitud_selectedPostpone)
+              this.sgaMidService.post('solicitud_docente/' + this.solicitud_selectedPostpone.Id, this.solicitud_selectedPostpone)
                 .subscribe((res: any) => {
                   if (res.Type === 'error') {
                     Swal({
@@ -644,7 +644,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
           this.paquete_solicitud_selected.PaqueteRevisado = true;
         else
           this.paquete_solicitud_selected.PaqueteRevisado = false;
-        this.sgaMidService.put('paquete_solicitud', this.paquete_solicitud_selected)
+        this.sgaMidService.post('paquete_solicitud/' + this.paquete_solicitud_selected.Id, this.paquete_solicitud_selected)
           .subscribe((resp: any) => {
             if (resp.Type === 'error') {
               Swal({

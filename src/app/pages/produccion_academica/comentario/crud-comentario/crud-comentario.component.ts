@@ -163,7 +163,7 @@ export class CrudComentarioComponent implements OnInit {
     if (this.info_solicitud.EstadoTipoSolicitudId.Id === 4 || this.info_solicitud.EstadoTipoSolicitudId.Id === 6)
       this.info_solicitud.Resultado = `{ \"Puntaje\": ${0} }`
     console.info(this.info_solicitud);
-    this.sgaMidService.put('solicitud_docente', this.info_solicitud)
+    this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {
         Swal({
