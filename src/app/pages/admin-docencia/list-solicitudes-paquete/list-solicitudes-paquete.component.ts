@@ -577,7 +577,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         this.paquete_solicitud_selected.Id;
     } else {
       this.urlDocumentComplete = this.urlDocument +
-        '&document=868&documentName=docenActaComite&idPaquete_description=&outputType=XLS&idPaquete=' +
+        '&document=868&documentName=docenActaComite&idPaquete_description=&outputType=RTF&idPaquete=' +
         this.paquete_solicitud_selected.Id;
     }
     const a = document.createElement('a');
