@@ -31,7 +31,7 @@ export class FooterComponent {
         class: 'fa fa-globe',
         value: ['Sistema Integrado de informática y  Telecomunicaciones '],
       }, {
-        title: 'Phone',
+        title: 'Teléfono',
         class: 'fa fa-phone',
         value: ['323 93 00', 'Ext. 1112'],
       }, {
@@ -39,7 +39,7 @@ export class FooterComponent {
         class: 'fa fa-map-marker',
         value: ['Cra 8 # 40-78', 'Piso 1'],
       }, {
-        title: 'mail',
+        title: 'Correo',
         class: 'fa fa-at',
         value: ['computo@udistrital.edu.co'],
       },
