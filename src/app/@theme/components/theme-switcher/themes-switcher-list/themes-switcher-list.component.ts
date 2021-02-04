@@ -40,10 +40,6 @@ export class ThemeSwitcherListComponent {
       title: 'Universitario',
       key: 'ud',
     },
-    {
-      title: 'Docencia',
-      key: 'doc',
-    },
   ];
 
   constructor(

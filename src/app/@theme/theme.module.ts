@@ -140,7 +140,6 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { UD_THEME } from './styles/theme.ud';
-import { DOC_THEME } from './styles/theme.doc';
 import { ConfiguracionService } from '../@core/data/configuracion.service';
 import { ButtonAlertComponent } from './components/button-alert/button-alert.component';
 
@@ -198,9 +197,9 @@ const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
       // name: 'default',
-      name: 'doc',
+      name: 'ud',
     },
-    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME, DOC_THEME],
+    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, UD_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

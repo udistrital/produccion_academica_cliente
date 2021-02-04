@@ -879,69 +879,77 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       if (res !== null) {
         if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
           const dataSolicitud = <Array<SolicitudDocentePost>>res;
-          let i = 1;
-          let solicitud = dataSolicitud[dataSolicitud.length - i];
-          if (JSON.parse(solicitud.Referencia).Id !== undefined) {
-            const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
-            this.sgaMidService.get(endpointProduccion)
-            .subscribe((resp: any) => {
-              if (resp !== null) {
-                if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-                  solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0]; 
-                  if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 1 || solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 2 ||solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 3) {
+          let i = 0;
+          dataSolicitud.sort((solicitudA, solicitudB) => (solicitudA.Id > solicitudB.Id) ? -1 : 1)
+          
+          dataSolicitud.forEach(solicitud => {
+            console.log(solicitud.Id)
+            if (JSON.parse(solicitud.Referencia).Id !== undefined) {
+              this.sgaMidService.get('produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id)
+                .subscribe((resp: any) => {
+                  if(this.categoria === undefined || this.fechaCategoria === undefined || this.categoria === " " || this.fechaCategoria === new Date()) {
+                   if (resp !== null) {
+                      if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
+                        i++;
+                        solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0]; 
+                        if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 1 || solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 2 ||solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 3) {
+                          if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 1)
+                            this.categoria = "Asistente";
+                          if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 2) 
+                            this.categoria = "Asociado";
+                          if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 3) 
+                            this.categoria = "Titular";
+                                
+                          this.fechaCategoria = new Date(solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].FechaModificacion);
+                              
+                          this.formProduccionAcademica.campos.forEach(campo => {
+                            if (campo.nombre === 14 || campo.nombre === 1 || campo.nombre === 7) 
+                              campo.valor = this.categoria;
+                            if (campo.nombre === 15 || campo.nombre === 2 || campo.nombre === 8)
+                              campo.valor = this.fechaCategoria;
+                          });
+      
+                          this.info_produccion_academica.Fecha = new Date();
+                          this.construirForm();
+                          resolve(true);  
+                        }else{
+                          this.categoria = " ";
+                          this.fechaCategoria = new Date();
+                          this.formProduccionAcademica.campos.forEach(campo => {
+                            if (campo.nombre === 14 || campo.nombre === 1 || campo.nombre === 7) 
+                              campo.valor = this.categoria;
+                            if (campo.nombre === 15 || campo.nombre === 2 || campo.nombre === 8)
+                              campo.valor = this.fechaCategoria;
+                          });
 
-                    if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 1)
-                      this.categoria = "Asistente";
-                    if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 2)
-                      this.categoria = "Asociado";
-                    if(solicitud.ProduccionAcademica.SubtipoProduccionId.Id === 3)
-                      this.categoria = "Titular";
-                      
-                    this.fechaCategoria = new Date(solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].FechaModificacion);
-            
-                  } else {
-                    this.categoria = " ";
-                    this.fechaCategoria = new Date();
+                          this.info_produccion_academica.Fecha = new Date();
+                        }
+                          
+                      }else {
+                        Swal({
+                          type: 'error',
+                          title: '404',
+                          text: this.translate.instant('ERROR.404'),
+                          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                        });
+                      }
+                    }
                   }
-
-                  this.formProduccionAcademica.campos.forEach(campo => {
-                    if (campo.nombre === 14 || campo.nombre === 1 || campo.nombre === 7) 
-                      campo.valor = this.categoria;
-                      campo
-                    if (campo.nombre === 15 || campo.nombre === 2 || campo.nombre === 8)
-                      campo.valor = this.fechaCategoria;
+                    if(i === dataSolicitud.length)
+                        this.construirForm();
+                      
+                  }, (error: HttpErrorResponse) => {
+                    reject({ status: 404 });
+                    Swal({
+                      type: 'error',
+                      title: error.status + '',
+                      text: this.translate.instant('ERROR.' + error.status),
+                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                    });
                   });
-
-                  this.info_produccion_academica.Fecha = new Date();
-
-                  this.construirForm();
-                    
-                }else {
-                  Swal({
-                    type: 'error',
-                    title: '404',
-                    text: this.translate.instant('ERROR.404'),
-                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                  });
-                }
-              }
-            }, (error: HttpErrorResponse) => {
-              reject({ status: 404 });
-              Swal({
-                type: 'error',
-                title: error.status + '',
-                text: this.translate.instant('ERROR.' + error.status),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-              });
-            });
-
-            if(i !== dataSolicitud.length) 
-              i++;
-
-            if(i === dataSolicitud.length) 
-              resolve(true);
-          }
-        } else {
+            }
+          });
+        }else {
           Swal({
             type: 'error',
             title: '404',
@@ -950,9 +958,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           });
         }
       }
-    });
+    });         
   });
-  }
+}
 
   validarForm(event) {
     if (event.valid) {

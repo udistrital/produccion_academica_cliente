@@ -7,7 +7,7 @@ mat-select {
 }
 
 mat-select:focus {
-  border-bottom: 3px solid #5dcfe3;
+  border-bottom: 3px solid #4486AA;
 }
 
 nb-tabset /deep/ ul li {
@@ -37,7 +37,7 @@ nb-tabset /deep/ ul li {
 }
 
 :host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
-  color: #5dcfe3;
+  color: #4486AA;
 }
 
 .filter {
@@ -131,6 +131,6 @@ mat-label {
     border-radius: 5px;
     outline: none;
     color: #fff;
-    background-color: #0095DD;
+    background-color: #4486AA;
   }
 }
