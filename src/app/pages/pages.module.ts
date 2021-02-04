@@ -6,8 +6,8 @@ import { ThemeModule } from '../@theme/theme.module';
 import { SharedModule } from '../shared/shared.module';
 import { ConfiguracionService } from '../@core/data/configuracion.service';
 import { MenuService } from '../@core/data/menu.service';
-import { CampusMidService } from '../@core/data/campus_mid.service';
 import { SgaMidService } from '../@core/data/sga_mid.service';
+import { GoogleService } from '../@core/data/google.service';
 import { DocumentoService } from '../@core/data/documento.service';
 import { MatDialogModule } from '@angular/material';
 
@@ -33,9 +33,9 @@ const PAGES_COMPONENTS = [
   providers: [
     ConfiguracionService,
     MenuService,
-    CampusMidService,
     SgaMidService,
     DocumentoService,
+    GoogleService,
   ],
 })
 export class PagesModule {

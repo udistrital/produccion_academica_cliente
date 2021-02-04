@@ -6,7 +6,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
-import { ProyectoAcademicoService } from '../../../@core/data/proyecto_academico.service';
+// import { ProyectoAcademicoService } from '../../../@core/data/proyecto_academico.service';
 import { UserService } from '../../../@core/data/users.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NuxeoService } from '../../../@core/utils/nuxeo.service';
@@ -53,7 +53,7 @@ export class CrudFormacionAcademicaComponent implements OnInit {
     private translate: TranslateService,
     private ubicacionesService: UbicacionService,
     private sgaMidService: SgaMidService,
-    private programaService: ProyectoAcademicoService,
+    // private programaService: ProyectoAcademicoService,
     private autenticationService: ImplicitAutenticationService,
     private documentoService: DocumentoService,
     private nuxeoService: NuxeoService,
@@ -68,7 +68,7 @@ export class CrudFormacionAcademicaComponent implements OnInit {
     });
     this.persona_id = this.users.getPersonaId();
     this.listService.findPais();
-    this.listService.findProgramaAcademico();
+    // this.listService.findProgramaAcademico();
     this.loadLists();
   }
 
@@ -688,11 +688,11 @@ export class CrudFormacionAcademicaComponent implements OnInit {
   }
 
   public loadLists() {
-    this.store.select((state) => state).subscribe(
-      (list) => {
-       this.formInfoFormacionAcademica.campos[this.getIndexForm('Pais')].opciones = list.listPais[0];
-       this.formInfoFormacionAcademica.campos[this.getIndexForm('ProgramaAcademico')].opciones = list.listProgramaAcademico[0];
-      },
-   );
+  //   this.store.select((state) => state).subscribe(
+  //     (list) => {
+  //      this.formInfoFormacionAcademica.campos[this.getIndexForm('Pais')].opciones = list.listPais[0];
+  //      this.formInfoFormacionAcademica.campos[this.getIndexForm('ProgramaAcademico')].opciones = list.listProgramaAcademico[0];
+  //     },
+  //  );
  }
 }

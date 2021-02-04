@@ -1,0 +1,83 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+<!--<ngx-dinamicform [normalform]="formInfoComplementaria" [modeloData]="info_info_complementario"
+                 (result)="validarForm($event)" [clean]="clean"
+                 (percentage)="setPercentage($event)">
+</ngx-dinamicform>-->
+<form class="form-horizontal" >
+  <fieldset [ngClass]="{'fieldseter':true}">
+    <legend align="left">
+      <small>{{'GLOBAL.Informacion_complementaria'| translate}}</small>
+    </legend>
+    <div class="row" style="padding: 20px">
+
+
+      <!-- select -->
+      <mat-form-field  style="width: 100%;" floatLabel="always" >
+        <mat-label>{{'GLOBAL.gran_area_conocimiento'|translate}}</mat-label>
+        <mat-select [(value)]="granAreaConocimiento"
+                    placeholder="{{'GLOBAL.placeholder_gran_area_conocimiento'|translate}}"
+                    [(ngModel)]="granAreaConocimiento" (ngModelChange)="filterAreaConocimiento(granAreaConocimiento)"
+                    [ngModelOptions]="{standalone: true}" >
+          <mat-option >--Seleccionar--</mat-option>
+          <mat-option *ngFor="let item of listGranAreaConocimiento" [value]="item">
+            {{item.Nombre ? item.Nombre : item | json}}
+          </mat-option>
+        </mat-select>
+        <mat-hint class="text-danger" *ngIf="!granAreaConocimiento">
+          {{'GLOBAL.alerta_llenar_campo' | translate}}</mat-hint>
+
+      </mat-form-field>
+      <!-- select -->
+      <mat-form-field  style="width: 100%;" floatLabel="always" >
+        <mat-label>{{'GLOBAL.area_conocimiento_especifica'|translate}}</mat-label>
+        <mat-select placeholder="{{'GLOBAL.placeholder_area_conocimiento_especifica'|translate}}"
+                    [(ngModel)]="areaConocimientoEspecifica" (ngModelChange)="validCampo($event)"
+                    [ngModelOptions]="{standalone: true}" [(value)]="areaConocimientoEspecifica">
+          <mat-option>--Seleccionar--</mat-option>
+          <mat-option *ngFor="let item of listAreaConocimientoEspecificaFilter" [value]="item">
+            {{item.Nombre ? item.Nombre : item | json}}
+          </mat-option>
+        </mat-select>
+        <mat-hint class="text-danger" *ngIf="!areaConocimientoEspecifica">
+        {{'GLOBAL.alerta_llenar_campo' | translate}}</mat-hint>
+
+
+      </mat-form-field>
+      <!-- select -->
+      <mat-form-field  style="width: 100%;" floatLabel="always" >
+        <mat-label>{{'GLOBAL.nivel_formacion'|translate}}</mat-label>
+        <mat-select  placeholder="{{'GLOBAL.placeholder_nivel_formacion'|translate}}"
+                    [(ngModel)]="nivelFormacion" (ngModelChange)="validCampo($event)"
+                    [ngModelOptions]="{standalone: true}" [(value)]="nivelFormacion">
+          <mat-option>--Seleccionar--</mat-option>
+          <mat-option *ngFor="let item of listNivelFormacion" [value]="item">
+            {{item.Nombre ? item.Nombre : item | json}}
+          </mat-option>
+        </mat-select>
+
+
+      </mat-form-field>
+       <!--input-->
+      <mat-form-field  style="width: 100%;" class="form-group"
+                      floatLabel="always" >
+        <mat-label>{{'GLOBAL.institucion'|translate}}</mat-label>
+        <input matInput [(ngModel)]="institucion" (ngModelChange)="validCampo($event)"
+               [ngModelOptions]="{standalone: true}" [value]="institucion"
+               placeholder="{{  'GLOBAL.placeholder_institucion'|translate}}"/>
+        <mat-hint class="text-danger" *ngIf="!institucion">
+          {{'GLOBAL.alerta_llenar_campo' | translate}}</mat-hint>
+
+      </mat-form-field>
+
+    </div>
+
+    <div align="right" class="form-group">
+        <button class="btn btn-success btn-sm" (click)="validarForm($event)"
+            >{{'GLOBAL.guardar' | translate}}</button>
+    </div>
+
+  </fieldset>
+  <!-- Botones de form con acción de botones -->
+</form>
+
+

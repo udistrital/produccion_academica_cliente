@@ -38,8 +38,8 @@
     display: flex;
     justify-content: space-between;
 
-  .custom-control {
-    margin-left: 1rem;
+    .custom-control {
+      margin-left: 1rem;
     }
   }
 
@@ -120,13 +120,12 @@
     position: relative;
 
     .form-control {
-
       padding-left: 3rem;
     }
 
     &::before {
-      content: '\F47D';
-      font-family: 'Ionicons';
+      content: "\F47D";
+      font-family: "Ionicons";
       font-size: 2rem;
       position: absolute;
       z-index: 100;
@@ -151,6 +150,49 @@
 
   nb-card {
     padding: 1rem;
+  }
+
+  mat-label {
+    font-size: 1.375rem;
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word;
+    margin-bottom: 5px;
+  }
+
+  .mat-input-element,
+  mat-select {
+    margin-top: 12px;
+  }
+
+  .nb-span-file {
+    font-size: 11px;
+    position: relative;
+    top: -10px;
+    color: #333;
+  }
+
+  .nb-span {
+    font-size: 11px;
+    position: relative;
+    top: 20px;
+    color: #333;
+    transition: all 0.5s ease-in;
+  }
+
+  .nb-span.alert {
+    top: 35px;
+  }
+
+  .nb-file {
+    min-height: 85px;
+  }
+
+  .nb-file input {
+    color: transparent;
+  }
+
+  .file-place {
+    margin-left: 10px;
   }
 
   .fieldseter {
@@ -178,7 +220,7 @@
 
   img {
     cursor: pointer;
-    }
+  }
 
   ngb-rating {
     outline: none;
@@ -196,4 +238,41 @@
       font-size: 0.75rem;
     }
   }
+}
+
+pre {
+  white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+  word-wrap: break-word; /* IE 5.5+ */
+  width: 90%;
+  font-family: "Exo";
+  text-align: justify;
+  font-size: 1.15rem;
+  margin: 0px auto;
+  margin-bottom: 50px;
+  color: #222;
+}
+
+h3,
+h4,
+h5 {
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+h4 {
+  font-size: 1.4rem;
+}
+
+h5 {
+  font-size: 1.15rem;
+  color: #555;
+  font-family: "Exo";
+  text-align: justify;
+}
+
+.form-ev button {
+  margin: 20px;
 }

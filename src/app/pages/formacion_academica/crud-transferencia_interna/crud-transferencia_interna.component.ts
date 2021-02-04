@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ProgramaAcademico } from './../../../@core/data/models/proyecto_academico/programa_academico';
+// import { ProgramaAcademico } from './../../../@core/data/models/proyecto_academico/programa_academico';
 import { FORM_TRANSFERENCIAINTERNA} from './form-transferencia_interna';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -56,7 +56,7 @@ export class CrudTransferenciaInternaComponent implements OnInit {
     this.persona_id = this.users.getPersonaId();
     this.cargarPeriodo();
     this.loading = true;
-    this.listService.findProgramaAcademico();
+    // this.listService.findProgramaAcademico();
     this.loadLists();
   }
 
@@ -82,12 +82,12 @@ export class CrudTransferenciaInternaComponent implements OnInit {
   }
 
   public loadLists() {
-    this.store.select((state) => state).subscribe(
-      (list) => {
-        this.formTransferencia.campos[this.getIndexForm('carreraqueviene')].opciones = list.listProgramaAcademico[0];
-        this.formTransferencia.campos[this.getIndexForm('carreratransfiere')].opciones = list.listProgramaAcademico[0];
-      },
-   );
+  //   this.store.select((state) => state).subscribe(
+  //     (list) => {
+  //       this.formTransferencia.campos[this.getIndexForm('carreraqueviene')].opciones = list.listProgramaAcademico[0];
+  //       this.formTransferencia.campos[this.getIndexForm('carreratransfiere')].opciones = list.listProgramaAcademico[0];
+  //     },
+  //  );
   }
 
   useLanguage(language: string) {

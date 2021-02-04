@@ -37,6 +37,7 @@ export class PagesComponent implements OnInit {
     private translate: TranslateService) { }
 
   ngOnInit() {
+    console.info((JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role))
     if (!this.autenticacion.live()) {
       this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
       this.menuws.get(this.roles + '/configuracionv2').subscribe(
