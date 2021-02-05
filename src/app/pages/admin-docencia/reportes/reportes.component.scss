@@ -135,6 +135,7 @@
     height: 40%;
     border-radius: 20px;
     overflow: hidden;
+    overflow-y: auto;
     transition: all 0.3s ease-in;
   }
   
@@ -168,7 +169,7 @@
       border-radius: 5px;
       outline: none;
       color: #fff;
-      background-color: #0095DD;
+      background-color: #4486AA;
     }
   }
 }
@@ -184,14 +185,14 @@
   padding: 20px;
   width: 13rem;
   height: 13rem;
-  background: #7ecbff;
+  background: #4486AA;
   color: #fff;
   font-weight: bold;
   outline: none;
 }
 
 .report_content:hover {
-  background: #4fb9ff;
+  background: #4486AA;
 }
 
 p {
