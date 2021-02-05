@@ -19,6 +19,7 @@ import { ListService } from '../../../@core/store/services/list.service';
 import { UserService } from '../../../@core/data/users.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import * as momentTimezone from 'moment-timezone';
+import {AutenticacionMidServiced} from '../../../@core/data/autenticacion_mid.service';
 
 @Component({
   selector: 'ngx-crud-info-persona',
@@ -54,6 +55,7 @@ export class CrudInfoPersonaComponent implements OnInit {
     private translate: TranslateService,
     private popUpManager: PopUpManager,
     private sgamidService: SgaMidService,
+    private autenticacionMidService: AutenticacionMidServiced,
     private autenticationService: ImplicitAutenticationService,
     private store: Store<IAppState>,
     private listService: ListService,
@@ -152,9 +154,32 @@ export class CrudInfoPersonaComponent implements OnInit {
             if (r !== null && r.Type !== 'error') {
               window.localStorage.setItem('ente', r.Id);
               this.info_persona_id = r.Id;
+              console.info(this.info_persona_id)
+              console.info(r.UsuarioWSO2)
               sessionStorage.setItem('IdTercero', String(this.info_persona_id));
               this.loading = false;
               this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
+              const rol: any = {
+                'user': r.UsuarioWSO2,
+                'rol': 'EVALUADOR',
+              }
+              console.info(rol)
+             this.autenticacionMidService.post('token/addRol', rol).subscribe( resp => {
+               const l = <any>resp
+               if (l !== null && r.Type !== 'error') {
+                 console.info(l)
+               }
+             },
+               (error: HttpErrorResponse) => {
+                 Swal({
+                   type: 'error',
+                   title: error.status + '',
+                   text: this.translate.instant('ERROR.' + error.status),
+                   footer: this.translate.instant('GLOBAL.crear') + '-' +
+                     this.translate.instant('GLOBAL.info_persona'),
+                   confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                 });
+               });
             } else {
               this.showToast('error', this.translate.instant('GLOBAL.error'),
                 this.translate.instant('GLOBAL.error'));
