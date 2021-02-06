@@ -20,7 +20,6 @@ export class ResumeListEvaluacionesComponent implements OnInit {
   @Input('solicitud_padre')
   set solicitud(solicitud_padre: SolicitudDocentePost) {
     this.solicitud_padre = solicitud_padre;
-    console.info(this.solicitud_padre)
     this.is_evaluated = false;
     this.showData();
     this.cargarCampos();
@@ -155,10 +154,8 @@ export class ResumeListEvaluacionesComponent implements OnInit {
       if (this.solicitud_padre) {
         endpointSolicitud = 'solicitud/?limit=0&query=SolicitudPadreId:' + this.solicitud_padre.Id;
         this.solicitudDocenteService.get(endpointSolicitud).subscribe((res: any) => {
-          console.info(res);
           if (res !== null) {
             const data = <Array<SolicitudDocentePost>>res;
-            console.info(data);
             this.evaluaciones_list = data;
             resolve(true);
           }
@@ -237,7 +234,6 @@ export class ResumeListEvaluacionesComponent implements OnInit {
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-            console.info(this.estadosSolicitudes)
             resolve(true);
           } else {
             this.estadosSolicitudes = [];
@@ -253,7 +249,6 @@ export class ResumeListEvaluacionesComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    console.info(this.info_solicitud);
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {

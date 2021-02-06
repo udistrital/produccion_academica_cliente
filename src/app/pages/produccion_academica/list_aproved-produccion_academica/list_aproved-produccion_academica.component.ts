@@ -220,7 +220,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
               }
             });
             this.solicitudes_list = dataSolicitud;
-            console.info(this.solicitudes_list);
           } else {
             Swal({
               type: 'error',
@@ -307,7 +306,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   }
 
   onSelect(event): void {
-    console.info(event)
     if (event.data)
       this.solicitudes_selected_list = event.selected;
     else if (event.selected.length > 0) {
@@ -320,7 +318,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
         this.solicitudes_selected_list = this.solicitudes_list;
     } else
       this.solicitudes_selected_list = [];
-    console.info(this.solicitudes_selected_list);
   }
 
   filterSolicitudes(filter) {
@@ -391,7 +388,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
           this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
         } else {
           this.paquete_solicitud = resp;
-          console.info(resp);
           Swal({
             title: `Éxito al crear Paquete.`,
             text: 'Información Guardada correctamente',
