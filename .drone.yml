@@ -27,16 +27,16 @@ name: cliente_deploy
 
 steps:
   # build and test the go program
-  - name: nodejs
-    image: node:12.6.0
-    commands:
-     - node --version
-     - npm i
-     - npm run build:test
-     - ls -la
-    when:
-      branch: [release/*]
-      event: [push]
+  #- name: nodejs
+  #  image: node:12.6.0
+  #  commands:
+  #   - node --version
+  #   - npm i
+  #   - npm run build:test
+  #   - ls -la
+  #  when:
+  #    branch: [release/*]
+  #    event: [push]
 
   - name: nodejs_prod
     image: node:12.6.0
@@ -50,21 +50,21 @@ steps:
       event: [push, pull_request]
 
   # upload app.zip to s3 bucket for CodePipline
-  - name: publish_s3
-    image: plugins/s3
-    settings:
-      access_key:
-        from_secret: aws_access_key_id
-      secret_key:
-        from_secret: aws_secret_access_key
-      region: "us-east-1"    
-      bucket: "cliente-pruebas"
-      source: dist/**/*
-      target: /${DRONE_REPO_NAME}
-      strip_prefix: dist/
-    when:
-      branch: [release/*]
-      event: [push, pull_request] 
+  #- name: publish_s3
+  #  image: plugins/s3
+  #  settings:
+  #    access_key:
+  #      from_secret: aws_access_key_id
+  #    secret_key:
+  #      from_secret: aws_secret_access_key
+  #    region: "us-east-1"    
+  #    bucket: "cliente-pruebas"
+  #    source: dist/**/*
+  #    target: /${DRONE_REPO_NAME}
+  #    strip_prefix: dist/
+  #  when:
+  #    branch: [release/*]
+  #    event: [push, pull_request] 
 
  # upload app.zip to s3 bucket for CodePipline
   - name: publish_s3_prod
@@ -95,7 +95,7 @@ steps:
       cloudfront_qa:
         from_secret: CLOUDFRONT_RELEASE
     commands: 
-      - echo $${aws_access_key_id}
+      - aws configure set help
       - aws configure set aws_access_key_id $${aws_access_key_id}
       - aws configure set aws_secret_access_key $${aws_secret_access_key}
       - aws configure set default.region $${aws_region}
@@ -118,7 +118,6 @@ steps:
       cloudfront_prod:
         from_secret: CLOUDFRONT_PROD
     commands: 
-      - echo $${aws_access_key_id}
       - aws configure set aws_access_key_id $${aws_access_key_id}
       - aws configure set aws_secret_access_key $${aws_secret_access_key}
       - aws configure set default.region $${aws_region}
@@ -131,32 +130,32 @@ steps:
 
 
   #Notify results to telegram
-  - name: notify_telegram
-    image: appleboy/drone-telegram
-    settings:
-      token:
-        from_secret: telegram_token
-      to:
-        from_secret: telegram_to
-      format: html
-      message: >
-        {{#success build.status}}
-          ✅ <a href="{{build.link}}">SUCCESS</a> <b>Build #{{build.number}}</b>
-          <b>type: </b><code>{{ build.event }}</code>
-          <b>Repo: </b><code>{{repo.name}}</code>
-          <b>Branch: </b><code>{{commit.branch}}</code>
-          <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
-          <b>Autor: </b>{{commit.author}} <code>&#128526 </code>
-        {{else}}
-          ❌ <a href="{{build.link}}">FAILURE</a> <b>Build #{{build.number}}</b>
-          <b>type: </b><code>{{ build.event }}</code>
-          <b>Repo: </b><code>{{repo.name}}</code>
-          <b>Branch: </b><code>{{commit.branch}}</code>
-          <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
-          <b>Autor: </b>{{commit.author}} <code>&#128549 </code>
-        {{/success}}
-    when:
-      status: [success, failure]
-      branch: [master, release/*] 
-      event: [push, pull_request]
+#  - name: notify_telegram
+#    image: appleboy/drone-telegram
+#    settings:
+#      token:
+#        from_secret: telegram_token
+#      to:
+#        from_secret: telegram_to
+#      format: html
+#      message: >
+#        {{#success build.status}}
+#          ✅ <a href="{{build.link}}">SUCCESS</a> <b>Build #{{build.number}}</b>
+#          <b>type: </b><code>{{ build.event }}</code>
+#          <b>Repo: </b><code>{{repo.name}}</code>
+#          <b>Branch: </b><code>{{commit.branch}}</code>
+#          <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+#          <b>Autor: </b>{{commit.author}} <code>&#128526 </code>
+#        {{else}}
+#          ❌ <a href="{{build.link}}">FAILURE</a> <b>Build #{{build.number}}</b>
+#          <b>type: </b><code>{{ build.event }}</code>
+#          <b>Repo: </b><code>{{repo.name}}</code>
+#          <b>Branch: </b><code>{{commit.branch}}</code>
+#          <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+#          <b>Autor: </b>{{commit.author}} <code>&#128549 </code>
+#        {{/success}}
+#    when:
+#      status: [success, failure]
+#      branch: [master, release/*] 
+#      event: [push, pull_request]
       
