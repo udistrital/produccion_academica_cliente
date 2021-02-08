@@ -30,19 +30,33 @@ export class PagesComponent implements OnInit {
   rol: String;
   dataMenu: any;
   roles: any;
-  private autenticacion= new ImplicitAutenticationService;
+  application_conf = 'produccion_academica';
 
   constructor(
     public menuws: MenuService,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private autenticacion: ImplicitAutenticationService,
+  ) { }
 
   ngOnInit() {
-    console.info((JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role))
-    if (!this.autenticacion.live()) {
-      this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role).filter((data: any) => (data.indexOf('/') === -1));
-      this.menuws.get(this.roles + '/configuracionv2').subscribe(
+    if (this.autenticacion.live()) {
+      this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role);
+      console.info(this.roles)
+      this.roles = this.roles.map(rol => {
+        console.info(rol)
+        if (rol === 'Internal/selfsignup') {
+          console.info('paso')
+          rol = 'Internalselfsignup';
+        }
+        return rol;
+      });
+      console.info(this.roles)
+      this.roles = this.roles.filter((data: any) => (data.indexOf('/') === -1));
+      console.info(this.roles)
+      this.menuws.get(this.roles + '/' + this.application_conf).subscribe(
         data => {
           this.dataMenu = <any>data;
+          console.info(this.dataMenu);
           for (let i = 0; i < this.dataMenu.length; i++) {
             if (this.dataMenu[i].TipoOpcion === 'Menú') {
               if (!this.dataMenu[i].Opciones) {
@@ -134,12 +148,10 @@ export class PagesComponent implements OnInit {
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
           this.menu = MENU_ITEMS;
-          this.translateMenu();
         });
     } else {
       this.rol = 'PUBLICO';
       this.menu = MENU_ITEMS;
-      this.translateMenu();
     }
     this.translateMenu();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
