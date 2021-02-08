@@ -22,7 +22,7 @@ export const environment = {
     SCOPE: 'openid email role documento',
     REDIRECT_URL: 'https://produccionacademica.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
+    SIGN_OUT_REDIRECT_URL: 'https://produccionacademica.portaloas.udistrital.edu.co',
   },
   PARAMETROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/v1/',
   PROYECTO_ACADEMICO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/proyecto_academico_crud/v1/',
