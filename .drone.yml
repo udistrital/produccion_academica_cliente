@@ -92,7 +92,7 @@ steps:
         from_secret: AWS_SECRET_ACCESS_KEY
       aws_region:
         from_secret: AWS_REGION
-      cloudfront_qa:
+      cloudfront_release:
         from_secret: CLOUDFRONT_RELEASE
     commands: 
       - aws configure set help
