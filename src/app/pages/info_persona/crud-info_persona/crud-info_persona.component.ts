@@ -36,6 +36,8 @@ export class CrudInfoPersonaComponent implements OnInit {
   @Output() eventChange = new EventEmitter();
   // tslint:disable-next-line: no-output-rename
   @Output('result') result: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-rename
+  @Output('resultId') resultId: EventEmitter<number> = new EventEmitter();
 
   info_info_persona: any;
   formInfoPersona: any;
@@ -142,6 +144,7 @@ export class CrudInfoPersonaComponent implements OnInit {
           this.sgamidService.post('persona/guardar_persona', this.info_info_persona).subscribe(res => {
             const r = <any>res
             if (r !== null && r.Type !== 'error') {
+              this.resultId.emit(r.Id)
               window.localStorage.setItem('ente', r.Id);
               this.info_persona_id = r.Id;
               sessionStorage.setItem('IdTercero', String(this.info_persona_id));

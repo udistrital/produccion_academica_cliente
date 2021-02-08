@@ -31,10 +31,32 @@ export class CrudInfoComplementarioComponent implements OnInit {
     this.loadInfoComplementaria();
   }
 
+  @Input('info_persona_id')
+  set personaIdInput(info_persona_id: number) {
+    this.info_persona_id = info_persona_id;
+    this.loadInfoComplementaria()
+      .then(() => {
+        this.loadInfoComplementariaTercero()
+        this.loadGrupinfoComplementaria()
+      })
+      .catch(error => {
+        if (!error.status) {
+          error.status = 409;
+        }
+        Swal({
+          type: 'error',
+          title: error.status + '',
+          text: this.translate.instant('ERROR.' + error.status),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        });
+      });
+  }
+
   @Output() eventChange = new EventEmitter();
   // tslint:disable-next-line: no-output-rename
   @Output('result') result: EventEmitter<any> = new EventEmitter();
 
+  info_persona_id: number;
   info_info_complementario: any;
   info_complementaria_padre: any;
   formInfoComplementaria: any;
@@ -78,19 +100,8 @@ export class CrudInfoComplementarioComponent implements OnInit {
               this.listAreaConocimientoEspecifica.push(this.info_info_complementario[i]);
             }
           }
-        },
-          (error: HttpErrorResponse) => {
-            Swal({
-              type: 'error',
-              title: error.status + '',
-              text: this.translate.instant('ERROR.' + error.status),
-              footer: this.translate.instant('GLOBAL.cargar') + '-' +
-                this.translate.instant('GLOBAL.info_persona'),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
-            reject(error);
-          });
-      this.proyectoAcademicoService.get('nivel_formacion')
+
+        this.proyectoAcademicoService.get('nivel_formacion')
         .subscribe(resp => {
           this.info_info_complementario = resp;
           for (let i = 0; i < this.info_info_complementario.length; i++) {
@@ -98,6 +109,30 @@ export class CrudInfoComplementarioComponent implements OnInit {
               this.listNivelFormacion.push(resp[i]);
             }
           }
+
+
+          if (!isNaN(this.info_persona_id)) {
+            this.tercerosService.get('tercero/?query=Id:' + (this.info_persona_id))
+              .subscribe(rest => {
+                // if (res !== null) {
+                if (Object.keys(rest[0]).length > 0) {
+                  this.userData = <Tercero>rest[0];
+                  this.userData['PuedeBorrar'] = false;
+                  resolve(true);
+                }
+              }, (error: HttpErrorResponse) => {
+                Swal({
+                  type: 'error',
+                  title: error.status + '',
+                  text: this.translate.instant('ERROR.' + error.status),
+                  footer: this.translate.instant('GLOBAL.cargar') + '-' +
+                    this.translate.instant('GLOBAL.info_persona'),
+                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                });
+                reject(error);
+              });
+          }
+
         },
           (error: HttpErrorResponse) => {
             Swal({
@@ -109,16 +144,9 @@ export class CrudInfoComplementarioComponent implements OnInit {
               confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             });
             reject(error);
-          })
-      if (!isNaN(this.user.getPersonaId())) {
-        this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId()))
-          .subscribe(rest => {
-            // if (res !== null) {
-            if (Object.keys(rest[0]).length > 0) {
-              this.userData = <Tercero>rest[0];
-              this.userData['PuedeBorrar'] = false;
-            }
-          }, (error: HttpErrorResponse) => {
+          });
+        },
+          (error: HttpErrorResponse) => {
             Swal({
               type: 'error',
               title: error.status + '',
@@ -128,9 +156,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
               confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             });
             reject(error);
-          });
-      }
-      resolve(true);
+        });
     });
   }
 
@@ -177,11 +203,10 @@ export class CrudInfoComplementarioComponent implements OnInit {
   }
 
   loadInfoComplementariaTercero(): void {
-    if (!isNaN(this.user.getPersonaId())) {
+    if (!isNaN(this.info_persona_id)) {
       this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
-        (this.user.getPersonaId()) + ',InfoComplementariaId__Nombre:FORMACION_ACADEMICA')
+        (this.info_persona_id) + ',InfoComplementariaId__Nombre:FORMACION_ACADEMICA')
         .subscribe(resp => {
-          console.info(resp)
           if (resp !== null && resp !== 'error') {
             this.NIVEL_FORMACION2 = resp
             if (Object.keys(this.NIVEL_FORMACION2[0]).length > 0) {
@@ -189,8 +214,6 @@ export class CrudInfoComplementarioComponent implements OnInit {
               this.nivelFormacion = this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id)
               this.loadInfoGrupoAcademico()
             }
-            console.info(this.user.getPersonaId())
-            // console.info(this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id))
           }
         }, (error: HttpErrorResponse) => {
           //  Swal({
@@ -203,7 +226,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
           //  });
         });
       this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
-        (this.user.getPersonaId()) + ',InfoComplementariaId__Nombre:INSTITUCION')
+        (this.info_persona_id) + ',InfoComplementariaId__Nombre:INSTITUCION')
         .subscribe(rest => {
           if (rest !== null && rest !== 'error') {
             this.INSTITUCION2 = rest
@@ -226,9 +249,9 @@ export class CrudInfoComplementarioComponent implements OnInit {
   }
 
   loadInfoGrupoAcademico(): void {
-    if (!isNaN(this.user.getPersonaId())) {
+    if (!isNaN(this.info_persona_id)) {
       this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
-        (this.user.getPersonaId()) + ',InfoComplementariaId__Nombre:AREA_CONOCIMIENTO')
+        (this.info_persona_id) + ',InfoComplementariaId__Nombre:AREA_CONOCIMIENTO')
         .subscribe(res => {
           if (res !== null && res !== 'error') {
             this.AREA_CONOCIMIENTO2 = res;
@@ -237,14 +260,9 @@ export class CrudInfoComplementarioComponent implements OnInit {
               this.listaGranArea = this.listaArea['AreaConocimiento']['GranAreaConocimiento']
               this.listaEspeArea = this.listaArea['AreaConocimiento']['AreaConocimientoEspecifica']
               this.granAreaConocimiento = this.listGranAreaConocimiento.find(value => value.Id = this.listaGranArea.Id)
-              console.info(this.listGranAreaConocimiento)
-              console.info(this.listAreaConocimientoEspecifica)
-              console.info(this.listaGranArea)
-              console.info(this.listaEspeArea)
-              console.info(this.listGranAreaConocimiento.find(value => this.listaGranArea.Id = value.Id))
               this.filterAreaConocimiento(this.granAreaConocimiento)
               this.areaConocimientoEspecifica = this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id)
-              console.info(this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id))
+              this.setPercentage();
             }
           }
         }, (error: HttpErrorResponse) => {
@@ -268,21 +286,6 @@ export class CrudInfoComplementarioComponent implements OnInit {
     private parametrosCrudService: ParametrosCrudService,
     private autenticationService: ImplicitAutenticationService,
     private toasterService: ToasterService) {
-    this.loadInfoComplementaria()
-      .then(() => { })
-      .catch(error => {
-        if (!error.status) {
-          error.status = 409;
-        }
-        Swal({
-          type: 'error',
-          title: error.status + '',
-          text: this.translate.instant('ERROR.' + error.status),
-          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        });
-      });
-    this.loadInfoComplementariaTercero()
-    this.loadGrupinfoComplementaria()
     this.formInfoComplementaria = JSON.parse(JSON.stringify(FORM_INFO_COMPLEMENTARIA));
     this.construirForm();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -349,6 +352,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
               sessionStorage.setItem('IdTercero', String(this.info_complementaria_id));
               this.loading = false;
               this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
+              this.setPercentage();
             } else {
               this.showToast('error', this.translate.instant('GLOBAL.error'),
                 this.translate.instant('GLOBAL.error'));
@@ -391,9 +395,8 @@ export class CrudInfoComplementarioComponent implements OnInit {
     }
   }
 
-  setPercentage(event) {
-    this.percentage = event;
-    this.result.emit(this.percentage);
+  setPercentage() {
+    this.result.emit(100);
   }
 
   private showToast(type: string, title: string, body: string) {
