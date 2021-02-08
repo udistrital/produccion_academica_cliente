@@ -83,51 +83,51 @@ steps:
       branch: [master]
       event: [push, pull_request] 
 
-- name: cloudfront_invalidation_Release
-  image: amazon/aws-cli
-  environment: 
-    aws_access_key_id:
-      from_secret: AWS_ACCESS_KEY_ID
-    aws_secret_access_key:
-      from_secret: AWS_SECRET_ACCESS_KEY
-    aws_region:
-      from_secret: AWS_REGION
-    cloudfront_qa:
-      from_secret: CLOUDFRONT_RELEASE
-  commands: 
-    - echo $${aws_access_key_id}
-    - aws configure set aws_access_key_id $${aws_access_key_id}
-    - aws configure set aws_secret_access_key $${aws_secret_access_key}
-    - aws configure set default.region $${aws_region}
-    - aws cloudfront create-invalidation --distribution-id $${cloudfront_release} --paths "/*"
-  when:
-    branch:
-    - release/*
-    event:
-    - push
+  - name: cloudfront_invalidation_Release
+    image: amazon/aws-cli
+    environment: 
+      aws_access_key_id:
+        from_secret: AWS_ACCESS_KEY_ID
+      aws_secret_access_key:
+        from_secret: AWS_SECRET_ACCESS_KEY
+      aws_region:
+        from_secret: AWS_REGION
+      cloudfront_qa:
+        from_secret: CLOUDFRONT_RELEASE
+    commands: 
+      - echo $${aws_access_key_id}
+      - aws configure set aws_access_key_id $${aws_access_key_id}
+      - aws configure set aws_secret_access_key $${aws_secret_access_key}
+      - aws configure set default.region $${aws_region}
+      - aws cloudfront create-invalidation --distribution-id $${cloudfront_release} --paths "/*"
+    when:
+      branch:
+      - release/*
+      event:
+      - push
 
-- name: cloudfront_invalidation_PROD
-  image: amazon/aws-cli
-  environment: 
-    aws_access_key_id:
-      from_secret: AWS_ACCESS_KEY_ID
-    aws_secret_access_key:
-      from_secret: AWS_SECRET_ACCESS_KEY
-    aws_region:
-      from_secret: AWS_REGION
-    cloudfront_prod:
-      from_secret: CLOUDFRONT_PROD
-  commands: 
-    - echo $${aws_access_key_id}
-    - aws configure set aws_access_key_id $${aws_access_key_id}
-    - aws configure set aws_secret_access_key $${aws_secret_access_key}
-    - aws configure set default.region $${aws_region}
-    - aws cloudfront create-invalidation --distribution-id $${cloudfront_prod} --paths "/*"
-  when:
-    branch:
-    - master
-    event:
-    - push
+  - name: cloudfront_invalidation_PROD
+    image: amazon/aws-cli
+    environment: 
+      aws_access_key_id:
+        from_secret: AWS_ACCESS_KEY_ID
+      aws_secret_access_key:
+        from_secret: AWS_SECRET_ACCESS_KEY
+      aws_region:
+        from_secret: AWS_REGION
+      cloudfront_prod:
+        from_secret: CLOUDFRONT_PROD
+    commands: 
+      - echo $${aws_access_key_id}
+      - aws configure set aws_access_key_id $${aws_access_key_id}
+      - aws configure set aws_secret_access_key $${aws_secret_access_key}
+      - aws configure set default.region $${aws_region}
+      - aws cloudfront create-invalidation --distribution-id $${cloudfront_prod} --paths "/*"
+    when:
+      branch:
+      - master
+      event:
+      - push
 
 
   #Notify results to telegram
