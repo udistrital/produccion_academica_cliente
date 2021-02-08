@@ -4,10 +4,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
 import { TercerosService } from '../../../@core/data/terceros.service';
-import { SgaMidService } from '../../../@core/data/sga_mid.service';
+// import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
 import { UserService } from '../../../@core/data/users.service';
-import { ProduccionAcademicaPost } from './../../../@core/data/models/produccion_academica/produccion_academica';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { filterList } from './filtros'
 import Swal from 'sweetalert2';
@@ -18,7 +17,7 @@ import { PaqueteSolicitudPost } from '../../../@core/data/models/solicitud_docen
 @Component({
   selector: 'ngx-list-paquetes',
   templateUrl: './list-paquetes.component.html',
-  styleUrls: ['./list-paquetes.component.scss']
+  styleUrls: ['./list-paquetes.component.scss'],
 })
 export class ListPaquetesComponent implements OnInit {
   paquete_update: PaqueteSolicitudPost;
@@ -36,7 +35,6 @@ export class ListPaquetesComponent implements OnInit {
 
   constructor(private translate: TranslateService,
     private solicitudDocenteService: SolicitudDocenteService,
-    private sgaMidService: SgaMidService,
     private user: UserService,
     private tercerosService: TercerosService,
     private toasterService: ToasterService) {
@@ -126,7 +124,6 @@ export class ListPaquetesComponent implements OnInit {
       if (res !== null) {
         if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
           const data = <Array<PaqueteSolicitudPost>>res;
-          console.info(data);
           this.solicitudes_list = data;
           this.source.load(this.solicitudes_list);
           Swal.close();
@@ -160,20 +157,6 @@ export class ListPaquetesComponent implements OnInit {
     this.paquete_selected = event.data;
     this.activetab(1);
   }
-
-  // filterSolicitudes(filter) {
-  //   console.info(filter);
-  //   let data;
-  //   if (filter) {
-  //     this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
-  //       solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id,
-  //     )
-  //     data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
-  //   } else {
-  //     data = <Array<SolicitudDocentePost>>this.solicitudes_list;
-  //   }
-  //   this.source.load(data);
-  // }
 
   activetab(number): void {
     this.cambiotab = number;

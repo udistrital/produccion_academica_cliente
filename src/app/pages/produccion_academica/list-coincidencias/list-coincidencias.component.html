@@ -1,7 +1,9 @@
 <div class="body_coincidence" style="width: 90%;">
   <div class="resume_body" *ngFor="let solicitud of solicitudes_list; index as i">
     <div class="row">
-      <div class="col-12"><h6>{{'produccion_academica.produccion_numero' | translate}} {{i + 1}}:</h6></div>
+      <div class="col-12">
+        <h6>{{'produccion_academica.produccion_numero' | translate}} {{i + 1}}:</h6>
+      </div>
     </div>
     <div class="row">
       <div class="col-8"> {{'produccion_academica.par_academico' | translate}} </div>
@@ -17,7 +19,8 @@
     </div>
     <div class="body_coincidence-btn">
       <button class="btn_view" (click)="isView = true">{{'produccion_academica.ver' | translate}}</button>
-      <button class="btn_accept" (click)="acceptCoincidence(solicitud)">{{'produccion_academica.aceptar_coincidencia' | translate}}</button>
+      <button class="btn_accept" (click)="acceptCoincidence(solicitud)">{{'produccion_academica.aceptar_coincidencia' |
+        translate}}</button>
     </div>
   </div>
 </div>
@@ -25,7 +28,8 @@
 <div class="pop-review" *ngIf="isView">
   <div class="pop-review-content">
     <button class="clc-btn" (click)="closePop()"><i class="nb-close" title="view"></i></button>
-    <ngx-resume-produccion-academica *ngIf="solicitud_docente_selected" [solicitud_docente_selected]="solicitud_docente_selected">
+    <ngx-resume-produccion-academica *ngIf="solicitud_docente_selected"
+      [solicitud_docente_selected]="solicitud_docente_selected">
     </ngx-resume-produccion-academica>
   </div>
 </div>

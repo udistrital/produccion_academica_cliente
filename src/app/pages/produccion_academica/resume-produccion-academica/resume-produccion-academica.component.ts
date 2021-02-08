@@ -15,20 +15,18 @@ import { DocumentoService } from '../../../@core/data/documento.service';
 @Component({
   selector: 'ngx-resume-produccion-academica',
   templateUrl: './resume-produccion-academica.component.html',
-  styleUrls: ['./resume-produccion-academica.component.scss']
+  styleUrls: ['./resume-produccion-academica.component.scss'],
 })
 export class ResumeProduccionAcademicaComponent implements OnInit {
   @Input('evaluacion_selected')
   set evaluacion(evaluacion_selected: SolicitudDocentePost) {
     this.evaluacion_selected = evaluacion_selected;
-    console.info(this.evaluacion_selected)
     this.loadProduccionAcademica(this.evaluacion_selected.SolicitudPadreId);
   }
 
   @Input('solicitud_docente_selected')
   set solicitud_input(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
-    console.info(this.solicitud_docente_selected)
     this.loadProduccionAcademica(this.solicitud_docente_selected);
   }
 
@@ -134,8 +132,6 @@ export class ResumeProduccionAcademicaComponent implements OnInit {
             }
           });
           if (callback !== undefined) {
-            console.info('campos review: ', this.formProduccionAcademica.campos)
-            console.info('Metadatos review: ', this.info_produccion_academica.Metadatos)
             callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService, this);
           }
         }
@@ -167,6 +163,4 @@ export class ResumeProduccionAcademicaComponent implements OnInit {
       'scrollbars=no, resizable=no, copyhistory=no, ' +
       'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
   }
-
-
 }

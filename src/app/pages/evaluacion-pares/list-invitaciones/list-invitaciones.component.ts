@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToasterConfig } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
@@ -19,7 +18,6 @@ import 'style-loader!angular2-toaster/toaster.css';
 })
 export class ListInvitacionesComponent implements OnInit {
   cambiotab: number = 0;
-  config: ToasterConfig;
   settings: any;
   source: LocalDataSource = new LocalDataSource();
   persona_id: number;
@@ -38,7 +36,6 @@ export class ListInvitacionesComponent implements OnInit {
     this.par_email = (JSON.parse(atob(localStorage
       .getItem('id_token')
       .split('.')[1])).email);
-    console.info(this.par_email);
     this.persona_id = user.getPersonaId();
     this.evaluador = new Solicitante();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -143,7 +140,6 @@ export class ListInvitacionesComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
       this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
-        console.info(res);
         if (res !== null) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 10);
           let i = 0;
@@ -178,7 +174,6 @@ export class ListInvitacionesComponent implements OnInit {
               });
             }
           });
-          console.info(data);
           this.invitaciones_list = data;
         }
       }, (error: HttpErrorResponse) => {
@@ -200,7 +195,6 @@ export class ListInvitacionesComponent implements OnInit {
       this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + numState)
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
-            console.info(res.Data);
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
             resolve(true);
           } else {
@@ -241,8 +235,6 @@ export class ListInvitacionesComponent implements OnInit {
               this.evaluador.TerceroId = this.persona_id;
               this.evaluador.SolicitudId = this.invitacion_selected;
               this.evaluador.Activo = true;
-              console.info(this.invitacion_selected)
-              console.info(this.evaluador)
               if (this.invitacion_selected.Solicitantes.length === 0)
                 this.postSolicitante();
               else
@@ -294,7 +286,6 @@ export class ListInvitacionesComponent implements OnInit {
           });
         } else {
           this.invitacion_selected = <SolicitudDocentePost>resp;
-          console.info(this.invitacion_selected);
           this.updateData(this.invitacion_selected)
         }
       });

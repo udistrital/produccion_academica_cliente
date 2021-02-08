@@ -1,12 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-// import { CampusMidService } from '../../../@core/data/campus_mid.service';
 import { InfoPersona } from '../../../@core/data/models/informacion/info_persona';
-import { NuxeoService } from '../../../@core/utils/nuxeo.service';
-import { DocumentoService } from '../../../@core/data/documento.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import Swal from 'sweetalert2';
 import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
@@ -30,10 +25,7 @@ export class ViewInfoPersonaComponent implements OnInit {
   @Output('url_editar') url_editar: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
-    // private campusMidService: CampusMidService,
-    private documentoService: DocumentoService,
     private sanitization: DomSanitizer,
-    private nuxeoService: NuxeoService,
     private translate: TranslateService) {
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
     });
@@ -58,25 +50,6 @@ export class ViewInfoPersonaComponent implements OnInit {
   public loadInfoPersona(): void {
     const id = this.info_persona_id ? this.info_persona_id : this.info_persona_user ? this.info_persona_user : undefined;
     if (id !== undefined && id !== 0 && id.toString() !== '') {
-      // this.campusMidService.get('persona/consultar_persona/' + id)
-      //   .subscribe(res => {
-      //     const r = <any>res;
-      //     if (r !== null && r.Type !== 'error') {
-      //       this.info_info_persona = <InfoPersona>res;
-      //     } else {
-      //       this.info_info_persona = undefined;
-      //     }
-      //   },
-      //     (error: HttpErrorResponse) => {
-      //       Swal({
-      //         type: 'error',
-      //         title: error.status + '',
-      //         text: this.translate.instant('ERROR.' + error.status),
-      //         footer: this.translate.instant('GLOBAL.cargar') + '-' +
-      //           this.translate.instant('GLOBAL.info_persona'),
-      //         confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-      //       });
-      //     });
     } else {
       this.info_info_persona = undefined
     }

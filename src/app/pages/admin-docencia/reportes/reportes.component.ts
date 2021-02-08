@@ -33,7 +33,7 @@ export class ReportesComponent implements OnInit {
 
   activePop(option: number) {
     this.reportType = option;
-    if (this.reportType === 0) 
+    if (this.reportType === 0)
       this.isReportPares = true;
     else
       this.isReportAny = true;
@@ -54,7 +54,7 @@ export class ReportesComponent implements OnInit {
         confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
       });
     } else {
-      switch(this.reportType) {
+      switch (this.reportType) {
         case 0:
           this.urlReportComplete = this.urlReport +
           '&document=864&documentName=docenReportePares&fechaInicio_description=&fechaFinal_description=&outputType=XLS' +
