@@ -49,6 +49,6 @@ export const environment = {
     CROSS: '&isFromCross=false',
     ENVIRONMENT: '&SBI_ENVIRONMENT=DOCBROWSER',
   },
-  // Servicios que podrían ser retirados ----------------------------------------------------------------
+  // Servicios que podrían ser retirados ---------------------------------------------------------------
   NOTIFICACION_SERVICE: 'wss://pruebasapi.portaloas.udistrital.edu.co:8116/ws',
 };
