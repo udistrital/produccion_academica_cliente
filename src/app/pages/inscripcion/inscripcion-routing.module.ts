@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InscripcionComponent } from './inscripcion.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { AuthGuard } from '../../@core/_guards/auth.guard';
 import { PreinscripcionComponent } from './preinscripcion/preinscripcion.component';
 
 const routes: Routes = [{
@@ -27,6 +25,5 @@ export class InscripcionRoutingModule { }
 
 export const routedComponents = [
   InscripcionComponent,
-  PerfilComponent,
   PreinscripcionComponent,
 ];

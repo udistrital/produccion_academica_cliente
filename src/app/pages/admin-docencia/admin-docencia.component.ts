@@ -8,7 +8,5 @@ export class AdminDocenciaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

@@ -26,7 +26,6 @@ export class ListCoincidenciasComponent implements OnInit {
   @Input('id_coincidencias_list')
   set coincidencias_input(id_coincidencias_list: string[]) {
     this.id_coincidencias_list = id_coincidencias_list;
-    console.info(this.id_coincidencias_list);
     this.showData();
   }
 
@@ -83,7 +82,6 @@ export class ListCoincidenciasComponent implements OnInit {
       let i = 0;
       this.id_coincidencias_list.forEach(idCoincidencia => {
         const endpointSolicitud = 'solicitud_docente/get_one/' + idCoincidencia;
-        console.info(endpointSolicitud)
         this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
           if (res !== null) {
             if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
@@ -98,7 +96,6 @@ export class ListCoincidenciasComponent implements OnInit {
                       this.solicitudes_list.push(solicitud);
                       i++;
                       if (i === this.id_coincidencias_list.length) {
-                        console.info('Paso');
                         resolve(true);
                       }
                     } else {
@@ -171,7 +168,6 @@ export class ListCoincidenciasComponent implements OnInit {
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-            console.info(this.estadosSolicitudes)
             resolve(true);
           } else {
             this.estadosSolicitudes = [];
@@ -186,11 +182,9 @@ export class ListCoincidenciasComponent implements OnInit {
   cloneEvaluations() {
     let endpoint: string;
     endpoint = `solicitud_produccion/coincidencia/${this.solicitud_docente_selected.Id}/${this.solicitud_docente_coincidence.Id}/${this.user.getPersonaId()}`;
-    console.info(this.solicitud_docente_selected)
     this.sgaMidService.post(endpoint, this.solicitud_docente_selected)
       .subscribe(res => {
         if (res !== null) {
-          console.info('res:', res);
           this.cloneResult();
         }
       })
@@ -198,7 +192,6 @@ export class ListCoincidenciasComponent implements OnInit {
 
   cloneResult() {
     this.solicitud_docente_selected.Resultado = `{ \"Puntaje\": ${this.getResult(this.solicitud_docente_coincidence.Resultado)} }`;
-    console.info(this.solicitud_docente_selected);
     this.updateSolicitudDocente(this.solicitud_docente_selected);
   }
 
@@ -206,7 +199,6 @@ export class ListCoincidenciasComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    console.info(this.info_solicitud);
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {
@@ -272,7 +264,5 @@ export class ListCoincidenciasComponent implements OnInit {
     return '';
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

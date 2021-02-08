@@ -202,7 +202,6 @@ export class ListProduccionAcademicaComponent implements OnInit {
                           solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                           i++;
                           if (i === data.length) {
-                            console.info('Paso');
                             resolve(true);
                           }
                         } else {
@@ -225,7 +224,6 @@ export class ListProduccionAcademicaComponent implements OnInit {
                     });
                   }
                 });
-                console.info(data);
                 this.solicitudes_list = data;
               } else {
                 Swal({
@@ -268,7 +266,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
       this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud => {
         if (solicitud.EvolucionEstado.length > 0)
           if (solicitud.EvolucionEstado[solicitud.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === filter.Id)
-            return solicitud; 
+            return solicitud;
       });
       data = <Array<SolicitudDocentePost>>this.solicitudes_list_filter;
     } else {
@@ -319,7 +317,6 @@ export class ListProduccionAcademicaComponent implements OnInit {
                   this.solicitud_updated.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                   this.loadTerceroData(this.solicitud_updated)
                   .then(() => {
-                    console.info(this.solicitud_updated)
                     this.solicitudes_list = this.solicitudes_list.map(solicitud => {
                       if (solicitud.Id === this.solicitud_updated.Id)
                         solicitud = this.solicitud_updated

@@ -28,7 +28,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   @Input('paquete_solicitud_selected')
   set paquete_solicitud_input(paquete_solicitud_selected: PaqueteSolicitudPost) {
     this.paquete_solicitud_selected = paquete_solicitud_selected;
-    console.info(this.paquete_solicitud_selected)
     this.certificadoAprobado = false;
     this.certificadoExiste = false;
     this.showData();
@@ -206,7 +205,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'paquete_solicitud/' + this.paquete_solicitud_selected.Id;
       this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
-        console.info(res);
         if (res !== null) {
           if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
             const data = <Array<SolicitudDocentePost>>res;
@@ -240,7 +238,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                 });
               }
             });
-            console.info(data);
             this.solicitudes_list = data;
           } else {
             Swal({
@@ -336,10 +333,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
               });
               Swal.showLoading();
               this.solicitud_selectedPostpone = <SolicitudDocentePost>event;
-              console.info(this.estadosSolicitudes);
               this.solicitud_selectedPostpone.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
               this.solicitud_selectedPostpone.TerceroId = this.user.getPersonaId() || 3;
-              console.info(this.solicitud_selectedPostpone);
               this.sgaMidService.post('solicitud_docente/' + this.solicitud_selectedPostpone.Id, this.solicitud_selectedPostpone)
                 .subscribe((res: any) => {
                   if (res.Type === 'error') {
@@ -352,7 +347,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                   } else {
                     this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
                     this.updatePackage(0);
-                    console.info(this.solicitud_selectedPostpone)
                     Swal({
                       title: `Éxito al Verificar Solicitud.`,
                       text: 'Información Modificada correctamente',
@@ -444,7 +438,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   }
 
   filterSolicitudes(filter) {
-    console.info(filter);
     let data;
     if (filter) {
       this.solicitudes_list_filter = this.solicitudes_list.filter(solicitud =>
@@ -618,7 +611,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         if (willCreate.value) {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.solicitudes_list.forEach(solicitud => solicitud.SolicitudFinalizada = true);
-          console.info(this.solicitudes_list);
           this.updatePackage(9);
         }
       });
@@ -656,7 +648,6 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
               this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
             } else {
               this.paquete_solicitud_selected = resp;
-              console.info(resp);
               Swal({
                 title: `Éxito al actualizar Paquete.`,
                 text: 'Información Guardada correctamente',

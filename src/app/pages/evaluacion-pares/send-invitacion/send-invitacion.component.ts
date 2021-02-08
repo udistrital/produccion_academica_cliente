@@ -90,7 +90,6 @@ export class SendInvitacionComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    console.info(this.info_solicitud);
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
       .subscribe((resp: any) => {
         if (resp.Type === 'error') {
@@ -117,7 +116,6 @@ export class SendInvitacionComponent implements OnInit {
           this.info_solicitud_hija.Referencia = `{ \"Nombre\": \"${this.invitacionTemplate.NombreDocente}\", \"Correo\": \"${this.correoTemp}\"}`;
           this.info_solicitud_hija.TerceroId = this.user.getPersonaId() || 3;
           this.info_solicitud_hija.Autores = []
-          console.info(this.info_solicitud_hija)
           this.sgaMidService.post('solicitud_docente', this.info_solicitud_hija)
             .subscribe((resp: any) => {
               if (resp.Type === 'error') {
@@ -128,7 +126,6 @@ export class SendInvitacionComponent implements OnInit {
                   confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
               } else {
-                console.info(resp)
                 this.info_solicitud_hija = <SolicitudDocentePost>resp;
                 this.invitacionTemplate.urlRechazarEvaluacion =
                   'https://autenticacion.portaloas.udistrital.edu.co/apioas/sga_mid/v1/solicitud_evaluacion/' + resp.Solicitud.Id;
@@ -146,15 +143,6 @@ export class SendInvitacionComponent implements OnInit {
   sendInvitation() {
     this.googleMidService.post('notificacion', this.invitacion)
       .subscribe((res: any) => {
-        // if (res.Type === 'error') {
-        //   Swal({
-        //     type: 'error',
-        //     title: res.Code,
-        //     text: this.translate.instant('ERROR.' + res.Code),
-        //     confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-        //   });
-        // } else {
-          console.info(res);
           Swal({
             title: `Éxito al Enviar Observación.`,
             text: 'Información Modificada correctamente',
@@ -164,7 +152,6 @@ export class SendInvitacionComponent implements OnInit {
           this.invitacion.templateData = null;
           this.correoTemp = '';
           this.reloadTable.emit(this.solicitud_selected.Id);
-        // }
       });
   }
 
