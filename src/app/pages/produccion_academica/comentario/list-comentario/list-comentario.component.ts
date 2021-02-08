@@ -15,10 +15,12 @@ import { Observacion } from '../../../../@core/data/models/solicitud_docente/obs
   styleUrls: ['./list-comentario.component.scss'],
 })
 export class ListComentarioComponent implements OnInit {
+
   @Input('observaciones_selected')
   set observaciones(observaciones_selected: Observacion[]) {
+    this.observaciones_selected = [];
     this.observaciones_selected = observaciones_selected;
-    console.info(this.observaciones_selected);
+    console.info(this.observaciones_selected)
     this.filterComments();
     this.loadData();
     this.cargarCampos();
@@ -44,17 +46,23 @@ export class ListComentarioComponent implements OnInit {
   }
 
   filterComments() {
-    if (this.rol === 'DOCENTE'){
-      this.observaciones_selected = this.observaciones_selected.filter(observacion => (Object.keys(observacion).length > 0) && observacion.TipoObservacionId.Id === 1)
-    }
-    this.observaciones_selected = this.observaciones_selected
-    .filter(observacion => {
-      if (Object.keys(observacion).length > 0) {
-        if (observacion.TipoObservacionId.Id === 1 || observacion.TipoObservacionId.Id === 3) {
-          return observacion;
+    if (this.rol === 'DOCENTE') {
+      this.observaciones_selected = this.observaciones_selected
+      .filter(observacion => {
+        if ((Object.keys(observacion).length > 0) && observacion.TipoObservacionId.Id === 1) {
+          return observacion
         }
-      } 
-    });
+      });
+    } else {
+      this.observaciones_selected = this.observaciones_selected
+      .filter(observacion => {
+        if (Object.keys(observacion).length > 0) {
+          if (observacion.TipoObservacionId.Id === 1 || observacion.TipoObservacionId.Id === 3) {
+            return observacion;
+          }
+        }
+      });
+    }
   }
 
   cargarCampos() {
@@ -126,7 +134,6 @@ export class ListComentarioComponent implements OnInit {
       this.loadTerceroData()
         .then(() => {
           const data = <Array<Observacion>>this.observaciones_selected;
-          console.info(data)
           this.source.load(data);
           this.cargarCampos();
         })

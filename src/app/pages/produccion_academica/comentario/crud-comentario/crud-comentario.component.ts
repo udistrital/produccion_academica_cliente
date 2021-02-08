@@ -100,7 +100,6 @@ export class CrudComentarioComponent implements OnInit {
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
-            console.info(this.estadosSolicitudes)
             resolve(true);
           } else {
             this.estadosSolicitudes = [];
@@ -162,7 +161,6 @@ export class CrudComentarioComponent implements OnInit {
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
     if (this.info_solicitud.EstadoTipoSolicitudId.Id === 4 || this.info_solicitud.EstadoTipoSolicitudId.Id === 6)
       this.info_solicitud.Resultado = `{ \"Puntaje\": ${0} }`
-    console.info(this.info_solicitud);
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {

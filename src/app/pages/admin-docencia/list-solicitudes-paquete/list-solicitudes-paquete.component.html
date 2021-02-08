@@ -5,20 +5,6 @@
       <nb-tabset fullWidth (changeTab)="selectTab($event)">
         <nb-tab tabTitle="{{ 'GLOBAL.lista' | translate }}" [active]="cambiotab == 0">
           <h2>{{ 'GLOBAL.lista_paquete' | translate }}</h2>
-            
-          <div class="filter">
-            <p>Filtro de Solicitudes:</p>
-            <mat-select
-              placeholder="{{ 'produccion_academica.placeholder_filtro' | translate }}"
-              [(ngModel)]="filter" 
-              (ngModelChange)="filterSolicitudes(filter)"
-              [ngModelOptions]="{standalone: true}">
-              <mat-option>--Seleccionar--</mat-option>
-              <mat-option *ngFor="let filtro of filtros" [value]="filtro">
-                {{'produccion_academica.filtros.' + filtro.Nombre | translate}}
-              </mat-option>
-            </mat-select>
-          </div>
 
           <ng2-smart-table 
             [settings]="settings" 
@@ -61,8 +47,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-

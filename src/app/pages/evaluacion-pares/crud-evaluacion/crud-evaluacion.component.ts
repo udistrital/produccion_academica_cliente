@@ -72,8 +72,6 @@ export class CrudEvaluacionComponent implements OnInit {
     private toasterService: ToasterService,
     private sgaMidService: SgaMidService,
   ) {
-    // this.formConstruido = JSON.parse(JSON.stringify(FORM_evaluacion_docente));
-    // this.loadOptions();
     this.fecha_actual = (new Date()).toISOString().split('T')[0];
     this.evaluacion_post = new EvaluacionDocentePost;
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -91,8 +89,6 @@ export class CrudEvaluacionComponent implements OnInit {
           (campo.placeholder = this.translate.instant('evaluacion.placeholders.' + campo.placeholder_i18n));
       })
     });
-    console.info(this.formEvaluacionPar);
-    // this.formEvaluacionPar.secciones.campos.sort((campoA, campoB) => (campoA.orden > campoB.orden) ? 1 : -1);
   }
 
   loadEstadoSolicitud(numState): Promise<any> {
@@ -101,9 +97,7 @@ export class CrudEvaluacionComponent implements OnInit {
         resolve(true)
       this.solicitudDocenteService.get('estado_tipo_solicitud/?query=EstadoId:' + numState)
         .subscribe(res => {
-          console.info(res);
           if (Object.keys(res.Data[0]).length > 0) {
-            console.info(res.Data);
             this.estadosSolicitudes = <Array<EstadoTipoSolicitud>>res.Data;
             resolve(true);
           } else {
@@ -154,7 +148,6 @@ export class CrudEvaluacionComponent implements OnInit {
       .subscribe(res => {
         if (res !== null) {
           this.tipoEvaluacion = <TipoEvaluacion>res.Data[0];
-          console.info(this.tipoEvaluacion)
           if (produccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 13 ||
             produccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 14
           )
@@ -178,7 +171,6 @@ export class CrudEvaluacionComponent implements OnInit {
               });
             }
           });
-          console.info(this.formEvaluacionPar);
           // if (callback !== undefined) {
           //   console.info('loadSubtipoFormField(call) - Campos: ', this.formProduccionAcademica.campos)
           //   console.info('loadSubtipoFormField(call) - Metadatos: ', this.info_produccion_academica.Metadatos)
@@ -268,7 +260,6 @@ export class CrudEvaluacionComponent implements OnInit {
     this.evaluacion_post.estructura_evaluacion = { ciudad: this.evaluacion_post.ciudad };
     this.evaluacion_post.estado = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.evaluacion_post.resultado = { resultado: this.resultado_evaluacion };
-    console.info(this.evaluacion_post);
     this.evaluacionDocenteService.post('evaluaciones', this.evaluacion_post)
       .subscribe((res: any) => {
         if (res.Type === 'error') {
@@ -281,11 +272,9 @@ export class CrudEvaluacionComponent implements OnInit {
           this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
         } else {
           this.evaluacion_post = <EvaluacionDocentePost>res.Data;
-          console.info(this.evaluacion_post)
           const referencia = JSON.parse(this.solicitud_evaluacion_selected.Referencia);
           this.solicitud_evaluacion_selected.Referencia =
             `{\"Nombre\": \"${referencia.Nombre}\", \"Correo\": \"${referencia.Correo}\", \"IdEvaluacion\": \"${this.evaluacion_post._id}\", \"IdDocumento\": ${this.id_documento}, \"UrlDocumento\": \"${this.url_documento}\"}`;
-          console.info(this.solicitud_evaluacion_selected);
           this.updateSolicitudDocente(this.solicitud_evaluacion_selected);
         }
       });
@@ -297,7 +286,6 @@ export class CrudEvaluacionComponent implements OnInit {
     this.solicitud_evaluacion_selected.TerceroId = this.evaluador_id_selected || 3;
     this.solicitud_evaluacion_selected.Resultado = `{ \"Puntaje\": ${this.resultado_evaluacion} }`;
     this.solicitud_evaluacion_selected.Observaciones = [];
-    console.info(this.solicitud_evaluacion_selected);
     this.sgaMidService.post('solicitud_docente/' + this.solicitud_evaluacion_selected.Id, this.solicitud_evaluacion_selected)
       .subscribe((resp: any) => {
         if (resp.Type === 'error') {
@@ -322,7 +310,6 @@ export class CrudEvaluacionComponent implements OnInit {
 
   validarForm(event) {
     if (event.valid) {
-      console.info(this.evaluacion_post.ciudad)
       if (this.evaluacion_post.ciudad === undefined || this.evaluacion_post.ciudad === '') {
         Swal({
           type: 'warning',
@@ -335,8 +322,6 @@ export class CrudEvaluacionComponent implements OnInit {
         const respuestas = [];
         const filesToUpload = [];
         if (event.data.EvaluacionDocentePost) {
-          console.info('validarForm - event.data.EvaluacionDocentePost: ', event.data.EvaluacionDocentePost);
-          console.info('validarForm - evaluacion_post.ciudad: ', this.evaluacion_post.ciudad);
           const tempRestpuestas = event.data.EvaluacionDocentePost;
           const keys = Object.keys(tempRestpuestas);
           this.getResultado(tempRestpuestas, keys);
@@ -502,7 +487,6 @@ export class CrudEvaluacionComponent implements OnInit {
       });
       this.nuxeoService.getDocumentos$(files, this.documentoService)
         .subscribe(response => {
-          console.info('uploadFilesToMetadata - Resp nuxeo: ', response);
           if (Object.keys(response).length === files.length) {
 
             filesToGet.push({ Id: response[this.solicitud_evaluacion_selected.Id].Id, key: this.solicitud_evaluacion_selected.Id });

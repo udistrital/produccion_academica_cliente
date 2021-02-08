@@ -1,21 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-xl-3 col-md-4 col-lg-3 col-sm-6" *ngFor="let request of requestList; index as id">
-        <nb-card size="small">
-            <nb-card-header>
-              <div class="tittle-request">{{'produccion_academica.categorias.' + request.title | translate}}</div>
-            </nb-card-header>
-            <nb-card-body>
-                <div class="details">
-                    <div class="title">
-                        <ul>
-                          <li *ngFor="let item of request.itemList">{{'produccion_academica.categorias.' + item | translate}}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-action"><button (click)="goToRequest(id)">Ingresar</button></div>
-            </nb-card-body>
-        </nb-card>
+      <nb-card size="small">
+        <nb-card-header>
+          <div class="tittle-request">{{'produccion_academica.categorias.' + request.title | translate}}</div>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="details">
+            <div class="title">
+              <ul>
+                <li *ngFor="let item of request.itemList">{{'produccion_academica.categorias.' + item | translate}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-action"><button (click)="goToRequest(id)">Ingresar</button></div>
+        </nb-card-body>
+      </nb-card>
     </div>
   </div>
 </div>
