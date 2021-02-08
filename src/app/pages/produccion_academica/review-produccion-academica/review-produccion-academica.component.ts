@@ -62,7 +62,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.observaciones_coincidences = [];
     this.isExistPoint = false;
     if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
-      console.info(JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje)
       this.isExistPoint = true;
       this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
     }
@@ -130,12 +129,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   public loadProduccionAcademica(): void {
     if (this.solicitud_docente_selected !== undefined) {
       this.info_produccion_academica = JSON.parse(JSON.stringify(this.solicitud_docente_selected.ProduccionAcademica));
-      console.info(this.solicitud_docente_selected)
       this.getTerceroData(this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].TerceroId);
-      // const tipoProduccion = this.tiposProduccionAcademica.filter(tipo =>
-      //   tipo.Id === this.info_produccion_academica.SubtipoProduccionId.TipoProduccionId.Id)[0];
-      // this.filterTitleProduction(tipoProduccion)
-      // this.filterDateProduccion(tipoProduccion)
       this.Metadatos = [];
       const fillForm = function (campos, Metadatos, nuxeoService, documentoService, review) {
         const filesToGet = [];
@@ -205,8 +199,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
             }
           });
           if (callback !== undefined) {
-            console.info('campos review: ', this.formProduccionAcademica.campos)
-            console.info('Metadatos review: ', this.info_produccion_academica.Metadatos)
             callback(this.formProduccionAcademica.campos, this.info_produccion_academica.Metadatos, this.nuxeoService, this.documentoService, this);
           }
         }
@@ -407,7 +399,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    console.info(this.info_solicitud);
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
       .subscribe((res: any) => {
         if (res.Type === 'error') {
@@ -419,7 +410,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           });
         } else {
           this.info_solicitud = <SolicitudDocentePost>res;
-          console.info(this.info_solicitud)
           Swal({
             title: `Éxito al Verificar Solicitud.`,
             text: 'Información Modificada correctamente',

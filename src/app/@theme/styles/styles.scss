@@ -22,20 +22,20 @@
 @include mat-core();
 
 $my-blue: (
-  50: #5eb0f3,
-  100: #5eb0f3,
-  200: #5eb0f3,
-  300: #5eb0f3,
-  400: #5eb0f3,
-  500: #5eb0f3,
-  600: #5eb0f3,
-  700: #5eb0f3,
-  800: #5eb0f3,
-  900: #5eb0f3,
-  A100: #5eb0f3,
-  A200: #5eb0f3,
-  A400: #5eb0f3,
-  A700: #5eb0f3,
+  50: #4486AA,
+  100: #4486AA,
+  200: #4486AA,
+  300: #4486AA,
+  400: #4486AA,
+  500: #4486AA,
+  600: #4486AA,
+  700: #4486AA,
+  800: #4486AA,
+  900: #4486AA,
+  A100: #4486AA,
+  A200: #4486AA,
+  A400: #4486AA,
+  A700: #4486AA,
   contrast: (
     50: white,
     100: white,
@@ -103,7 +103,7 @@ $mat-mytheme: mat-light-theme($mat-mytheme-primary, $mat-mytheme-accent);
     &:hover {
       color: nb-theme(link-color-hover);
       @include nb-for-theme(default) {
-        color: #4ba0e2 !important;
+        color: #4486AA !important;
       }
       text-decoration: underline;
     }

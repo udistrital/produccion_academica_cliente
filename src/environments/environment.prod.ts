@@ -17,12 +17,12 @@ export const environment = {
   CONF_MENU_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/menu_opcion_padre/ArbolMenus/',
   TOKEN: {
     AUTORIZATION_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize',
-    CLIENTE_ID: 'Dnm6dwGVC74_jzLgFpYlnL7t0BAa',
+    CLIENTE_ID: 'aD56YRCuJUnkWOOQz1E4rE_Af_ka',
     RESPONSE_TYPE: 'id_token token',
     SCOPE: 'openid email role documento',
-    REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
+    REDIRECT_URL: 'https://produccionacademica.portaloas.udistrital.edu.co',
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
-    SIGN_OUT_REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
+    SIGN_OUT_REDIRECT_URL: 'https://produccionacademica.portaloas.udistrital.edu.co',
   },
   PARAMETROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/v1/',
   PROYECTO_ACADEMICO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/proyecto_academico_crud/v1/',
@@ -34,6 +34,7 @@ export const environment = {
   EVALUACION_DOCENTE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluaciones_crud/v1/',
   DOCUMENTO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/documento_crud/v2/',
   TERCEROS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/terceros_crud/v1/',
+  AUTENTICACION_MID_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/',
   SPAGOBI: {
     URL: 'https://intelligentia.udistrital.edu.co:8443/SpagoBIBirtReportEngine/BirtReportServlet?',
     CONTEXT: 'SBICONTEXT=%2FSpagoBI',
@@ -48,17 +49,6 @@ export const environment = {
     CROSS: '&isFromCross=false',
     ENVIRONMENT: '&SBI_ENVIRONMENT=DOCBROWSER',
   },
-  // Servicios que podrían ser retirados ------------------------------------------------------------------
-  CORE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/core_crud/v2/',
+  // Servicios que podrían ser retirados ---------------------------------------------------------------
   NOTIFICACION_SERVICE: 'wss://pruebasapi.portaloas.udistrital.edu.co:8116/ws',
-  OIKOS_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1/',
-  UBICACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/ubicaciones_crud/v1/',
-  DOCUMENTO_PROGRAMA_SERVICE: 'https://autenticacion.udistrital.edu.co/apioas/documento_programa_crud/v1/',
-  EXPERIENCIA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/experiencia_laboral_crud/v1/',
-  FORMACION_ACADEMICA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/formacion_academica_crud/v1/',
-  ENTE_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/ente_crud/v1/',
-  ORGANIZACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/organizacion_crud/v1/',
-  CIDC_SERVICE: 'http://200.69.103.88:3114/api/v1/',
-  EVALUACION_INSCRIPCION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/evaluacion_inscripcion_crud/v2/',
-  INSCRIPCION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/inscripcion_crud/v2/',
 };

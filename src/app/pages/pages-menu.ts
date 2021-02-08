@@ -54,12 +54,12 @@ export const MENU_ITEMS: MenuItem[] = [
         link:  '/pages/admin_docencia/list_paquetes',
         key:  'paquetes',
       },
-      // {
-      //   title:  'Reportes',
-      //   icon: 'nb-edit',
-      //   link:  '/pages/admin_docencia/reportes',
-      //   key:  'reportes',
-      // },
+      {
+        title:  'Reportes',
+        icon: 'nb-edit',
+        link:  '/pages/admin_docencia/reportes',
+        key:  'reportes',
+      },
     ],
   },
   {

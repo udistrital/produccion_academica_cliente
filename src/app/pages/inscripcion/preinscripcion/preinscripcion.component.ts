@@ -89,7 +89,6 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
       this.percentage_info = Math.round(UtilidadesService.getSumArray(this.percentage_tab_info));
       this.setPercentage_total();
     });
-    console.info(number)
   }
 
   setPercentage_acad(number, tab) {
@@ -119,7 +118,6 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
   }
 
   perfil_editar(event): void {
-    console.info(event)
     switch (event) {
       case 'info_persona':
         this.show_info = true;
@@ -164,26 +162,5 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
   viewtab() {
     window.localStorage.setItem('IdTipoInscripcion', this.tipo_inscripcion_selected.Id);
     this.selectTipo = true;
-  }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      // 'toast-top-full-width', 'toast-bottom-full-width', 'toast-top-left', 'toast-top-center'
-      positionClass: 'toast-top-center',
-      timeout: 5000,  // ms
-      newestOnTop: true,
-      tapToDismiss: false, // hide on click
-      preventDuplicates: true,
-      animation: 'slideDown', // 'fade', 'flyLeft', 'flyRight', 'slideDown', 'slideUp'
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type, // 'default', 'info', 'success', 'warning', 'error'
-      title: title,
-      body: body,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
   }
 }

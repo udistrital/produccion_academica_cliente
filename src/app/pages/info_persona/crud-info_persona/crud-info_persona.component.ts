@@ -1,11 +1,6 @@
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
-import { NuxeoService } from '../../../@core/utils/nuxeo.service';
-import { Inscripcion } from './../../../@core/data/models/inscripcion/inscripcion';
 import { InfoPersona } from './../../../@core/data/models/informacion/info_persona';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DocumentoService } from '../../../@core/data/documento.service';
-import { InscripcionService } from '../../../@core/data/inscripcion.service';
-import { CoreService } from '../../../@core/data/core.service';
 import { FORM_INFO_PERSONA } from './form-info_persona';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -16,9 +11,9 @@ import { IAppState } from '../../../@core/store/app.state';
 import { Store } from '@ngrx/store';
 import { PopUpManager } from '../../../managers/popUpManager';
 import { ListService } from '../../../@core/store/services/list.service';
-import { UserService } from '../../../@core/data/users.service';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import * as momentTimezone from 'moment-timezone';
+import { AutenticacionMidServiced } from '../../../@core/data/autenticacion_mid.service';
 
 @Component({
   selector: 'ngx-crud-info-persona',
@@ -54,6 +49,7 @@ export class CrudInfoPersonaComponent implements OnInit {
     private translate: TranslateService,
     private popUpManager: PopUpManager,
     private sgamidService: SgaMidService,
+    private autenticacionMidService: AutenticacionMidServiced,
     private autenticationService: ImplicitAutenticationService,
     private store: Store<IAppState>,
     private listService: ListService,
@@ -71,7 +67,6 @@ export class CrudInfoPersonaComponent implements OnInit {
   }
 
   construirForm() {
-    // this.formInfoPersona.titulo = this.translate.instant('GLOBAL.info_persona');
     this.formInfoPersona.btn = this.translate.instant('GLOBAL.guardar');
     for (let i = 0; i < this.formInfoPersona.campos.length; i++) {
       this.formInfoPersona.campos[i].label = this.translate.instant('GLOBAL.' + this.formInfoPersona.campos[i].label_i18n);
@@ -123,9 +118,6 @@ export class CrudInfoPersonaComponent implements OnInit {
   }
 
   createInfoPersona(infoPersona: any): void {
-    /*
-    console.log('Entra a guardar persona')
-     */
     const opt: any = {
       title: this.translate.instant('GLOBAL.crear'),
       text: this.translate.instant('GLOBAL.crear_info_persona'),
@@ -143,9 +135,9 @@ export class CrudInfoPersonaComponent implements OnInit {
           const files = []
           this.info_info_persona = <any>infoPersona;
           this.info_info_persona.FechaNacimiento = momentTimezone.tz(this.info_info_persona.FechaNacimiento, 'America/Bogota').format('YYYY-MM-DD HH:mm:ss');
-          this.info_info_persona.FechaNacimiento =  this.info_info_persona.FechaNacimiento + ' +0000 +0000';
+          this.info_info_persona.FechaNacimiento = this.info_info_persona.FechaNacimiento + ' +0000 +0000';
           this.info_info_persona.FechaExpedicion = momentTimezone.tz(this.info_info_persona.FechaExpedicion, 'America/Bogota').format('YYYY-MM-DD HH:mm:ss');
-          this.info_info_persona.FechaExpedicion =  this.info_info_persona.FechaExpedicion + ' +0000 +0000';
+          this.info_info_persona.FechaExpedicion = this.info_info_persona.FechaExpedicion + ' +0000 +0000';
           this.info_info_persona.Usuario = this.autenticationService.getPayload().sub;
           this.sgamidService.post('persona/guardar_persona', this.info_info_persona).subscribe(res => {
             const r = <any>res
@@ -155,6 +147,25 @@ export class CrudInfoPersonaComponent implements OnInit {
               sessionStorage.setItem('IdTercero', String(this.info_persona_id));
               this.loading = false;
               this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
+              const rol: any = {
+                'user': r.UsuarioWSO2,
+                'rol': 'EVALUADOR',
+              }
+              this.autenticacionMidService.post('token/addRol', rol).subscribe(resp => {
+                const l = <any>resp
+                if (l !== null && r.Type !== 'error') {
+                }
+              },
+                (error: HttpErrorResponse) => {
+                  Swal({
+                    type: 'error',
+                    title: error.status + '',
+                    text: this.translate.instant('ERROR.' + error.status),
+                    footer: this.translate.instant('GLOBAL.crear') + '-' +
+                      this.translate.instant('GLOBAL.info_persona'),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
+                });
             } else {
               this.showToast('error', this.translate.instant('GLOBAL.error'),
                 this.translate.instant('GLOBAL.error'));
@@ -184,9 +195,7 @@ export class CrudInfoPersonaComponent implements OnInit {
       } else {
         if (this.info_inscripcion.AceptaTerminos !== true) {
           this.validarTerminos(event);
-        } else {
-          // this.updateInfoPersona(event.data.InfoPersona)
-        }
+        } else { }
       }
     }
   }

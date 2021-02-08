@@ -29,7 +29,6 @@ export class ReviewEvaluacionComponent implements OnInit {
   @Input('solicitud_evaluacion_selected')
   set evaluacion_id(solicitud_evaluacion_selected: SolicitudDocentePost) {
     this.solicitud_evaluacion_selected = solicitud_evaluacion_selected;
-    console.info(this.solicitud_evaluacion_selected)
     this.urlExiste = false;
     this.isExistPoint = false;
     this.urlDocument = '';
@@ -42,7 +41,6 @@ export class ReviewEvaluacionComponent implements OnInit {
   set solicitud(solicitud_padre: SolicitudDocentePost) {
     this.solicitud_padre = solicitud_padre;
     this.id_tipo_produccion = this.solicitud_padre.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id
-    console.info(this.solicitud_padre)
   }
 
   @Output()
@@ -96,7 +94,6 @@ export class ReviewEvaluacionComponent implements OnInit {
           if (res !== null) {
 
             this.info_evaluacion_docente = <EvaluacionDocentePost>res.Data;
-            console.info(this.info_evaluacion_docente);
 
             this.Respuestas = [];
             const fillForm = function (secciones, respuestas, nuxeoService, documentoService) {
@@ -163,13 +160,10 @@ export class ReviewEvaluacionComponent implements OnInit {
   loadSubTipoFormFields(produccionAcademica: ProduccionAcademicaPost, callback: Function) {
     this.formEvaluacionPar = JSON.parse(JSON.stringify(FORM_evaluacion_docente));
     const query = `tipos-evaluacion/${this.info_evaluacion_docente.tipo_evaluacion_id}?populate=true`
-    console.info(this.info_evaluacion_docente.tipo_evaluacion_id);
-    console.info(query);
     this.evaluacionDocenteService.get(query)
       .subscribe(res => {
         if (res !== null) {
           this.tipoEvaluacion = <TipoEvaluacion>res.Data;
-          console.info(this.tipoEvaluacion)
           if (produccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 13 ||
             produccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 14
           )
@@ -193,10 +187,7 @@ export class ReviewEvaluacionComponent implements OnInit {
               });
             }
           });
-          console.info(this.formEvaluacionPar);
           if (callback !== undefined) {
-            console.info('loadSubtipoFormField(call) - Campos: ', this.formEvaluacionPar.secciones)
-            console.info('loadSubtipoFormField(call) - Metadatos: ', this.info_evaluacion_docente.respuestas_por_fecha)
             callback(
               this.formEvaluacionPar.secciones,
               this.info_evaluacion_docente.respuestas_por_fecha,
@@ -219,7 +210,6 @@ export class ReviewEvaluacionComponent implements OnInit {
     this.solicitudDocenteService.get('solicitante/?query=SolicitudId:' + this.solicitud_evaluacion_selected.Id)
       .subscribe(response => {
         if (response !== null) {
-          console.info('resp-ter', response)
           this.tercerosService.get('tercero/?query=Id:' + (response[0].TerceroId || 1))
             .subscribe(res => {
               if (Object.keys(res[0]).length > 0) {
