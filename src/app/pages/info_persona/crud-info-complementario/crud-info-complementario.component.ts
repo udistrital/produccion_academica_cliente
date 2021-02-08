@@ -13,6 +13,7 @@ import { ParametrosCrudService } from '../../../@core/data/parametros_crud.servi
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
 
+
 @Component({
   selector: 'ngx-crud-info-complementario',
   templateUrl: './crud-info-complementario.component.html',
@@ -109,23 +110,26 @@ export class CrudInfoComplementarioComponent implements OnInit {
             });
             reject(error);
           })
-      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId()))
-        .subscribe(rest => {
-          if (Object.keys(rest[0]).length > 0) {
-            this.userData = <Tercero>rest[0];
-            this.userData['PuedeBorrar'] = false;
-          }
-        }, (error: HttpErrorResponse) => {
-          Swal({
-            type: 'error',
-            title: error.status + '',
-            text: this.translate.instant('ERROR.' + error.status),
-            footer: this.translate.instant('GLOBAL.cargar') + '-' +
-              this.translate.instant('GLOBAL.info_persona'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+      if (!isNaN(this.user.getPersonaId())) {
+        this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId()))
+          .subscribe(rest => {
+            // if (res !== null) {
+            if (Object.keys(rest[0]).length > 0) {
+              this.userData = <Tercero>rest[0];
+              this.userData['PuedeBorrar'] = false;
+            }
+          }, (error: HttpErrorResponse) => {
+            Swal({
+              type: 'error',
+              title: error.status + '',
+              text: this.translate.instant('ERROR.' + error.status),
+              footer: this.translate.instant('GLOBAL.cargar') + '-' +
+                this.translate.instant('GLOBAL.info_persona'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+            reject(error);
           });
-          reject(error);
-        });
+      }
       resolve(true);
     });
   }
@@ -173,59 +177,75 @@ export class CrudInfoComplementarioComponent implements OnInit {
   }
 
   loadInfoComplementariaTercero(): void {
-    if (this.user.getPersonaId() != null) {
+    if (!isNaN(this.user.getPersonaId())) {
       this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
         (this.user.getPersonaId()) + ',InfoComplementariaId__Nombre:FORMACION_ACADEMICA')
         .subscribe(resp => {
+          console.info(resp)
           if (resp !== null && resp !== 'error') {
             this.NIVEL_FORMACION2 = resp
-            this.listaFormacion = JSON.parse(this.NIVEL_FORMACION2[this.NIVEL_FORMACION2.length - 1].Dato)['NivelFormacion']
-            this.nivelFormacion = this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id)
-            this.loadInfoGrupoAcademico()
+            if (Object.keys(this.NIVEL_FORMACION2[0]).length > 0) {
+              this.listaFormacion = JSON.parse(this.NIVEL_FORMACION2[this.NIVEL_FORMACION2.length - 1].Dato)['NivelFormacion']
+              this.nivelFormacion = this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id)
+              this.loadInfoGrupoAcademico()
+            }
+            console.info(this.user.getPersonaId())
+            // console.info(this.listNivelFormacion.find(value => value.Id === this.listaFormacion.Id))
           }
         }, (error: HttpErrorResponse) => {
-          Swal({
-            type: 'error',
-            title: error.status + '',
-            text: this.translate.instant('ERROR.' + error.status),
-            footer: this.translate.instant('GLOBAL.cargar') + '-' +
-              this.translate.instant('GLOBAL.Informacion_complementaria'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
+          //  Swal({
+          //    type: 'error',
+          //    title: error.status + '',
+          //    text: this.translate.instant('ERROR.' + error.status),
+          //    footer: this.translate.instant('GLOBAL.cargar') + '-' +
+          //      this.translate.instant('GLOBAL.Informacion_complementaria'),
+          //    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          //  });
         });
       this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
         (this.user.getPersonaId()) + ',InfoComplementariaId__Nombre:INSTITUCION')
         .subscribe(rest => {
           if (rest !== null && rest !== 'error') {
             this.INSTITUCION2 = rest
-            this.listaInsti = JSON.parse(this.INSTITUCION2[this.INSTITUCION2.length - 1].Dato)
-            this.institucion = this.listaInsti.Institucion
+            if (Object.keys(this.INSTITUCION2[0]).length > 0) {
+              this.listaInsti = JSON.parse(this.INSTITUCION2[this.INSTITUCION2.length - 1].Dato)
+              this.institucion = this.listaInsti.Institucion
+            }
           }
         }, (error: HttpErrorResponse) => {
-          Swal({
-            type: 'error',
-            title: error.status + '',
-            text: this.translate.instant('ERROR.' + error.status),
-            footer: this.translate.instant('GLOBAL.cargar') + '-' +
-              this.translate.instant('GLOBAL.Informacion_complementaria'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
+          //  Swal({
+          //    type: 'error',
+          //    title: error.status + '',
+          //    text: this.translate.instant('ERROR.' + error.status),
+          //    footer: this.translate.instant('GLOBAL.cargar') + '-' +
+          //      this.translate.instant('GLOBAL.Informacion_complementaria'),
+          //    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          //  });
         });
     }
   }
+
   loadInfoGrupoAcademico(): void {
-    if (this.user.getPersonaId() != null) {
+    if (!isNaN(this.user.getPersonaId())) {
       this.tercerosService.get('info_complementaria_tercero/?query=TerceroId__Id:' +
         (this.user.getPersonaId()) + ',InfoComplementariaId__Nombre:AREA_CONOCIMIENTO')
         .subscribe(res => {
           if (res !== null && res !== 'error') {
             this.AREA_CONOCIMIENTO2 = res;
-            this.listaArea = JSON.parse(this.AREA_CONOCIMIENTO2[this.AREA_CONOCIMIENTO2.length - 1].Dato)
-            this.listaGranArea = this.listaArea['AreaConocimiento']['GranAreaConocimiento']
-            this.listaEspeArea = this.listaArea['AreaConocimiento']['AreaConocimientoEspecifica']
-            this.granAreaConocimiento = this.listGranAreaConocimiento.find(value => value.Id = this.listaGranArea.Id)
-            this.filterAreaConocimiento(this.granAreaConocimiento)
-            this.areaConocimientoEspecifica = this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id)
+            if (Object.keys(this.AREA_CONOCIMIENTO2[0]).length > 0) {
+              this.listaArea = JSON.parse(this.AREA_CONOCIMIENTO2[this.AREA_CONOCIMIENTO2.length - 1].Dato)
+              this.listaGranArea = this.listaArea['AreaConocimiento']['GranAreaConocimiento']
+              this.listaEspeArea = this.listaArea['AreaConocimiento']['AreaConocimientoEspecifica']
+              this.granAreaConocimiento = this.listGranAreaConocimiento.find(value => value.Id = this.listaGranArea.Id)
+              console.info(this.listGranAreaConocimiento)
+              console.info(this.listAreaConocimientoEspecifica)
+              console.info(this.listaGranArea)
+              console.info(this.listaEspeArea)
+              console.info(this.listGranAreaConocimiento.find(value => this.listaGranArea.Id = value.Id))
+              this.filterAreaConocimiento(this.granAreaConocimiento)
+              this.areaConocimientoEspecifica = this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id)
+              console.info(this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id))
+            }
           }
         }, (error: HttpErrorResponse) => {
           Swal({

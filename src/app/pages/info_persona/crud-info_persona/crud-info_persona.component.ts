@@ -148,8 +148,8 @@ export class CrudInfoPersonaComponent implements OnInit {
               this.loading = false;
               this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
               const rol: any = {
-                'user': r.UsuarioWSO2,
-                'rol': 'EVALUADOR',
+                user: r.UsuarioWSO2,
+                rol: 'EVALUADOR',
               }
               this.autenticacionMidService.post('token/addRol', rol).subscribe(resp => {
                 const l = <any>resp
