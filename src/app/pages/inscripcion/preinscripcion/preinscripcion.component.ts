@@ -24,6 +24,7 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
   config: ToasterConfig;
   info_persona_id: number;
   preinscripcion: boolean;
+  datosComplementarios: boolean;
   info_inscripcion: any;
 
   percentage_info: number = 0;
@@ -73,6 +74,7 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
   async loadData() {
     try {
       this.info_persona_id = this.userService.getPersonaId();
+      this.verifyIdPerson();
     } catch (error) {
       Swal({
         type: 'error',
@@ -117,6 +119,13 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
     this.translate.use(language);
   }
 
+  verifyIdPerson() {
+    if (!isNaN(this.info_persona_id))
+      this.datosComplementarios = true;
+    else
+      this.datosComplementarios = false;
+  }
+
   perfil_editar(event): void {
     switch (event) {
       case 'info_persona':
@@ -136,6 +145,13 @@ export class PreinscripcionComponent implements OnInit, OnChanges {
         this.show_info = false;
         this.show_profile = false;
         break;
+    }
+  }
+
+  putTerceroId(event) {
+    if (event) {
+      this.info_persona_id = event;
+      this.verifyIdPerson();
     }
   }
 
