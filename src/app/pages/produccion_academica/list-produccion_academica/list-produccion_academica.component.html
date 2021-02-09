@@ -23,14 +23,14 @@
           <ngx-crud-produccion-academica [solicitud_docente_selected]="solicitud_selected"
             (eventChange)="onChange($event)">
           </ngx-crud-produccion-academica>
-          <button (click)="activetab(0)" class="btn btn-secondary btn-sm"> <i class="nb-arrow-dropleft"></i> {{
+          <button (click)="activetab(0)" class="btn btn-primary btn-sm"> <i class="nb-arrow-dropleft"></i> {{
             'GLOBAL.regresar' | translate }}</button>
         </nb-tab>
         <nb-tab tabTitle="{{ 'GLOBAL.vista' | translate }}" [active]="cambiotab == 2" *ngIf="solicitud_selectedReview">
           <ngx-review-produccion-academica [solicitud_docente_selected]="solicitud_selectedReview"
             (eventChange)="onChange($event)" (solicitudOut)="onEdit($event)">
           </ngx-review-produccion-academica>
-          <button (click)="activetab(0)" class="btn btn-secondary btn-sm"> <i class="nb-arrow-dropleft"></i> {{
+          <button (click)="activetab(0)" class="btn btn-primary btn-sm"> <i class="nb-arrow-dropleft"></i> {{
             'GLOBAL.regresar' | translate }}</button>
         </nb-tab>
       </nb-tabset>

@@ -8,10 +8,18 @@
   }
   .center {
     display: block;
+    margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
   }
+  .center2 {
+    display: block;
+    margin-left: 45%;
+    margin-right: 50%;
+    width: 50%;
+  }
+
   @include media-breakpoint-down(sm) {
     ngx-traffic {
       display: none;
