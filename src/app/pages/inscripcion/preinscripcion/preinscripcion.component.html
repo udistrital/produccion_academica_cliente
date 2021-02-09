@@ -15,13 +15,17 @@
       <nb-tabset fullWidth>
         <nb-tab tabTitle="{{ 'GLOBAL.info_persona' | translate }}" [active]="info_persona">
           <ngx-crud-info-persona info_persona_id={{this.info_persona_id}}
-            (eventChange)="perfil_editar('info_preinscripcion')" (result)="setPercentage_info($event,0)">
+            (eventChange)="perfil_editar('info_preinscripcion')" (result)="setPercentage_info($event,0)"
+            (resultId)="putTerceroId($event)" 
+          >
           </ngx-crud-info-persona>
         </nb-tab>
         <nb-tab tabTitle="Informacion complementaria" [active]="info_complementario">
-          <ngx-crud-info-complementario (eventChange)="perfil_editar('info_preinscripcion')"
-            (result)="setPercentage_info($event,0)">
-          </ngx-crud-info-complementario>
+          <ng-container *ngIf="datosComplementarios">
+            <ngx-crud-info-complementario info_persona_id={{this.info_persona_id}} (eventChange)="perfil_editar('info_preinscripcion')"
+              (result)="setPercentage_info($event,0)">
+            </ngx-crud-info-complementario>
+          </ng-container>
         </nb-tab>
       </nb-tabset>
     </nb-card-body>
