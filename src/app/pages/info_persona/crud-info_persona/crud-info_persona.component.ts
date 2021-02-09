@@ -160,14 +160,14 @@ export class CrudInfoPersonaComponent implements OnInit {
                 }
               },
                 (error: HttpErrorResponse) => {
-                  Swal({
-                    type: 'error',
-                    title: error.status + '',
-                    text: this.translate.instant('ERROR.' + error.status),
-                    footer: this.translate.instant('GLOBAL.crear') + '-' +
-                      this.translate.instant('GLOBAL.info_persona'),
-                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                  });
+                //  Swal({
+                //    type: 'error',
+               //     title: error.status + '',
+               //     text: this.translate.instant('ERROR.' + error.status),
+                //    footer: this.translate.instant('GLOBAL.crear') + '-' +
+                 //     this.translate.instant('GLOBAL.info_persona'),
+                //    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+               //   });
                 });
             } else {
               this.showToast('error', this.translate.instant('GLOBAL.error'),
