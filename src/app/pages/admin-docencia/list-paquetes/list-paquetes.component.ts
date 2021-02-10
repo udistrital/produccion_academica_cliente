@@ -121,21 +121,19 @@ export class ListPaquetesComponent implements OnInit {
     let endpointSolicitud: string;
     endpointSolicitud = 'tr_paquete/';
     this.solicitudDocenteService.get(endpointSolicitud).subscribe((res: any) => {
-      if (res !== null) {
-        if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+        if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<PaqueteSolicitudPost>>res;
           this.solicitudes_list = data;
           this.source.load(this.solicitudes_list);
           Swal.close();
         } else {
           Swal({
-            type: 'error',
-            title: '404',
-            text: this.translate.instant('ERROR.404'),
+            type: 'info',
+            title: 'No tiene solicitudes',
+            text: this.translate.instant('ERROR.204'),
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
         }
-      }
     }, (error: HttpErrorResponse) => {
       Swal({
         type: 'error',

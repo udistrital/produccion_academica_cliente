@@ -15,9 +15,11 @@
   }
   .center2 {
     display: block;
-    margin-left: 45%;
+    margin-left: 40%;
     margin-right: 50%;
     width: 50%;
+    color: #5b6163;
+    font-size: 4em;
   }
 
   @include media-breakpoint-down(sm) {

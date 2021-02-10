@@ -13,7 +13,7 @@
         <nb-tab tabTitle="{{ 'GLOBAL.formulario' | translate }}" [active]="cambiotab == 1">
           <ngx-crud-evaluacion *ngIf="evaluacion_selected" [solicitud_evaluacion_selected]="evaluacion_selected" [evaluador_id_selected]="persona_id" (eventChange)="onChange($event)">
           </ngx-crud-evaluacion>
-          <button (click)="activetab(0)" class="btn btn-primary btn-sm"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
+          <button (click)="activetab(0)" class="btn btn-ttc"> <i class="nb-arrow-dropleft"></i> {{ 'GLOBAL.regresar' | translate }}</button>
         </nb-tab>
       </nb-tabset>
     </nb-card-body>

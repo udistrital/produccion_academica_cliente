@@ -141,7 +141,7 @@ export class ListEvaluacionesComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
       this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
-        if (res !== null) {
+        if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 12);
           let i = 0;
           data.forEach(solicitud => {
@@ -176,6 +176,13 @@ export class ListEvaluacionesComponent implements OnInit {
             }
           });
           this.evaluaciones_list = data;
+        } else {
+          Swal({
+            type: 'info',
+            title: 'No tiene evaluaciones pendientes',
+            text: this.translate.instant('ERROR.204'),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
         }
       }, (error: HttpErrorResponse) => {
         reject({ status: 404 });
