@@ -272,6 +272,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
   verifyRequest() {
     this.closePop();
     const opt = {
+      width: '700px',
       title: this.translate.instant('produccion_academica.verificar'),
       text: this.translate.instant('evaluacion.seguro_continuar_verificar_evaluaciones'),
       icon: 'warning',
