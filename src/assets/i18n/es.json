@@ -61,6 +61,7 @@
         "cancelar": "Cancelar",
         "persona": "Persona",
         "info_evaluacion": "Información evaluación",
+        "informacion": "Información",
         "info_persona": "Información personal",
         "info_criterio": "Criterios ICFES",
         "info_estado": "Estado de inscripción",
@@ -502,7 +503,8 @@
         "500": "Error interno en el servidor",
         "formato_documento_pdf": "El formato del documento escogido no es pdf",
         "no_documento": "Debe seleccionar un archivo",
-        "error_subir_documento": "Ocurrió un error subiendo los documentos, por favor intente de nuevo."
+        "error_subir_documento": "Ocurrió un error subiendo los documentos, por favor intente de nuevo.",
+        "lista_vacia": "No hay datos encontrados para esta lista"
     },
     "produccion_academica": {
         "produccion_academica": "Producción académica",
@@ -510,7 +512,7 @@
 
         "verificar": "Verificar",
         "modificar": "Modificar",
-        "rechazar": "Rechazar",
+        "rechazar": "Negar",
 
         "acciones": "Acciones",
         "alerta": "Alerta",
@@ -584,8 +586,10 @@
         "titulo_resena": "Título de reseña critica",
         "titulo_postdoctorado": "Título certificado postdoctorado",
         "titulo_trabajo_grado": "Título de trabajo de grado",
-        "titulo_rechazo": "Observación de rechazo",
-        "subtitulo_rechazo": "Debe realizar un comentario explicando el rechazo de la solicitud",
+        "titulo_rechazo": "Observación de Negado",
+        "subtitulo_rechazo": "Debe realizar un comentario explicando la negación de la solicitud",
+        "titulo_comentario": "Observación tipo Comentario",
+        "subtitulo_comentario": "Puede realizar un comentario para que quede registrado en la solicitud",
         "titulo_coincidencia": "Solicitudes que presentan coincidencia",
         "subtitulo_coincidencia": "A continuación se ve un listado de las solicitudes que podrían haberse realizado anteriormente por otro docente.",
         "placeholder_titulo_produccion_academica": "ej: Diseño rueda dentada helicoidal",
@@ -605,6 +609,7 @@
 
         "span_articulo": "Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados",
         "span_capitulo": "En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro",
+        "span_titulo": "En caso de que el título se haya realizado en el extranjero es necesario que llene todos los datos relacionados con la convalidación del mismo",
 
         "labels": {
             "paginas": "Numero de páginas",
@@ -841,7 +846,7 @@
         "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
         "seguro_continuar_aceptar_invitacion": "¿Está seguro de aceptar esta invitación?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
-        "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
+        "seguro_continuar_rechazar_produccion": "¿Está seguro de negar esta solicitud?",
         "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",
         "seguro_continuar_registrar_comentario": "¿Está seguro de registrar este comentario?",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
@@ -867,6 +872,7 @@
     },
     "comentarios": {
         "realizar_comentario": "Realizar Observación",
+        "observacion_devolucion": "Observación para devolución",
         "titulo_comentario": "Título de la Observación",
         "descripcion_comentario": "Descripción de la Observación",
         "fecha_comentario": "Fecha de Observación",
@@ -880,7 +886,7 @@
         "nombre_completo": "Nombre del evaluador",
         "numero_identificacion": "Numero de identificación",
         "fecha_expedicion": "Fecha de Expedición",
-        "fecha_evaluacion": "Fecha de Evacuación",
+        "fecha_evaluacion": "Fecha de Evaluación",
         "ciudad_evaluacion": "Ciudad donde se realiza la evaluación",
         "ciudad_evaluacion_placeholder": "Ej: Bogotá",
         "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",

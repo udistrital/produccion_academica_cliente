@@ -24,6 +24,7 @@ export const environment = {
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
     SIGN_OUT_REDIRECT_URL: 'https://pruebasproduccion.portaloas.udistrital.edu.co',
   },
+  CLIENTE_LINK: 'https://pruebasproduccion.portaloas.udistrital.edu.co/#/pages/dashboard',
   PARAMETROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/v1/',
   PROYECTO_ACADEMICO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/proyecto_academico_crud/v1/',
   PERSONA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/personas_crud/v1/',

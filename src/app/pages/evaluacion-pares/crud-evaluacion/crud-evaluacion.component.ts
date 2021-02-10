@@ -384,6 +384,7 @@ export class CrudEvaluacionComponent implements OnInit {
               this.evaluacion_post.respuestas_por_fecha = respuestas;
               Promise.all(promises)
                 .then(() => {
+                  Swal.close();
                   if (this.evaluacion_post_selected === undefined)
                     this.createEvaluacionDocente(this.evaluacion_post);
                   // } else {
@@ -430,21 +431,121 @@ export class CrudEvaluacionComponent implements OnInit {
       let docDefinition;
       html2canvas(this.formPdf.nativeElement)
       .then(canvas => {
-        if (this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 10 ||
-            this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 12
+        if (
+            this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 10
           ) {
           docDefinition = {
             content: [
               {
                 image: canvas.toDataURL('image/png'),
-                width: 550,
-                height: 1608,
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: 20},
               },
               {
                 image: canvas.toDataURL('image/png'),
-                width: 550,
-                height: 1600,
-                absolutePosition: {x: 40, y: -795},
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: -810},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: -1640},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: -2475},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: -3300},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: -4120},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 5530,
+                absolutePosition: {x: -100, y: -4910},
+                pageBreak: 'before',
+              },
+            ],
+          };
+        } else if (this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 12) {
+          docDefinition = {
+            content: [
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 4000,
+                absolutePosition: {x: -100, y: 20},
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 4000,
+                absolutePosition: {x: -100, y: -810},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 4000,
+                absolutePosition: {x: -100, y: -1640},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 4000,
+                absolutePosition: {x: -100, y: -2475},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 4000,
+                absolutePosition: {x: -100, y: -3300},
+                pageBreak: 'before',
+              },
+            ],
+          };
+        } else if (this.solicitud_evaluacion_selected.SolicitudPadreId.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 1) {
+          docDefinition = {
+            content: [
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 2500,
+                absolutePosition: {x: -100, y: 20},
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 2500,
+                absolutePosition: {x: -100, y: -810},
+                pageBreak: 'before',
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 2500,
+                absolutePosition: {x: -100, y: -1640},
                 pageBreak: 'before',
               },
             ],
@@ -454,8 +555,16 @@ export class CrudEvaluacionComponent implements OnInit {
             content: [
               {
                 image: canvas.toDataURL('image/png'),
-                width: 550,
-                height: 790,
+                width: 800,
+                height: 1508,
+                absolutePosition: {x: -100, y: 20},
+              },
+              {
+                image: canvas.toDataURL('image/png'),
+                width: 800,
+                height: 1500,
+                absolutePosition: {x: -100, y: -820},
+                pageBreak: 'before',
               },
             ],
           };

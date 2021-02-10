@@ -3,14 +3,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { SgaMidService } from '../../../@core/data/sga_mid.service';
 import { SolicitudDocenteService } from '../../../@core/data/solicitud-docente.service';
+import { GoogleService } from '../../../@core/data/google.service';
 import { UserService } from '../../../@core/data/users.service';
 import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docente/estado_tipo_solicitud';
-import { GoogleService } from '../../../@core/data/google.service';
+import { InvitacionTemplate } from '../../../@core/data/models/evaluacion_par/invitacionTemplate';
 import { Invitacion } from '../../../@core/data/models/evaluacion_par/invitacion';
 import { SolicitudDocentePost } from '../../../@core/data/models/solicitud_docente/solicitud_docente';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
+import { environment } from '../../../../environments/environment';
 import Swal from 'sweetalert2';
-import { InvitacionTemplate } from '../../../@core/data/models/evaluacion_par/invitacionTemplate';
 
 @Component({
   selector: 'ngx-send-invitacion',
@@ -128,7 +129,9 @@ export class SendInvitacionComponent implements OnInit {
               } else {
                 this.info_solicitud_hija = <SolicitudDocentePost>resp;
                 this.invitacionTemplate.urlRechazarEvaluacion =
-                  'https://autenticacion.portaloas.udistrital.edu.co/apioas/sga_mid/v1/solicitud_evaluacion/' + resp.Solicitud.Id;
+                  environment.SGA_MID_SERVICE + 'solicitud_evaluacion/' + resp.Solicitud.Id;
+                console.info(this.invitacionTemplate.urlCreacionCuentaLogin)
+                console.info(this.invitacionTemplate.urlRechazarEvaluacion)
                 this.sendInvitation();
               }
             });
@@ -159,7 +162,7 @@ export class SendInvitacionComponent implements OnInit {
     if (this.invitacionTemplate.NombreDocente && this.correoTemp) {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       this.invitacionTemplate.Fecha = new Date().toLocaleDateString('es-CO', options);
-      this.invitacionTemplate.urlCreacionCuentaLogin = 'http://localhost:4200/#/pages/dashboard';
+      this.invitacionTemplate.urlCreacionCuentaLogin = environment.CLIENTE_LINK;
       this.invitacionTemplate.ContenidoProduccion = this.makeHtmlTemplate();
       this.invitacion.to = [];
       this.invitacion.to.push(this.correoTemp);

@@ -190,6 +190,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
           if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
             endpointSolicitud = 'solicitud_docente/' + estado + '/';
           this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
+            console.info(res)
             if (res !== null) {
               if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
                 const data = <Array<SolicitudDocentePost>>res;
@@ -206,9 +207,9 @@ export class ListProduccionAcademicaComponent implements OnInit {
                           }
                         } else {
                           Swal({
-                            type: 'error',
-                            title: '404',
-                            text: this.translate.instant('ERROR.404'),
+                            type: 'info',
+                            title: this.translate.instant('GLOBAL.informacion'),
+                            text: this.translate.instant('ERROR.lista_vacia'),
                             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                           });
                         }
@@ -227,9 +228,9 @@ export class ListProduccionAcademicaComponent implements OnInit {
                 this.solicitudes_list = data;
               } else {
                 Swal({
-                  type: 'error',
-                  title: '404',
-                  text: this.translate.instant('ERROR.404'),
+                  type: 'info',
+                  title: this.translate.instant('GLOBAL.informacion'),
+                  text: this.translate.instant('ERROR.lista_vacia'),
                   confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                 });
               }

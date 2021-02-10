@@ -49,6 +49,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   urlDocument: string;
   urlDocumentComplete: string;
   esRechazada: boolean;
+  esComentada: boolean;
   certificadoExiste: boolean;
   certificadoAprobado: boolean;
   persona_id: number;
@@ -94,15 +95,19 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         custom: [
           {
             name: 'view',
-            title: '<i class="nb-search" title="view"></i>',
+            title: '<i class="nb-search" title="ver"></i>',
           },
           {
             name: 'postpone',
-            title: '<i class="fa fa-angle-double-left" title="postpone"></i>',
+            title: '<i class="fa fa-angle-double-left" title="aplazar"></i>',
           },
           {
             name: 'reject',
-            title: '<i class="fa fa-ban" title="reject"></i>',
+            title: '<i class="fa fa-ban" title="negar"></i>',
+          },
+          {
+            name: 'comment',
+            title: '<i class="fa fa-comment" title="comentar"></i>',
           },
         ],
       },
@@ -382,14 +387,19 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         case 'postpone':
           this.onPostpone(event);
           break;
-        case 'reject':
-          this.onReject(event);
+          case 'reject':
+            this.onReject(event);
+            break;
+          case 'comment':
+            this.onComment(event);
+            break;
       }
     }
   }
 
   closePop() {
     this.esRechazada = false;
+    this.esComentada = false;
   }
 
   onReject(event): void {
@@ -408,6 +418,12 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
           this.esRechazada = true;
         }
       });
+  }
+
+  onComment(event): void {
+    this.solicitud_selected = event.data;
+    this.esComentada = true;
+
   }
 
   onPostpone(event): void {
@@ -592,7 +608,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         if (willCreate.value) {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.generateDocument(1);
-          this.updatePackage(8);
+          if (!this.certificadoAprobado)
+            this.updatePackage(8);
         }
       });
   }

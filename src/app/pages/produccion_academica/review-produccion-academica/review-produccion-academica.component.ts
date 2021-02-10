@@ -58,6 +58,7 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    console.info(this.solicitud_docente_selected)
     this.observaciones_alerts = [];
     this.observaciones_coincidences = [];
     this.isExistPoint = false;
@@ -229,6 +230,8 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   }
 
   seeDetailsState() {
+    console.info(this.rol)
+    console.info(this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id)
     const opt: any = {
       width: '550px',
       title: this.translate.instant('produccion_academica.estado_solicitud'),
@@ -241,8 +244,10 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           <div class="col-4">
             <p">${(
           this.rol === 'DOCENTE' &&
+          (
           this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 ||
           this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7
+          )
         )
           ? 'Preparada para presentar a Comité'
           : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]

@@ -140,7 +140,8 @@ export class ListInvitacionesComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
       this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
-        if (res !== null) {
+        console.info(res)
+        if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 10);
           let i = 0;
           data.forEach(solicitud => {
@@ -175,6 +176,13 @@ export class ListInvitacionesComponent implements OnInit {
             }
           });
           this.invitaciones_list = data;
+        } else {
+          Swal({
+            type: 'info',
+            title: this.translate.instant('GLOBAL.informacion'),
+            text: this.translate.instant('ERROR.lista_vacia'),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
         }
       }, (error: HttpErrorResponse) => {
         reject({ status: 404 });

@@ -66,6 +66,7 @@
     "confirmarCrear": "has been created",
     "confirmarActualizar": "has been updated",
     "persona": "Person",
+    "informacion": "Information",
     "info_evaluacion": "Evaluation information",
     "info_persona": "Personal data",
     "info_criterio": "ICFES criteria",
@@ -575,6 +576,8 @@
     "titulo_postdoctorado": "Postdoctorado certificate title",
     "titulo_rechazo": "Rejection observation",
     "subtitulo_rechazo": "You must make a comment explaining the rejection of the request",
+    "titulo_comentario": "Observation type Comment",
+    "subtitulo_comentario": "You can make a comment so that it is registered in the application",
     "titulo_coincidencia": "Requests that match",
     "subtitulo_coincidencia": "Below is a list of requests that could have been made previously by another teacher.",
     "placeholder_titulo_produccion_academica": "e.g.: IOT system for get data",
@@ -594,6 +597,7 @@
 
     "span_articulo": "When your article is published in a special edition or similar, put 0 in volume and number, otherwise it must have all the requested fields",
     "span_capitulo": "If you have more than one book chapter in the same book, only one of them will score a score. The total score will be divided by the number of total authors in the book",
+    "span_titulo": "In the event that the degree has been made abroad, it is necessary to fill in all the data related to its validation",
 
     "labels": {
       "paginas": "Number of Pages",
@@ -856,6 +860,7 @@
   },
   "comentarios": {
     "realizar_comentario": "Make Observation",
+    "observacion_devolucion": "Observation for return",
     "titulo_comentario": "Observation title",
     "descripcion_comentario": "Observation body",
     "fecha_comentario": "Observation date",

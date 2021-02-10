@@ -63,6 +63,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   produccionSoftware: boolean;
   tipoArticulo: boolean;
   tipoCapitulo: boolean;
+  tipoTitulo: boolean;
   isExistPoint: boolean;
   pointRequest: number;
   title_tipo_produccion: string;
@@ -378,6 +379,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       ? this.tipoArticulo = true : this.tipoArticulo = false;
 
     this.tipoProduccionAcademica.Nombre === 'Capitulo Libro' ? this.tipoCapitulo = true : this.tipoCapitulo = false;
+
+    this.tipoProduccionAcademica.Nombre === 'Titulo Postgrado' ? this.tipoTitulo = true : this.tipoTitulo = false;
   }
 
   filterTitleProduction(tipoProduccionAcademica: TipoProduccionAcademica) {

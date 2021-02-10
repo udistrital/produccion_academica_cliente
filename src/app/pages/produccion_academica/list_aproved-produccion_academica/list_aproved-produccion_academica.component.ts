@@ -392,7 +392,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
             title: `Éxito al crear Paquete.`,
             text: 'Información Guardada correctamente',
           });
-          this.router.navigate(['./pages/produccion_academica/new-solicitud']);
+          this.router.navigate(['./pages/dashboard']);
         }
       });
   }
