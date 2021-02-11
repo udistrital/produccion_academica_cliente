@@ -27,14 +27,12 @@ export class CrudComentarioComponent implements OnInit {
   @Input('estadoNum')
   set estado(estadoNum: string) {
     this.estadoNum = estadoNum;
-    console.info(this.estadoNum)
   }
 
   @Input('obsNum')
   set observation(obsNum: string) {
     this.isDevuelta = false;
     this.obsNum = obsNum;
-    console.info(this.obsNum)
     if (this.obsNum == '1' && this.estadoNum != '0')
       this.isDevuelta = true;
   }
@@ -104,7 +102,6 @@ export class CrudComentarioComponent implements OnInit {
         endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + this.solicitud_selected.EstadoTipoSolicitudId.Id;
       else
         endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + this.estadoNum;
-      console.info(endpoint)
       this.solicitudDocenteService.get(endpoint)
         .subscribe(res => {
           if (Object.keys(res.Data[0]).length > 0) {
@@ -170,7 +167,7 @@ export class CrudComentarioComponent implements OnInit {
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
     if ((this.info_solicitud.EstadoTipoSolicitudId.Id === 4 || this.info_solicitud.EstadoTipoSolicitudId.Id === 6) && this.estadoNum != '0')
       this.info_solicitud.Resultado = `{ \"Puntaje\": ${0} }`
-    console.info(this.info_solicitud)
+
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {
@@ -206,7 +203,6 @@ export class CrudComentarioComponent implements OnInit {
         dangerMode: true,
         showCancelButton: true,
       };
-      console.info(this.observacion)
       Swal(opt)
         .then((willCreate) => {
           if (willCreate.value) {

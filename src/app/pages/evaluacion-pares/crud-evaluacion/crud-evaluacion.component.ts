@@ -172,8 +172,6 @@ export class CrudEvaluacionComponent implements OnInit {
             }
           });
           // if (callback !== undefined) {
-          //   console.info('loadSubtipoFormField(call) - Campos: ', this.formProduccionAcademica.campos)
-          //   console.info('loadSubtipoFormField(call) - Metadatos: ', this.info_produccion_academica.Metadatos)
           //   callback(
           //     this.formProduccionAcademica.campos,
           //     this.info_produccion_academica.Metadatos,

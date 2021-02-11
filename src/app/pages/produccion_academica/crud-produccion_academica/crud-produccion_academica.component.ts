@@ -861,6 +861,13 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     }
   }
 
+  removeDriveFiles(numId) {
+    const length = this.files_to_drive.length;
+    if (this.files_to_drive[numId])
+      this.files_to_drive.splice(numId, 1);
+    (length > 1 && numId === 0) && this.files_to_drive.unshift({})
+  }
+
   loadDatosCambioCategoria() {
     return new Promise((resolve, reject) => {
       this.sgaMidService.get('solicitud_docente/inactive/' + (this.user.getPersonaId() || 1))

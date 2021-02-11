@@ -141,7 +141,6 @@ export class ListEvaluacionesComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
       this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
-        console.info(res)
         if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 12);
           let i = 0;

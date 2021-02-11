@@ -20,7 +20,6 @@ export class ListComentarioComponent implements OnInit {
   set observaciones(observaciones_selected: Observacion[]) {
     this.observaciones_selected = [];
     this.observaciones_selected = observaciones_selected;
-    console.info(this.observaciones_selected)
     this.filterComments();
     this.loadData();
     this.cargarCampos();
