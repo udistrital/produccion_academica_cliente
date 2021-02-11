@@ -489,7 +489,10 @@
         "nivel_formacion": "Nivel de formacion",
         "placeholder_nivel_formacion": "Ej: Especializacion",
         "institucion": "Institucion",
-        "placeholder_institucion": "Ej: Universidad Distrital"
+        "placeholder_institucion": "Ej: Universidad Distrital",
+        "persona_creado":  "Se ha Creado Exitosamente la informacion",
+        "operacion_exitosa": "Se ha Creado Exitosamente la informacion",
+        "informacion_aceptacion_usuario": "Por favor espere 15 minutos mientras el sistema crea su nuevo Rol como Evaluador, luego salga y vuelva a entrar al sistema."
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
@@ -571,6 +574,7 @@
 
         "fecha_envio": "Fecha de envío de invitación",
         "fecha_radicacion": "Fecha de radicación",
+        "fecha_aceptacion": "Fecha de aceptacion de invitacion",
         "fecha_publicacion": "Fecha de publicación",
         "fecha_obtencion": "Fecha de obtención",
         "fecha_realizacion": "Fecha de realización",
@@ -908,12 +912,12 @@
 
         "alerta_nombre_evaluador": "Debe escribir el nombre del evaluador",
         "alerta_correo_evaluador": "Debe escribir el correo del evaluador",
-        
+
         "resumen_evaluaciones": "Resumen de resultados de evaluaciones",
         "resumen_evaluaciones_subtitulo": "A continuación se muestran las evaluaciones realizadas y sus puntajes",
-        "evaluacion_numero": "Evaluación Número", 
-        "evaluacion_total": "Resultado final", 
-        "verificar": "Verificar Evaluaciones", 
+        "evaluacion_numero": "Evaluación Número",
+        "evaluacion_total": "Resultado final",
+        "verificar": "Verificar Evaluaciones",
 
         "labels": {
 
@@ -922,26 +926,26 @@
             "titulo_videos_obras_b_3": "De conformidad con el decreto 1279/2002, Art.24,I",
             "introduccion_videos_b": "PRODUCCIÓN DE VIDEOS, OBRAS CINEMATOGRÁFICAS O FONOGRÁFICAS. \nLos productos, en esta modalidad, que tengan impacto regional o local pueden recibir BONIFICACIONES.",
             "titulo_obras_b_1": "FORMATO No. 2",
-            "titulo_obras_b_2": "De las bonificaciones por productividad académica", 
+            "titulo_obras_b_2": "De las bonificaciones por productividad académica",
             "titulo_obras_b_3": "De conformidad con el decreto 1279 DE 2002",
             "introduccion_obras_b": "OBRAS ARTÍSTICAS \n\nLos productos, en esta modalidad, que tengan impacto regional o local pueden recibir BONIFICACIONES. \n\nSE CONSIDERA POR OBRA ARTÍSTICA:\nMúsica: Composición instrumental, vocal, mixta, arreglo, improvisación musical, montaje instrumental, ensambles instrumentales, música para danza y música para video, música para instrumentos y voces, adaptaciones, transcripciones, orquestaciones, versiones y análogas.\nEscénicas y danza: Dramaturgia, guión original, coreografía original, creación colectiva para la escena, actuación, bailarines intérpretes, dirección escénica, coreógrafo, escenografía, luminotecnia y análogos. Plásticas y Visuales: Performances, exposiciones individuales y colectivas, instalaciones, curadurías, Diseño, literatura",
-            "titulo_videos_obras_s_1": "Reconocimiento de puntos salariales", 
-            "titulo_videos_obras_s_2": "De conformidad con el decreto 1279 DE 2002", 
+            "titulo_videos_obras_s_1": "Reconocimiento de puntos salariales",
+            "titulo_videos_obras_s_2": "De conformidad con el decreto 1279 DE 2002",
             "titulo_videos_obras_s_3": "PRODUCCIÓN DE VIDEOS, OBRAS CINEMATOGRÁFICAS O FONOGRÁFICAS",
             "introduccion_videos_s": "Los productos, en esta modalidad, que tengan impacto internacional pueden recibir PUNTOS SALARIALES.",
-            "titulo_obras_s_1": "FORMATO DE VALORACIÓN DE OBRAS ARTÍSTICAS", 
-            "titulo_obras_s_2": "Reconocimiento de puntos salariales", 
+            "titulo_obras_s_1": "FORMATO DE VALORACIÓN DE OBRAS ARTÍSTICAS",
+            "titulo_obras_s_2": "Reconocimiento de puntos salariales",
             "titulo_obras_s_3": "De conformidad con el decreto 1279 DE 2002 ",
             "introduccion_obras_s": "OBRAS ARTÍSTICAS \n\nLos productos, en esta modalidad, que tengan impacto internacional pueden recibir puntos. \n\nSE CONSIDERA POR OBRA ARTÍSTICA: \n\nMúsica: Composición instrumental, vocal, mixta, arreglo, improvisación musical, montaje instrumental, ensambles instrumentales, música para danza y música para video, música para instrumentos y voces, adaptaciones, transcripciones, orquestaciones, versiones y análogas. Escénicas y danza: Dramaturgia, guión original, coreografía original, creación colectiva para la escena, actuación, bailarines intérpretes, dirección escénica, coreógrafo, escenografía, luminotecnia y análogos. \nPlásticas y Visuales: Performances, exposiciones individuales y colectivas, instalaciones, curadurías, arte relacional, arte sonoro, arte con comunidades, arte web y análogos.",
-            "titulo_cambio_categoria_1": "FORMATO CAMBIO DE CATEGORIA", 
+            "titulo_cambio_categoria_1": "FORMATO CAMBIO DE CATEGORIA",
             "titulo_cambio_categoria_2": "(Artículos 27, 28 y 29 del Acuerdo 11/2002 Universidad Distrital y Acuerdo 8/2004 Consejo Superior Universitario)",
-            "titulo_libro_inv_1": "FORMATO DE VALORACIÓN DE LIBRO RESULTADO DE INVESTIGACIÓN", 
+            "titulo_libro_inv_1": "FORMATO DE VALORACIÓN DE LIBRO RESULTADO DE INVESTIGACIÓN",
             "titulo_libro_inv_2": "De conformidad con el decreto No 1279 de 2002, art. 10, I, c), art.24, I, c).",
-            "titulo_libro_texto_1": "FORMATO DE VALORACIÓN DE LIBRO DE TEXTO", 
+            "titulo_libro_texto_1": "FORMATO DE VALORACIÓN DE LIBRO DE TEXTO",
             "titulo_libro_texto_2": "De conformidad con el decreto No 1279 de 2002, art. 10, I, d), art.24, I, d).",
-            "titulo_libro_ensayo_1": "FORMATO DE VALORACIÓN DE LIBRO DE ENSAYO", 
+            "titulo_libro_ensayo_1": "FORMATO DE VALORACIÓN DE LIBRO DE ENSAYO",
             "titulo_libro_ensayo_2": "De conformidad con el decreto No 1279 de 2002, art. 10, I, e), art.24, I, e).",
-            "titulo_capitulo_libro_1": "FORMATO DE VALORACIÓN DE CAPÍTULO DE LIBRO",  
+            "titulo_capitulo_libro_1": "FORMATO DE VALORACIÓN DE CAPÍTULO DE LIBRO",
             "titulo_capitulo_libro_2": "De conformidad con el decreto No 1279 de 2002, art. 10, III, d).",
             "titulo_software_1": "FORMATO DE REGISTRO DE VALORACIÓN DE PRODUCCIÓN DE SOTWARE",
             "titulo_software_2": "(Artículo 10 k, 24 k, Decreto 1279/02 y Resolución 285 y 693 de 2004 Colciencias)",
@@ -1066,7 +1070,7 @@
             "libro_ensayo_item_7": "1.7.La obra evaluada, que grado de divulgación posee:",
             "libro_ensayo_item_8": "1.8.¿La obra evaluada, obedece a un proceso de edición y publicación serio a cargo de una editorial de reconocido prestigio en el nivel nacional o internacional y con un tiraje apropiado?",
             "libro_ensayo_item_9": "1.9.¿La obra evaluada tiene un número de identificación en base de datos reconocida (ISBN) asignado? ",
-            
+
             "capitulo_libro_item_1": "1. ¿El Capítulo evaluado es: ",
             "capitulo_libro_item_2": "1.1. ¿El Capítulo de libro tiene orientación en el proceso de enseñanza aprendizaje?",
             "capitulo_libro_item_3": "1.2. ¿Desarrolla completamente el nivel del tema?",
@@ -1076,7 +1080,7 @@
             "capitulo_libro_item_7": "1.6. ¿La obra es de carácter inédito?",
             "capitulo_libro_item_8": "1.7. ¿Se evidencia un proceso de edición y publicación serio a cargo de una editorial de reconocido prestigio en el nivel nacional, o internacional y con un tiraje apropiado?",
             "capitulo_libro_item_9": "1.8. ¿Tiene un número de identificación en base de datos reconocida (ISBN) asignado?",
-            
+
             "produccion_software_texto_1": "La evaluación está compuesta de cinco (5) criterios (Características de Calidad en Software, Modelo, Metodología o Ciclo de Desarrollo, Documentación y aportaciones, Interfaz y Navegación e Impacto), cada uno de ellos es valorado según la ponderación de la siguiente tabla.",
             "produccion_software_texto_2": "Cada criterio tiene asociado una serie de características concretas, las cuales pueden ser valoradas en un rango de (1) a (5). Luego de calificar todas las características, súmelas por criterio, divídalas por el número de características que tiene ese criterio y multiplíquelas por su respectiva ponderación en la tabla 2",
             "produccion_software_caracteristicas_calidad_1": "Modularidad o Legibilidad de Código Fuente (Estructuras de Clases, Librerías, Paquetes, otras)",
@@ -1112,7 +1116,7 @@
             "produccion_software_impacto_5": "Pertinencia, Verifique la necesidad según el contexto",
             "produccion_software_impacto_total": "SUBTOTAL CRITERIO IMPACTO (20%)",
             "produccion_software_total": "TOTAL (Sume todos los Subtotales una vez fueron multiplicados por su ponderación)",
-            
+
             "aporte_a": "Carácter original o innovativo de la propuesta, en relación con el aporte al desarrollo de innovaciones de sistemas, productos, procesos y servicios, así como al mejoramiento significativo de los mismos).",
             "aporte_b": "Adaptación de productos o procesos, considerando la mejora sustancial de los existentes.",
             "aporte_c": "Aporte al fortalecimiento de la capacidad nacional de investigación, innovación y desarrollo tecnológico.",
