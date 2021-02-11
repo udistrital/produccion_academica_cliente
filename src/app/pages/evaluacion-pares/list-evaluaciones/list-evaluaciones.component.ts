@@ -140,7 +140,7 @@ export class ListEvaluacionesComponent implements OnInit {
     return new Promise((resolve, reject) => {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
-      this.solicitudDocenteService.put(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
+      this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
         if (res !== null) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 12);
           let i = 0;
