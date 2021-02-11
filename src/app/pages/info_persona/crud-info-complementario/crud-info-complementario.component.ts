@@ -12,6 +12,7 @@ import { ProyectoAcademicaService } from '../../../@core/data/proyecto_academica
 import { ParametrosCrudService } from '../../../@core/data/parametros_crud.service';
 import { ImplicitAutenticationService } from '../../../@core/utils/implicit_autentication.service';
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -259,7 +260,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
               this.listaArea = JSON.parse(this.AREA_CONOCIMIENTO2[this.AREA_CONOCIMIENTO2.length - 1].Dato)
               this.listaGranArea = this.listaArea['AreaConocimiento']['GranAreaConocimiento']
               this.listaEspeArea = this.listaArea['AreaConocimiento']['AreaConocimientoEspecifica']
-              this.granAreaConocimiento = this.listGranAreaConocimiento.find(value => value.Id = this.listaGranArea.Id)
+              this.granAreaConocimiento = this.listGranAreaConocimiento.find(value => value.Id === this.listaGranArea.Id)
               this.filterAreaConocimiento(this.granAreaConocimiento)
               this.areaConocimientoEspecifica = this.listAreaConocimientoEspecifica.find(value => value.Id === this.listaEspeArea.Id)
               this.setPercentage();
@@ -282,6 +283,7 @@ export class CrudInfoComplementarioComponent implements OnInit {
     private sgamidService: SgaMidService,
     private tercerosService: TercerosService,
     private user: UserService,
+    private router: Router,
     private proyectoAcademicoService: ProyectoAcademicaService,
     private parametrosCrudService: ParametrosCrudService,
     private autenticationService: ImplicitAutenticationService,
@@ -351,8 +353,10 @@ export class CrudInfoComplementarioComponent implements OnInit {
               this.info_complementaria_id = r.Id;
               sessionStorage.setItem('IdTercero', String(this.info_complementaria_id));
               this.loading = false;
-              this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
+              // this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.persona_creado'));
+              this.popUpManager.showSuccessAlert(this.translate.instant('GLOBAL.informacion_aceptacion_usuario'));
               this.setPercentage();
+              this.router.navigate(['./pages/dashboard']);
             } else {
               this.showToast('error', this.translate.instant('GLOBAL.error'),
                 this.translate.instant('GLOBAL.error'));
