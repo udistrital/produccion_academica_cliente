@@ -24,6 +24,7 @@ export const environment = {
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
     SIGN_OUT_REDIRECT_URL: 'https://produccionacademica.portaloas.udistrital.edu.co',
   },
+  CLIENTE_LINK: 'https://produccionacademica.portaloas.udistrital.edu.co/#/pages/dashboard',
   PARAMETROS_CRUD_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/parametros/v1/',
   PROYECTO_ACADEMICO_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/proyecto_academico_crud/v1/',
   PERSONA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/personas_crud/v1/',
@@ -49,6 +50,6 @@ export const environment = {
     CROSS: '&isFromCross=false',
     ENVIRONMENT: '&SBI_ENVIRONMENT=DOCBROWSER',
   },
-  // Servicios que podrían ser retirados ------------------------------------------------------------------
+  // Servicios que podrían ser retirados ---------------------------------------------------------------
   NOTIFICACION_SERVICE: 'wss://pruebasapi.portaloas.udistrital.edu.co:8116/ws',
 };

@@ -2,6 +2,10 @@
   font-size: 0.85rem;
 }
 
+:host /deep/ ng2-st-tbody-custom a:last-child i {
+  font-size: 18px;
+}
+
 .pop-comment {
   position: fixed;
   top: 0;
@@ -19,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   background: #fff;
   width: 80%;
   height: 80%;
@@ -36,8 +40,8 @@
   align-items: center;
   padding: 20px;
   background: #fff;
-  width: 45%;
-  height: 65%;
+  width: 60%;
+  height: 98%;
   border-radius: 20px;
   overflow: hidden;
   overflow-y: auto;
@@ -66,7 +70,7 @@
 
 .resume_body, .resume_body-btn {
   width: 60%;
-  margin: 25px auto;
+  margin: 10px auto;
 }
 
 .resume_body-btn {

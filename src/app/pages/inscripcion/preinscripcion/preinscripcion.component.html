@@ -6,22 +6,21 @@
           <ngb-progressbar showValue="true" type="success" [value]="percentage_info" [animated]="true"
             [height]="'15px'"></ngb-progressbar>
         </div>
-        <div class="col-md-1" align="right">
-          <button class="btn btn-danger btn-icon input-group-text btn-tn" (click)="show_profile=false; show_info=false; show_acad=false;
-            show_expe=false;">X
-          </button>
-        </div>
       </div>
       <nb-tabset fullWidth>
         <nb-tab tabTitle="{{ 'GLOBAL.info_persona' | translate }}" [active]="info_persona">
           <ngx-crud-info-persona info_persona_id={{this.info_persona_id}}
-            (eventChange)="perfil_editar('info_preinscripcion')" (result)="setPercentage_info($event,0)">
+            (eventChange)="perfil_editar('info_preinscripcion')" (result)="setPercentage_info($event,0)"
+            (resultId)="putTerceroId($event)" 
+          >
           </ngx-crud-info-persona>
         </nb-tab>
         <nb-tab tabTitle="Informacion complementaria" [active]="info_complementario">
-          <ngx-crud-info-complementario (eventChange)="perfil_editar('info_preinscripcion')"
-            (result)="setPercentage_info($event,0)">
-          </ngx-crud-info-complementario>
+          <ng-container *ngIf="datosComplementarios">
+            <ngx-crud-info-complementario info_persona_id={{this.info_persona_id}} (eventChange)="perfil_editar('info_preinscripcion')"
+              (result)="setPercentage_info($event,0)">
+            </ngx-crud-info-complementario>
+          </ng-container>
         </nb-tab>
       </nb-tabset>
     </nb-card-body>

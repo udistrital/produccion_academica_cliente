@@ -31,7 +31,10 @@ export class CrudComentarioComponent implements OnInit {
 
   @Input('obsNum')
   set observation(obsNum: string) {
+    this.isDevuelta = false;
     this.obsNum = obsNum;
+    if (this.obsNum == '1' && this.estadoNum != '0')
+      this.isDevuelta = true;
   }
 
   @Output()
@@ -42,6 +45,7 @@ export class CrudComentarioComponent implements OnInit {
   observacion: Observacion;
   userData: Tercero;
   userNum: string;
+  isDevuelta: boolean;
   obsNum: string;
   estadoNum: string;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
@@ -92,8 +96,10 @@ export class CrudComentarioComponent implements OnInit {
   loadEstadoSolicitud(): Promise<any> {
     return new Promise((resolve, reject) => {
       let endpoint;
-      if (this.solicitud_selected.EstadoTipoSolicitudId.Id === 6 && this.obsNum === '1')
+      if (this.solicitud_selected.EstadoTipoSolicitudId.Id === 6 && this.obsNum == '1' && this.estadoNum != '0')
         endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + 7;
+      else if (this.estadoNum == '0')
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + this.solicitud_selected.EstadoTipoSolicitudId.Id;
       else
         endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + this.estadoNum;
       this.solicitudDocenteService.get(endpoint)
@@ -159,8 +165,9 @@ export class CrudComentarioComponent implements OnInit {
     this.info_solicitud = <SolicitudDocentePost>solicitudDocente;
     this.info_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
     this.info_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    if (this.info_solicitud.EstadoTipoSolicitudId.Id === 4 || this.info_solicitud.EstadoTipoSolicitudId.Id === 6)
+    if ((this.info_solicitud.EstadoTipoSolicitudId.Id === 4 || this.info_solicitud.EstadoTipoSolicitudId.Id === 6) && this.estadoNum != '0')
       this.info_solicitud.Resultado = `{ \"Puntaje\": ${0} }`
+
     this.sgaMidService.post('solicitud_docente/' + this.info_solicitud.Id, this.info_solicitud)
     .subscribe((resp: any) => {
       if (resp.Type === 'error') {

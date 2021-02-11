@@ -198,6 +198,16 @@
     }
   }
 
+  .span-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+  }
+
+  .text-danger {
+    font-size: 0.8rem;
+  }
+
   .fieldseter {
     display: flow-root;
     -moz-padding-start: 1rem;
@@ -223,6 +233,10 @@
 
   img {
     cursor: pointer;
+  }
+  
+  .img-close {
+    border: none;
   }
 
   ngb-rating {

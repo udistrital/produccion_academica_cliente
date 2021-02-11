@@ -88,7 +88,7 @@ export class ListEvaluacionesComponent implements OnInit {
           width: '10%',
         },
         FechaRadicacion: {
-          title: this.translate.instant('produccion_academica.fecha_radicacion'),
+          title: this.translate.instant('produccion_academica.fecha_envio'),
           valuePrepareFunction: (value) => {
             return ((value) + '').substring(0, 10);
           },

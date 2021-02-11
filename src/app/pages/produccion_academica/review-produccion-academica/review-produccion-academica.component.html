@@ -115,7 +115,7 @@
       [solicitud_selected]="solicitud_docente_selected"></ngx-crud-comentario>
     <ngx-send-invitacion
       [hidden]="!(rol !== 'DOCENTE' && (solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 3 || solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 5))"
-      (reloadTable)="reloadTable($event)" [solicitud_selected]="solicitud_docente_selected"></ngx-send-invitacion>
+      (reloadTable)="reloadTableInvitation($event)" [solicitud_selected]="solicitud_docente_selected"></ngx-send-invitacion>
   </div>
 </div>
 <div class="row">
