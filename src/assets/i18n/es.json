@@ -489,7 +489,10 @@
         "nivel_formacion": "Nivel de formacion",
         "placeholder_nivel_formacion": "Ej: Especializacion",
         "institucion": "Institucion",
-        "placeholder_institucion": "Ej: Universidad Distrital"
+        "placeholder_institucion": "Ej: Universidad Distrital",
+        "persona_creado":  "Se ha Creado Exitosamente la informacion",
+        "operacion_exitosa": "Se ha Creado Exitosamente la informacion",
+        "informacion_aceptacion_usuario": "Por favor espere 15 minutos mientras el sistema crea su nuevo Rol como Evaluador, luego salga y vuelva a entrar al sistema."
     },
     "ERROR": {
         "general": "La solicitud no pudo ser cumplida",
@@ -571,6 +574,7 @@
 
         "fecha_envio": "Fecha de envío de invitación",
         "fecha_radicacion": "Fecha de radicación",
+        "fecha_aceptacion": "Fecha de aceptacion de invitacion",
         "fecha_publicacion": "Fecha de publicación",
         "fecha_obtencion": "Fecha de obtención",
         "fecha_realizacion": "Fecha de realización",
