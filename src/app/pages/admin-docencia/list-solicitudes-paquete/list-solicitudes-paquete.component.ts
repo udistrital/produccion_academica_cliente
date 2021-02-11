@@ -49,6 +49,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   urlDocument: string;
   urlDocumentComplete: string;
   esRechazada: boolean;
+  esAplazada: boolean;
   certificadoExiste: boolean;
   certificadoAprobado: boolean;
   persona_id: number;
@@ -390,6 +391,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   closePop() {
     this.esRechazada = false;
+    this.esAplazada = false;
   }
 
   onReject(event): void {
@@ -412,7 +414,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   onPostpone(event): void {
     this.solicitud_selected = event.data;
-    this.postponeSolicitud(this.solicitud_selected);
+    this.esAplazada = true;
+    // this.postponeSolicitud(this.solicitud_selected);
   }
 
   onEdit(event): void {

@@ -88,9 +88,9 @@ export class ListEvaluacionesComponent implements OnInit {
           width: '10%',
         },
         FechaRadicacion: {
-          title: this.translate.instant('produccion_academica.fecha_radicacion'),
+          title: this.translate.instant('produccion_academica.fecha_envio'),
           valuePrepareFunction: (value) => {
-            return ((value) + '').substring(0, 10);
+            return ((value) + '').substring(0, 30);
           },
           filter: false,
           width: '15%',
@@ -98,7 +98,7 @@ export class ListEvaluacionesComponent implements OnInit {
         'SolicitudPadreId.ProduccionAcademica.Fecha': {
           title: this.translate.instant('produccion_academica.fecha_publicacion'),
           valuePrepareFunction: (cell, row) => {
-            return ((row.SolicitudPadreId.ProduccionAcademica.Fecha) + '').substring(0, 10);
+            return ((row.SolicitudPadreId.ProduccionAcademica.Fecha) + '').substring(0, 30);
           },
           filter: false,
           width: '15%',
@@ -140,7 +140,7 @@ export class ListEvaluacionesComponent implements OnInit {
     return new Promise((resolve, reject) => {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
-      this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
+      this.solicitudDocenteService.put(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
         if (res !== null) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 12);
           let i = 0;
