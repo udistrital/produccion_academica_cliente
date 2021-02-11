@@ -16,6 +16,7 @@ import { EstadoTipoSolicitud } from '../../../@core/data/models/solicitud_docent
 import { Tercero } from '../../../@core/data/models/terceros/tercero';
 import { filterList } from './filtros'
 import Swal from 'sweetalert2';
+import * as momentTimezone from 'moment-timezone';
 import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
@@ -259,18 +260,18 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
 
   ngOnInit() {
     this.loadEstadoSolicitud()
-    .then(() => {})
-    .catch(error => {
-      if (!error.status) {
-        error.status = 409;
-      }
-      Swal({
-        type: 'error',
-        title: error.status + '',
-        text: this.translate.instant('ERROR.' + error.status),
-        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+      .then(() => { })
+      .catch(error => {
+        if (!error.status) {
+          error.status = 409;
+        }
+        Swal({
+          type: 'error',
+          title: error.status + '',
+          text: this.translate.instant('ERROR.' + error.status),
+          confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+        });
       });
-    });
   }
 
   loadTerceroData() {
@@ -365,36 +366,50 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
   }
 
   generatePackage() {
-    this.closePop();
-    Swal({
-      title: 'Espere',
-      text: 'Enviando Información',
-      allowOutsideClick: false,
-    });
-    Swal.showLoading();
-    this.paquete_solicitud.SolicitudesList = this.solicitudes_selected_list;
-    this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
-    this.paquete_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
-    this.paquete_solicitud.TerceroId = this.user.getPersonaId() || 3;
-    this.sgaMidService.post('paquete_solicitud', this.paquete_solicitud)
-      .subscribe((resp: any) => {
-        if (resp.Type === 'error') {
-          Swal({
-            type: 'error',
-            title: resp.Code,
-            text: this.translate.instant('ERROR.' + resp.Code),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-          });
-          this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
-        } else {
-          this.paquete_solicitud = resp;
-          Swal({
-            title: `Éxito al crear Paquete.`,
-            text: 'Información Guardada correctamente',
-          });
-          this.router.navigate(['./pages/dashboard']);
-        }
+    if ((this.paquete_solicitud.NumeroComite === undefined || this.paquete_solicitud.NumeroComite === '') ||
+      (this.paquete_solicitud.FechaComite === undefined || this.paquete_solicitud.FechaComite === '')) {
+      Swal({
+        type: 'warning',
+        title: 'ERROR',
+        text: this.translate.instant('produccion_academica.alerta_llenar_campos_datos_basicos'),
+        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
       });
+    } else {
+      this.closePop();
+      Swal({
+        title: 'Espere',
+        text: 'Enviando Información',
+        allowOutsideClick: false,
+      });
+      Swal.showLoading();
+      this.paquete_solicitud.FechaComite = momentTimezone.tz(this.paquete_solicitud.FechaComite, 'America/Bogota').format('YYYY-MM-DD HH:mm:ss');
+      this.paquete_solicitud.FechaComite = this.paquete_solicitud.FechaComite + ' +0000 +0000';
+      this.paquete_solicitud.SolicitudesList = this.solicitudes_selected_list;
+      this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
+      this.paquete_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
+      this.paquete_solicitud.TerceroId = this.user.getPersonaId() || 3;
+      console.info(this.paquete_solicitud.SolicitudesList)
+      console.info(this.paquete_solicitud.FechaComite)
+      this.sgaMidService.post('paquete_solicitud', this.paquete_solicitud)
+        .subscribe((resp: any) => {
+          if (resp.Type === 'error') {
+            Swal({
+              type: 'error',
+              title: resp.Code,
+              text: this.translate.instant('ERROR.' + resp.Code),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+            this.showToast('error', 'error', this.translate.instant('produccion_academica.produccion_no_creada'));
+          } else {
+            this.paquete_solicitud = resp;
+            Swal({
+              title: `Éxito al crear Paquete.`,
+              text: 'Información Guardada correctamente',
+            });
+            this.router.navigate(['./pages/dashboard']);
+          }
+        });
+    }
   }
 
   activetab(number): void {
