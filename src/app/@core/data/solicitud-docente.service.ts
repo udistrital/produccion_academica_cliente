@@ -7,6 +7,7 @@ import { RequestManager } from '../../managers/requestManager';
 export class SolicitudDocenteService {
 
   constructor(private requestManager: RequestManager) {
+    console.info('paso solicitud service')
     this.requestManager.setPath('SOLICITUD_DOCENTE_SERVICE');
   }
   get(endpoint) {
