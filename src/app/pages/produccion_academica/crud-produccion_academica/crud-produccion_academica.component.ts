@@ -37,6 +37,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    this.file_from_terceros = [];
     this.isExistPoint = false;
     if (this.solicitud_docente_selected !== undefined) {
       if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
@@ -72,6 +73,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   link_data_drive: string[] = [];
   id_data_drive: number[] = [];
   files_to_drive: any[] = [];
+  file_from_terceros: any[] = [];
   info_solicitud: SolicitudDocentePost;
   info_produccion_academica: ProduccionAcademicaPost;
   estadosSolicitudes: Array<EstadoTipoSolicitud>;
@@ -95,6 +97,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   Metadatos: any[];
   titulos: InfoComplementariaTercero;
+  archivo: any;
   idFile: any;
   nombreFile: any;
   nivel: any;
@@ -722,11 +725,11 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             .subscribe(resp => {
               const filesToGet = [];
               (<Array<InfoComplementariaTercero>>resp).forEach(info => {
-
                 if (info.InfoComplementariaId.Nombre === 'DOCUMENTO_ID') {
-                  const archivo = JSON.parse(info.Dato);
-                  this.idFile = parseInt(archivo.DocumentoId, 10);
-                  this.nombreFile = parseInt(archivo.DocumentoNombre, 10);
+                  this.archivo = info;
+                  let documento = JSON.parse(info.Dato);
+                  this.idFile = parseInt(documento.DocumentoId, 10);
+                  this.nombreFile = parseInt(documento.DocumentoNombre, 10);
                 }
 
                 if (info.InfoComplementariaId.Nombre === 'NIVEL_FORMACION') {
@@ -734,7 +737,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 }
 
                 if (this.nivel !== null && this.nivel !== undefined) {
-                  filesToGet.push({ Id: this.idFile, key: this.nombreFile, nivelFormacion: this.nivel })
+                  filesToGet.push({ Id: this.idFile, key: this.nombreFile, nivelFormacion: this.nivel, infoComplementaria: this.archivo })
                   this.nivel = null;
                 }
 
@@ -743,8 +746,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 this.nuxeoService.getDocumentoById$(filesToGet, this.documentoService)
                   .subscribe(response => {
                     const filesResponse = <any>response;
-                    let i = 0;
                     if (Object.keys(filesResponse).length === filesToGet.length) {
+                      console.log(filesToGet)
                       filesToGet.forEach(file => {
                         let idActa;
 
@@ -773,15 +776,32 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                             idActa = 18;
                         }
 
+                        console.log(file)
                         this.formProduccionAcademica.campos.forEach(campo => {
                           if (campo.etiqueta === 'file' && campo.nombre === idActa) {
+                            // console.log(idActa)
+                            // console.log(filesResponse)
+                            // console.log(filesResponse[file.key] + '')
+                            // console.log(file.key)
                             campo.url = filesResponse[file.key] + '';
                             campo.urlTemp = filesResponse[file.key] + '';
                             campo.valor = file.Id;
-                            i++;
                           }
                         });
 
+                        if(idActa !== undefined) {
+                          var yaExiste = this.file_from_terceros.some(function(o){
+                            return o.MetadatoSubtipoProduccionId === idActa;
+                          });
+                          if(!yaExiste) {
+                            console.log(file.infoComplementaria)
+                            this.file_from_terceros.push ({
+                              MetadatoSubtipoProduccionId: idActa,
+                              Valor: file.Id + '', // Se castea el valor del string
+                              infoComplementaria: file.infoComplementaria,
+                            });
+                          }
+                        }
                       });
                       this.construirForm();
                     }
@@ -803,6 +823,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.nuxeoService.getDocumentos$(files, this.documentoService)
         .subscribe(response => {
           if (Object.keys(response).length === files.length) {
+            console.log(response)
             files.forEach((file) => {
               metadatos.push({
                 MetadatoSubtipoProduccionId: file.Id,
@@ -862,12 +883,10 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.sgaMidService.get('solicitud_docente/inactive/' + (this.user.getPersonaId() || 1))
         .subscribe((res: any) => {
-          if (res !== null) {
-            if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+            if (res !== null && Object.keys(res[0]).length > 0) {
               const dataSolicitud = <Array<SolicitudDocentePost>>res;
               let i = 0;
               dataSolicitud.sort((solicitudA, solicitudB) => (solicitudA.Id > solicitudB.Id) ? -1 : 1)
-
               dataSolicitud.forEach(solicitud => {
                 if (JSON.parse(solicitud.Referencia).Id !== undefined) {
                   this.sgaMidService.get('produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id)
@@ -938,15 +957,79 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 }
               });
             } else {
-              Swal({
-                type: 'error',
-                title: '404',
-                text: this.translate.instant('ERROR.404'),
-                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              this.categoria = ' ';
+              this.fechaCategoria = new Date();
+              this.formProduccionAcademica.campos.forEach(campo => {
+                if (campo.nombre === 14 || campo.nombre === 1 || campo.nombre === 7)
+                  campo.valor = this.categoria;
+                if (campo.nombre === 15 || campo.nombre === 2 || campo.nombre === 8)
+                  campo.valor = this.fechaCategoria;
               });
+
+              this.info_produccion_academica.Fecha = new Date();
+              resolve(true);
             }
-          }
+        }, (error: HttpErrorResponse) => {
+          Swal({
+            type: 'error',
+            title: error.status + '',
+            text: this.translate.instant('ERROR.' + error.status),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
         });
+    });
+  }
+
+  actualizarDocumentosTerceros(metadatos) {
+    return new Promise((resolve, reject) => {
+      let i = 0;
+      this.file_from_terceros.forEach(file => {
+        if(metadatos.length > 0) {
+          var yaExiste = metadatos.some(function(o) {
+          return parseInt(o.MetadatoSubtipoProduccionId, 10) === parseInt(file.MetadatoSubtipoProduccionId, 10);
+          });
+          if(yaExiste) {
+            /** si existe el metadato del documento en el listado quiere decir que el documento es nuevo
+             por lo que solo se va actualizar la info complementaria del documento en terceros y
+            este ya existe en los metadatos
+            */          
+            let infoComplementaria;
+            /** Actualizar ID del documento de la infocomplementaria correspontiente */
+            metadatos.forEach(metadato => {
+              if(metadato.MetadatoSubtipoProduccionId === file.MetadatoSubtipoProduccionId) {
+                file.infoComplementaria.Dato = `{\"DocumentoId\":${metadato.Valor},\"DocumentoNombre\":${metadato.MetadatoSubtipoProduccionId}}`
+                infoComplementaria = file.infoComplementaria
+                this.tercerosService.put("info_complementaria_tercero/", infoComplementaria)
+                .subscribe((resp: any) => {
+                  if (resp.Type === 'error') {
+                    Swal({
+                      type: 'error',
+                      title: resp.Code,
+                      text: this.translate.instant('ERROR.' + resp.Code),
+                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                    });
+                  }
+                });
+              }
+            });
+          } else {
+            /** si no existe el metadato del documento en el listado quiere decir que el documento es el mismo
+            tarido de terceros por lo que solo se va agregar a la lista de metadatos y así la solicitud tenga los datos completos
+            */
+            metadatos.push({
+              MetadatoSubtipoProduccionId: file.MetadatoSubtipoProduccionId,
+              Valor: file.Valor,
+            });
+          }
+          i++;
+          if(i === this.file_from_terceros.length)
+            resolve(true);
+        } else {
+          reject({
+            status: 404,
+          });
+        }
+      });
     });
   }
 
@@ -974,6 +1057,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           const metadatos = [];
           const filesToUpload = [];
           if (event.data.ProduccionAcademica) {
+            console.warn(event.data.ProduccionAcademica)           
             const tempMetadatos = event.data.ProduccionAcademica;
             const keys = Object.keys(tempMetadatos);
             for (let i = 0; i < keys.length; i++) {
@@ -1030,15 +1114,31 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 if (filesToUpload.length > 0) {
                   promises.push(this.uploadFilesToMetadaData(filesToUpload, metadatos));
                 }
-                this.info_produccion_academica.Metadatos = metadatos;
-                this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
+
                 Promise.all(promises)
                   .then(() => {
-                    if (this.solicitud_docente_selected === undefined) {
-                      this.createProduccionAcademica(this.info_produccion_academica);
+                    if(this.file_from_terceros.length > 0) {
+                      this.actualizarDocumentosTerceros(metadatos)
+                        .then(() => {
+                          console.log(metadatos)
+                          this.info_produccion_academica.Metadatos = metadatos;
+                          this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
+                          if (this.solicitud_docente_selected === undefined) {
+                            //this.createProduccionAcademica(this.info_produccion_academica);
+                          } else {
+                            //this.updateProduccionAcademica(this.info_produccion_academica);
+                          }
+                        })
                     } else {
-                      this.updateProduccionAcademica(this.info_produccion_academica);
+                        this.info_produccion_academica.Metadatos = metadatos;
+                        this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
+                        if (this.solicitud_docente_selected === undefined) {
+                          //this.createProduccionAcademica(this.info_produccion_academica);
+                        } else {
+                          //this.updateProduccionAcademica(this.info_produccion_academica);
+                        }
                     }
+                    
                   })
                   .catch(error => {
                     Swal({
