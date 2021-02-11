@@ -498,9 +498,11 @@
     "produccion_academica": "Academic production",
     "producciones_academicas": "Academic productions",
 
-    "verificar": "Verificar",
-    "modificar": "Modificar",
-    "rechazar": "Rechazar",
+    "verificar": "check",
+    "modificar": "Modify",
+    "rechazar": "Deny",
+    "rechazar_evaluacion": "Reject",
+    "enviar": "Send",
 
     "acciones": "Actions",
     "alerta": "Alert",
@@ -534,6 +536,8 @@
     "evaluacion_espera": "The evaluation invitation has already been sent to the external peer and is awaiting acceptance or rejection",
     "evaluacion_rechazo": "The evaluation invitation has been rejected by the external peer",
     "evaluacion_en_evaluacion": "The evaluation invitation has been accepted by the external peer and the peer is awaiting the evaluation",
+    "evaluacion_evaluada": "It is not possible to reject an evaluation that has already been evaluated",
+    "evaluacion_rechazada": "The evaluation has already been rejected previously",
 
     "generar_documento": "Generate Document",
     "generar_acta": "Generate Certificate",
@@ -593,7 +597,7 @@
     "datos_basicos": "Basic data",
     "soporte_audiovisual": "Audiovisual file support",
     "soporte_software": "Software support",
-    "span_soporte_drive": "This file will be uploaded to our drive repository, it may take a few moments to upload",
+    "span_soporte_drive": "This file will be uploaded to our drive repository, the maximum size allowed per file is 500Mb",
 
     "span_articulo": "When your article is published in a special edition or similar, put 0 in volume and number, otherwise it must have all the requested fields",
     "span_capitulo": "If you have more than one book chapter in the same book, only one of them will score a score. The total score will be divided by the number of total authors in the book",
@@ -834,12 +838,14 @@
     "seguro_continuar_generar_paquete": "Are you sure to generate package with the selected requests?",
     "seguro_continuar_aceptar_invitacion": "Are you sure you want to accept this invitation?",
     "seguro_continuar_enviar_invitacion": "Are you sure you want to send this invitation?",
+    "seguro_continuar_rechazar_evaluacion": "Are you sure to reject this review?",
     "seguro_continuar_rechazar_produccion": "Are you sure you want to reject this request?",
     "seguro_continuar_verificar_produccion": "Are you sure you want to verify this request?",
     "seguro_continuar_registrar_comentario": "Are you sure you want to register this comment?",
     "seguro_continuar_registrar_produccion": "Are you sure you want to register this production?",
     "seguro_continuar_eliminar_produccion": "Are you sure you want to delete this production?",
     "seguro_continuar_actualizar_produccion": "Are you sure you want to update this production?",
+    "enviar_otra_invitación": "Do you want to send another invitation?",
     "certificado_cumplido_estatuto": "I certify that I have not previously presented this product and I comply with the intellectual property statute of the University",
     "ejemplo_union_pdf": "The supporting files for each application must be uploaded in pdf format; to join the pdf files you can use the tool available at",
     "error_no_puede_editar_autores": "Action not allowed",
@@ -850,7 +856,8 @@
     "produccion_actualizada": "Production updated",
     "produccion_no_actualizada": "Production not updated",
     "estado_autor_actualizado": "Author status updated",
-    "estado_autor_no_actualizado": "Author status not updated"
+    "estado_autor_no_actualizado": "Author status not updated",
+    "advertencia_evaluacion": "The update of the invitation list will be reflected until more invitations are stopped sending"
   },
   "documento_programa": {
     "descuento_academico_no_registrado": "Academic discount not registered",

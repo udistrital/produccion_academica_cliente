@@ -130,8 +130,6 @@ export class SendInvitacionComponent implements OnInit {
                 this.info_solicitud_hija = <SolicitudDocentePost>resp;
                 this.invitacionTemplate.urlRechazarEvaluacion =
                   environment.SGA_MID_SERVICE + 'solicitud_evaluacion/' + resp.Solicitud.Id;
-                console.info(this.invitacionTemplate.urlCreacionCuentaLogin)
-                console.info(this.invitacionTemplate.urlRechazarEvaluacion)
                 this.sendInvitation();
               }
             });
@@ -182,6 +180,12 @@ export class SendInvitacionComponent implements OnInit {
       Swal(opt)
         .then((willCreate) => {
           if (willCreate.value) {
+            Swal({
+              title: 'Espere',
+              text: 'Enviando Información',
+              allowOutsideClick: false,
+            });
+            Swal.showLoading();
             if (this.solicitud_selected.EstadoTipoSolicitudId.EstadoId.Id === 5)
               this.newSolicitudHija();
             else

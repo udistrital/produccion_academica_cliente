@@ -346,6 +346,28 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.closePop();
   }
 
+  reloadTableInvitation(event) {
+    const opt = {
+      title: this.translate.instant('produccion_academica.enviar'),
+      text: this.translate.instant('produccion_academica.enviar_otra_invitación'),
+      footer: this.translate.instant('produccion_academica.advertencia_evaluacion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+      confirmButtonText: this.translate.instant('GLOBAL.si'),
+      cancelButtonText: this.translate.instant('GLOBAL.no'),
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        console.info(willCreate)
+        if (!willCreate.value) {
+          this.eventChange.emit(event);
+          this.closePop();
+        }
+      });
+  }
+
   closePop() {
     this.esRechazada = false;
     this.existeCoincidencia = false;
@@ -423,7 +445,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         }
       });
   }
-
 
   passForEvaluation() {
     this.estadosSolicitudes = [];

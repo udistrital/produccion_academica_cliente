@@ -513,6 +513,8 @@
         "verificar": "Verificar",
         "modificar": "Modificar",
         "rechazar": "Negar",
+        "rechazar_evaluacion": "Rechazar",
+        "enviar": "Enviar",
 
         "acciones": "Acciones",
         "alerta": "Alerta",
@@ -546,6 +548,8 @@
         "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
         "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
         "evaluacion_en_evaluacion": "La invitación de evaluación ha sido aceptada por parte del par externo y se esta esperando que el par realice la evaluación",
+        "evaluacion_evaluada": "No es posible rechazar una evaluación que ya fue evaluada",
+        "evaluacion_rechazada": "La evaluación ya fue rechazada con anterioridad",
 
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
@@ -605,7 +609,7 @@
         "datos_basicos": "Datos básicos",
         "soporte_audiovisual": "Soporte de archivo audiovisual",
         "soporte_software": "Soporte de Software",
-        "span_soporte_drive": "Este archivo será subido a nuestro repositorio drive, puede tardar unos momentos en subir",
+        "span_soporte_drive": "Este archivo será subido a nuestro repositorio drive, el tamaño máximo permitido por archivo es de 500Mb",
 
         "span_articulo": "Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados",
         "span_capitulo": "En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro",
@@ -846,12 +850,14 @@
         "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
         "seguro_continuar_aceptar_invitacion": "¿Está seguro de aceptar esta invitación?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
+        "seguro_continuar_rechazar_evaluacion": "¿Está seguro de rechazar esta evaluación?",
         "seguro_continuar_rechazar_produccion": "¿Está seguro de negar esta solicitud?",
         "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",
         "seguro_continuar_registrar_comentario": "¿Está seguro de registrar este comentario?",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
+        "enviar_otra_invitación": "¿Desea enviar otra invitación?",
         "certificado_cumplido_estatuto": "Certifico que no he presentado este producto con anterioridad y cumplo con el estatuto de propiedad intelectual de la Universidad",
         "ejemplo_union_pdf": "Los archivos soportes de cada solicitud se deben cargar en formato pdf; para unir los archivos pdf puede utilizar la herramienta disponible en",
         "error_no_puede_editar_autores": "Acción no permitida",
@@ -862,7 +868,8 @@
         "produccion_actualizada": "Producción actualizada",
         "produccion_no_actualizada": "Producción no actualizada",
         "estado_autor_actualizado": "Estado del autor actualizado",
-        "estado_autor_no_actualizado": "Estado del autor no actualizado"
+        "estado_autor_no_actualizado": "Estado del autor no actualizado",
+        "advertencia_evaluacion": "La actualización de la lista de invitaciones se verá reflejada hasta que se dejen de enviar mas invitaciones."
     },
     "documento_programa": {
         "documento_programa_no_registrado": "Documento no registrado",

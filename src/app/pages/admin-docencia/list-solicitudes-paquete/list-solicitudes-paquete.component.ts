@@ -351,7 +351,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                     });
                   } else {
                     this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
-                    this.updatePackage(0);
+                    this.onChange(this.solicitud_selectedPostpone.Id);
                     Swal({
                       title: `Éxito al Verificar Solicitud.`,
                       text: 'Información Modificada correctamente',
@@ -515,7 +515,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                       })
                       this.source.load(this.solicitudes_list);
                       Swal.close();
-                      this.updatePackage(0);
+                      this.updatePackage(0, event);
                     })
                     .catch(error => {
                       Swal({
@@ -609,7 +609,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.generateDocument(1);
           if (!this.certificadoAprobado)
-            this.updatePackage(8);
+            this.updatePackage(8, null);
         }
       });
   }
@@ -628,12 +628,12 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         if (willCreate.value) {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.solicitudes_list.forEach(solicitud => solicitud.SolicitudFinalizada = true);
-          this.updatePackage(9);
+          this.updatePackage(9, null);
         }
       });
   }
 
-  updatePackage(numberState) {
+  updatePackage(numberState, event) {
     this.estadosSolicitudes = [];
     this.loadEstadoSolicitud(numberState)
       .then(() => {
@@ -669,7 +669,10 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                 title: `Éxito al actualizar Paquete.`,
                 text: 'Información Guardada correctamente',
               });
-              this.router.navigate(['./pages/dashboard']);
+              if (event === null) {
+                this.showData();
+                this.verifyCertificateExist();
+              }
             }
           });
       })

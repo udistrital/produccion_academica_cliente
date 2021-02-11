@@ -451,11 +451,9 @@
               <div class="row file-content">
                 <div class="col-2">
                   <input type="file" id="{{c.nombre}}" (change)="onChange($event,c)" />
-                  <br>
-                  <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
                 </div>
-                <div class="col-6">
-                  <p class="file-place">{{c.placeholder}}</p>
+                <div class="col-6 file-place">
+                  <p>{{c.placeholder}}</p>
                 </div>
                 <div class="col-4" *ngIf="c.valor">
                   <nb-card-body class="col-4" *ngIf="c.tipo == 'image'">
@@ -470,7 +468,10 @@
                   </nb-card-body>
                 </div>
               </div>
-              <span class="nb-span-file" [class.alert]="validAlert(c)">{{c.span}}</span>
+              <div class="col-12 span-div">
+                <mat-hint class="text-danger">{{c.alerta}}</mat-hint>
+                <span class="nb-span-file" [class.alert]="validAlert(c)">{{c.span}}</span>
+              </div>
             </div>
 
             <!--buttton -->
