@@ -63,6 +63,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   produccionSoftware: boolean;
   tipoArticulo: boolean;
   tipoCapitulo: boolean;
+  tipoTitulo: boolean;
   isExistPoint: boolean;
   pointRequest: number;
   title_tipo_produccion: string;
@@ -378,6 +379,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       ? this.tipoArticulo = true : this.tipoArticulo = false;
 
     this.tipoProduccionAcademica.Nombre === 'Capitulo Libro' ? this.tipoCapitulo = true : this.tipoCapitulo = false;
+
+    this.tipoProduccionAcademica.Nombre === 'Titulo Postgrado' ? this.tipoTitulo = true : this.tipoTitulo = false;
   }
 
   filterTitleProduction(tipoProduccionAcademica: TipoProduccionAcademica) {
@@ -858,6 +861,13 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     }
   }
 
+  removeDriveFiles(numId) {
+    const length = this.files_to_drive.length;
+    if (this.files_to_drive[numId])
+      this.files_to_drive.splice(numId, 1);
+    (length > 1 && numId === 0) && this.files_to_drive.unshift({})
+  }
+
   loadDatosCambioCategoria() {
     return new Promise((resolve, reject) => {
       this.sgaMidService.get('solicitud_docente/inactive/' + (this.user.getPersonaId() || 1))
@@ -1004,6 +1014,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               title: this.translate.instant('GLOBAL.registrar'),
               text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
               icon: 'warning',
+              footer: this.translate.instant('produccion_academica.advertencia_registrar_produccion'),
               buttons: true,
               dangerMode: true,
               showCancelButton: true,

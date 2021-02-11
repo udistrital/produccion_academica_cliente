@@ -61,6 +61,7 @@
         "cancelar": "Cancelar",
         "persona": "Persona",
         "info_evaluacion": "Información evaluación",
+        "informacion": "Información",
         "info_persona": "Información personal",
         "info_criterio": "Criterios ICFES",
         "info_estado": "Estado de inscripción",
@@ -502,7 +503,8 @@
         "500": "Error interno en el servidor",
         "formato_documento_pdf": "El formato del documento escogido no es pdf",
         "no_documento": "Debe seleccionar un archivo",
-        "error_subir_documento": "Ocurrió un error subiendo los documentos, por favor intente de nuevo."
+        "error_subir_documento": "Ocurrió un error subiendo los documentos, por favor intente de nuevo.",
+        "lista_vacia": "No hay datos encontrados para esta lista"
     },
     "produccion_academica": {
         "produccion_academica": "Producción académica",
@@ -510,7 +512,9 @@
 
         "verificar": "Verificar",
         "modificar": "Modificar",
-        "rechazar": "Rechazar",
+        "rechazar": "Negar",
+        "rechazar_evaluacion": "Rechazar",
+        "enviar": "Enviar",
 
         "acciones": "Acciones",
         "alerta": "Alerta",
@@ -544,6 +548,8 @@
         "evaluacion_espera": "La invitación de evaluación ya ha sido enviada al par externo y esta a la espera de aceptación o rechazo",
         "evaluacion_rechazo": "La invitación de evaluación ha sido rechazada por parte del par externo",
         "evaluacion_en_evaluacion": "La invitación de evaluación ha sido aceptada por parte del par externo y se esta esperando que el par realice la evaluación",
+        "evaluacion_evaluada": "No es posible rechazar una evaluación que ya fue evaluada",
+        "evaluacion_rechazada": "La evaluación ya fue rechazada con anterioridad",
 
         "generar_documento": "Generar Documento",
         "generar_acta": "Generar Acta",
@@ -584,8 +590,10 @@
         "titulo_resena": "Título de reseña critica",
         "titulo_postdoctorado": "Título certificado postdoctorado",
         "titulo_trabajo_grado": "Título de trabajo de grado",
-        "titulo_rechazo": "Observación de rechazo",
-        "subtitulo_rechazo": "Debe realizar un comentario explicando el rechazo de la solicitud",
+        "titulo_rechazo": "Observación de Negado",
+        "subtitulo_rechazo": "Debe realizar un comentario explicando la negación de la solicitud",
+        "titulo_comentario": "Observación tipo Comentario",
+        "subtitulo_comentario": "Puede realizar un comentario para que quede registrado en la solicitud",
         "titulo_coincidencia": "Solicitudes que presentan coincidencia",
         "subtitulo_coincidencia": "A continuación se ve un listado de las solicitudes que podrían haberse realizado anteriormente por otro docente.",
         "placeholder_titulo_produccion_academica": "ej: Diseño rueda dentada helicoidal",
@@ -601,10 +609,11 @@
         "datos_basicos": "Datos básicos",
         "soporte_audiovisual": "Soporte de archivo audiovisual",
         "soporte_software": "Soporte de Software",
-        "span_soporte_drive": "Este archivo será subido a nuestro repositorio drive, puede tardar unos momentos en subir",
+        "span_soporte_drive": "Este archivo será subido a nuestro repositorio drive, el tamaño máximo permitido por archivo es de 500Mb",
 
         "span_articulo": "Cuando su artículo sea publicado en una edición especial o similar coloque 0 en volumen y número, de lo contrario debe llevar todos los campos solicitados",
         "span_capitulo": "En caso de tener más de un capítulo de libro en el mismo libro, solo se asignará puntaje por uno de ellos. El puntaje total se dividirá por la cantidad de autores totales del libro",
+        "span_titulo": "En caso de que el título se haya realizado en el extranjero es necesario que llene todos los datos relacionados con la convalidación del mismo",
 
         "labels": {
             "paginas": "Numero de páginas",
@@ -841,12 +850,14 @@
         "seguro_continuar_generar_paquete": "¿Está seguro de generar paquete con las solicitudes seleccionadas?",
         "seguro_continuar_aceptar_invitacion": "¿Está seguro de aceptar esta invitación?",
         "seguro_continuar_enviar_invitacion": "¿Está seguro de enviar esta invitación?",
-        "seguro_continuar_rechazar_produccion": "¿Está seguro de rechazar esta solicitud?",
+        "seguro_continuar_rechazar_evaluacion": "¿Está seguro de rechazar esta evaluación?",
+        "seguro_continuar_rechazar_produccion": "¿Está seguro de negar esta solicitud?",
         "seguro_continuar_verificar_produccion": "¿Está seguro de verificar esta solicitud?",
         "seguro_continuar_registrar_comentario": "¿Está seguro de registrar este comentario?",
         "seguro_continuar_registrar_produccion": "¿Está seguro de registrar esta producción?",
         "seguro_continuar_eliminar_produccion": "¿Está seguro de eliminar esta producción?",
         "seguro_continuar_actualizar_produccion": "¿Está seguro de actualizar esta producción?",
+        "enviar_otra_invitación": "¿Desea enviar otra invitación?",
         "certificado_cumplido_estatuto": "Certifico que no he presentado este producto con anterioridad y cumplo con el estatuto de propiedad intelectual de la Universidad",
         "ejemplo_union_pdf": "Los archivos soportes de cada solicitud se deben cargar en formato pdf; para unir los archivos pdf puede utilizar la herramienta disponible en",
         "error_no_puede_editar_autores": "Acción no permitida",
@@ -857,7 +868,9 @@
         "produccion_actualizada": "Producción actualizada",
         "produccion_no_actualizada": "Producción no actualizada",
         "estado_autor_actualizado": "Estado del autor actualizado",
-        "estado_autor_no_actualizado": "Estado del autor no actualizado"
+        "estado_autor_no_actualizado": "Estado del autor no actualizado",
+        "advertencia_evaluacion": "La actualización de la lista de invitaciones se verá reflejada hasta que se dejen de enviar mas invitaciones.",
+        "advertencia_registrar_produccion": "Al enviar esta solicitud, está no podrá ser modificada a menos que sea devuelta por la oficina de docencia."
     },
     "documento_programa": {
         "documento_programa_no_registrado": "Documento no registrado",
@@ -867,6 +880,7 @@
     },
     "comentarios": {
         "realizar_comentario": "Realizar Observación",
+        "observacion_devolucion": "Observación para devolución",
         "titulo_comentario": "Título de la Observación",
         "descripcion_comentario": "Descripción de la Observación",
         "fecha_comentario": "Fecha de Observación",
@@ -880,7 +894,7 @@
         "nombre_completo": "Nombre del evaluador",
         "numero_identificacion": "Numero de identificación",
         "fecha_expedicion": "Fecha de Expedición",
-        "fecha_evaluacion": "Fecha de Evacuación",
+        "fecha_evaluacion": "Fecha de Evaluación",
         "ciudad_evaluacion": "Ciudad donde se realiza la evaluación",
         "ciudad_evaluacion_placeholder": "Ej: Bogotá",
         "ciudad_evaluacion_alerta": "Debe llenar el campo de ciudad",
