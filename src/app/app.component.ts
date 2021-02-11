@@ -6,13 +6,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import {TranslateService} from '@ngx-translate/core';
+import { UserService } from './@core/data/users.service';
 
 @Component({
   selector: 'ngx-app',
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  constructor(private analytics: AnalyticsService, private translateService: TranslateService) {
+  constructor(private analytics: AnalyticsService, private translateService: TranslateService, private user: UserService) {
   }
   ngOnInit(): void {
     this.analytics.trackPageViews();

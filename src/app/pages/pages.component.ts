@@ -48,6 +48,7 @@ export class PagesComponent implements OnInit {
         return rol;
       });
       this.roles = this.roles.filter((data: any) => (data.indexOf('/') === -1));
+      console.info(this.roles)
       this.menuws.get(this.roles + '/' + this.application_conf).subscribe(
         data => {
           this.dataMenu = <any>data;
