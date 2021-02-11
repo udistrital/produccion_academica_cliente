@@ -1014,6 +1014,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               title: this.translate.instant('GLOBAL.registrar'),
               text: this.translate.instant('produccion_academica.seguro_continuar_registrar_produccion'),
               icon: 'warning',
+              footer: this.translate.instant('produccion_academica.advertencia_registrar_produccion'),
               buttons: true,
               dangerMode: true,
               showCancelButton: true,

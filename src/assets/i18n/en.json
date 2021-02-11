@@ -857,7 +857,8 @@
     "produccion_no_actualizada": "Production not updated",
     "estado_autor_actualizado": "Author status updated",
     "estado_autor_no_actualizado": "Author status not updated",
-    "advertencia_evaluacion": "The update of the invitation list will be reflected until more invitations are stopped sending"
+    "advertencia_evaluacion": "The update of the invitation list will be reflected until more invitations are stopped sending",
+    "advertencia_registrar_produccion": "When sending this request, it cannot be modified unless it is returned by the teaching office."
   },
   "documento_programa": {
     "descuento_academico_no_registrado": "Academic discount not registered",

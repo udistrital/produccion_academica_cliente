@@ -869,7 +869,8 @@
         "produccion_no_actualizada": "Producción no actualizada",
         "estado_autor_actualizado": "Estado del autor actualizado",
         "estado_autor_no_actualizado": "Estado del autor no actualizado",
-        "advertencia_evaluacion": "La actualización de la lista de invitaciones se verá reflejada hasta que se dejen de enviar mas invitaciones."
+        "advertencia_evaluacion": "La actualización de la lista de invitaciones se verá reflejada hasta que se dejen de enviar mas invitaciones.",
+        "advertencia_registrar_produccion": "Al enviar esta solicitud, está no podrá ser modificada a menos que sea devuelta por la oficina de docencia."
     },
     "documento_programa": {
         "documento_programa_no_registrado": "Documento no registrado",
