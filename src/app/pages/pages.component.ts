@@ -30,7 +30,7 @@ export class PagesComponent implements OnInit {
   rol: String;
   dataMenu: any;
   roles: any;
-  application_conf = 'produccion_academica';
+  application_conf = 'produccion_academica_ajustado';
 
   constructor(
     public menuws: MenuService,
@@ -41,22 +41,16 @@ export class PagesComponent implements OnInit {
   ngOnInit() {
     if (this.autenticacion.live()) {
       this.roles = (JSON.parse(atob(localStorage.getItem('id_token').split('.')[1])).role);
-      console.info(this.roles)
       this.roles = this.roles.map(rol => {
-        console.info(rol)
         if (rol === 'Internal/selfsignup') {
-          console.info('paso')
           rol = 'Internalselfsignup';
         }
         return rol;
       });
-      console.info(this.roles)
       this.roles = this.roles.filter((data: any) => (data.indexOf('/') === -1));
-      console.info(this.roles)
       this.menuws.get(this.roles + '/' + this.application_conf).subscribe(
         data => {
           this.dataMenu = <any>data;
-          console.info(this.dataMenu);
           for (let i = 0; i < this.dataMenu.length; i++) {
             if (this.dataMenu[i].TipoOpcion === 'Menú') {
               if (!this.dataMenu[i].Opciones) {

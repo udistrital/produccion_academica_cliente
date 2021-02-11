@@ -29,7 +29,6 @@ export class UserService {
         .subscribe(res => {
           if (res !== null) {
             this.user = res[0];
-            console.info('User')
             console.info(this.user)
             this.user$.next(this.user);
             // window.localStorage.setItem('ente', res[0].Ente);

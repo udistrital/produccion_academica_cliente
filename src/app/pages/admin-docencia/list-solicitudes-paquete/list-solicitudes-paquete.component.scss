@@ -74,7 +74,7 @@ nb-tabset /deep/ ul li {
   margin-left: 5px;
 }
 
-.pop-comment {
+.pop-comment-rechazo, .pop-comment-observacion {
   position: fixed;
   top: 0;
   left: 0;
@@ -87,7 +87,7 @@ nb-tabset /deep/ ul li {
   align-items: center;
 }
 
-.pop-content {
+.pop-content-rechazo, .pop-content-observacion {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,13 +101,13 @@ nb-tabset /deep/ ul li {
   transition: all 0.3s ease-in;
 }
 
-.pop-content button {
+.pop-content-rechazo button, .pop-content-observacion button {
   align-self: flex-end;
   background-color: transparent;
   border: none;
   outline: none;
 }
 
-.pop-content button i {
+.pop-content-rechazo button i, .pop-content-observacion button i {
   font-size: 30px;
 }

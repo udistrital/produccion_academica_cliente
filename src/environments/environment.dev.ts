@@ -24,6 +24,7 @@ export const environment = {
     SIGN_OUT_URL: 'https://autenticacion.portaloas.udistrital.edu.co/oidc/logout',
     SIGN_OUT_REDIRECT_URL: 'http://localhost:4200/',
   },
+  CLIENTE_LINK: 'http://localhost:4200/#/pages/dashboard',
   PARAMETROS_CRUD_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8510/v1/',
   PROYECTO_ACADEMICO_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8116/v1/',
   PERSONA_SERVICE: 'http://pruebasapi.intranetoas.udistrital.edu.co:8121/v1/',

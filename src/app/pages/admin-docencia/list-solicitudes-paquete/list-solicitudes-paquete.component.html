@@ -14,7 +14,7 @@
           ></ng2-smart-table>
           <div class="row">
             <button class="btn-review" (click)="generateDocument(0)">{{'produccion_academica.generar_documento' | translate}}</button>
-            <button class="btn-review" *ngIf="!certificadoAprobado" (click)="generateCertificate()">{{'produccion_academica.generar_acta' | translate}}</button>
+            <button class="btn-review" (click)="generateCertificate()">{{'produccion_academica.generar_acta' | translate}}</button>
             <button class="btn-review" *ngIf="certificadoExiste" (click)="acceptCertificate()">{{'produccion_academica.aceptar_acta' | translate}}</button>
           </div>
         </nb-tab>
@@ -34,15 +34,27 @@
       </nb-tabset>
     </nb-card-body>
   </nb-card>
-  <div class="pop-comment" *ngIf="esRechazada">
-    <div class="pop-content">
+  <div class="pop-comment-rechazo" *ngIf="esRechazada">
+    <div class="pop-content-rechazo">
       <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
-      <h2>Comentario de rechazo</h2>
-      <p>Debe registrar un comentario de razón de rechazo</p>
+      <h2>{{'produccion_academica.titulo_rechazo' | translate}}</h2>
+      <p>{{'produccion_academica.subtitulo_rechazo' | translate}}</p>
       <ngx-crud-comentario
           (reloadTable)="onChange($event)"
           [estadoNum] = "6"
           [obsNum] = "3"
+          [solicitud_selected]="solicitud_selected"></ngx-crud-comentario>
+    </div>
+  </div>
+  <div class="pop-comment-observacion" *ngIf="esComentada">
+    <div class="pop-content-observacion">
+      <button (click)="closePop()"><i class="nb-close" title="view"></i></button>
+      <h2>{{'produccion_academica.titulo_comentario' | translate}}</h2>
+      <p>{{'produccion_academica.subtitulo_comentario' | translate}}</p>
+      <ngx-crud-comentario
+          (reloadTable)="onChange($event)"
+          [estadoNum] = "0"
+          [obsNum] = "1"
           [solicitud_selected]="solicitud_selected"></ngx-crud-comentario>
     </div>
   </div>
