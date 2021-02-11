@@ -89,7 +89,7 @@ export class ListInvitacionesComponent implements OnInit {
         FechaRadicacion: {
           title: this.translate.instant('produccion_academica.fecha_envio'),
           valuePrepareFunction: (value) => {
-            return ((value) + '').substring(0, 30);
+            return ((value) + '').substring(0, 10);
           },
           filter: false,
           width: '15%',

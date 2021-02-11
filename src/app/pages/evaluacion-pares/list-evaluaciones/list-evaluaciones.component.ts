@@ -90,7 +90,7 @@ export class ListEvaluacionesComponent implements OnInit {
         FechaRadicacion: {
           title: this.translate.instant('produccion_academica.fecha_envio'),
           valuePrepareFunction: (value) => {
-            return ((value) + '').substring(0, 30);
+            return ((value) + '').substring(0, 10);
           },
           filter: false,
           width: '15%',
@@ -98,7 +98,7 @@ export class ListEvaluacionesComponent implements OnInit {
         'SolicitudPadreId.ProduccionAcademica.Fecha': {
           title: this.translate.instant('produccion_academica.fecha_publicacion'),
           valuePrepareFunction: (cell, row) => {
-            return ((row.SolicitudPadreId.ProduccionAcademica.Fecha) + '').substring(0, 30);
+            return ((row.SolicitudPadreId.ProduccionAcademica.Fecha) + '').substring(0, 10);
           },
           filter: false,
           width: '15%',
