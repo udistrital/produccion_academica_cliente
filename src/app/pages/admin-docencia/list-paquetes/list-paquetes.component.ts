@@ -129,9 +129,9 @@ export class ListPaquetesComponent implements OnInit {
         } else {
           Swal({
             type: 'info',
-            title: 'No tiene solicitudes',
-            text: this.translate.instant('ERROR.204'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
         }
     }, (error: HttpErrorResponse) => {

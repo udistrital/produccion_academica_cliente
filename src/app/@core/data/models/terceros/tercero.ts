@@ -5,4 +5,5 @@ export class Tercero {
   NombreCompleto: string;
   TipoContribuyenteId: TipoContribuyente;
   DatosDocumento: any;
+  FechaNacimiento: Date;
 }

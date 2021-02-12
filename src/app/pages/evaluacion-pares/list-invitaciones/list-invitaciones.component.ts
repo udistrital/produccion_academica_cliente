@@ -178,8 +178,8 @@ export class ListInvitacionesComponent implements OnInit {
         } else {
           Swal({
             type: 'info',
-            title: 'No tiene invitaciones',
-            text: this.translate.instant('ERROR.204'),
+            title: this.translate.instant('GLOBAL.informacion'),
+            text: this.translate.instant('ERROR.lista_vacia'),
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
         }

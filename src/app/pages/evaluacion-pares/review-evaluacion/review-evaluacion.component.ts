@@ -210,11 +210,11 @@ export class ReviewEvaluacionComponent implements OnInit {
     this.solicitudDocenteService.get('solicitante/?query=SolicitudId:' + this.solicitud_evaluacion_selected.Id)
       .subscribe(response => {
         if (response !== null) {
-          this.tercerosService.get('tercero/?query=Id:' + (response[0].TerceroId || 1))
+          this.tercerosService.get('tercero/?query=Id:' + (response[0].TerceroId))
             .subscribe(res => {
               if (Object.keys(res[0]).length > 0) {
                 this.evaluador = <Tercero>res[0];
-                this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (response[0].TerceroId || 1))
+                this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (response[0].TerceroId))
                   .subscribe(resp => {
                     if (Object.keys(resp[0]).length > 0) {
                       this.evaluador.DatosDocumento = resp[0];

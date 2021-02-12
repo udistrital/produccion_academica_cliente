@@ -217,13 +217,13 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.source_authors = [];
     this.source.load(this.source_authors);
     return new Promise((resolve, reject) => {
-      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 1))
+      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId()))
         .subscribe(res => {
           // if (res !== null) {
           if (Object.keys(res[0]).length > 0) {
             this.userData = <Tercero>res[0];
             this.userData['PuedeBorrar'] = false;
-            this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (this.user.getPersonaId() || 1))
+            this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (this.user.getPersonaId()))
               .subscribe(resp => {
                 this.userNum = resp[0].Numero;
                 this.userData['Nombre'] = this.userData.NombreCompleto;
@@ -266,7 +266,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       if (this.solicitud_docente_selected !== undefined && this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 4) {
         endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + 4;
       } else {
-        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum || 1)
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum)
       }
       this.solicitudDocenteService.get(endpoint)
         .subscribe(res => {
@@ -718,8 +718,8 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       let i = 0, j = 0;
       this.tercerosService.get(
         'info_complementaria_tercero?query=TerceroId__Id:' +
-        (this.user.getPersonaId() || 1) +
-        ',InfoCompleTerceroPadreId__isnull:true,InfoComplementariaId__GrupoInfoComplementariaId__Id:18&limit=0',
+        (this.user.getPersonaId()) +
+        ',InfoCompleTerceroPadreId__isnull:true,InfoComplementariaId__GrupoInfoComplementariaId__Id:18&sortby=Id&order=asc&limit=0',
       )
         .subscribe(res => {
           (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
@@ -915,7 +915,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
 
   loadDatosCambioCategoria() {
     return new Promise((resolve, reject) => {
-      this.sgaMidService.get('solicitud_docente/inactive/' + (this.user.getPersonaId() || 1))
+      this.sgaMidService.get('solicitud_docente/inactive/' + (this.user.getPersonaId()))
         .subscribe((res: any) => {
           if (res !== null && Object.keys(res[0]).length > 0) {
             const dataSolicitud = <Array<SolicitudDocentePost>>res;
@@ -1080,71 +1080,71 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 switch (info.Nombre) {
                   case 'PROGRAMA_ACADEMICO':
                     infoComplementariaTercero.ProgramaAcademico = {
-                      Dato: `{\"ProgramaAcademico\": \"${this.info_produccion_academica.Titulo}\"}`,
+                      Dato: {ProgramaAcademico: this.info_produccion_academica.Titulo},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'FECHA_INICIO':
                     infoComplementariaTercero.FechaInicio = {
-                      Dato: `{\"FechaInicio\": \"${this.info_produccion_academica.Fecha}\"}`,
+                      Dato: {FechaInicio: this.info_produccion_academica.Fecha},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'FECHA_FIN':
                     infoComplementariaTercero.FechaFin = {
-                      Dato: `{\"FechaFin\": \"${this.info_produccion_academica.Fecha}\"}`,
+                      Dato: {FechaFin: this.info_produccion_academica.Fecha},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'TITULO_TRABAJO_GRADO':
                     infoComplementariaTercero.TituloTrabajoGrado = {
-                      Dato: `{\"TituloTrabajoGrado\": \"${this.info_produccion_academica.Titulo}\"}`,
+                      Dato: {TituloTrabajoGrado: this.info_produccion_academica.Titulo},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'DES_TRABAJO_GRADO':
                     infoComplementariaTercero.DesTrabajoGrado = {
-                      Dato: `{\"DesTrabajoGrado\": \"${this.info_produccion_academica.Titulo}\"}`,
+                      Dato: {DesTrabajoGrado: this.info_produccion_academica.Titulo},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'DOCUMENTO_ID':
                     infoComplementariaTercero.DocumentoId = {
-                      Dato: `{\"DocumentoId\": ${metadato.Valor},\"DocumentoNombre\": ${metadato.MetadatoSubtipoProduccionId}}`,
+                      Dato: {DocumentoId: metadato.Valor, DocumentoNombre: metadato.MetadatoSubtipoProduccionId},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'NIT_UNIVERSIDAD':
                     infoComplementariaTercero.NitUniversidad = {
-                      Dato: `{\"NitUniversidad\": \"\"}`,
+                      Dato: {NitUniversidad: ""},
                       InfoComplementaria: info,
                     }
                     break;
                   case 'NIVEL_FORMACION':
                     if(metadato.MetadatoSubtipoProduccionId === 25) {
                       infoComplementariaTercero.NivelFormacion = {
-                        Dato: `{\"NivelFormacion\": \"Especializacion\"}`,
+                        Dato: {NivelFormacion: "Especializacion"},
                         InfoComplementaria: info,
                       }
                     } else if (metadato.MetadatoSubtipoProduccionId === 31) {
                       infoComplementariaTercero.NivelFormacion = {
-                        Dato: `{\"NivelFormacion\": \"Maestria\"}`,
+                        Dato: {NivelFormacion: "Maestria"},
                         InfoComplementaria: info,
                       }
                     } else if (metadato.MetadatoSubtipoProduccionId === 37) {
                       infoComplementariaTercero.NivelFormacion = {
-                        Dato: `{\"NivelFormacion\": \"Postgrado\"}`,
+                        Dato: {NivelFormacion: "Postgrado"},
                         InfoComplementaria: info,
                       }
                     }
                     break;
                 }
               });
+              this.userData.FechaNacimiento = null;
               infoComplementariaTercero.TerceroId = this.userData;
             }
           });
-          console.log(infoComplementariaTercero)
-          this.tercerosService.post('info_complementaria_tercero/', infoComplementariaTercero)
+          this.tercerosService.post('info_complementaria_tercero/padre', infoComplementariaTercero)
            .subscribe((response: any) => {
             if (response.Type === 'error') {
               reject(response.Code)
@@ -1155,7 +1155,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                 confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
               });
             } else {
-              console.warn(response);
               resolve(true);
             }
            }, (error: HttpErrorResponse) => {

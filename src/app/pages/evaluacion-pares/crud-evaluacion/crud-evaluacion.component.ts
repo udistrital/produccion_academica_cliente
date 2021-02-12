@@ -111,11 +111,11 @@ export class CrudEvaluacionComponent implements OnInit {
   }
 
   loadTerceroData(evaluador_id) {
-    this.tercerosService.get('tercero/?query=Id:' + (evaluador_id || 1))
+    this.tercerosService.get('tercero/?query=Id:' + (evaluador_id))
       .subscribe(res => {
         if (Object.keys(res[0]).length > 0) {
           this.evaluador = <Tercero>res[0];
-          this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (evaluador_id || 1))
+          this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (evaluador_id))
             .subscribe(resp => {
               if (Object.keys(resp[0]).length > 0) {
                 this.evaluador.DatosDocumento = resp[0];
