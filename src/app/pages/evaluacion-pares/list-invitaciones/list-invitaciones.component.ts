@@ -248,7 +248,6 @@ export class ListInvitacionesComponent implements OnInit {
                 this.updateSolicitudDocente();
             })
             .catch(error => {
-              console.info(error)
               if (!error.status) {
                 error.status = 409;
               }

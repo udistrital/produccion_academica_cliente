@@ -136,13 +136,13 @@ export class CrudComentarioComponent implements OnInit {
 
   loadUserData(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId() || 1))
+      this.tercerosService.get('tercero/?query=Id:' + (this.user.getPersonaId()))
         .subscribe(res => {
           // if (res !== null) {
           if (Object.keys(res[0]).length > 0) {
             this.userData = <Tercero>res[0];
             this.userData['PuedeBorrar'] = false;
-            this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (this.user.getPersonaId() || 1))
+            this.tercerosService.get('datos_identificacion/?query=tercero_id:' + (this.user.getPersonaId()))
               .subscribe(resp => {
                 this.userNum = resp[0].Numero;
                 this.userData['Nombre'] = this.userData.NombreCompleto;

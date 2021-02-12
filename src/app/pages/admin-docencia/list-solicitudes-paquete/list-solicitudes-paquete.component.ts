@@ -211,8 +211,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'paquete_solicitud/' + this.paquete_solicitud_selected.Id;
       this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
-        if (res !== null) {
-          if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+          if (res !== null && Object.keys(res[0]).length > 0) {
             const data = <Array<SolicitudDocentePost>>res;
             data.forEach(solicitud => {
               if (JSON.parse(solicitud.Referencia).Id !== undefined) {
@@ -247,13 +246,12 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
             this.solicitudes_list = data;
           } else {
             Swal({
-              type: 'error',
-              title: '404',
-              text: this.translate.instant('ERROR.404'),
+              type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
               confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             });
           }
-        }
       }, (error: HttpErrorResponse) => {
         reject({ status: 404 });
         Swal({

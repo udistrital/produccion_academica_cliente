@@ -66,7 +66,6 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         },
           (error: any) => {
-            console.info(error);
             this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`))
           },
         ),
@@ -97,7 +96,6 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         },
           (error: any) => {
-            console.info(error);
             // this.snackBar.open('Error en el Servidor', undefined, { duration: 5000 });
             this.pUpManager.showErrorToast(this.translate.instant(`ERROR.${error['status']}`))
           },

@@ -2,13 +2,6 @@
   <ngx-resume-produccion-academica *ngIf="solicitud_evaluacion_selected" [evaluacion_selected]="solicitud_evaluacion_selected">
   </ngx-resume-produccion-academica>
   
-  
-  <div *ngIf="formConstruido">
-    <toaster-container [toasterconfig]="config"></toaster-container>
-    <ngx-dinamicform [normalform]="formEvaluacionPar" (result)="validarForm($event)" [clean]="clean">
-    </ngx-dinamicform>
-  </div>
-  
   <form class="form-horizontal form-eval" style="max-width: 1200px;margin: auto;" *ngIf="evaluador">
     <ng-container *ngIf="evaluador.DatosDocumento">
       <fieldset [ngClass]="{'fieldseter':true}">
@@ -66,4 +59,10 @@
       </fieldset>
     </ng-container>
   </form>
+
+  <div *ngIf="formConstruido">
+    <toaster-container [toasterconfig]="config"></toaster-container>
+    <ngx-dinamicform [normalform]="formEvaluacionPar" (result)="validarForm($event)" [clean]="clean">
+    </ngx-dinamicform>
+  </div>
 </div>

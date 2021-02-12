@@ -183,8 +183,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
         endpointSolicitud = 'solicitud_docente/get_estado/4';
       this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
-        if (res !== null) {
-          if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+          if (res !== null && Object.keys(res[0]).length > 0) {
             const dataSolicitud = <Array<SolicitudDocentePost>>res;
             dataSolicitud.forEach(solicitud => {
               if (Object.keys(solicitud.Observaciones[0]).length === 0) {
@@ -214,7 +213,7 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
                   Swal({
                     type: 'error',
                     title: error.status + '',
-                    text: this.translate.instant('ERROR.' + error.status),
+                    text: this.translate.instant('ERROR.404'),
                     confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
                   });
                 });
@@ -223,13 +222,12 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
             this.solicitudes_list = dataSolicitud;
           } else {
             Swal({
-              type: 'error',
-              title: '404',
-              text: this.translate.instant('ERROR.404'),
+              type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
               confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             });
           }
-        }
       }, (error: HttpErrorResponse) => {
         Swal({
           type: 'error',
@@ -388,8 +386,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
       this.paquete_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
       this.paquete_solicitud.TerceroId = this.user.getPersonaId() || 3;
-      console.info(this.paquete_solicitud.SolicitudesList)
-      console.info(this.paquete_solicitud.FechaComite)
       this.sgaMidService.post('paquete_solicitud', this.paquete_solicitud)
         .subscribe((resp: any) => {
           if (resp.Type === 'error') {
