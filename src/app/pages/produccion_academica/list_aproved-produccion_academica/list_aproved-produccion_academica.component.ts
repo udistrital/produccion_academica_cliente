@@ -386,8 +386,6 @@ export class ListAprovedProduccionAcademicaComponent implements OnInit {
       this.paquete_solicitud.Nombre = this.paquete_solicitud.NumeroComite;
       this.paquete_solicitud.EstadoTipoSolicitudId = <EstadoTipoSolicitud>this.estadosSolicitudes[0];
       this.paquete_solicitud.TerceroId = this.user.getPersonaId() || 3;
-      console.info(this.paquete_solicitud.SolicitudesList)
-      console.info(this.paquete_solicitud.FechaComite)
       this.sgaMidService.post('paquete_solicitud', this.paquete_solicitud)
         .subscribe((resp: any) => {
           if (resp.Type === 'error') {
