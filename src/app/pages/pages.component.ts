@@ -141,11 +141,11 @@ export class PagesComponent implements OnInit {
               this.translate.instant('GLOBAL.menu'),
             confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
-          this.menu = MENU_ITEMS;
+          this.menu = [];
         });
     } else {
       this.rol = 'PUBLICO';
-      this.menu = MENU_ITEMS;
+      this.menu = [];
     }
     this.translateMenu();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
