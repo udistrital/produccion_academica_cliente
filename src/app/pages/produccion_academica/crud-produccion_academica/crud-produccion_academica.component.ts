@@ -266,7 +266,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       if (this.solicitud_docente_selected !== undefined && this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 4) {
         endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + 4;
       } else {
-        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum)
+        endpoint = 'estado_tipo_solicitud/?query=EstadoId:' + (this.estadoNum || 1)
       }
       this.solicitudDocenteService.get(endpoint)
         .subscribe(res => {
