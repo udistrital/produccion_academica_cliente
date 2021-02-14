@@ -378,50 +378,49 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     this.tipoProduccionAcademica.Nombre === 'Software'
       ? this.produccionSoftware = true : this.produccionSoftware = false;
 
-    this.tipoProduccionAcademica.Nombre === 'Articulo' ||
+    this.tipoProduccionAcademica.Nombre === 'Artículo' ||
       this.tipoProduccionAcademica.Nombre === 'Editorial' ||
-      this.tipoProduccionAcademica.Nombre === 'Articulo Corto' ||
+      this.tipoProduccionAcademica.Nombre === 'Artículo corto' ||
       this.tipoProduccionAcademica.Nombre === 'Publicación Impresa'
       ? this.tipoArticulo = true : this.tipoArticulo = false;
 
-    this.tipoProduccionAcademica.Nombre === 'Capitulo Libro' ? this.tipoCapitulo = true : this.tipoCapitulo = false;
+    this.tipoProduccionAcademica.Nombre === 'Capítulo libro' ? this.tipoCapitulo = true : this.tipoCapitulo = false;
 
-    this.tipoProduccionAcademica.Nombre === 'Titulo Postgrado' ? this.tipoTitulo = true : this.tipoTitulo = false;
+    this.tipoProduccionAcademica.Nombre === 'Título de postgrado' ? this.tipoTitulo = true : this.tipoTitulo = false;
   }
 
   filterTitleProduction(tipoProduccionAcademica: TipoProduccionAcademica) {
     switch (tipoProduccionAcademica.Nombre) {
-      case 'Cambio Categoria': { this.title_tipo_produccion = 'titulo_trabajo_inedito'; break; }
-      case 'Titulo Postgrado': { this.title_tipo_produccion = 'titulo_obtenido'; break; }
-      case 'Articulo':
+      case 'Cambio de categoría': { this.title_tipo_produccion = 'titulo_trabajo_inedito'; break; }
+      case 'Título de postgrado': { this.title_tipo_produccion = 'titulo_obtenido'; break; }
+      case 'Artículo':
       case 'Editorial':
-      case 'Articulo Corto':
-      case 'Traducción de Articulos':
+      case 'Artículo corto':
+      case 'Traducción de artículos':
       case 'Publicación Impresa': { this.title_tipo_produccion = 'titulo_articulo'; break; }
       case 'Libro':
-      case 'Capitulo Libro':
+      case 'Capítulo libro':
       case 'Traducción de Libro': { this.title_tipo_produccion = 'titulo_libro'; break; }
-      case 'Premios': { this.title_tipo_produccion = 'titulo_premio'; break; }
       case 'Premios': { this.title_tipo_produccion = 'titulo_premio'; break; }
       case 'Patente': { this.title_tipo_produccion = 'titulo_patente'; break; }
       case 'Software': { this.title_tipo_produccion = 'titulo_software'; break; }
-      case 'Obras Artisticas': { this.title_tipo_produccion = 'titulo_obra'; break; }
+      case 'Obras artísticas': { this.title_tipo_produccion = 'titulo_obra'; break; }
       case 'Ponencias': { this.title_tipo_produccion = 'titulo_ponencia'; break; }
       case 'Reseña Critica': { this.title_tipo_produccion = 'titulo_resena'; break; }
-      case 'Estudios Postdoctorales': { this.title_tipo_produccion = 'titulo_postdoctorado'; break; }
-      case 'Direccion de Tesis': { this.title_tipo_produccion = 'titulo_trabajo_grado'; break; }
+      case 'Estudios postdoctorales': { this.title_tipo_produccion = 'titulo_postdoctorado'; break; }
+      case 'Dirección de tesis': { this.title_tipo_produccion = 'titulo_trabajo_grado'; break; }
       default: { this.title_tipo_produccion = 'titulo_produccion_academica'; break; }
     }
   }
 
   filterDateProduccion(tipoProduccionAcademica: TipoProduccionAcademica) {
     switch (tipoProduccionAcademica.Nombre) {
-      case 'Titulo Postgrado':
+      case 'Título de postgrado':
       case 'Premios':
-      case 'Estudios Postdoctorales': { this.date_tipo_produccion = 'fecha_obtencion'; break; }
+      case 'Estudios postdoctorales': { this.date_tipo_produccion = 'fecha_obtencion'; break; }
       case 'Ponencias': { this.date_tipo_produccion = 'fecha_realizacion'; break; }
-      case 'Direccion de Tesis': { this.date_tipo_produccion = 'fecha_graduacion'; break; }
-      case 'Cambio Categoria': { this.date_tipo_produccion = 'no_fecha'; break; }
+      case 'Dirección de tesis': { this.date_tipo_produccion = 'fecha_graduacion'; break; }
+      case 'Cambio de categoría': { this.date_tipo_produccion = 'no_fecha'; break; }
       default: { this.date_tipo_produccion = 'fecha_publicacion'; break; }
     }
   }
@@ -454,6 +453,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
               this.nuxeoService,
               this.documentoService,
               this.link_data_drive,
+              this,
             );
           }
           this.construirForm();
@@ -495,7 +495,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
           this.filterTitleProduction(tipoProduccion)
           this.filterDateProduccion(tipoProduccion)
           this.Metadatos = [];
-          const fillForm = function (campos, Metadatos, nuxeoService, documentoService, links) {
+          const fillForm = function (campos, Metadatos, nuxeoService, documentoService, links, reference) {
             const filesToGet = [];
             campos.forEach(campo => {
               Metadatos.forEach(metadato => {
@@ -505,11 +505,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                     campo.valor = campo.opciones[metadato.Valor - 1];
                   }
                   if (campo.etiqueta === 'file') {
-                    console.log(metadato.MetadatoSubtipoProduccionId)
-                    console.log(metadato.Valor)
                     campo.idFile = parseInt(metadato.Valor, 10);
                     filesToGet.push({ Id: campo.idFile, key: campo.nombre });
-                    this.file_update_tercero.push({
+                    reference.file_update_tercero.push({
                       MetadatoSubtipoProduccionId: campo.nombre,
                       Valor: metadato.Valor + '', // Se castea el valor del string
                     });
@@ -526,7 +524,6 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                   const filesResponse = <any>response;
                   if (Object.keys(filesResponse).length === filesToGet.length) {
                     campos.forEach(campo => {
-                      console.log(filesResponse)
                       if (campo.etiqueta === 'file') {
                         campo.url = filesResponse[campo.nombre] + '';
                         campo.urlTemp = filesResponse[campo.nombre] + '';
@@ -709,7 +706,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       this.source_authors.push({
         Nombre: this.autorSeleccionado.NombreCompleto,
         PersonaId: this.autorSeleccionado.Id,
-        EstadoAutorProduccionId: this.estadosAutor.filter(estado => estado.Id === estadoAutor)[0],
+        EstadoAutorProduccionId: (this.estadosAutor) ? this.estadosAutor.filter(estado => estado.Id === estadoAutor)[0] : 1,
         PuedeBorrar: estadoAutor !== 1,
       });
       this.autorSeleccionado = undefined;
@@ -819,7 +816,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                   });
 
                   if (idActa !== undefined) {
-                    var yaExiste = this.file_from_terceros.some(function (o) {
+                    const yaExiste = this.file_from_terceros.some(function (o) {
                       return o.MetadatoSubtipoProduccionId === idActa;
                     });
                     if (!yaExiste) {
@@ -1029,7 +1026,7 @@ export class CrudProduccionAcademicaComponent implements OnInit {
       let i = 0;
       this.file_from_terceros.forEach(file => {
         if (metadatos.length > 0) {
-          var yaExiste = metadatos.some(function (o) {
+          const yaExiste = metadatos.some(function (o) {
             return parseInt(o.MetadatoSubtipoProduccionId, 10) === parseInt(file.MetadatoSubtipoProduccionId, 10);
           });
           if (yaExiste) {
@@ -1041,9 +1038,9 @@ export class CrudProduccionAcademicaComponent implements OnInit {
             /** Actualizar ID del documento de la infocomplementaria correspontiente */
             metadatos.forEach(metadato => {
               if (metadato.MetadatoSubtipoProduccionId === file.MetadatoSubtipoProduccionId) {
-                file.infoComplementaria.Dato = `{\"DocumentoId\":${metadato.Valor},\"DocumentoNombre\":${metadato.MetadatoSubtipoProduccionId}}`
+                file.infoComplementaria.Dato = `{\"DocumentoId\": ${metadato.Valor},\"DocumentoNombre\": ${metadato.MetadatoSubtipoProduccionId}}`
                 infoComplementaria = file.infoComplementaria
-                this.tercerosService.put("info_complementaria_tercero/", infoComplementaria)
+                this.tercerosService.put('info_complementaria_tercero/', infoComplementaria)
                   .subscribe((resp: any) => {
                     if (resp.Type === 'error') {
                       Swal({
@@ -1077,14 +1074,14 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  loadTitulacionTerceros(metadatos) {
+  uploadTitulacionTerceros(metadatos) {
     return new Promise((resolve, reject) => {
-      let infoComplementariaTercero: any = {};
+      const infoComplementariaTercero: any = {};
       this.tercerosService.get('info_complementaria?query=GrupoInfoComplementariaId__Id:18')
         .subscribe(res => {
           metadatos.forEach(metadato => {
             if (metadato.MetadatoSubtipoProduccionId === 25 || metadato.MetadatoSubtipoProduccionId === 31 || metadato.MetadatoSubtipoProduccionId === 37) {
-              let infosComplementarias = <Array<InfoComplementaria>>res;
+              const infosComplementarias = <Array<InfoComplementaria>>res;
               infosComplementarias.forEach(info => {
                 switch (info.Nombre) {
                   case 'PROGRAMA_ACADEMICO':
@@ -1125,24 +1122,24 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                     break;
                   case 'NIT_UNIVERSIDAD':
                     infoComplementariaTercero.NitUniversidad = {
-                      Dato: { NitUniversidad: "" },
+                      Dato: { NitUniversidad: '' },
                       InfoComplementaria: info,
                     }
                     break;
                   case 'NIVEL_FORMACION':
                     if (metadato.MetadatoSubtipoProduccionId === 25) {
                       infoComplementariaTercero.NivelFormacion = {
-                        Dato: { NivelFormacion: "Especializacion" },
+                        Dato: { NivelFormacion: 'Especializacion' },
                         InfoComplementaria: info,
                       }
                     } else if (metadato.MetadatoSubtipoProduccionId === 31) {
                       infoComplementariaTercero.NivelFormacion = {
-                        Dato: { NivelFormacion: "Maestria" },
+                        Dato: { NivelFormacion: 'Maestria' },
                         InfoComplementaria: info,
                       }
                     } else if (metadato.MetadatoSubtipoProduccionId === 37) {
                       infoComplementariaTercero.NivelFormacion = {
-                        Dato: { NivelFormacion: "Postgrado" },
+                        Dato: { NivelFormacion: 'Postgrado' },
                         InfoComplementaria: info,
                       }
                     }
@@ -1178,47 +1175,53 @@ export class CrudProduccionAcademicaComponent implements OnInit {
   updateTitulacionTerceros(metadatos) {
     return new Promise((resolve, reject) => {
       let documentos: any[] = [];
-      this.tercerosService.get('info_complementaria_tercero?query=TerceroId__Id' +
-      (this.user.getPersonaId()) +
-      ',InfoComplementariaId__GrupoInfoComplementariaId__Id:18,InfoComplementariaId__Nombre:DOCUMENTO_ID&limit=0')
-      .subscribe(res => {
-        documentos = <Array<InfoComplementariaTercero>>res;
-      }, (error: HttpErrorResponse) => {
-        reject(error);
-      }); // Suscribe
-
-      metadatos.forEach(metadato => {
-        if(metadato.file !== undefined) {
-          this.file_update_tercero.forEach(file => {
-            documentos.forEach(documento => {
-              let dato = JSON.parse(documento.Dato);
-              let nomDoc = parseInt(dato.DocumentoNombre, 10);
-              let idDoc = parseInt(dato.DocumentoId, 10);
-              if(nomDoc === metadato.valor) {
-                if(idDoc !== metadato.valor) {
-                  file.infoComplementaria.Dato = `{\"DocumentoId\":${metadato.Valor},\"DocumentoNombre\":${metadato.MetadatoSubtipoProduccionId}}`
-                  let infoComplementaria = file.infoComplementaria; 
-                  this.tercerosService.put("info_complementaria_tercero/", infoComplementaria)
-                  .subscribe((resp: any) => {
-                    if (resp.Type === 'error') {
-                      Swal({
-                        type: 'error',
-                        title: resp.Code,
-                        text: this.translate.instant('ERROR.' + resp.Code),
-                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                      });
-                    } else {
-                      resolve(true);
-                    }
-                  }, (error: HttpErrorResponse) => {
-                    reject(error);
-                  }); // Suscribe terceros
-                } // if
-              } // if
-            }); // for documentos
-          }); // for file_update_tercero
-        } // if
-      }); // for metadatos
+      this.tercerosService.get('info_complementaria_tercero?query=TerceroId__Id:' +
+        (this.user.getPersonaId()) +
+        ',InfoComplementariaId__GrupoInfoComplementariaId__Id:18,InfoComplementariaId__Nombre:DOCUMENTO_ID&limit=0')
+        .subscribe(res => {
+          documentos = <Array<InfoComplementariaTercero>>res;
+          metadatos.forEach(metadato => {
+            if (metadato.Valor !== undefined) {
+              this.file_update_tercero.forEach(file => {
+                if (metadato.MetadatoSubtipoProduccionId === file.MetadatoSubtipoProduccionId) {
+                  documentos.forEach(documento => {
+                    let doc = documento.Dato;
+                    doc = doc.replaceAll(/\\/g, '');
+                    if (doc.charAt(0) === '"')
+                      doc = doc.substring(1, doc.length - 1);
+                    const dato = JSON.parse(doc);
+                    const nomDoc = parseInt(dato.DocumentoNombre, 10);
+                    const idDoc = parseInt(dato.DocumentoId, 10);
+                    if (nomDoc === metadato.MetadatoSubtipoProduccionId) {
+                      if (idDoc !== metadato.valor) {
+                        documento.InfoComplementariaId.Dato = `{\"DocumentoId\":${metadato.Valor},\"DocumentoNombre\":${metadato.MetadatoSubtipoProduccionId}}`
+                        const infoComplementaria = documento.InfoComplementariaId;
+                        this.tercerosService.put('info_complementaria_tercero', documento)
+                          .subscribe((resp: any) => {
+                            if (resp.Type === 'error') {
+                              Swal({
+                                type: 'error',
+                                title: resp.Code,
+                                text: this.translate.instant('ERROR.' + resp.Code),
+                                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                              });
+                            } else {
+                              resolve(true);
+                            }
+                          }, (error: HttpErrorResponse) => {
+                            reject(error);
+                          }); // Suscribe terceros
+                      } // if
+                    } // if
+                  }); // for documentos
+                }
+              }); // for file_update_tercero
+            } // if
+          }); // for metadatos
+          resolve(true);
+        }, (error: HttpErrorResponse) => {
+          reject(error);
+        }); // Suscribe
     }); // Promise
   }
 
@@ -1312,39 +1315,47 @@ export class CrudProduccionAcademicaComponent implements OnInit {
                           this.info_produccion_academica.Metadatos = metadatos;
                           this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
                           if (this.solicitud_docente_selected === undefined) {
-                            //this.createProduccionAcademica(this.info_produccion_academica);
+                            this.createProduccionAcademica(this.info_produccion_academica);
                           } else {
-                            //this.updateProduccionAcademica(this.info_produccion_academica);
+                            this.updateProduccionAcademica(this.info_produccion_academica);
                           }
                         })
                     } else if (!this.editando) {
                       if (this.tipoProduccionAcademica.Id === 2) {
-                        this.loadTitulacionTerceros(metadatos)
+                        this.uploadTitulacionTerceros(metadatos)
                           .then(() => {
                             this.info_produccion_academica.Metadatos = metadatos;
                             this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
                             if (this.solicitud_docente_selected === undefined)
-                              console.log("CREA")
-                              //this.createProduccionAcademica(this.info_produccion_academica);
+                              this.createProduccionAcademica(this.info_produccion_academica);
                           })
+                      } else {
+                        this.info_produccion_academica.Metadatos = metadatos;
+                        this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
+                        if (this.solicitud_docente_selected === undefined) {
+                          this.createProduccionAcademica(this.info_produccion_academica);
+                        } else {
+                          this.updateProduccionAcademica(this.info_produccion_academica);
+                        }
                       }
                     } else if (this.editando) {
-                      if(this.tipoProduccionAcademica.Nombre === 'Título de postgrado') {
+                      if (this.solicitud_docente_selected.ProduccionAcademica.SubtipoProduccionId.TipoProduccionId.Id === 2) {
                         this.updateTitulacionTerceros(metadatos)
-                         .then(() => {
-                           console.log("ACTUALIZA")
-                         })
-                      }
-                    } else {
-                      this.info_produccion_academica.Metadatos = metadatos;
-                      this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
-                      if (this.solicitud_docente_selected === undefined) {
-                        //this.createProduccionAcademica(this.info_produccion_academica);
+                          .then(() => {
+                            this.info_produccion_academica.Metadatos = metadatos;
+                            this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
+                            this.updateProduccionAcademica(this.info_produccion_academica);
+                          })
                       } else {
-                        //this.updateProduccionAcademica(this.info_produccion_academica);
+                        this.info_produccion_academica.Metadatos = metadatos;
+                        this.info_produccion_academica.Autores = JSON.parse(JSON.stringify(this.source_authors));
+                        if (this.solicitud_docente_selected === undefined) {
+                          this.createProduccionAcademica(this.info_produccion_academica);
+                        } else {
+                          this.updateProduccionAcademica(this.info_produccion_academica);
+                        }
                       }
                     }
-
                   })
                   .catch(error => {
                     console.error(error);
