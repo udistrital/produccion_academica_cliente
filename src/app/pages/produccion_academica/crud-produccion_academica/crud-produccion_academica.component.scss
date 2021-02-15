@@ -137,6 +137,13 @@
     }
   }
 
+  .file-view {
+    @media screen and (max-width:1900px){
+      max-width: 35%;
+      flex: 0 0 35%;
+    }
+  }
+
   .nb-span-file {
     font-size: 11px;
     position: relative;

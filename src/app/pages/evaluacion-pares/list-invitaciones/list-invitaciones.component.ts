@@ -47,6 +47,10 @@ export class ListInvitacionesComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      pager: {
+        display: true,
+        perPage: 30,
+      },
       actions: {
         position: 'right',
         columnTitle: this.translate.instant('produccion_academica.acciones'),
