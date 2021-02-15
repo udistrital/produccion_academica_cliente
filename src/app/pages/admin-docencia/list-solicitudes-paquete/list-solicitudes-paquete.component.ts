@@ -82,6 +82,10 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      pager: {
+        display: true,
+        perPage: 30,
+      },
       edit: {
         editButtonContent: '<i class="nb-edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
