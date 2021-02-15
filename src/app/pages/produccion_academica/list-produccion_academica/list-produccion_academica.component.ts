@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -36,9 +37,12 @@ export class ListProduccionAcademicaComponent implements OnInit {
   solicitudes_list_filter: SolicitudDocentePost[];
   source: LocalDataSource = new LocalDataSource();
 
+  @ViewChild('ctdTabset') ctdTabset;
+
   constructor(private translate: TranslateService,
     private sgaMidService: SgaMidService,
     private user: UserService,
+    private router: Router,
     private route: ActivatedRoute,
     private tercerosService: TercerosService,
     private toasterService: ToasterService) {
@@ -161,6 +165,8 @@ export class ListProduccionAcademicaComponent implements OnInit {
       if (params.estado) {
         this.estado = params.estado;
         const estado = params.estado;
+        this.router.navigate(['./pages/dashboard']);
+        this.router.navigate(['./pages/produccion_academica/list-produccion_academica/' + this.estado]);
         Swal({
           title: 'Espere',
           text: 'Trayendo Información',
@@ -284,13 +290,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
   }
 
   selectTab(event): void {
-    if (event.tabTitle === this.translate.instant('GLOBAL.lista')) {
       this.cambiotab = 0;
-    } else if (event.tabTitle === this.translate.instant('GLOBAL.formulario')) {
-      this.cambiotab = 1;
-    } else {
-      this.cambiotab = 2;
-    }
   }
 
   onChange(event) {
