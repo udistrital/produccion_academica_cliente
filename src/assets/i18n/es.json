@@ -507,7 +507,8 @@
         "formato_documento_pdf": "El formato del documento escogido no es pdf",
         "no_documento": "Debe seleccionar un archivo",
         "error_subir_documento": "Ocurrió un error subiendo los documentos, por favor intente de nuevo.",
-        "lista_vacia": "No hay datos encontrados para esta lista"
+        "lista_vacia": "No hay datos encontrados para esta lista",
+        "no_datos": "No se encontraron datos de títulos para el docente."
     },
     "produccion_academica": {
         "produccion_academica": "Producción académica",

@@ -728,41 +728,50 @@ export class CrudProduccionAcademicaComponent implements OnInit {
         ',InfoCompleTerceroPadreId__isnull:true,InfoComplementariaId__GrupoInfoComplementariaId__Id:18&sortby=Id&order=asc&limit=0',
       )
         .subscribe(res => {
-          (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
-            this.titulos = info1;
-            this.tercerosService.get(
-              'info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18,InfoCompleTerceroPadreId:' +
-              (this.titulos.Id) + '&limit=0',
-            )
-              .subscribe(resp => {
-                (<Array<InfoComplementariaTercero>>resp).forEach(info => {
-                  if (info.InfoComplementariaId.Nombre === 'DOCUMENTO_ID') {
-                    this.archivo = info;
-                    const documento = JSON.parse(info.Dato);
-                    this.idFile = parseInt(documento.DocumentoId, 10);
-                    this.nombreFile = parseInt(documento.DocumentoNombre, 10);
-                  }
-
-                  if (info.InfoComplementariaId.Nombre === 'NIVEL_FORMACION') {
-                    this.nivel = JSON.parse(info.Dato).NivelFormacion;
-                  }
-
-                  if (this.nivel !== null && this.nivel !== undefined) {
-                    this.filesToGet.push({ Id: this.idFile, key: this.nombreFile, nivelFormacion: this.nivel, infoComplementaria: this.archivo })
-                    this.nivel = null;
-                  }
-                  j++;
-                  if (j === resp.length) {
-                    i++
-                    j = 0
-                  }
-                  if (i === res.length)
-                    resolve(true);
+          if (Object.keys(res[0]).length > 0) {
+            (<Array<InfoComplementariaTercero>>res).forEach(info1 => {
+              this.titulos = info1;
+              this.tercerosService.get(
+                'info_complementaria_tercero?query=InfoComplementariaId__GrupoInfoComplementariaId__Id:18,InfoCompleTerceroPadreId:' +
+                (this.titulos.Id) + '&limit=0',
+              )
+                .subscribe(resp => {
+                  (<Array<InfoComplementariaTercero>>resp).forEach(info => {
+                    if (info.InfoComplementariaId.Nombre === 'DOCUMENTO_ID') {
+                      this.archivo = info;
+                      const documento = JSON.parse(info.Dato);
+                      this.idFile = parseInt(documento.DocumentoId, 10);
+                      this.nombreFile = parseInt(documento.DocumentoNombre, 10);
+                    }
+  
+                    if (info.InfoComplementariaId.Nombre === 'NIVEL_FORMACION') {
+                      this.nivel = JSON.parse(info.Dato).NivelFormacion;
+                    }
+  
+                    if (this.nivel !== null && this.nivel !== undefined) {
+                      this.filesToGet.push({ Id: this.idFile, key: this.nombreFile, nivelFormacion: this.nivel, infoComplementaria: this.archivo })
+                      this.nivel = null;
+                    }
+                    j++;
+                    if (j === resp.length) {
+                      i++
+                      j = 0
+                    }
+                    if (i === res.length)
+                      resolve(true);
+                  });
+                }, (error: HttpErrorResponse) => {
+                  reject(error);
                 });
-              }, (error: HttpErrorResponse) => {
-                reject(error);
-              });
-          });
+            });
+          } else {
+            Swal({
+              type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.no_datos'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+          }
         }, (error: HttpErrorResponse) => {
           reject(error);
         });
@@ -1176,10 +1185,11 @@ export class CrudProduccionAcademicaComponent implements OnInit {
     return new Promise((resolve, reject) => {
       let documentos: any[] = [];
       this.tercerosService.get('info_complementaria_tercero?query=TerceroId__Id:' +
-        (this.user.getPersonaId()) +
+        (this.solicitud_docente_selected.Solicitantes[0].TerceroId) +
         ',InfoComplementariaId__GrupoInfoComplementariaId__Id:18,InfoComplementariaId__Nombre:DOCUMENTO_ID&limit=0')
         .subscribe(res => {
           documentos = <Array<InfoComplementariaTercero>>res;
+          console.info(documentos)
           metadatos.forEach(metadato => {
             if (metadato.Valor !== undefined) {
               this.file_update_tercero.forEach(file => {
