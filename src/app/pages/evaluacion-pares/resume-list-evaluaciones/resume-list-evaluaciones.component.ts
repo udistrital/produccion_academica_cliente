@@ -113,7 +113,7 @@ export class ResumeListEvaluacionesComponent implements OnInit {
           title: this.translate.instant('produccion_academica.fecha_envio'),
           valuePrepareFunction: (value) => {
             if (value)
-              return ((value) + '').substring(0, 30);
+              return ((value) + '').substring(0, 10);
             return 'No encontrado';
           },
           filter: false,

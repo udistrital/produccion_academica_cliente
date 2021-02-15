@@ -141,40 +141,50 @@ export class ListEvaluacionesComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
       this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
+        console.info(res)
         if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 12);
-          let i = 0;
-          data.forEach(solicitud => {
-            if (JSON.parse(solicitud.SolicitudPadreId.Referencia).Id !== undefined) {
-              const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.SolicitudPadreId.Referencia).Id;
-              this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
-                if (resp !== null) {
-                  if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-                    solicitud.SolicitudPadreId.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
-                    i++;
-                    if (i === data.length) {
-                      resolve(true);
+          if (data.length > 0) {
+            let i = 0;
+            data.forEach(solicitud => {
+              if (JSON.parse(solicitud.SolicitudPadreId.Referencia).Id !== undefined) {
+                const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.SolicitudPadreId.Referencia).Id;
+                this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
+                  if (resp !== null) {
+                    if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
+                      solicitud.SolicitudPadreId.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
+                      i++;
+                      if (i === data.length) {
+                        resolve(true);
+                      }
+                    } else {
+                      Swal({
+                        type: 'error',
+                        title: '404',
+                        text: this.translate.instant('ERROR.404'),
+                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                      });
                     }
-                  } else {
-                    Swal({
-                      type: 'error',
-                      title: '404',
-                      text: this.translate.instant('ERROR.404'),
-                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                    });
                   }
-                }
-              }, (error: HttpErrorResponse) => {
-                reject({ status: 404 });
-                Swal({
-                  type: 'error',
-                  title: error.status + '',
-                  text: this.translate.instant('ERROR.' + error.status),
-                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                }, (error: HttpErrorResponse) => {
+                  reject({ status: 404 });
+                  Swal({
+                    type: 'error',
+                    title: error.status + '',
+                    text: this.translate.instant('ERROR.' + error.status),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
                 });
-              });
-            }
-          });
+              }
+            });
+          } else {
+            Swal({
+              type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+          }
           this.evaluaciones_list = data;
         } else {
           Swal({
