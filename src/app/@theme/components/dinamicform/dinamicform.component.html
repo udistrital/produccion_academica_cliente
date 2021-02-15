@@ -455,7 +455,7 @@
                 <div class="col-6 file-place">
                   <p>{{c.placeholder}}</p>
                 </div>
-                <div class="col-3" *ngIf="c.valor">
+                <div class="col-3 file-view" *ngIf="c.valor">
                   <nb-card-body class="col-4" *ngIf="c.tipo == 'image'">
                     <img id="{{c.nombre}}" class="carousel-image" [src]="c.url"
                       (click)="download(c.urlTemp,c.nombre,300,300)" class="img-thumbnail" alt="Foto" width="50px"
@@ -489,7 +489,7 @@
       <div align="right" class="form-group">
         <button class="btn btn-primary btn-sm" (click)="clearForm()"
           [hidden]="!normalform.btnLimpiar">{{normalform.btnLimpiar}}</button>
-        <button class="btn btn-success btn-sm" (click)="validForm()"
+        <button class="btn btn-success btn-sm btn-save" (click)="validForm()"
           [hidden]="!normalform.btn">{{normalform.btn}}</button>
       </div>
     </fieldset>

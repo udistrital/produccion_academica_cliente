@@ -495,7 +495,8 @@
     "500": "Internal error on the server",
     "formato_documento_pdf": "The format of the chosen file is not pdf",
     "no_documento": "You must select a file",
-    "error_subir_documento": "An error ocurred uploading the documents, please try again."
+    "error_subir_documento": "An error ocurred uploading the documents, please try again.",
+    "no_datos": "No title data was found for the teacher."
   },
   "produccion_academica": {
     "produccion_academica": "Academic production",
