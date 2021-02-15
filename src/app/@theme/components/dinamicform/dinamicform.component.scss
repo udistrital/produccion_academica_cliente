@@ -191,11 +191,36 @@
     color: transparent;
   }
 
+  .file-content {
+    justify-content: space-between;
+  }
+
   .file-place {
     margin-left: 10px;
     @media screen and (max-width:1900px){
       display: none;
     }
+  }
+
+  .file-view {
+    @media screen and (max-width:1900px){
+      max-width: 35%;
+      flex: 0 0 35%;
+    }
+  }
+
+  .btn-save {
+    margin-top: 50px;
+  }
+
+  .span-div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+  }
+
+  .text-danger {
+    font-size: 0.8rem;
   }
 
   .fieldseter {
@@ -223,6 +248,10 @@
 
   img {
     cursor: pointer;
+  }
+  
+  .img-close {
+    border: none;
   }
 
   ngb-rating {

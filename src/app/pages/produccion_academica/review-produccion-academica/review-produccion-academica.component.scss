@@ -59,7 +59,7 @@
   }
 
   .fieldseter h5 {
-    font-size: 1.1rem;
+    font-size: 0.86rem;
   }
 
   .input-group {
@@ -173,6 +173,10 @@
 
   .dropdown-menu {
     width: auto;
+  }
+
+  label {
+    word-break: break-word;
   }
 
   .form-group label {

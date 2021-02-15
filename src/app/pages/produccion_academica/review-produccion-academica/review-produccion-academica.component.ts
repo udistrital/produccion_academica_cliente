@@ -58,10 +58,15 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
   @Input('solicitud_docente_selected')
   set solicitud(solicitud_docente_selected: SolicitudDocentePost) {
     this.solicitud_docente_selected = solicitud_docente_selected;
+    console.info(this.solicitud_docente_selected)
     this.observaciones_alerts = [];
     this.observaciones_coincidences = [];
     this.isExistPoint = false;
     if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
+      this.isExistPoint = true;
+      this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+    }
+    if (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 9) {
       this.isExistPoint = true;
       this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
     }
@@ -241,8 +246,10 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
           <div class="col-4">
             <p">${(
           this.rol === 'DOCENTE' &&
+          (
           this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 6 ||
           this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1].EstadoTipoSolicitudId.EstadoId.Id === 7
+          )
         )
           ? 'Preparada para presentar a Comité'
           : this.solicitud_docente_selected.EvolucionEstado[this.solicitud_docente_selected.EvolucionEstado.length - 1]
@@ -341,6 +348,27 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.closePop();
   }
 
+  reloadTableInvitation(event) {
+    const opt = {
+      title: this.translate.instant('produccion_academica.enviar'),
+      text: this.translate.instant('produccion_academica.enviar_otra_invitación'),
+      footer: this.translate.instant('produccion_academica.advertencia_evaluacion'),
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+      confirmButtonText: this.translate.instant('GLOBAL.si'),
+      cancelButtonText: this.translate.instant('GLOBAL.no'),
+    };
+    Swal(opt)
+      .then((willCreate) => {
+        if (!willCreate.value) {
+          this.eventChange.emit(event);
+          this.closePop();
+        }
+      });
+  }
+
   closePop() {
     this.esRechazada = false;
     this.existeCoincidencia = false;
@@ -418,7 +446,6 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
         }
       });
   }
-
 
   passForEvaluation() {
     this.estadosSolicitudes = [];

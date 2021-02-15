@@ -48,6 +48,10 @@ export class ListPaquetesComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      pager: {
+        display: true,
+        perPage: 30,
+      },
       actions: {
         position: 'right',
         columnTitle: this.translate.instant('produccion_academica.acciones'),
@@ -121,21 +125,19 @@ export class ListPaquetesComponent implements OnInit {
     let endpointSolicitud: string;
     endpointSolicitud = 'tr_paquete/';
     this.solicitudDocenteService.get(endpointSolicitud).subscribe((res: any) => {
-      if (res !== null) {
-        if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+        if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<PaqueteSolicitudPost>>res;
           this.solicitudes_list = data;
           this.source.load(this.solicitudes_list);
           Swal.close();
         } else {
           Swal({
-            type: 'error',
-            title: '404',
-            text: this.translate.instant('ERROR.404'),
-            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
           });
         }
-      }
     }, (error: HttpErrorResponse) => {
       Swal({
         type: 'error',

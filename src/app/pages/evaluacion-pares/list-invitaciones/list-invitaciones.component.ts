@@ -47,6 +47,10 @@ export class ListInvitacionesComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      pager: {
+        display: true,
+        perPage: 30,
+      },
       actions: {
         position: 'right',
         columnTitle: this.translate.instant('produccion_academica.acciones'),
@@ -87,7 +91,7 @@ export class ListInvitacionesComponent implements OnInit {
           width: '10%',
         },
         FechaRadicacion: {
-          title: this.translate.instant('produccion_academica.fecha_radicacion'),
+          title: this.translate.instant('produccion_academica.fecha_envio'),
           valuePrepareFunction: (value) => {
             return ((value) + '').substring(0, 10);
           },
@@ -140,41 +144,57 @@ export class ListInvitacionesComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'solicitud/email';
       this.solicitudDocenteService.post(endpointSolicitud, { Correo: this.par_email }).subscribe((res: any) => {
-        if (res !== null) {
+        if (res !== null && Object.keys(res[0]).length > 0) {
           const data = <Array<SolicitudDocentePost>>res.filter(solicitud => solicitud.EstadoTipoSolicitudId.Id === 10);
-          let i = 0;
-          data.forEach(solicitud => {
-            if (JSON.parse(solicitud.SolicitudPadreId.Referencia).Id !== undefined) {
-              const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.SolicitudPadreId.Referencia).Id;
-              this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
-                if (resp !== null) {
-                  if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
-                    solicitud.SolicitudPadreId.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
-                    i++;
-                    if (i === data.length) {
-                      resolve(true);
+          if (data.length > 0) {
+            let i = 0;
+            data.forEach(solicitud => {
+              if (JSON.parse(solicitud.SolicitudPadreId.Referencia).Id !== undefined) {
+                const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.SolicitudPadreId.Referencia).Id;
+                this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
+                  if (resp !== null) {
+                    if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
+                      solicitud.SolicitudPadreId.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
+                      i++;
+                      if (i === data.length) {
+                        resolve(true);
+                      }
+                    } else {
+                      Swal({
+                        type: 'error',
+                        title: '404',
+                        text: this.translate.instant('ERROR.404'),
+                        confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                      });
                     }
-                  } else {
-                    Swal({
-                      type: 'error',
-                      title: '404',
-                      text: this.translate.instant('ERROR.404'),
-                      confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-                    });
                   }
-                }
-              }, (error: HttpErrorResponse) => {
-                reject({ status: 404 });
-                Swal({
-                  type: 'error',
-                  title: error.status + '',
-                  text: this.translate.instant('ERROR.' + error.status),
-                  confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                }, (error: HttpErrorResponse) => {
+                  reject({ status: 404 });
+                  Swal({
+                    type: 'error',
+                    title: error.status + '',
+                    text: this.translate.instant('ERROR.' + error.status),
+                    confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+                  });
                 });
-              });
-            }
-          });
+              }
+            });
+          } else {
+            Swal({
+              type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
+              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+            });
+          }
           this.invitaciones_list = data;
+        } else {
+          Swal({
+            type: 'info',
+            title: this.translate.instant('GLOBAL.informacion'),
+            text: this.translate.instant('ERROR.lista_vacia'),
+            confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+          });
         }
       }, (error: HttpErrorResponse) => {
         reject({ status: 404 });
@@ -241,7 +261,6 @@ export class ListInvitacionesComponent implements OnInit {
                 this.updateSolicitudDocente();
             })
             .catch(error => {
-              console.info(error)
               if (!error.status) {
                 error.status = 409;
               }

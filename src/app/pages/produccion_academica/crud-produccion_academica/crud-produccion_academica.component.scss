@@ -121,12 +121,27 @@
     color: transparent;
   }
 
+  .file-content {
+    justify-content: space-between;
+  }
+
   .file-place {
     margin-left: 10px;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
+
+    @media screen and (max-width:1900px){
+      display: none;
+    }
+  }
+
+  .file-view {
+    @media screen and (max-width:1900px){
+      max-width: 35%;
+      flex: 0 0 35%;
+    }
   }
 
   .nb-span-file {

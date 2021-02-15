@@ -49,6 +49,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
   urlDocument: string;
   urlDocumentComplete: string;
   esRechazada: boolean;
+  esComentada: boolean;
+  esAplazada: boolean;
   certificadoExiste: boolean;
   certificadoAprobado: boolean;
   persona_id: number;
@@ -80,6 +82,10 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
 
   cargarCampos() {
     this.settings = {
+      pager: {
+        display: true,
+        perPage: 30,
+      },
       edit: {
         editButtonContent: '<i class="nb-edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
@@ -94,15 +100,19 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         custom: [
           {
             name: 'view',
-            title: '<i class="nb-search" title="view"></i>',
+            title: '<i class="nb-search" title="ver"></i>',
           },
           {
             name: 'postpone',
-            title: '<i class="fa fa-angle-double-left" title="postpone"></i>',
+            title: '<i class="fa fa-angle-double-left" title="aplazar"></i>',
           },
           {
             name: 'reject',
-            title: '<i class="fa fa-ban" title="reject"></i>',
+            title: '<i class="fa fa-ban" title="negar"></i>',
+          },
+          {
+            name: 'comment',
+            title: '<i class="fa fa-comment" title="comentar"></i>',
           },
         ],
       },
@@ -205,8 +215,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       let endpointSolicitud: string;
       endpointSolicitud = 'paquete_solicitud/' + this.paquete_solicitud_selected.Id;
       this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
-        if (res !== null) {
-          if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
+          if (res !== null && Object.keys(res[0]).length > 0) {
             const data = <Array<SolicitudDocentePost>>res;
             data.forEach(solicitud => {
               if (JSON.parse(solicitud.Referencia).Id !== undefined) {
@@ -241,13 +250,12 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
             this.solicitudes_list = data;
           } else {
             Swal({
-              type: 'error',
-              title: '404',
-              text: this.translate.instant('ERROR.404'),
+              type: 'info',
+              title: this.translate.instant('GLOBAL.informacion'),
+              text: this.translate.instant('ERROR.lista_vacia'),
               confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
             });
           }
-        }
       }, (error: HttpErrorResponse) => {
         reject({ status: 404 });
         Swal({
@@ -346,7 +354,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                     });
                   } else {
                     this.solicitud_selectedPostpone = <SolicitudDocentePost>res;
-                    this.updatePackage(0);
+                    this.onChange(this.solicitud_selectedPostpone.Id);
                     Swal({
                       title: `Éxito al Verificar Solicitud.`,
                       text: 'Información Modificada correctamente',
@@ -382,14 +390,20 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         case 'postpone':
           this.onPostpone(event);
           break;
-        case 'reject':
-          this.onReject(event);
+          case 'reject':
+            this.onReject(event);
+            break;
+          case 'comment':
+            this.onComment(event);
+            break;
       }
     }
   }
 
   closePop() {
     this.esRechazada = false;
+    this.esComentada = false;
+    this.esAplazada = false;
   }
 
   onReject(event): void {
@@ -410,9 +424,16 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
       });
   }
 
+  onComment(event): void {
+    this.solicitud_selected = event.data;
+    this.esComentada = true;
+
+  }
+
   onPostpone(event): void {
     this.solicitud_selected = event.data;
-    this.postponeSolicitud(this.solicitud_selected);
+    this.esAplazada = true;
+    // this.postponeSolicitud(this.solicitud_selected);
   }
 
   onEdit(event): void {
@@ -499,7 +520,7 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                       })
                       this.source.load(this.solicitudes_list);
                       Swal.close();
-                      this.updatePackage(0);
+                      this.updatePackage(0, event);
                     })
                     .catch(error => {
                       Swal({
@@ -592,7 +613,8 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         if (willCreate.value) {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.generateDocument(1);
-          this.updatePackage(8);
+          if (!this.certificadoAprobado)
+            this.updatePackage(8, null);
         }
       });
   }
@@ -611,12 +633,12 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
         if (willCreate.value) {
           this.solicitudes_list = this.solicitudes_list.filter(solicitud => solicitud.EstadoTipoSolicitudId.EstadoId.Id !== 14);
           this.solicitudes_list.forEach(solicitud => solicitud.SolicitudFinalizada = true);
-          this.updatePackage(9);
+          this.updatePackage(9, null);
         }
       });
   }
 
-  updatePackage(numberState) {
+  updatePackage(numberState, event) {
     this.estadosSolicitudes = [];
     this.loadEstadoSolicitud(numberState)
       .then(() => {
@@ -652,7 +674,10 @@ export class ListSolicitudesPaqueteComponent implements OnInit {
                 title: `Éxito al actualizar Paquete.`,
                 text: 'Información Guardada correctamente',
               });
-              this.router.navigate(['./pages/dashboard']);
+              if (event === null) {
+                this.showData();
+                this.verifyCertificateExist();
+              }
             }
           });
       })

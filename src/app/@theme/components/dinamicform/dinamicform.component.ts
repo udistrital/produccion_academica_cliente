@@ -90,7 +90,6 @@ export class DinamicformComponent implements OnInit, OnChanges {
       this.clearForm();
       this.clean = false;
     }
-    console.info(this.normalform)
   }
 
   download(url, title, w, h) {
@@ -103,12 +102,10 @@ export class DinamicformComponent implements OnInit, OnChanges {
   }
 
   onChange(event, c) {
-    console.info(c.valor);
     if (c.valor !== undefined) {
       c.urlTemp = URL.createObjectURL(event.srcElement.files[0])
       c.url = this.cleanURL(c.urlTemp);
       c.valor = event.srcElement.files[0];
-      console.info(c);
       this.validCampo(c);
       c.File = event.srcElement.files[0];
     }
@@ -117,7 +114,6 @@ export class DinamicformComponent implements OnInit, OnChanges {
       c.urlTemp = URL.createObjectURL(event.srcElement.files[0])
       c.url = this.cleanURL(c.urlTemp);
       c.valor = event.srcElement.files[0];
-      // console.info(c);
       this.validCampo(c);
       c.File = event.srcElement.files[0];
     }
@@ -166,7 +162,6 @@ export class DinamicformComponent implements OnInit, OnChanges {
         });
         return d;
       });
-      console.info(this.normalform)
     } else {
       this.normalform.campos = this.normalform.campos.map(d => {
         d.clase = 'form-control';

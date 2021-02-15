@@ -93,7 +93,6 @@ export class NotificacionesService {
         this.listMessage = [...[message], ...this.listMessage];
         this.noNotifySubject.next((this.listMessage.filter(data => data.Estado === 'enviada')).length);
         this.arrayMessagesSubject.next(this.listMessage);
-        console.info(this.listMessage)
     }
 
     changeStateNoView(user) {

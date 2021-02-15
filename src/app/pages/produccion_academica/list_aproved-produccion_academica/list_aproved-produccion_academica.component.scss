@@ -33,7 +33,7 @@ nb-tabset /deep/ ul li {
   display: inline-block;
   width: 50px;
   text-align: center;
-  font-size: 1.1em;
+  font-size: 0.56rem;
 }
 
 :host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
@@ -133,4 +133,10 @@ mat-label {
     color: #fff;
     background-color: #4486AA;
   }
+}
+
+.btn-ttc {
+  color: #ffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #03678F;
 }
