@@ -9,8 +9,8 @@ export const environment = {
   NUXEO: {
     PATH: 'https://documental.portaloas.udistrital.edu.co/nuxeo/',
     CREDENTIALS: {
-      USERNAME: 'desarrollooas',
-      PASS: 'desarrollooas2019',
+      USERNAME: 'produccion_app',
+      PASS: 'Pr0ducc10n2021',
     },
   },
   CONFIGURACION_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/',
