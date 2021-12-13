@@ -496,6 +496,8 @@
     "formato_documento_pdf": "The format of the chosen file is not pdf",
     "no_documento": "You must select a file",
     "error_subir_documento": "An error ocurred uploading the documents, please try again.",
+    "lista_vacia": "No data found for this list",
+    "no_mas_registros": "No further data found for this list",
     "no_datos": "No title data was found for the teacher."
   },
   "produccion_academica": {

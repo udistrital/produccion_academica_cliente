@@ -27,6 +27,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
   solicitud_selectedReview: SolicitudDocentePost;
   filtros = filterList;
   cambiotab: number = 0;
+  pageSize = 30;
   config: ToasterConfig;
   settings: any;
   filter: any;
@@ -62,7 +63,8 @@ export class ListProduccionAcademicaComponent implements OnInit {
     this.settings = {
       pager: {
         display: true,
-        perPage: 30,
+        // perPage: 30,
+        perPage: this.pageSize,
       },
       actions: {
         position: 'right',
@@ -173,7 +175,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
           allowOutsideClick: false,
         });
         Swal.showLoading();
-        this.loadData(estado)
+        this.loadData(estado, 0)
           .then(() => {
             Swal.close();
             this.source.load(this.solicitudes_list);
@@ -193,7 +195,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  loadData(estado): Promise<any> {
+  loadData(estado, offset): Promise<any> {
     return new Promise((resolve, reject) => {
       let i = 0;
       let endpointSolicitud: string;
@@ -201,20 +203,26 @@ export class ListProduccionAcademicaComponent implements OnInit {
         endpointSolicitud = 'solicitud_docente/' + estado + '/' + this.persona_id;
       if (this.rol === 'SECRETARIA_DOCENCIA' || this.rol === 'ADMIN_DOCENCIA')
         endpointSolicitud = 'solicitud_docente/' + estado + '/';
+      endpointSolicitud += '?limit=' + this.pageSize * 2 + '&offset=' + offset
       this.sgaMidService.get(endpointSolicitud).subscribe((res: any) => {
         if (res !== null) {
           if (Object.keys(res[0]).length > 0 && res.Type !== 'error') {
             const data = <Array<SolicitudDocentePost>>res;
             data.forEach(solicitud => {
-              if (JSON.parse(solicitud.Referencia).Id !== undefined) {
-                const endpointProduccion = 'produccion_academica/get_one/' + JSON.parse(solicitud.Referencia).Id;
+              if (JSON.parse(solicitud.Referencia).Id !== undefined || JSON.parse(solicitud.Referencia).id !== undefined) {
+                let endpointProduccion = 'produccion_academica/get_one/';
+                if (JSON.parse(solicitud.Referencia).Id === undefined) {
+                  endpointProduccion += JSON.parse(solicitud.Referencia).id;
+                } else {
+                  endpointProduccion += JSON.parse(solicitud.Referencia).Id;
+                }
                 this.sgaMidService.get(endpointProduccion).subscribe((resp: any) => {
                   if (resp !== null) {
                     if (Object.keys(resp[0]).length > 0 && resp.Type !== 'error') {
                       solicitud.ProduccionAcademica = <ProduccionAcademicaPost>resp[0];
                       i++;
                       if (i === data.length) {
-                        resolve(true);
+                        resolve(data);
                       }
                     } else {
                       Swal({
@@ -238,12 +246,21 @@ export class ListProduccionAcademicaComponent implements OnInit {
             });
             this.solicitudes_list = data;
           } else {
-            Swal({
-              type: 'info',
-              title: this.translate.instant('GLOBAL.informacion'),
-              text: this.translate.instant('ERROR.lista_vacia'),
-              confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
-            });
+            if (this.source.count() > 0) {
+              Swal({
+                type: 'info',
+                title: this.translate.instant('GLOBAL.informacion'),
+                text: this.translate.instant('ERROR.no_mas_registros'),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+            } else {
+              Swal({
+                type: 'warning',
+                title: this.translate.instant('GLOBAL.informacion'),
+                text: this.translate.instant('ERROR.lista_vacia'),
+                confirmButtonText: this.translate.instant('GLOBAL.aceptar'),
+              });
+            }
           }
         }
       }, (error: HttpErrorResponse) => {
@@ -258,7 +275,42 @@ export class ListProduccionAcademicaComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.source.onChanged().subscribe((change) => {
+      if (change.action === 'page') {
+        this.pageChange(change.paging.page);
+      }
+    });
+  }
+
+  pageChange(pageIndex) {
+    const loadedRecordCount = this.source.count();
+    const lastRequestedRecordIndex = pageIndex * this.pageSize;
+
+    if (loadedRecordCount <= lastRequestedRecordIndex) {
+      let startIndex = loadedRecordCount + 1;
+
+      Swal({
+        title: 'Espere',
+        text: 'Trayendo Información',
+        allowOutsideClick: false,
+      });
+      Swal.showLoading();
+
+      this.loadData(this.estado, startIndex)
+        .then(data => {
+          Swal.close();
+          if (this.source.count() > 0) {
+            data.forEach(d => this.source.add(d));
+            this.source.getAll()
+              .then(d => this.source.load(d))
+          }
+          else
+            this.source.load(data);
+        })
+    }
+  }
+
 
   onEdit(event): void {
     this.solicitud_selected = event.data;
@@ -290,7 +342,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
   }
 
   selectTab(event): void {
-      this.cambiotab = 0;
+    this.cambiotab = 0;
   }
 
   onChange(event) {
