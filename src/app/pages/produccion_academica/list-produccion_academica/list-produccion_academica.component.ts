@@ -27,7 +27,7 @@ export class ListProduccionAcademicaComponent implements OnInit {
   solicitud_selectedReview: SolicitudDocentePost;
   filtros = filterList;
   cambiotab: number = 0;
-  pageSize = 30;
+  pageSize = 15;
   config: ToasterConfig;
   settings: any;
   filter: any;
