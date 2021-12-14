@@ -62,13 +62,15 @@ export class ReviewProduccionAcademicaComponent implements OnInit {
     this.observaciones_alerts = [];
     this.observaciones_coincidences = [];
     this.isExistPoint = false;
-    if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
-      this.isExistPoint = true;
-      this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
-    }
-    if (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 9) {
-      this.isExistPoint = true;
-      this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+    if (this.solicitud_docente_selected.Resultado !== "") {
+      if (this.solicitud_docente_selected.Resultado.length > 0 && this.rol !== 'DOCENTE') {
+        this.isExistPoint = true;
+        this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+      }
+      if (this.solicitud_docente_selected.EstadoTipoSolicitudId.EstadoId.Id === 9) {
+        this.isExistPoint = true;
+        this.pointRequest = JSON.parse(this.solicitud_docente_selected.Resultado).Puntaje;
+      }
     }
     this.verifyType();
     this.filterObservations()
